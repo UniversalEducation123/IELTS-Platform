@@ -6,6 +6,7 @@
     <title>Student Login - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -30,7 +31,7 @@
                 Sign in to access your IELTS practice dashboard.
             </p>
 
-            <form class="auth-form" action="./student-dashboard.html" method="get">
+            <form class="auth-form" id="studentLoginForm">
 
     <label for="username">Student ID / Username</label>
     <input
@@ -52,11 +53,55 @@
         Login
     </button>
 
+    <p id="loginMessage"></p>
+
 </form>
 
         </div>
 
     </main>
+
+    <script>
+    const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co/rest/v1/";
+    const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+    const loginForm = document.getElementById("studentLoginForm");
+    const loginMessage = document.getElementById("loginMessage");
+
+    loginForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        loginMessage.textContent = "Checking login...";
+        loginMessage.style.color = "green";
+
+        const { data, error } = await supabaseClient
+            .from("students")
+            .select("*")
+            .eq("username", username)
+            .eq("password", password)
+            .single();
+
+        if (error || !data) {
+            loginMessage.textContent = "Invalid username or password.";
+            loginMessage.style.color = "red";
+            return;
+        }
+
+        sessionStorage.setItem("studentId", data.id);
+        sessionStorage.setItem("studentName", data.full_name);
+        sessionStorage.setItem("studentUsername", data.username);
+
+        window.location.href = "student-dashboard.html";
+    });
+</script>
 
 </body>
 </html>                                                                                                                         
