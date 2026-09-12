@@ -6,6 +6,7 @@
     <title>Add Student - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -30,7 +31,7 @@
                 Create login credentials for a new student.
             </p>
 
-            <form class="auth-form">
+            <form class="auth-form" id="addStudentForm">
 
                 <label for="student-name">Student Name</label>
                 <input
@@ -60,11 +61,69 @@
                     Create Student Account
                 </button>
 
+                <p id="studentMessage"></p>
+
             </form>
 
         </div>
 
     </main>
+
+    <script>
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+        const addStudentForm =
+            document.getElementById("addStudentForm");
+
+        const studentMessage =
+            document.getElementById("studentMessage");
+
+        addStudentForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const full_name =
+                document.getElementById("student-name").value.trim();
+
+            const username =
+                document.getElementById("student-username").value.trim();
+
+            const password =
+                document.getElementById("student-password").value.trim();
+
+            studentMessage.textContent = "Creating student account...";
+            studentMessage.style.color = "green";
+
+            const { error } = await supabaseClient
+                .from("students")
+                .insert([
+                    {
+                        full_name: full_name,
+                        username: username,
+                        password: password
+                    }
+                ]);
+
+            if (error) {
+                console.error("Add student error:", error);
+                studentMessage.textContent =
+                    "Error: " + error.message;
+                studentMessage.style.color = "red";
+                return;
+            }
+
+            studentMessage.textContent =
+                "Student account created successfully!";
+            studentMessage.style.color = "green";
+
+            addStudentForm.reset();
+        });
+    </script>
 
 </body>
 </html>
