@@ -794,3 +794,281 @@ h1 {
 
 }
 
+/* =====================================
+   PINK + SAGE GREEN LISTENING DESIGN
+===================================== */
+
+.listening-page {
+    min-height: 100vh;
+    padding: 40px 6%;
+    background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
+}
+
+/* Header */
+
+.listening-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 28px 32px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #b85c78, #789b78);
+    box-shadow: 0 12px 30px rgba(120, 80, 90, 0.18);
+}
+
+.listening-header .small-heading {
+    color: #ffe8ef;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.listening-header h1 {
+    color: white;
+    font-size: 38px;
+    margin: 8px 0;
+}
+
+.listening-header p {
+    color: #fff1f4;
+    margin: 0;
+}
+
+/* Timer */
+
+.timer-box {
+    min-width: 180px;
+    padding: 18px 25px;
+    text-align: center;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(10px);
+}
+
+.timer-box span {
+    display: block;
+    color: #fff0f4;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.timer-box strong {
+    display: block;
+    color: white;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+/* Audio card */
+
+.audio-section {
+    background: #ffffff;
+    border: none;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 28px rgba(100, 70, 80, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.audio-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #d97998, #8eae8b);
+}
+
+.audio-section h2 {
+    color: #704052;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.audio-player-container {
+    background: linear-gradient(135deg, #fff0f4, #eff8ef);
+    border: 1px solid #f1d5dd;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.audio-status {
+    color: #758f70;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.audio-section audio {
+    width: 100%;
+    height: 48px;
+}
+
+/* Questions card */
+
+.question-section {
+    background: #ffffff;
+    border: none;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 10px 28px rgba(100, 70, 80, 0.08);
+}
+
+.question-heading {
+    border-bottom: 1px solid #eadfe2;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.question-heading h2 {
+    color: #704052;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.question-heading p {
+    color: #718071;
+}
+
+.question-heading .instruction {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    background: #edf6eb;
+    color: #66815f;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Table */
+
+.question-table {
+    border: 1px solid #e5d8dc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-row {
+    min-height: 82px;
+    border-bottom: 1px solid #eadfe2;
+}
+
+.table-row > div {
+    padding: 18px 14px;
+    border-right: 1px solid #eadfe2;
+    color: #4f5e52;
+}
+
+.table-header {
+    background: linear-gradient(135deg, #b85c78, #789b78);
+}
+
+.table-header > div {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* Alternating rows */
+
+.table-row:not(.table-header):nth-child(even) {
+    background: #fff8fa;
+}
+
+.table-row:not(.table-header):nth-child(odd) {
+    background: #f8fcf7;
+}
+
+.table-row:not(.table-header):hover {
+    background: #f5e9ed;
+}
+
+/* Question number badges */
+
+.question-number {
+    background: #f9dce5;
+    border: 1px solid #e3aabd;
+    color: #a94f6e;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+/* Answer inputs */
+
+.question-table input {
+    width: 100px;
+    padding: 8px 9px;
+    background: #fffdfd;
+    border: 1px solid #c9d8c6;
+    border-radius: 6px;
+    color: #4d604f;
+    transition: all 0.2s ease;
+}
+
+.question-table input:hover {
+    border-color: #d58ca3;
+}
+
+.question-table input:focus {
+    outline: none;
+    border-color: #b85c78;
+    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
+}
+
+/* Continue button */
+
+.submit-section-btn {
+    margin-top: 28px;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #b85c78, #789b78);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 7px 16px rgba(184, 92, 120, 0.2);
+    transition: all 0.2s ease;
+}
+
+.submit-section-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(120, 155, 120, 0.3);
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    .listening-page {
+        padding: 20px;
+    }
+
+    .listening-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .timer-box {
+        width: 100%;
+    }
+
+    .question-section,
+    .audio-section {
+        padding: 18px;
+    }
+
+    .question-table {
+        overflow-x: auto;
+    }
+
+    .table-row {
+        min-width: 850px;
+    }
+}
