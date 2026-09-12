@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Test - IELTS Practice</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">IELTS Practice</div>
+
+        <nav>
+            <a href="faculty-dashboard.html">Dashboard</a>
+            <a href="login.html">Logout</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-page">
+
+        <div class="dashboard-container">
+
+            <p class="small-heading">TEST MANAGEMENT</p>
+
+            <h1>Create Test</h1>
+
+            <p class="dashboard-subtitle">
+                Create and organize IELTS practice tests.
+            </p>
+
+            <form class="auth-form">
+
+                <label for="test-title">Test Title</label>
+                <input
+                    type="text"
+                    id="test-title"
+                    placeholder="Example: IELTS Academic Reading Test 1"
+                    required
+                >
+
+                <label for="test-type">Test Type</label>
+                <select id="test-type" required>
+                    <option value="">Select test type</option>
+                    <option value="listening">Listening</option>
+                    <option value="reading">Reading</option>
+                    <option value="writing">Writing</option>
+                    <option value="speaking">Speaking</option>
+                    <option value="full-test">Full IELTS Test</option>
+                </select>
+
+                <label for="test-description">Test Description</label>
+                <textarea
+                    id="test-description"
+                    placeholder="Enter a short description of the test"
+                    rows="5"
+                ></textarea>
+
+                <button type="submit" class="primary-btn">
+                    Create Test
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
