@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listening Test 1 - Part 1</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -183,9 +184,11 @@
 
             </div>
 
-            <button class="primary-btn submit-section-btn">
-                Continue to Part 2
-            </button>
+            <button type="button" class="primary-btn submit-section-btn" id="submitListeningBtn">
+    Continue to Part 2
+</button>
+
+<p id="scoreMessage"></p>
 
         </div>
 
@@ -244,6 +247,92 @@
     });
 
     updateTimer();
+    const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+const answerKey = {
+    q1: ["13th", "january", "13 january", "january 13", "january 13th", "13.01", "13.1"],
+    q2: ["48"],
+    q3: ["pizza"],
+    q4: ["india"],
+    q5: ["mirror"],
+    q6: ["6th", "april", "6 april", "april 6", "april 6th", "06.04", "6.4"],
+    q7: ["natural"],
+    q8: ["67.50", "67.5"],
+    q9: ["shirt"],
+    q10: ["hammer"]
+};
+
+function normalizeAnswer(answer) {
+    return answer
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+function calculateScore() {
+    let score = 0;
+
+    for (let i = 1; i <= 10; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+
+        if (!input) continue;
+
+        const studentAnswer = normalizeAnswer(input.value);
+        const acceptedAnswers = answerKey[`q${i}`];
+
+        if (acceptedAnswers.includes(studentAnswer)) {
+            score++;
+        }
+    }
+
+    return score;
+}
+
+document.getElementById("submitListeningBtn").addEventListener("click", async function () {
+    const studentId = sessionStorage.getItem("studentId");
+    const scoreMessage = document.getElementById("scoreMessage");
+
+    if (!studentId) {
+        alert("Please login again before submitting the test.");
+        window.location.href = "student-login.html";
+        return;
+    }
+
+    const score = calculateScore();
+
+    scoreMessage.textContent = "Saving your score...";
+    scoreMessage.style.color = "green";
+
+    const { error } = await supabaseClient
+        .from("test_results")
+        .insert([
+            {
+                student_id: Number(studentId),
+                test_name: "Test 1 - Listening Part 1",
+                listening_score: score
+            }
+        ]);
+
+    if (error) {
+        console.error("Score saving error:", error);
+        scoreMessage.textContent = "Error saving score: " + error.message;
+        scoreMessage.style.color = "red";
+        return;
+    }
+
+    scoreMessage.textContent = `Your score is ${score}/10. Moving to Part 2...`;
+    scoreMessage.style.color = "green";
+
+    setTimeout(function () {
+        window.location.href = "listening-test-2.html";
+    }, 1500);
+});
 </script>
 
 </body>
