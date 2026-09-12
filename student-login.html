@@ -89,17 +89,27 @@
             .eq("password", password)
             .single();
 
-        if (error || !data) {
-            loginMessage.textContent = "Invalid username or password.";
-            loginMessage.style.color = "red";
-            return;
-        }
+        if (error) {
+    console.error("Supabase login error:", error);
+
+    loginMessage.textContent =
+        "Database error: " + error.message;
+
+    loginMessage.style.color = "red";
+    return;
+}
+
+if (!data) {
+    loginMessage.textContent = "Invalid username or password.";
+    loginMessage.style.color = "red";
+    return;
+}
 
         sessionStorage.setItem("studentId", data.id);
         sessionStorage.setItem("studentName", data.full_name);
         sessionStorage.setItem("studentUsername", data.username);
 
-        window.location.href = "student-dashboard.html";
+        window.location.href = "test-1.html";;
     });
 </script>
 
