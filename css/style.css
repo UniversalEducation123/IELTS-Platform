@@ -782,3 +782,11 @@ body::after {
   right: -80px;
   background: rgba(190, 214, 190, 0.3);
 }
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(244, 190, 207, 0.35), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(190, 214, 190, 0.35), transparent 35%),
+    #fff8fa;
+  background-attachment: fixed;
+}
