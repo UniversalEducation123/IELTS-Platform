@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Listening Test - Part 4</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="listening-page">
+
+<header class="listening-header">
+    <div>
+        <h1>IELTS Listening Test</h1>
+        <p>Part 4 | Questions 31–40</p>
+    </div>
+
+    <div class="timer-box">
+        Time remaining:
+        <span id="timer">30:00</span>
+    </div>
+</header>
+
+<main class="listening-container">
+
+    <section class="audio-section">
+        <h2>Listen to Part 4</h2>
+
+        <audio id="listeningAudio" controls>
+            <source src="assets/listening-section-4.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+
+        <p class="audio-note">
+            The timer starts when you play the audio.
+        </p>
+    </section>
+
+    <section class="question-section">
+        <h2>Questions 31–40</h2>
+
+        <p>
+            Complete the notes below.
+        </p>
+
+        <p>
+            <strong>Write ONE WORD ONLY for each answer.</strong>
+        </p>
+
+        <div class="notes-box">
+            <h3>Challenges facing the cruise ship industry</h3>
+
+            <h4>Problems with overtourism</h4>
+
+            <p>
+                31. <input type="text" id="q31" name="q31">
+                is one of the worst problems.
+            </p>
+
+            <p>
+                A tourist
+                32. <input type="text" id="q32" name="q32">
+                is being introduced in some cities to reduce numbers,
+                e.g. Barcelona.
+            </p>
+
+            <p>
+                Bruges: action was taken to limit day trips from the nearby port
+                because the city was becoming a “theme park”.
+                Many shops were only stocking
+                33. <input type="text" id="q33" name="q33">
+                and souvenirs.
+            </p>
+
+            <p>
+                Dubrovnik: limits the number of tourists by managing the
+                34. <input type="text" id="q34" name="q34">
+                of cruise ship arrivals.
+            </p>
+
+            <h4>Problems of perception</h4>
+
+            <p>
+                Cruises are generally associated with the elderly.
+            </p>
+
+            <p>
+                There is an assumption about the
+                35. <input type="text" id="q35" name="q35">
+                of cruises.
+            </p>
+
+            <p>
+                People think there may be too many
+                36. <input type="text" id="q36" name="q36">
+                .
+            </p>
+
+            <h4>Solutions</h4>
+
+            <p>
+                Cruise lines are attracting younger customers by:
+            </p>
+
+            <ul>
+                <li>becoming more sustainable, e.g. using hybrid engines</li>
+
+                <li>
+                    having a wide range of activities, e.g. boxing,
+                    37. <input type="text" id="q37" name="q37">
+                    and well-being programmes
+                </li>
+
+                <li>
+                    offering a diverse selection of food including
+                    38. <input type="text" id="q38" name="q38">
+                    options
+                </li>
+
+                <li>
+                    providing reliable
+                    39. <input type="text" id="q39" name="q39">
+                </li>
+
+                <li>
+                    improving marketing on social media with high quality
+                    40. <input type="text" id="q40" name="q40">
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="submit-section-btn">
+        <button id="submitPart4Btn">Finish Listening Test</button>
+    </section>
+
+</main>
+
+<script>
+let timeLeft = 30 * 60;
+let timerStarted = false;
+let timerInterval;
+
+const timerDisplay = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
+
+function startTimer() {
+    if (timerStarted) return;
+
+    timerStarted = true;
+
+    timerInterval = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        timerDisplay.textContent =
+            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("Time is up.");
+        }
+
+        timeLeft--;
+    }, 1000);
+}
+
+audio.addEventListener("play", startTimer);
+
+audio.addEventListener("pause", function () {
+    if (timerStarted) {
+        audio.play();
+    }
+});
+
+document.getElementById("submitPart4Btn").addEventListener("click", function () {
+
+    const answers = {};
+
+    for (let i = 31; i <= 40; i++) {
+        const value = document.getElementById(`q${i}`).value.trim();
+
+        if (!value) {
+            alert(`Please answer Question ${i}.`);
+            return;
+        }
+
+        answers[`q${i}`] = value;
+    }
+
+    sessionStorage.setItem(
+        "listeningPart4Answers",
+        JSON.stringify(answers)
+    );
+
+    window.location.href = "listening-final.html";
+});
+</script>
+
+</body>
+</html>
