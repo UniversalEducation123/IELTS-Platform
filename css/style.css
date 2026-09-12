@@ -1029,3 +1029,42 @@ body::after {
         width: 110px;
     }
 }
+
+.map-question input,
+.map-question select,
+.question-section input[type="text"] {
+    width: 100%;
+    max-width: 180px;
+    padding: 12px;
+    border: 1px solid #d8b8c4;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #fff;
+    text-transform: uppercase;
+}
+
+.map-question input:focus,
+.question-section input[type="text"]:focus {
+    outline: none;
+    border-color: #b85c78;
+    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
+}
+
+.map-container {
+    width: 100%;
+    margin: 25px 0;
+    padding: 20px;
+    text-align: center;
+    background: #fff8fa;
+    border: 1px solid #ead5dc;
+    border-radius: 12px;
+    overflow-x: auto;
+}
+
+.listening-map {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto;
+}
