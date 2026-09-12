@@ -37,13 +37,21 @@
 
         <div class="audio-section">
 
-            <h2>Part 1: Listen and answer questions 1–10</h2>
+    <h2>Part 1: Listen and answer questions 1–10</h2>
 
-            <audio controls>
-                <source src="assets/listening-section-1.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+    <div class="audio-player-container">
 
+        <div class="audio-status" id="audioStatus">
+            Press Play to begin the listening test
+        </div>
+
+        <audio id="listeningAudio" controls controlsList="nodownload">
+            <source
+                src="https://universaleducation123.github.io/IELTS-Platform/assets/listening-section-1.mp3"
+                type="audio/mpeg"
+            >
+            Your browser does not support the audio element.
+        </audio>
         </div>
 
         <div class="question-section">
