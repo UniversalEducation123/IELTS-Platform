@@ -192,28 +192,59 @@
     </main>
 
     <script>
-        let timeLeft = 30 * 60;
+    let timeLeft = 30 * 60;
+    let timerStarted = false;
+    let countdown;
 
-        const timerElement = document.getElementById("timer");
+    const timerElement = document.getElementById("timer");
+    const audio = document.getElementById("listeningAudio");
+    const audioStatus = document.getElementById("audioStatus");
 
-        const countdown = setInterval(function () {
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
 
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
+        timerElement.textContent =
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+    }
 
-            timerElement.textContent =
-                String(minutes).padStart(2, "0") + ":" +
-                String(seconds).padStart(2, "0");
+    function startTimer() {
+        if (timerStarted) return;
+
+        timerStarted = true;
+
+        audioStatus.textContent =
+            "Listening test in progress. Audio cannot be paused.";
+
+        countdown = setInterval(function () {
+            timeLeft--;
+            updateTimer();
 
             if (timeLeft <= 0) {
                 clearInterval(countdown);
+                audio.pause();
+                audio.controls = false;
+                audioStatus.textContent = "Time is up.";
                 alert("Time is up.");
             }
-
-            timeLeft--;
-
         }, 1000);
-    </script>
+    }
+
+    // Timer starts only when audio starts
+    audio.addEventListener("play", function () {
+        startTimer();
+    });
+
+    // Prevent pausing after the test has started
+    audio.addEventListener("pause", function () {
+        if (timerStarted && timeLeft > 0) {
+            audio.play();
+        }
+    });
+
+    updateTimer();
+</script>
 
 </body>
 </html>
