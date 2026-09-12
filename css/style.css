@@ -126,11 +126,45 @@ p {
     display: flex;
     align-items: center;
     padding: 80px 8%;
-    background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
+
+    background:
+        radial-gradient(circle at 10% 15%, rgba(244, 190, 207, 0.55), transparent 32%),
+        radial-gradient(circle at 90% 85%, rgba(190, 214, 190, 0.55), transparent 32%),
+        linear-gradient(135deg, #fff8fa, #f5faf5, #fffaf2);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before,
+.hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(8px);
+}
+
+.hero::before {
+    width: 280px;
+    height: 280px;
+    top: -100px;
+    right: 8%;
+    background: rgba(244, 190, 207, 0.25);
+}
+
+.hero::after {
+    width: 240px;
+    height: 240px;
+    bottom: -100px;
+    left: 35%;
+    background: rgba(190, 214, 190, 0.28);
 }
 
 .hero-content {
     max-width: 650px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -781,12 +815,4 @@ body::after {
   bottom: 40px;
   right: -80px;
   background: rgba(190, 214, 190, 0.3);
-}
-
-body {
-  background:
-    radial-gradient(circle at top left, rgba(244, 190, 207, 0.35), transparent 35%),
-    radial-gradient(circle at bottom right, rgba(190, 214, 190, 0.35), transparent 35%),
-    #fff8fa;
-  background-attachment: fixed;
 }
