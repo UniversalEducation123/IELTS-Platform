@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Test Result</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(244, 190, 207, 0.55),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(190, 214, 190, 0.55),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fff8fa,
+                    #f5faf5,
+                    #fffaf2
+                );
+        }
+
+        .result-card {
+            width: 100%;
+            max-width: 550px;
+            padding: 45px 35px;
+            text-align: center;
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            margin-bottom: 35px;
+            color: #9c4f6b;
+            font-size: 32px;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5px;
+            margin: 0 auto;
+            border-bottom: 1px solid #eeeeee;
+            color: #444;
+            font-size: 19px;
+        }
+
+        .result-line:last-of-type {
+            border-bottom: none;
+        }
+
+        .result-line strong {
+            color: #333;
+        }
+
+        .result-line span {
+            font-weight: bold;
+            color: #9c4f6b;
+        }
+
+        .band-line {
+            margin-top: 10px;
+            padding-top: 22px;
+            border-top: 2px solid #d9ead9;
+            font-size: 22px;
+        }
+
+        .band-line span {
+            font-size: 26px;
+            color: #628b62;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 28px;
+            background: #b85c78;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .home-button:hover {
+            background: #963f5e;
+        }
+
+        @media (max-width: 500px) {
+            .result-card {
+                padding: 35px 22px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .result-line {
+                font-size: 16px;
+            }
+
+            .band-line {
+                font-size: 19px;
+            }
+
+            .band-line span {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="result-card">
+        <h1>Listening Test Result</h1>
+
+        <div class="result-line">
+            <strong>Correct Answers:</strong>
+            <span id="correctAnswers">0</span>
+        </div>
+
+        <div class="result-line">
+            <strong>Wrong Answers:</strong>
+            <span id="wrongAnswers">0</span>
+        </div>
+
+        <div class="result-line">
+            <strong>Total Score:</strong>
+            <span id="totalScore">0 / 40</span>
+        </div>
+
+        <div class="result-line band-line">
+            <strong>IELTS Band:</strong>
+            <span id="bandScore">0.0</span>
+        </div>
+
+        <a href="index.html" class="home-button">
+            Back to Home
+        </a>
+    </div>
+
+    <script>
+        /*
+         * Convert answers into a standard format.
+         * This makes checking:
+         * - case-insensitive
+         * - space-insensitive
+         * - hyphen-insensitive
+         * - punctuation-insensitive
+         */
+        function normalizeAnswer(answer) {
+            return String(answer || "")
+                .toLowerCase()
+                .trim()
+                .replace(/[\s\-_.,/]/g, "");
+        }
+
+
+        /*
+         * Check a normal one-answer question.
+         * Multiple accepted answers can be provided.
+         */
+        function isCorrect(studentAnswer, acceptedAnswers) {
+            const student = normalizeAnswer(studentAnswer);
+
+            if (student === "") {
+                return false;
+            }
+
+            return acceptedAnswers.some(function(answer) {
+                return student === normalizeAnswer(answer);
+            });
+        }
+
+
+        /*
+         * Get two answers regardless of how they were saved.
+         *
+         * It supports:
+         * - arrays: ["B", "E"]
+         * - two separate values: "B", "E"
+         * - empty values
+         */
+        function getPairValues(firstValue, secondValue) {
+            let values = [];
+
+            if (Array.isArray(firstValue)) {
+                values = values.concat(firstValue);
+            } else if (
+                firstValue !== undefined &&
+                firstValue !== null &&
+                String(firstValue).trim() !== ""
+            ) {
+                values.push(firstValue);
+            }
+
+            if (Array.isArray(secondValue)) {
+                values = values.concat(secondValue);
+            } else if (
+                secondValue !== undefined &&
+                secondValue !== null &&
+                String(secondValue).trim() !== ""
+            ) {
+                values.push(secondValue);
+            }
+
+            return values
+                .map(function(value) {
+                    return String(value).trim().toUpperCase();
+                })
+                .filter(function(value) {
+                    return value !== "";
+                });
+        }
+
+
+        /*
+         * Paired questions:
+         *
+         * Both answers must be correct.
+         * Order does not matter.
+         *
+         * Example:
+         * Correct: B and E
+         * Student: B and E = correct
+         * Student: E and B = correct
+         * Student: B and B = wrong
+         * Student: B and C = wrong
+         */
+        function checkTwoAnswers(studentAnswers, correctAnswers) {
+            if (!Array.isArray(studentAnswers)) {
+                return false;
+            }
+
+            if (studentAnswers.length !== 2) {
+                return false;
+            }
+
+            const student = studentAnswers
+                .map(function(answer) {
+                    return String(answer).trim().toUpperCase();
+                })
+                .sort();
+
+            const correct = correctAnswers
+                .map(function(answer) {
+                    return String(answer).trim().toUpperCase();
+                })
+                .sort();
+
+            return (
+                student[0] === correct[0] &&
+                student[1] === correct[1]
+            );
+        }
+
+
+        /*
+         * IELTS Listening Band Score Conversion
+         */
+        function calculateBand(correctCount) {
+            if (correctCount >= 39) return "9.0";
+            if (correctCount >= 37) return "8.5";
+            if (correctCount >= 35) return "8.0";
+            if (correctCount >= 32) return "7.5";
+            if (correctCount >= 30) return "7.0";
+            if (correctCount >= 26) return "6.5";
+            if (correctCount >= 23) return "6.0";
+            if (correctCount >= 18) return "5.5";
+            if (correctCount >= 16) return "5.0";
+            if (correctCount >= 13) return "4.5";
+            if (correctCount >= 10) return "4.0";
+            if (correctCount >= 8) return "3.5";
+            if (correctCount >= 6) return "3.0";
+            if (correctCount >= 4) return "2.5";
+
+            return "2.0";
+        }
+
+
+        /*
+         * Read answers saved from Part 1
+         */
+        const part1 = JSON.parse(
+            sessionStorage.getItem("listeningPart1Answers") || "{}"
+        );
+
+
+        /*
+         * Read answers saved from Part 2
+         */
+        const part2 = JSON.parse(
+            sessionStorage.getItem("listeningPart2Answers") || "{}"
+        );
+
+
+        /*
+         * Read answers saved from Part 3
+         */
+        const part3 = JSON.parse(
+            sessionStorage.getItem("listeningPart3Answers") || "{}"
+        );
+
+
+        /*
+         * Read answers saved from Part 4
+         */
+        const part4 = JSON.parse(
+            sessionStorage.getItem("listeningPart4Answers") || "{}"
+        );
+
+
+        let correctCount = 0;
+
+
+        /*
+         * PART 1
+         * Questions 1–10
+         */
+        const part1AnswerKey = {
+            q1: [
+                "13th January",
+                "13 January",
+                "January 13",
+                "January 13th",
+                "13.01",
+                "13.1"
+            ],
+
+            q2: ["48"],
+
+            q3: ["pizza"],
+
+            q4: ["India"],
+
+            q5: ["mirror"],
+
+            q6: [
+                "6th April",
+                "6 April",
+                "April 6",
+                "April 6th",
+                "06.04",
+                "6.4"
+            ],
+
+            q7: ["natural"],
+
+            q8: ["67.50"],
+
+            q9: ["shirt"],
+
+            q10: ["hammer"]
+        };
+
+
+        for (let i = 1; i <= 10; i++) {
+            const question = "q" + i;
+
+            if (
+                isCorrect(
+                    part1[question],
+                    part1AnswerKey[question]
+                )
+            ) {
+                correctCount++;
+            }
+        }
+
+
+        /*
+         * PART 2
+         * Questions 11–20
+         */
+
+        // Questions 11 and 12
+        const part2Pair11_12 = getPairValues(
+            part2.q11,
+            part2.q12
+        );
+
+        if (
+            checkTwoAnswers(
+                part2Pair11_12,
+                ["B", "E"]
+            )
+        ) {
+            correctCount += 2;
+        }
+
+
+        // Questions 13 and 14
+        const part2Pair13_14 = getPairValues(
+            part2.q13,
+            part2.q14
+        );
+
+        if (
+            checkTwoAnswers(
+                part2Pair13_14,
+                ["C", "D"]
+            )
+        ) {
+            correctCount += 2;
+        }
+
+
+        // Questions 15–20
+        const part2AnswerKey = {
+            q15: ["F"],
+            q16: ["B"],
+            q17: ["D"],
+            q18: ["A"],
+            q19: ["H"],
+            q20: ["E"]
+        };
+
+
+        for (let i = 15; i <= 20; i++) {
+            const question = "q" + i;
+
+            if (
+                isCorrect(
+                    part2[question],
+                    part2AnswerKey[question]
+                )
+            ) {
+                correctCount++;
+            }
+        }
+
+
+        /*
+         * PART 3
+         * Questions 21–30
+         */
+
+        // Questions 21 and 22
+        let part3Pair21_22 = [];
+
+        if (Array.isArray(part3.q21_22)) {
+            part3Pair21_22 = part3.q21_22;
+        } else {
+            part3Pair21_22 = getPairValues(
+                part3.q21,
+                part3.q22
+            );
+        }
+
+        if (
+            checkTwoAnswers(
+                part3Pair21_22,
+                ["B", "E"]
+            )
+        ) {
+            correctCount += 2;
+        }
+
+
+        // Questions 23 and 24
+        let part3Pair23_24 = [];
+
+        if (Array.isArray(part3.q23_24)) {
+            part3Pair23_24 = part3.q23_24;
+        } else {
+            part3Pair23_24 = getPairValues(
+                part3.q23,
+                part3.q24
+            );
+        }
+
+        if (
+            checkTwoAnswers(
+                part3Pair23_24,
+                ["C", "D"]
+            )
+        ) {
+            correctCount += 2;
+        }
+
+
+        // Questions 25 and 26
+        let part3Pair25_26 = [];
+
+        if (Array.isArray(part3.q25_26)) {
+            part3Pair25_26 = part3.q25_26;
+        } else {
+            part3Pair25_26 = getPairValues(
+                part3.q25,
+                part3.q26
+            );
+        }
+
+        if (
+            checkTwoAnswers(
+                part3Pair25_26,
+                ["A", "C"]
+            )
+        ) {
+            correctCount += 2;
+        }
+
+
+        // Questions 27–30
+        const part3AnswerKey = {
+            q27: ["C"],
+            q28: ["D"],
+            q29: ["F"],
+            q30: ["A"]
+        };
+
+
+        for (let i = 27; i <= 30; i++) {
+            const question = "q" + i;
+
+            if (
+                isCorrect(
+                    part3[question],
+                    part3AnswerKey[question]
+                )
+            ) {
+                correctCount++;
+            }
+        }
+
+
+        /*
+         * PART 4
+         * Questions 31–40
+         */
+
+        const part4AnswerKey = {
+            q31: ["pollution"],
+            q32: ["tax"],
+            q33: ["chocolate"],
+            q34: ["timing"],
+            q35: ["cost"],
+            q36: ["rules"],
+            q37: ["diving"],
+            q38: ["vegan"],
+            q39: ["wifi", "wi-fi"],
+            q40: ["videos"]
+        };
+
+
+        for (let i = 31; i <= 40; i++) {
+            const question = "q" + i;
+
+            if (
+                isCorrect(
+                    part4[question],
+                    part4AnswerKey[question]
+                )
+            ) {
+                correctCount++;
+            }
+        }
+
+
+        /*
+         * Calculate final result
+         */
+        const wrongCount = 40 - correctCount;
+        const bandScore = calculateBand(correctCount);
+
+
+        /*
+         * Display only the requested result
+         */
+        document.getElementById("correctAnswers").textContent =
+            correctCount;
+
+        document.getElementById("wrongAnswers").textContent =
+            wrongCount;
+
+        document.getElementById("totalScore").textContent =
+            correctCount + " / 40";
+
+        document.getElementById("bandScore").textContent =
+            bandScore;
+    </script>
+
+</body>
+</html>
