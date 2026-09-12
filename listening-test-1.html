@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Test 1 - Part 1</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">IELTS Practice</div>
+
+        <nav>
+            <a href="student-dashboard.html">Dashboard</a>
+            <a href="student-login.html">Logout</a>
+        </nav>
+    </header>
+
+    <main class="listening-page">
+
+        <div class="listening-header">
+
+            <div>
+                <p class="small-heading">IELTS LISTENING TEST</p>
+                <h1>Part 1</h1>
+                <p>Listen and answer Questions 1–10</p>
+            </div>
+
+            <div class="timer-box">
+                <span>Time Remaining</span>
+                <strong id="timer">30:00</strong>
+            </div>
+
+        </div>
+
+        <div class="audio-section">
+
+            <h2>Part 1: Listen and answer questions 1–10</h2>
+
+            <audio controls>
+                <source src="assets/listening-section-1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+        </div>
+
+        <div class="question-section">
+
+            <div class="question-heading">
+                <h2>Questions 1–10</h2>
+                <p>Complete the table below.</p>
+                <p class="instruction">
+                    Write ONE WORD AND/OR A NUMBER for each answer.
+                </p>
+            </div>
+
+            <div class="question-table">
+
+                <div class="table-row table-header">
+                    <div>Course</div>
+                    <div>Date</div>
+                    <div>Cost</div>
+                    <div>Notes</div>
+                </div>
+
+                <div class="table-row">
+                    <div>Vietnamese food</div>
+
+                    <div>
+                        <span class="question-number">1</span>
+                        <input type="text" name="q1">
+                    </div>
+
+                    <div>£59</div>
+
+                    <div>
+                        It provides information on the use of herbs.<br>
+                        There are no places at present.
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div>Bread making</div>
+
+                    <div>20 March</div>
+
+                    <div>
+                        £
+                        <span class="question-number">2</span>
+                        <input type="text" name="q2">
+                    </div>
+
+                    <div>
+                        There is also an extra charge for ingredients.<br>
+                        Participants make white bread, sourdough and
+                        <span class="question-number">3</span>
+                        <input type="text" name="q3">
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div>Face massage</div>
+
+                    <div>23 February</div>
+
+                    <div>£35</div>
+
+                    <div>
+                        The teacher trained in
+                        <span class="question-number">4</span>
+                        <input type="text" name="q4">
+                        <br><br>
+                        Bring a
+                        <span class="question-number">5</span>
+                        <input type="text" name="q5">
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div>Candle making</div>
+
+                    <div>
+                        <span class="question-number">6</span>
+                        <input type="text" name="q6">
+                    </div>
+
+                    <div>£52</div>
+
+                    <div>
+                        Only
+                        <span class="question-number">7</span>
+                        <input type="text" name="q7">
+                        ingredients are used.<br>
+                        The candles can be used as presents.
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div>Silk painting</div>
+
+                    <div>18 May</div>
+
+                    <div>
+                        £
+                        <span class="question-number">8</span>
+                        <input type="text" name="q8">
+                    </div>
+
+                    <div>
+                        Bring an apron or old
+                        <span class="question-number">9</span>
+                        <input type="text" name="q9">
+                    </div>
+                </div>
+
+                <div class="table-row">
+                    <div>DIY for beginners</div>
+
+                    <div>24 February</div>
+
+                    <div>£125</div>
+
+                    <div>
+                        Learn how to:
+                        <br>
+                        • use a drill, saw and
+                        <span class="question-number">10</span>
+                        <input type="text" name="q10">
+                        <br>
+                        • put up a shelf.
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="primary-btn submit-section-btn">
+                Continue to Part 2
+            </button>
+
+        </div>
+
+    </main>
+
+    <script>
+        let timeLeft = 30 * 60;
+
+        const timerElement = document.getElementById("timer");
+
+        const countdown = setInterval(function () {
+
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+
+            timerElement.textContent =
+                String(minutes).padStart(2, "0") + ":" +
+                String(seconds).padStart(2, "0");
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                alert("Time is up.");
+            }
+
+            timeLeft--;
+
+        }, 1000);
+    </script>
+
+</body>
+</html>
