@@ -758,3 +758,27 @@ body {
     #fff8fa;
   background-attachment: fixed;
 }
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(10px);
+}
+
+body::before {
+  top: 100px;
+  left: -80px;
+  background: rgba(244, 190, 207, 0.25);
+}
+
+body::after {
+  bottom: 40px;
+  right: -80px;
+  background: rgba(190, 214, 190, 0.3);
+}
