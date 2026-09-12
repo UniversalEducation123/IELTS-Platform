@@ -1,3 +1,7 @@
+/* =====================================
+   GLOBAL RESET
+===================================== */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,23 +10,28 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f7f8fa;
-    color: #1f2937;
+    background: #fff8fa;
+    color: #4f5e52;
 }
+
+/* =====================================
+   NAVIGATION
+===================================== */
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 8%;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 22px 8%;
+    background: #ffffff;
+    border-bottom: 1px solid #eadfe2;
+    box-shadow: 0 3px 12px rgba(120, 80, 90, 0.04);
 }
 
 .logo {
     font-size: 22px;
     font-weight: bold;
-    color: #1e3a5f;
+    color: #a94f6e;
 }
 
 nav {
@@ -33,68 +42,112 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: #4b5563;
+    color: #718071;
     font-size: 15px;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #b85c78;
+}
+
+/* =====================================
+   TYPOGRAPHY
+===================================== */
+
+.small-heading {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #789b78;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 56px;
+    line-height: 1.15;
+    color: #704052;
+    margin-bottom: 24px;
+}
+
+h2 {
+    color: #704052;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.primary-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #b85c78, #789b78);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 7px 16px rgba(184, 92, 120, 0.18);
+    transition: all 0.25s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(120, 155, 120, 0.25);
 }
 
 .login-btn {
     padding: 10px 22px;
-    border: 1px solid #1e3a5f;
-    background: white;
-    color: #1e3a5f;
-    border-radius: 6px;
+    border: 1px solid #b85c78;
+    background: #fff8fa;
+    color: #a94f6e;
+    border-radius: 8px;
     cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
+
+.login-btn:hover {
+    background: #f9dce5;
+}
+
+/* =====================================
+   HOME / HERO
+===================================== */
 
 .hero {
     min-height: 80vh;
     display: flex;
     align-items: center;
     padding: 80px 8%;
-    background: linear-gradient(to right, #f7f8fa, #eef3f8);
+    background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
 }
 
 .hero-content {
     max-width: 650px;
 }
 
-.small-heading {
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: #64748b;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 56px;
-    line-height: 1.15;
-    color: #1e3a5f;
-    margin-bottom: 24px;
+.hero h1 {
+    color: #704052;
 }
 
 .hero-description {
     font-size: 18px;
     line-height: 1.7;
-    color: #64748b;
+    color: #718071;
     margin-bottom: 32px;
     max-width: 500px;
 }
 
-.primary-btn {
-    padding: 15px 30px;
-    background: #1e3a5f;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.primary-btn:hover {
-    background: #162d49;
-}
-
-/* LOGIN PAGE */
+/* =====================================
+   LOGIN PAGE
+===================================== */
 
 .login-page {
     min-height: 80vh;
@@ -102,7 +155,7 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 60px 8%;
-    background: #f7f8fa;
+    background: linear-gradient(135deg, #fff5f7, #f4faf5);
 }
 
 .login-container {
@@ -117,7 +170,7 @@ h1 {
 }
 
 .login-subtitle {
-    color: #64748b;
+    color: #718071;
     font-size: 17px;
     margin-bottom: 40px;
 }
@@ -130,19 +183,20 @@ h1 {
 
 .login-card {
     flex: 1;
-    background: white;
+    background: #ffffff;
     padding: 40px 30px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border: 1px solid #eadfe2;
+    border-radius: 15px;
     text-decoration: none;
-    color: #1f2937;
-    transition: 0.3s ease;
+    color: #4f5e52;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(100, 70, 80, 0.05);
 }
 
 .login-card:hover {
     transform: translateY(-5px);
-    border-color: #1e3a5f;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border-color: #d58ca3;
+    box-shadow: 0 12px 30px rgba(184, 92, 120, 0.12);
 }
 
 .login-icon {
@@ -151,30 +205,32 @@ h1 {
 }
 
 .login-card h2 {
-    color: #1e3a5f;
+    color: #a94f6e;
     font-size: 23px;
     margin-bottom: 15px;
 }
 
 .login-card p {
-    color: #64748b;
+    color: #718071;
     line-height: 1.6;
     font-size: 15px;
     margin-bottom: 25px;
 }
 
 .login-card span {
-    color: #1e3a5f;
+    color: #789b78;
     font-weight: bold;
     font-size: 14px;
 }
 
-/* DASHBOARD PAGES */
+/* =====================================
+   DASHBOARD PAGES
+===================================== */
 
 .dashboard-page {
     min-height: 80vh;
     padding: 70px 8%;
-    background: #f7f8fa;
+    background: linear-gradient(135deg, #fff8fa, #f5faf5);
 }
 
 .dashboard-container {
@@ -189,7 +245,7 @@ h1 {
 }
 
 .dashboard-subtitle {
-    color: #64748b;
+    color: #718071;
     font-size: 17px;
     margin-bottom: 45px;
 }
@@ -202,19 +258,20 @@ h1 {
 
 .dashboard-card {
     flex: 1;
-    background: white;
+    background: #ffffff;
     padding: 35px 25px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border: 1px solid #eadfe2;
+    border-radius: 15px;
     text-decoration: none;
-    color: #1f2937;
-    transition: 0.3s ease;
+    color: #4f5e52;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(100, 70, 80, 0.05);
 }
 
 .dashboard-card:hover {
     transform: translateY(-6px);
-    border-color: #1e3a5f;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.07);
+    border-color: #c9d8c6;
+    box-shadow: 0 12px 30px rgba(120, 155, 120, 0.14);
 }
 
 .dashboard-icon {
@@ -223,42 +280,44 @@ h1 {
 }
 
 .dashboard-card h2 {
-    color: #1e3a5f;
+    color: #a94f6e;
     font-size: 22px;
     margin-bottom: 15px;
 }
 
 .dashboard-card p {
-    color: #64748b;
+    color: #718071;
     line-height: 1.6;
     font-size: 15px;
     margin-bottom: 20px;
 }
 
 .dashboard-card span {
-    color: #1e3a5f;
+    color: #789b78;
     font-weight: bold;
     font-size: 14px;
 }
 
-/* FORMS */
+/* =====================================
+   FORMS
+===================================== */
 
 .auth-form {
     max-width: 500px;
     margin: 0 auto;
-    background: white;
+    background: #ffffff;
     padding: 35px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border: 1px solid #eadfe2;
+    border-radius: 15px;
     text-align: left;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 8px 25px rgba(100, 70, 80, 0.07);
 }
 
 .auth-form label {
     display: block;
     margin-bottom: 8px;
     margin-top: 20px;
-    color: #374151;
+    color: #4f5e52;
     font-size: 14px;
     font-weight: bold;
 }
@@ -272,17 +331,20 @@ h1 {
 .auth-form textarea {
     width: 100%;
     padding: 13px 14px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid #c9d8c6;
+    border-radius: 8px;
     font-size: 15px;
     font-family: Arial, sans-serif;
     outline: none;
+    background: #fffdfd;
+    color: #4f5e52;
 }
 
 .auth-form input:focus,
 .auth-form select:focus,
 .auth-form textarea:focus {
-    border-color: #1e3a5f;
+    border-color: #b85c78;
+    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.12);
 }
 
 .auth-form textarea {
@@ -294,7 +356,9 @@ h1 {
     margin-top: 25px;
 }
 
-/* STUDENT LIST */
+/* =====================================
+   STUDENT LIST
+===================================== */
 
 .student-list {
     max-width: 800px;
@@ -305,39 +369,42 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
+    background: #ffffff;
     padding: 25px 30px;
     margin-bottom: 15px;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
+    border: 1px solid #eadfe2;
+    border-radius: 12px;
     text-decoration: none;
     text-align: left;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .student-row:hover {
-    border-color: #1e3a5f;
+    border-color: #d58ca3;
     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(184, 92, 120, 0.08);
 }
 
 .student-row h2 {
-    color: #1e3a5f;
+    color: #a94f6e;
     font-size: 19px;
     margin-bottom: 8px;
 }
 
 .student-row p {
-    color: #64748b;
+    color: #718071;
     font-size: 14px;
 }
 
 .student-row span {
-    color: #1e3a5f;
+    color: #789b78;
     font-weight: bold;
     font-size: 14px;
 }
 
-/* PROFILE SECTIONS */
+/* =====================================
+   PROFILE SECTIONS
+===================================== */
 
 .profile-section {
     max-width: 800px;
@@ -346,456 +413,22 @@ h1 {
 }
 
 .profile-section h2 {
-    color: #1e3a5f;
+    color: #a94f6e;
     font-size: 23px;
     margin-bottom: 15px;
 }
 
 .profile-card {
-    background: white;
-    padding: 25px;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    color: #64748b;
-}
-
-.primary-btn {
-    display: inline-block;
-    text-decoration: none;
-}
-
-/* LISTENING TEST PAGE */
-
-.listening-page {
-    min-height: 100vh;
-    padding: 35px 5%;
-    background: #f7f8fa;
-}
-
-.listening-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.listening-header h1 {
-    font-size: 36px;
-    margin-bottom: 8px;
-}
-
-.listening-header p {
-    color: #64748b;
-}
-
-.timer-box {
-    background: white;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 15px 25px;
-    text-align: center;
-    min-width: 150px;
-}
-
-.timer-box span {
-    display: block;
-    color: #64748b;
-    font-size: 13px;
-    margin-bottom: 5px;
-}
-
-.timer-box strong {
-    font-size: 28px;
-    color: #1e3a5f;
-}
-
-.audio-section,
-.question-section {
-    background: white;
-    border: 1px solid #dfe3e8;
-    border-radius: 8px;
-    padding: 25px;
-    margin-bottom: 25px;
-}
-
-.audio-section h2 {
-    font-size: 20px;
-    color: #1e3a5f;
-    margin-bottom: 18px;
-}
-
-.audio-section audio {
-    width: 100%;
-}
-
-.question-heading {
-    margin-bottom: 25px;
-}
-
-.question-heading h2 {
-    color: #1e3a5f;
-    margin-bottom: 12px;
-}
-
-.question-heading p {
-    color: #374151;
-    margin-bottom: 8px;
-}
-
-.question-heading .instruction {
-    font-size: 14px;
-    color: #64748b;
-    margin-top: 15px;
-}
-
-.question-table {
-    width: 100%;
-    border: 1px solid #d9dee5;
-}
-
-.table-row {
-    display: grid;
-    grid-template-columns: 15% 18% 19% 48%;
-    border-bottom: 1px solid #d9dee5;
-    min-height: 75px;
-}
-
-.table-row:last-child {
-    border-bottom: none;
-}
-
-.table-row > div {
-    padding: 18px 12px;
-    border-right: 1px solid #d9dee5;
-    font-size: 14px;
-    line-height: 1.8;
-}
-
-.table-row > div:last-child {
-    border-right: none;
-}
-
-.table-header {
-    min-height: auto;
-    background: #f1f5f9;
-    font-weight: bold;
-    color: #1e3a5f;
-}
-
-.table-header > div {
-    padding: 12px;
-}
-
-.question-number {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 22px;
-    height: 22px;
-    margin: 0 5px;
-    border: 1px solid #1e3a5f;
-    background: #f8fafc;
-    color: #1e3a5f;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.question-table input {
-    width: 95px;
-    padding: 5px 7px;
-    border: 1px solid #9ca3af;
-    border-radius: 2px;
-    font-size: 14px;
-}
-
-.question-table input:focus {
-    outline: none;
-    border-color: #1e3a5f;
-}
-
-.submit-section-btn {
-    margin-top: 25px;
-}
-
-/* =====================================
-   MODERN IELTS LISTENING TEST DESIGN
-===================================== */
-
-.listening-page {
-    min-height: 100vh;
-    padding: 40px 6%;
-    background: linear-gradient(135deg, #eef4ff 0%, #f8faff 55%, #f3efff 100%);
-}
-
-/* Top heading area */
-
-.listening-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 28px 32px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #172554, #1e40af);
-    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.2);
-}
-
-.listening-header .small-heading {
-    color: #bfdbfe;
-    letter-spacing: 2px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.listening-header h1 {
-    color: white;
-    font-size: 38px;
-    margin: 8px 0;
-}
-
-.listening-header p {
-    color: #dbeafe;
-    margin: 0;
-}
-
-/* Timer */
-
-.timer-box {
-    min-width: 180px;
-    padding: 18px 25px;
-    text-align: center;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-.timer-box span {
-    display: block;
-    color: #dbeafe;
-    font-size: 13px;
-    margin-bottom: 7px;
-}
-
-.timer-box strong {
-    display: block;
-    color: #ffffff;
-    font-size: 32px;
-    letter-spacing: 2px;
-}
-
-/* Audio card */
-
-.audio-section {
     background: #ffffff;
-    border: none;
-    border-radius: 18px;
-    padding: 30px;
-    margin-bottom: 28px;
-    box-shadow: 0 10px 28px rgba(30, 41, 59, 0.08);
-    position: relative;
-    overflow: hidden;
-}
-
-.audio-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(90deg, #2563eb, #7c3aed);
-}
-
-.audio-section h2 {
-    color: #172554;
-    font-size: 21px;
-    margin-bottom: 20px;
-}
-
-.audio-player-container {
-    background: linear-gradient(135deg, #eff6ff, #f5f3ff);
-    border: 1px solid #dbeafe;
-    border-radius: 14px;
-    padding: 20px;
-}
-
-.audio-status {
-    color: #4338ca;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 14px;
-}
-
-.audio-section audio {
-    width: 100%;
-    height: 48px;
-}
-
-/* Questions card */
-
-.question-section {
-    background: #ffffff;
-    border: none;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 10px 28px rgba(30, 41, 59, 0.08);
-}
-
-.question-heading {
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 20px;
-    margin-bottom: 25px;
-}
-
-.question-heading h2 {
-    color: #172554;
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.question-heading p {
-    color: #64748b;
-}
-
-.question-heading .instruction {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 9px 14px;
-    border-radius: 8px;
-    background: #ede9fe;
-    color: #5b21b6;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-/* Table */
-
-.question-table {
-    border: 1px solid #dbe3f0;
+    padding: 25px;
+    border: 1px solid #eadfe2;
     border-radius: 12px;
-    overflow: hidden;
-}
-
-.table-row {
-    min-height: 82px;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.table-row > div {
-    padding: 18px 14px;
-    border-right: 1px solid #e2e8f0;
-    color: #334155;
-}
-
-.table-header {
-    background: linear-gradient(135deg, #1e3a8a, #4338ca);
-}
-
-.table-header > div {
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-/* Alternating rows */
-
-.table-row:not(.table-header):nth-child(even) {
-    background: #f8faff;
-}
-
-.table-row:not(.table-header):hover {
-    background: #eef4ff;
-}
-
-/* Question number badges */
-
-.question-number {
-    background: #dbeafe;
-    border: 1px solid #93c5fd;
-    color: #1d4ed8;
-    border-radius: 6px;
-    font-weight: 700;
-}
-
-/* Answer inputs */
-
-.question-table input {
-    width: 100px;
-    padding: 8px 9px;
-    background: white;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    color: #172554;
-    transition: all 0.2s ease;
-}
-
-.question-table input:hover {
-    border-color: #818cf8;
-}
-
-.question-table input:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-}
-
-/* Continue button */
-
-.submit-section-btn {
-    margin-top: 28px;
-    padding: 14px 25px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.2);
-    transition: all 0.2s ease;
-}
-
-.submit-section-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 22px rgba(37, 99, 235, 0.3);
-}
-
-/* Mobile responsiveness */
-
-@media (max-width: 800px) {
-
-    .listening-page {
-        padding: 20px;
-    }
-
-    .listening-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .timer-box {
-        width: 100%;
-    }
-
-    .question-section,
-    .audio-section {
-        padding: 18px;
-    }
-
-    .question-table {
-        overflow-x: auto;
-    }
-
-    .table-row {
-        min-width: 850px;
-    }
-
+    color: #718071;
+    box-shadow: 0 8px 22px rgba(100, 70, 80, 0.05);
 }
 
 /* =====================================
-   PINK + SAGE GREEN LISTENING DESIGN
+   LISTENING TEST PAGE
 ===================================== */
 
 .listening-page {
@@ -803,8 +436,6 @@ h1 {
     padding: 40px 6%;
     background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
 }
-
-/* Header */
 
 .listening-header {
     display: flex;
@@ -835,8 +466,6 @@ h1 {
     margin: 0;
 }
 
-/* Timer */
-
 .timer-box {
     min-width: 180px;
     padding: 18px 25px;
@@ -861,15 +490,17 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* Audio card */
-
-.audio-section {
+.audio-section,
+.question-section {
     background: #ffffff;
     border: none;
     border-radius: 18px;
     padding: 30px;
     margin-bottom: 28px;
     box-shadow: 0 10px 28px rgba(100, 70, 80, 0.08);
+}
+
+.audio-section {
     position: relative;
     overflow: hidden;
 }
@@ -909,16 +540,6 @@ h1 {
     height: 48px;
 }
 
-/* Questions card */
-
-.question-section {
-    background: #ffffff;
-    border: none;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 10px 28px rgba(100, 70, 80, 0.08);
-}
-
 .question-heading {
     border-bottom: 1px solid #eadfe2;
     padding-bottom: 20px;
@@ -933,6 +554,7 @@ h1 {
 
 .question-heading p {
     color: #718071;
+    margin-bottom: 8px;
 }
 
 .question-heading .instruction {
@@ -946,23 +568,38 @@ h1 {
     font-weight: 700;
 }
 
-/* Table */
+/* =====================================
+   LISTENING TABLE
+===================================== */
 
 .question-table {
+    width: 100%;
     border: 1px solid #e5d8dc;
     border-radius: 12px;
     overflow: hidden;
 }
 
 .table-row {
+    display: grid;
+    grid-template-columns: 15% 18% 19% 48%;
     min-height: 82px;
     border-bottom: 1px solid #eadfe2;
+}
+
+.table-row:last-child {
+    border-bottom: none;
 }
 
 .table-row > div {
     padding: 18px 14px;
     border-right: 1px solid #eadfe2;
     color: #4f5e52;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.table-row > div:last-child {
+    border-right: none;
 }
 
 .table-header {
@@ -974,8 +611,6 @@ h1 {
     font-weight: 700;
     font-size: 14px;
 }
-
-/* Alternating rows */
 
 .table-row:not(.table-header):nth-child(even) {
     background: #fff8fa;
@@ -989,17 +624,20 @@ h1 {
     background: #f5e9ed;
 }
 
-/* Question number badges */
-
 .question-number {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    margin: 0 5px;
     background: #f9dce5;
     border: 1px solid #e3aabd;
     color: #a94f6e;
     border-radius: 6px;
+    font-size: 12px;
     font-weight: 700;
 }
-
-/* Answer inputs */
 
 .question-table input {
     width: 100px;
@@ -1021,8 +659,6 @@ h1 {
     box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
 }
 
-/* Continue button */
-
 .submit-section-btn {
     margin-top: 28px;
     padding: 14px 25px;
@@ -1042,9 +678,47 @@ h1 {
     box-shadow: 0 12px 22px rgba(120, 155, 120, 0.3);
 }
 
-/* Mobile */
+/* =====================================
+   MOBILE RESPONSIVENESS
+===================================== */
 
 @media (max-width: 800px) {
+
+    .navbar {
+        padding: 18px 5%;
+    }
+
+    nav {
+        gap: 15px;
+    }
+
+    nav a {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .hero {
+        padding: 60px 6%;
+    }
+
+    .login-options,
+    .dashboard-options {
+        flex-direction: column;
+    }
+
+    .login-card,
+    .dashboard-card {
+        width: 100%;
+    }
+
+    .login-page,
+    .dashboard-page {
+        padding: 45px 6%;
+    }
+
     .listening-page {
         padding: 20px;
     }
@@ -1070,5 +744,9 @@ h1 {
 
     .table-row {
         min-width: 850px;
+    }
+
+    .auth-form {
+        padding: 25px;
     }
 }
