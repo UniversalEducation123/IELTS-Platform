@@ -246,23 +246,40 @@
     updateTimer();
 
     document.getElementById("submitListeningBtn").addEventListener("click", function () {
-        const answers = {};
+    const answers = {};
+    let unansweredQuestions = [];
 
-        for (let i = 1; i <= 10; i++) {
-            const input = document.querySelector(`[name="q${i}"]`);
+    for (let i = 1; i <= 10; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
 
-            if (input) {
-                answers[`q${i}`] = input.value.trim();
+        if (input) {
+            const answer = input.value.trim();
+
+            answers[`q${i}`] = answer;
+
+            if (answer === "") {
+                unansweredQuestions.push(i);
             }
         }
+    }
 
-        sessionStorage.setItem(
-            "listeningPart1Answers",
-            JSON.stringify(answers)
+    if (unansweredQuestions.length > 0) {
+        alert(
+            "Please answer all questions before continuing.\n\n" +
+            "Unanswered questions: " +
+            unansweredQuestions.join(", ")
         );
 
-        window.location.href = "listening-test-2.html";
-    });
+        return;
+    }
+
+    sessionStorage.setItem(
+        "listeningPart1Answers",
+        JSON.stringify(answers)
+    );
+
+    window.location.href = "listening-test-2.html";
+});
 </script>
 
 </body>

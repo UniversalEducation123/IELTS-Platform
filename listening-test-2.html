@@ -13,7 +13,10 @@
 
     <main class="listening-page">
 
+        <!-- HEADER -->
+
         <section class="listening-header">
+
             <div>
                 <p class="small-heading">IELTS ACADEMIC LISTENING</p>
                 <h1>Part 2</h1>
@@ -24,6 +27,7 @@
                 <span>Time Remaining</span>
                 <strong id="timer">30:00</strong>
             </div>
+
         </section>
 
 
@@ -41,7 +45,11 @@
                 </p>
 
                 <audio id="listeningAudio" controls>
-                    <source src="assets/listening-section-2.mp3" type="audio/mpeg">
+                    <source
+                        src="assets/listening-section-2.mp3"
+                        type="audio/mpeg"
+                    >
+
                     Your browser does not support the audio element.
                 </audio>
 
@@ -54,7 +62,10 @@
 
         <section class="question-section">
 
+            <!-- QUESTIONS 11–12 -->
+
             <div class="question-heading">
+
                 <h2>Questions 11–12</h2>
 
                 <p>
@@ -62,42 +73,69 @@
                 </p>
 
                 <p class="instruction">
-                    Which TWO pieces of advice are given about the Marsden Coastal Walk?
+                    Which TWO pieces of advice are given about the
+                    Marsden Coastal Walk?
                 </p>
+
             </div>
 
 
             <div class="multiple-choice-question">
+
                 <p><strong>11–12</strong></p>
 
                 <label>
-                    <input type="checkbox" name="q11_12" value="A">
+                    <input
+                        type="checkbox"
+                        name="q11_12"
+                        value="A"
+                    >
                     A. Stop for lunch in an ancient town.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q11_12" value="B">
+                    <input
+                        type="checkbox"
+                        name="q11_12"
+                        value="B"
+                    >
                     B. Don't miss the ruins of a certain building.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q11_12" value="C">
+                    <input
+                        type="checkbox"
+                        name="q11_12"
+                        value="C"
+                    >
                     C. Catch a boat to the start of this walk.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q11_12" value="D">
+                    <input
+                        type="checkbox"
+                        name="q11_12"
+                        value="D"
+                    >
                     D. Be careful of the steep and rocky paths.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q11_12" value="E">
+                    <input
+                        type="checkbox"
+                        name="q11_12"
+                        value="E"
+                    >
                     E. Don't worry about getting lost.
                 </label>
+
             </div>
 
 
+            <!-- QUESTIONS 13–14 -->
+
             <div class="question-heading second-question-heading">
+
                 <h2>Questions 13–14</h2>
 
                 <p>
@@ -107,42 +145,66 @@
                 <p class="instruction">
                     Which TWO things are said about the Melby Heritage Walk?
                 </p>
+
             </div>
 
 
             <div class="multiple-choice-question">
+
                 <p><strong>13–14</strong></p>
 
                 <label>
-                    <input type="checkbox" name="q13_14" value="A">
+                    <input
+                        type="checkbox"
+                        name="q13_14"
+                        value="A"
+                    >
                     A. This walk is mostly downhill.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q13_14" value="B">
+                    <input
+                        type="checkbox"
+                        name="q13_14"
+                        value="B"
+                    >
                     B. The paths can get busy during the day.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q13_14" value="C">
+                    <input
+                        type="checkbox"
+                        name="q13_14"
+                        value="C"
+                    >
                     C. This is a circular walk.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q13_14" value="D">
+                    <input
+                        type="checkbox"
+                        name="q13_14"
+                        value="D"
+                    >
                     D. A tower stands on the site of an older structure.
                 </label>
 
                 <label>
-                    <input type="checkbox" name="q13_14" value="E">
+                    <input
+                        type="checkbox"
+                        name="q13_14"
+                        value="E"
+                    >
                     E. There are far-reaching views the whole way.
                 </label>
+
             </div>
 
 
-            <!-- MAP QUESTIONS -->
+            <!-- QUESTIONS 15–20 -->
 
             <div class="question-heading second-question-heading">
+
                 <h2>Questions 15–20</h2>
 
                 <p>
@@ -152,129 +214,138 @@
                 <p class="instruction">
                     Write the correct letter, A–I, next to Questions 15–20.
                 </p>
+
             </div>
 
 
+            <!-- MAP -->
+
             <div class="map-container">
+
                 <img
                     src="assets/part2-map.png"
                     alt="Map of Melby Coal Mine"
                     class="listening-map"
                 >
+
             </div>
 
+
+            <!-- TEXT BOX QUESTIONS -->
 
             <div class="map-questions">
 
                 <div class="map-question">
-                    <span><strong>15.</strong> Exhibition</span>
 
-                    <select name="q15">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q15">
+                        <strong>15.</strong> Exhibition
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q15"
+                        name="q15"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
 
                 <div class="map-question">
-                    <span><strong>16.</strong> Baths</span>
 
-                    <select name="q16">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q16">
+                        <strong>16.</strong> Baths
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q16"
+                        name="q16"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
 
                 <div class="map-question">
-                    <span><strong>17.</strong> Tools</span>
 
-                    <select name="q17">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q17">
+                        <strong>17.</strong> Tools
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q17"
+                        name="q17"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
 
                 <div class="map-question">
-                    <span><strong>18.</strong> Vehicles</span>
 
-                    <select name="q18">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q18">
+                        <strong>18.</strong> Vehicles
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q18"
+                        name="q18"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
 
                 <div class="map-question">
-                    <span><strong>19.</strong> Ponies</span>
 
-                    <select name="q19">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q19">
+                        <strong>19.</strong> Ponies
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q19"
+                        name="q19"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
 
                 <div class="map-question">
-                    <span><strong>20.</strong> Education centre</span>
 
-                    <select name="q20">
-                        <option value="">Select</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+                    <label for="q20">
+                        <strong>20.</strong> Education centre
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q20"
+                        name="q20"
+                        maxlength="1"
+                        placeholder="A–I"
+                        autocomplete="off"
+                    >
+
                 </div>
 
             </div>
 
+
+            <!-- CONTINUE BUTTON -->
 
             <button
                 type="button"
@@ -291,12 +362,15 @@
 
     <script>
 
-        // Timer
+        /*
+         * TIMER
+         */
+
         let timeLeft = 30 * 60;
 
         const timerElement = document.getElementById("timer");
 
-        const timerInterval = setInterval(function () {
+        const timerInterval = setInterval(function() {
 
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
@@ -308,6 +382,7 @@
 
             if (timeLeft <= 0) {
                 clearInterval(timerInterval);
+
                 alert("Time is up.");
             }
 
@@ -316,122 +391,229 @@
         }, 1000);
 
 
-        // Prevent changing audio after it starts
+        /*
+         * AUDIO CAN ONLY BE PLAYED ONCE
+         */
+
         const audio = document.getElementById("listeningAudio");
 
         let audioStarted = false;
 
-        audio.addEventListener("play", function () {
+        audio.addEventListener("play", function() {
             audioStarted = true;
         });
 
-        audio.addEventListener("pause", function () {
+        audio.addEventListener("pause", function() {
+
             if (audioStarted && !audio.ended) {
                 audio.play();
             }
+
         });
 
 
-        // Limit checkbox selections to TWO for Questions 11–12
+        /*
+         * LIMIT QUESTIONS 11–12 TO TWO OPTIONS
+         */
+
         const q11_12 = document.querySelectorAll(
             'input[name="q11_12"]'
         );
 
-        q11_12.forEach(function (checkbox) {
-            checkbox.addEventListener("change", function () {
+        q11_12.forEach(function(checkbox) {
+
+            checkbox.addEventListener("change", function() {
 
                 const selected = document.querySelectorAll(
                     'input[name="q11_12"]:checked'
                 );
 
                 if (selected.length > 2) {
+
                     checkbox.checked = false;
-                    alert("Please choose exactly TWO answers.");
+
+                    alert(
+                        "Please choose exactly TWO answers for Questions 11–12."
+                    );
+
                 }
 
             });
+
         });
 
 
-        // Limit checkbox selections to TWO for Questions 13–14
+        /*
+         * LIMIT QUESTIONS 13–14 TO TWO OPTIONS
+         */
+
         const q13_14 = document.querySelectorAll(
             'input[name="q13_14"]'
         );
 
-        q13_14.forEach(function (checkbox) {
-            checkbox.addEventListener("change", function () {
+        q13_14.forEach(function(checkbox) {
+
+            checkbox.addEventListener("change", function() {
 
                 const selected = document.querySelectorAll(
                     'input[name="q13_14"]:checked'
                 );
 
                 if (selected.length > 2) {
+
                     checkbox.checked = false;
-                    alert("Please choose exactly TWO answers.");
+
+                    alert(
+                        "Please choose exactly TWO answers for Questions 13–14."
+                    );
+
                 }
 
             });
+
         });
 
 
-        // Save Part 2 answers and continue
+        /*
+         * MAKE MAP TEXT BOXES UPPERCASE
+         */
+
+        const mapInputs = document.querySelectorAll(
+            '.map-question input[type="text"]'
+        );
+
+        mapInputs.forEach(function(input) {
+
+            input.addEventListener("input", function() {
+
+                input.value = input.value
+                    .toUpperCase()
+                    .replace(/[^A-I]/g, "")
+                    .slice(0, 1);
+
+            });
+
+        });
+
+
+        /*
+         * SAVE PART 2 ANSWERS AND CONTINUE
+         */
+
         document.getElementById("submitPart2Btn")
-            .addEventListener("click", function () {
+            .addEventListener("click", function() {
+
 
                 const selected11_12 = Array.from(
                     document.querySelectorAll(
                         'input[name="q11_12"]:checked'
                     )
-                ).map(function (input) {
+                ).map(function(input) {
                     return input.value;
                 });
+
 
                 const selected13_14 = Array.from(
                     document.querySelectorAll(
                         'input[name="q13_14"]:checked'
                     )
-                ).map(function (input) {
+                ).map(function(input) {
                     return input.value;
                 });
 
 
+                /*
+                 * Validate Questions 11–12
+                 */
+
                 if (selected11_12.length !== 2) {
-                    alert("Please answer Questions 11–12 by selecting TWO options.");
+
+                    alert(
+                        "Please select exactly TWO answers for Questions 11–12."
+                    );
+
                     return;
                 }
+
+
+                /*
+                 * Validate Questions 13–14
+                 */
 
                 if (selected13_14.length !== 2) {
-                    alert("Please answer Questions 13–14 by selecting TWO options.");
+
+                    alert(
+                        "Please select exactly TWO answers for Questions 13–14."
+                    );
+
                     return;
                 }
 
 
+                /*
+                 * Collect all answers
+                 */
+
                 const answers = {
+
                     q11: selected11_12[0],
                     q12: selected11_12[1],
+
                     q13: selected13_14[0],
                     q14: selected13_14[1],
-                    q15: document.querySelector('[name="q15"]').value,
-                    q16: document.querySelector('[name="q16"]').value,
-                    q17: document.querySelector('[name="q17"]').value,
-                    q18: document.querySelector('[name="q18"]').value,
-                    q19: document.querySelector('[name="q19"]').value,
-                    q20: document.querySelector('[name="q20"]').value
+
+                    q15: document.querySelector('[name="q15"]').value.trim().toUpperCase(),
+                    q16: document.querySelector('[name="q16"]').value.trim().toUpperCase(),
+                    q17: document.querySelector('[name="q17"]').value.trim().toUpperCase(),
+                    q18: document.querySelector('[name="q18"]').value.trim().toUpperCase(),
+                    q19: document.querySelector('[name="q19"]').value.trim().toUpperCase(),
+                    q20: document.querySelector('[name="q20"]').value.trim().toUpperCase()
+
                 };
 
 
+                /*
+                 * Validate Questions 15–20
+                 */
+
                 for (let i = 15; i <= 20; i++) {
-                    if (!answers["q" + i]) {
-                        alert("Please answer all map questions from 15–20.");
+
+                    const answer = answers["q" + i];
+
+                    if (answer === "") {
+
+                        alert(
+                            "Please answer all map questions from 15–20."
+                        );
+
                         return;
                     }
+
+                    if (!/^[A-I]$/.test(answer)) {
+
+                        alert(
+                            "Questions 15–20 must contain one letter from A to I."
+                        );
+
+                        return;
+                    }
+
                 }
 
+
+                /*
+                 * Save answers
+                 */
 
                 sessionStorage.setItem(
                     "listeningPart2Answers",
                     JSON.stringify(answers)
                 );
+
+
+                /*
+                 * Continue to Part 3
+                 */
 
                 window.location.href = "listening-test-3.html";
 
