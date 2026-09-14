@@ -10,6 +10,30 @@
 </head>
 <body>
 
+    <div class="listening-section-navigation">
+    <strong>Go to:</strong>
+
+    <a href="listening-test-1.html"
+       class="section-jump-button active-section">
+        Part 1
+    </a>
+
+    <a href="listening-test-2.html"
+       class="section-jump-button">
+        Part 2
+    </a>
+
+    <a href="listening-test-3.html"
+       class="section-jump-button">
+        Part 3
+    </a>
+
+    <a href="listening-test-4.html"
+       class="section-jump-button">
+        Part 4
+    </a>
+</div>
+
     <header class="navbar">
         <div class="logo">IELTS Practice</div>
 
@@ -79,7 +103,7 @@
 
                     <div>
                         <span class="question-number">1</span>
-                        <input type="text" name="q1">
+                        <input type="text" name="q1" data-question="1" class="listening-answer">
                     </div>
 
                     <div>£59</div>
@@ -98,14 +122,14 @@
                     <div>
                         £
                         <span class="question-number">2</span>
-                        <input type="text" name="q2">
+                        <input type="text" name="q2" data-question="2" class="listening-answer">
                     </div>
 
                     <div>
                         There is also an extra charge for ingredients.<br>
                         Participants make white bread, sourdough and
                         <span class="question-number">3</span>
-                        <input type="text" name="q3">
+                        <input type="text" name="q3" data-question="3" class="listening-answer">
                     </div>
                 </div>
 
@@ -119,11 +143,11 @@
                     <div>
                         The teacher trained in
                         <span class="question-number">4</span>
-                        <input type="text" name="q4">
+                        <input type="text" name="q4" data-question="4" class="listening-answer">
                         <br><br>
                         Bring a
                         <span class="question-number">5</span>
-                        <input type="text" name="q5">
+                        <input type="text" name="q5" data-question="5" class="listening-answer">
                     </div>
                 </div>
 
@@ -132,7 +156,7 @@
 
                     <div>
                         <span class="question-number">6</span>
-                        <input type="text" name="q6">
+                        <input type="text" name="q6" data-question="6" class="listening-answer">
                     </div>
 
                     <div>£52</div>
@@ -140,7 +164,7 @@
                     <div>
                         Only
                         <span class="question-number">7</span>
-                        <input type="text" name="q7">
+                        <input type="text" name="q7" data-question="7" class="listening-answer">
                         ingredients are used.<br>
                         The candles can be used as presents.
                     </div>
@@ -154,13 +178,13 @@
                     <div>
                         £
                         <span class="question-number">8</span>
-                        <input type="text" name="q8">
+                        <input type="text" name="q8" data-question="8" class="listening-answer">
                     </div>
 
                     <div>
                         Bring an apron or old
                         <span class="question-number">9</span>
-                        <input type="text" name="q9">
+                        <input type="text" name="q9" data-question="9" class="listening-answer">
                     </div>
                 </div>
 
@@ -176,13 +200,67 @@
                         <br>
                         • use a drill, saw and
                         <span class="question-number">10</span>
-                        <input type="text" name="q10">
+                        <input type="text" name="q10" data-question="10" class="listening-answer">
                         <br>
                         • put up a shelf.
                     </div>
                 </div>
 
             </div>
+
+<div class="question-progress">
+    <span class="question-progress-title">Questions:</span>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="1"
+            onclick="goToQuestion(1)">1</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="2"
+            onclick="goToQuestion(2)">2</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="3"
+            onclick="goToQuestion(3)">3</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="4"
+            onclick="goToQuestion(4)">4</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="5"
+            onclick="goToQuestion(5)">5</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="6"
+            onclick="goToQuestion(6)">6</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="7"
+            onclick="goToQuestion(7)">7</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="8"
+            onclick="goToQuestion(8)">8</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="9"
+            onclick="goToQuestion(9)">9</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="10"
+            onclick="goToQuestion(10)">10</button>
+</div>
 
             <button type="button" class="primary-btn submit-section-btn" id="submitListeningBtn">
     Continue to Part 2
@@ -280,6 +358,43 @@
 
     window.location.href = "listening-test-2.html";
 });
+
+function updateQuestionProgress() {
+    for (let i = 1; i <= 10; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
+        );
+
+        if (!input || !button) continue;
+
+        if (input.value.trim() !== "") {
+            button.classList.add("answered");
+        } else {
+            button.classList.remove("answered");
+        }
+    }
+}
+
+document.querySelectorAll(".listening-answer, input[data-question]").forEach(input => {
+    input.addEventListener("input", updateQuestionProgress);
+});
+
+function goToQuestion(questionNumber) {
+    const input = document.querySelector(`[name="q${questionNumber}"]`);
+
+    if (input) {
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        input.focus();
+    }
+}
+
+updateQuestionProgress();
+
 </script>
 
 </body>
