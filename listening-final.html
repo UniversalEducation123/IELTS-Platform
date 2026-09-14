@@ -637,17 +637,12 @@
             const studentUsername = sessionStorage.getItem("studentUsername");
 
             const { error } = await supabaseClient
-                .from("test_results")
-                .insert({
-                    student_id: studentId ? Number(studentId) : null,
-                    student_name: studentName,
-                    username: studentUsername,
-                    test_name: "Listening Test 1",
-                    correct_answers: correctCount,
-                    wrong_answers: wrongCount,
-                    total_questions: 40,
-                    ielts_band: Number(bandScore)
-                });
+    .from("test_results")
+    .insert({
+        student_id: studentId ? Number(studentId) : null,
+        test_name: "Test 1 - Listening",
+        listening_score: correctCount
+    });
 
             if (error) {
                 console.error("Error saving result:", error);
