@@ -680,6 +680,7 @@ function submitReadingTest() {
 
 async function saveReadingScore(score) {
     const studentId = sessionStorage.getItem("studentId");
+    const studentName = sessionStorage.getItem("studentName");
 
     const resultBox = document.getElementById("resultBox");
 
@@ -700,16 +701,55 @@ async function saveReadingScore(score) {
         return;
     }
 
-    const { error } = await supabaseClient
-        .from("test_results")
-        .insert({
-            student_id: Number(studentId),
-            test_name: "Test 2 - Reading",
-            reading_score: score
-        });
+    // Find the existing Test 1 row for this student
+    const { data: existingResult, error: findError } =
+        await supabaseClient
+            .from("test_results")
+            .select("*")
+            .eq("student_id", Number(studentId))
+            .eq("test_name", "Test 1")
+            .maybeSingle();
 
-    if (error) {
-        console.error(error);
+    if (findError) {
+        console.error("Error finding Test 1 result:", findError);
+
+        resultBox.innerHTML = `
+            <h2>Reading Test Completed</h2>
+            <h1>${score} / 40</h1>
+            <p>Score calculated, but saving failed.</p>
+        `;
+        return;
+    }
+
+    let saveError;
+
+    if (existingResult) {
+        // Update the existing Test 1 row
+        const { error } = await supabaseClient
+            .from("test_results")
+            .update({
+                student_name: studentName,
+                reading_score: score
+            })
+            .eq("id", existingResult.id);
+
+        saveError = error;
+    } else {
+        // Create a Test 1 row if one does not exist
+        const { error } = await supabaseClient
+            .from("test_results")
+            .insert({
+                student_id: Number(studentId),
+                student_name: studentName,
+                test_name: "Test 1",
+                reading_score: score
+            });
+
+        saveError = error;
+    }
+
+    if (saveError) {
+        console.error(saveError);
 
         resultBox.innerHTML = `
             <h2>Reading Test Completed</h2>

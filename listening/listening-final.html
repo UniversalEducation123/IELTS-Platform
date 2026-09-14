@@ -623,42 +623,42 @@
          * This runs only once for this completed test session.
          */
         async function saveResultToSupabase() {
-            const alreadySaved = sessionStorage.getItem(
-                "listeningTest1ResultSaved"
-            );
+    const alreadySaved = sessionStorage.getItem(
+        "listeningTest1ResultSaved"
+    );
 
-            if (alreadySaved === "true") {
-                console.log("Result already saved.");
-                return;
-            }
+    if (alreadySaved === "true") {
+        console.log("Result already saved.");
+        return;
+    }
 
-            const studentId = sessionStorage.getItem("studentId");
-            const studentName = sessionStorage.getItem("studentName");
-            const studentUsername = sessionStorage.getItem("studentUsername");
+    const studentId = sessionStorage.getItem("studentId");
+    const studentName = sessionStorage.getItem("studentName");
 
-            const { error } = await supabaseClient
-    .from("test_results")
-    .insert({
-        student_id: studentId ? Number(studentId) : null,
-        test_name: "Test 1 - Listening",
-        listening_score: correctCount
-    });
+    const { error } = await supabaseClient
+        .from("test_results")
+        .insert({
+            student_id: studentId ? Number(studentId) : null,
+            student_name: studentName,
+            test_name: "Test 1",
+            listening_score: correctCount
+        });
 
-            if (error) {
-                console.error("Error saving result:", error);
-                alert(
-                    "Your score was calculated, but there was a problem saving it. Please contact faculty."
-                );
-                return;
-            }
+    if (error) {
+        console.error("Error saving result:", error);
+        alert(
+            "Your score was calculated, but there was a problem saving it. Please contact faculty."
+        );
+        return;
+    }
 
-            sessionStorage.setItem(
-                "listeningTest1ResultSaved",
-                "true"
-            );
+    sessionStorage.setItem(
+        "listeningTest1ResultSaved",
+        "true"
+    );
 
-            console.log("Result saved successfully.");
-        }
+    console.log("Result saved successfully.");
+}   
 
 
         /*
