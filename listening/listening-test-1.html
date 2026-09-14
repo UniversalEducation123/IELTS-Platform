@@ -277,76 +277,91 @@
     </main>
 
    <script>
-    let timeLeft = Number(sessionStorage.getItem("listeningTimeLeft"));
+    /*
+ * SHARED LISTENING TIMER
+ */
 
-    if (!timeLeft || timeLeft <= 0) {
-        timeLeft = 30 * 60;
-    }
+let timeLeft = Number(sessionStorage.getItem("listeningTimeLeft"));
 
-    let timerStarted =
-        sessionStorage.getItem("listeningTimerStarted") === "true";
+if (!timeLeft || timeLeft <= 0) {
+    timeLeft = 30 * 60;
+}
 
-    let countdown;
+let timerInterval;
+let localTimerRunning = false;
 
-    const timerElement = document.getElementById("timer");
-    const audio = document.getElementById("listeningAudio");
-    const audioStatus = document.getElementById("audioStatus");
+const timerElement = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
+const audioStatus = document.getElementById("audioStatus");
 
-    function updateTimer() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
 
+    if (timerElement) {
         timerElement.textContent =
             String(minutes).padStart(2, "0") + ":" +
             String(seconds).padStart(2, "0");
     }
+}
 
-    function startTimer() {
-        if (timerStarted) return;
+function runSharedTimer() {
+    if (localTimerRunning) return;
 
-        timerStarted = true;
+    localTimerRunning = true;
 
-        sessionStorage.setItem("listeningTimerStarted", "true");
+    timerInterval = setInterval(function () {
+        timeLeft--;
 
-        audioStatus.textContent =
-            "Listening test in progress. Audio cannot be paused.";
+        sessionStorage.setItem("listeningTimeLeft", timeLeft);
+        updateTimer();
 
-        countdown = setInterval(function () {
-            timeLeft--;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
 
-            sessionStorage.setItem(
-                "listeningTimeLeft",
-                timeLeft
-            );
+            sessionStorage.removeItem("listeningTimeLeft");
+            sessionStorage.removeItem("listeningTimerStarted");
 
-            updateTimer();
-
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-
-                sessionStorage.removeItem("listeningTimeLeft");
-                sessionStorage.removeItem("listeningTimerStarted");
-
+            if (audio) {
                 audio.pause();
                 audio.controls = false;
-                audioStatus.textContent = "Time is up.";
-
-                alert("Time is up.");
             }
-        }, 1000);
+
+            alert("Time is up.");
+        }
+    }, 1000);
+}
+
+function startTimer() {
+    sessionStorage.setItem("listeningTimerStarted", "true");
+
+    if (audioStatus) {
+        audioStatus.textContent =
+            "Listening test in progress. Audio cannot be paused.";
     }
 
-    audio.addEventListener("play", function () {
-        startTimer();
-    });
+    runSharedTimer();
+}
+
+/*
+ * If timer was already started in another part,
+ * continue it immediately when returning to Part 1.
+ */
+if (sessionStorage.getItem("listeningTimerStarted") === "true") {
+    runSharedTimer();
+}
+
+if (audio) {
+    audio.addEventListener("play", startTimer);
 
     audio.addEventListener("pause", function () {
-        if (timerStarted && timeLeft > 0) {
+        if (localTimerRunning && timeLeft > 0) {
             audio.play();
         }
     });
+}
 
-    updateTimer();
+updateTimer();
 
     document.getElementById("submitListeningBtn")
         .addEventListener("click", function () {

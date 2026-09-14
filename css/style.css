@@ -467,7 +467,7 @@ p {
 
 .listening-page {
     min-height: 100vh;
-    padding: 40px 6%;
+    padding: 25px 6% 40px;
     background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
 }
 
@@ -1478,6 +1478,7 @@ body::after {
     position: sticky;
     top: 0;
     z-index: 1000;
+    margin-top: 0;
 
     display: flex;
     justify-content: space-between;
@@ -1536,12 +1537,14 @@ body::after {
     text-align: center;
 }
 
-/* Fixed Listening Part Navigation */
+/* Permanently fixed Listening navigation */
 
 .listening-section-navigation {
-    position: sticky;
-    top: 67px;
-    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
 
     display: flex;
     justify-content: center;
@@ -1549,10 +1552,18 @@ body::after {
     flex-wrap: wrap;
     gap: 5px;
 
-    padding: 10px;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+
     margin: 0;
 
     background: #fff5f5;
-    border: 1px solid #ffbcbc;
-    border-radius: 0 0 6px 6px;
+    border-bottom: 1px solid #ffbcbc;
+}
+
+/* Leave space below the fixed navigation */
+
+body {
+    padding-top: 48px;
 }
