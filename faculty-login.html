@@ -6,6 +6,8 @@
     <title>Faculty Login - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -30,7 +32,7 @@
                 Sign in to manage students, tests, and results.
             </p>
 
-            <form class="auth-form" action="faculty-dashboard.html">
+            <form class="auth-form" id="facultyLoginForm">
 
                 <label for="username">Faculty Username</label>
                 <input
@@ -52,11 +54,60 @@
                     Login
                 </button>
 
+                <p id="loginMessage"></p>
+
             </form>
 
         </div>
 
     </main>
+
+    <script>
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+        const facultyLoginForm =
+            document.getElementById("facultyLoginForm");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+        facultyLoginForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const username =
+                document.getElementById("username").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            loginMessage.textContent = "Checking credentials...";
+
+            const { data, error } = await supabaseClient
+                .from("faculty")
+                .select("*")
+                .eq("username", username)
+                .eq("password", password)
+                .single();
+
+            if (error || !data) {
+                loginMessage.textContent =
+                    "Incorrect username or password.";
+                loginMessage.style.color = "red";
+                return;
+            }
+
+            sessionStorage.setItem("facultyId", data.id);
+            sessionStorage.setItem("facultyName", data.full_name || "");
+
+            window.location.href = "faculty-dashboard.html";
+        });
+    </script>
 
 </body>
 </html>
