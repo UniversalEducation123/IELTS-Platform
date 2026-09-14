@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Reading Test</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+</head>
+
+<body>
+
+<header class="navbar">
+    <a href="../index.html" class="logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
+    </a>
+
+    <nav>
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../student-login.html">Logout</a>
+    </nav>
+</header>
+
+<main class="reading-wrapper">
+
+    <div class="reading-top">
+        <h1>IELTS Academic Reading Test</h1>
+        <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="part-buttons">
+        <button type="button" onclick="showPart(1)">Part 1</button>
+        <button type="button" onclick="showPart(2)">Part 2</button>
+        <button type="button" onclick="showPart(3)">Part 3</button>
+    </div>
+
+    <form id="readingForm">
+
+        <!-- PART 1 -->
+
+        <section id="part1" class="reading-part active">
+
+            <div class="passage">
+                <h2>Passage 1: Do animals dream?</h2>
+
+                <p>
+                    Studies using electrodes attached to the heads of sleepers
+                    have shown that when we sleep, we do so in two ways that
+                    alternate throughout the night. The first is rapid eye
+                    movement (REM) or active sleep. During this stage our eyes
+                    move, even though our eyelids are closed. Our muscles also
+                    twitch slightly, though they are largely paralysed so we
+                    don't hurt ourselves. In contrast, we also engage in
+                    non-REM sleep, during which we barely move at all. Most
+                    dream states, and certainly those with the most vivid
+                    dreams, happen during REM sleep.
+                </p>
+
+                <p>
+                    There's some evidence that other mammals may also dream.
+                    For example, researchers compared the brain patterns of
+                    rats running through a maze when awake with their brain
+                    patterns during REM sleep. They found the patterns were
+                    very similar and concluded that the sleeping rats were
+                    dreaming about going through the maze.
+                </p>
+
+                <p>
+                    Researchers also recorded brain activity in sleeping
+                    pigeons. As in mammals, the recordings revealed both REM
+                    and non-REM sleep. REM sleep activity was high in brain
+                    regions involved in processing visual information,
+                    especially images related to physical activities such as
+                    flying.
+                </p>
+
+                <p>
+                    Whales and dolphins do not shut down their entire brain
+                    when they sleep, but only half of it, keeping the rest
+                    awake. They show no sign of REM sleep. It is thought that
+                    they don't experience REM sleep because during REM sleep
+                    animals are more vulnerable to extremes of temperature.
+                </p>
+
+                <p>
+                    Growing evidence from birds and mammals suggests that REM
+                    sleep and dreaming are important for forming memories and
+                    learning. When events are replayed in dreams, this helps
+                    integrate memories into longer-term storage.
+                </p>
+
+                <p>
+                    We still cannot know exactly what animals experience in
+                    their dreams. Dogs primarily navigate the world using
+                    smell, while spiders rely much more on vibrations.
+                    Therefore, their dream experiences may be very different
+                    from human dreams.
+                </p>
+
+                <p>
+                    In 2019, David Scheel observed an octopus named Heidi
+                    apparently dreaming. Another octopus called Costello
+                    appeared to have a nightmare. However, brain imaging is
+                    still needed to prove that octopuses replay activities
+                    from their waking lives.
+                </p>
+            </div>
+
+            <h2>Questions 1–5</h2>
+            <p>Complete the table. Choose ONE WORD ONLY.</p>
+
+            <div class="question">
+                <p>1. Researchers studied the brain patterns of sleeping ______.</p>
+                <input type="text" name="q1">
+            </div>
+
+            <div class="question">
+                <p>2. Pigeons showed activity in areas processing ______ information.</p>
+                <input type="text" name="q2">
+            </div>
+
+            <div class="question">
+                <p>3. Whales and dolphins keep ______ of their brain awake.</p>
+                <input type="text" name="q3">
+            </div>
+
+            <div class="question">
+                <p>4. REM sleep may make animals vulnerable to extremes of ______.</p>
+                <input type="text" name="q4">
+            </div>
+
+            <div class="question">
+                <p>5. Non-REM dreams are probably less ______.</p>
+                <input type="text" name="q5">
+            </div>
+
+            <h2>Questions 6–13</h2>
+            <p>Choose TRUE, FALSE or NOT GIVEN.</p>
+
+            <div class="question">
+                <p>6. Dreaming about past experiences helps us create lasting memories.</p>
+                <label><input type="radio" name="q6" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q6" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q6" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>7. It is now possible to tell what type of dream a dog is having.</p>
+                <label><input type="radio" name="q7" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q7" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q7" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>8. David Scheel's documentary influenced other octopus research.</p>
+                <label><input type="radio" name="q8" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q8" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>9. Costello reacted as if it was hunting while asleep.</p>
+                <label><input type="radio" name="q9" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q9" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>10. Scheel believes more research into octopus dreams is needed.</p>
+                <label><input type="radio" name="q10" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q10" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>11. We may soon be able to share other people's dreams.</p>
+                <label><input type="radio" name="q11" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q11" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>12. Hearing may be important in the dreams of some animals.</p>
+                <label><input type="radio" name="q12" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q12" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>13. Interest in why humans dream has increased greatly recently.</p>
+                <label><input type="radio" name="q13" value="TRUE"> TRUE</label>
+                <label><input type="radio" name="q13" value="FALSE"> FALSE</label>
+                <label><input type="radio" name="q13" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+        </section>
+
+
+        <!-- PART 2 -->
+
+        <section id="part2" class="reading-part">
+
+            <div class="passage">
+                <h2>Passage 2: Mapungubwe</h2>
+
+                <p>
+                    Mapungubwe was a kingdom in southern Africa below the
+                    Limpopo River. It flourished between the eleventh and
+                    thirteenth centuries CE. It was formed by Bantu-speaking
+                    farmers. Cattle herding and farming produced food surpluses
+                    that could be traded for other goods.
+                </p>
+
+                <p>
+                    At its peak, the population was around 5,000 people.
+                    The king was probably the wealthiest individual and lived
+                    with advisers in a stone enclosure on top of a natural
+                    sandstone hill. Other people lived in mud and thatch houses
+                    below the hill.
+                </p>
+
+                <p>
+                    Members of the king's family probably lived in grander
+                    residences around Babandyanalo. Local chiefs lived in
+                    smaller stone residences across the plateau.
+                </p>
+
+                <p>
+                    Animal remains and ivory suggest trade with coastal areas.
+                    Glass beads probably came from India. Trade links helped
+                    strengthen political authority.
+                </p>
+
+                <p>
+                    Pottery was produced on a large scale, suggesting prosperity.
+                    Finds included vessels, bowls, ceramic discs, whistles,
+                    animal figurines and stylised human figures. Some figures
+                    may have been used as offerings to ancestors, although
+                    their exact purpose is unknown. Copper jewellery was also
+                    discovered.
+                </p>
+
+                <p>
+                    Gold objects were found at the royal burial site. Gold was
+                    made into rectangular sheets with geometric patterns.
+                    Similar decoration was found at Great Zimbabwe. Mapungubwe
+                    declined partly because of overpopulation, pressure on
+                    resources and possible droughts. Trade routes may also
+                    have moved northwards.
+                </p>
+            </div>
+
+            <h2>Questions 14–19</h2>
+            <p>Which paragraph A–G contains the information?</p>
+
+            <div class="question">
+                <p>14. Uncertainty regarding the purpose of certain objects.</p>
+                <input type="text" name="q14">
+            </div>
+
+            <div class="question">
+                <p>15. A climatic factor increased the problems faced by Mapungubwe.</p>
+                <input type="text" name="q15">
+            </div>
+
+            <div class="question">
+                <p>16. Location where members of the king's family lived.</p>
+                <input type="text" name="q16">
+            </div>
+
+            <div class="question">
+                <p>17. People who brought goods by ship.</p>
+                <input type="text" name="q17">
+            </div>
+
+            <div class="question">
+                <p>18. Estimate of the size of the community.</p>
+                <input type="text" name="q18">
+            </div>
+
+            <div class="question">
+                <p>19. Agricultural produce exchanged for other items.</p>
+                <input type="text" name="q19">
+            </div>
+
+            <h2>Questions 20–21</h2>
+            <p>Choose TWO letters, A–E.</p>
+
+            <div class="question">
+                <p>20–21. Which TWO pieces of information about gold are mentioned?</p>
+                <label><input type="checkbox" name="q20" value="A"> A. Not everyone used gold as payment.</label>
+                <label><input type="checkbox" name="q20" value="B"> B. Gold items were found near royal burials.</label>
+                <label><input type="checkbox" name="q20" value="C"> C. The most valuable item was a gold sceptre.</label>
+                <label><input type="checkbox" name="q20" value="D"> D. Gold decoration was also practised in another kingdom.</label>
+                <label><input type="checkbox" name="q20" value="E"> E. Gold working was a respected occupation.</label>
+            </div>
+
+            <div class="question">
+                <p>22. The amount of professional pottery indicates the community's ______.</p>
+                <input type="text" name="q22">
+            </div>
+
+            <div class="question">
+                <p>23. Other finds included ceramic discs and ______.</p>
+                <input type="text" name="q23">
+            </div>
+
+            <div class="question">
+                <p>24. Human figures had elongated ______.</p>
+                <input type="text" name="q24">
+            </div>
+
+            <div class="question">
+                <p>25. The figures may have been offerings to ______.</p>
+                <input type="text" name="q25">
+            </div>
+
+            <div class="question">
+                <p>26. Small pieces of ______ made from copper were found.</p>
+                <input type="text" name="q26">
+            </div>
+
+        </section>
+
+
+        <!-- PART 3 -->
+
+        <section id="part3" class="reading-part">
+
+            <div class="passage">
+                <h2>Passage 3: Artificial Intelligence</h2>
+
+                <p>
+                    In many Western countries, excitement about artificial
+                    intelligence is widespread. Media reports suggest that AI
+                    may cure diseases, accelerate innovation and improve
+                    creativity. This has created a mindset called AI
+                    solutionism: the belief that enough data and machine
+                    learning can solve all human problems.
+                </p>
+
+                <p>
+                    This mindset can be dangerous because it creates
+                    unrealistic expectations and ignores AI safety principles.
+                    Governments are competing to dominate machine learning,
+                    but politicians often fail to understand the complexity
+                    of introducing advanced systems into the real world.
+                </p>
+
+                <p>
+                    Neural networks are modelled loosely on the human brain.
+                    However, simply adding a neural network does not
+                    automatically make a system fair or inclusive. Public
+                    organisations often lack suitable data infrastructure.
+                    Data may be stored offline, hidden in bureaucracy or
+                    spread across departments requiring special permission.
+                </p>
+
+                <p>
+                    Public organisations also lack people with the skills
+                    needed to use machine intelligence effectively.
+                    Researchers such as Stuart Russell recommend practical,
+                    everyday applications rather than exaggerated predictions.
+                    Rodney Brooks argues that AI innovations take much longer
+                    to become widely used than people expect.
+                </p>
+
+                <p>
+                    AI systems are vulnerable to adversarial attacks. One AI
+                    may deliberately manipulate another AI into making wrong
+                    predictions. Security standards and defence mechanisms
+                    are often overlooked.
+                </p>
+
+                <p>
+                    AI should be applied carefully in government, business
+                    and society. People must discuss ethics, distrust and
+                    the limitations of AI. Human beings still need to lead
+                    in many areas.
+                </p>
+
+                <p>
+                    IBM Watson for Oncology was designed to help doctors
+                    treat cancer, but medical experts found it difficult to
+                    trust its recommendations and the programme was abandoned
+                    in many hospitals. In the legal system, algorithms used
+                    to assess criminal risk were found to amplify structural
+                    discrimination and were also abandoned.
+                </p>
+            </div>
+
+            <h2>Questions 27–29</h2>
+
+            <div class="question">
+                <p>27. What is the writer doing in the first paragraph?</p>
+                <label><input type="radio" name="q27" value="A"> A. Predicting the future impact of AI</label>
+                <label><input type="radio" name="q27" value="B"> B. Describing public perception of AI</label>
+                <label><input type="radio" name="q27" value="C"> C. Outlining possible benefits of AI</label>
+                <label><input type="radio" name="q27" value="D"> D. Highlighting the breadth of AI influence</label>
+            </div>
+
+            <div class="question">
+                <p>28. When discussing AI solutionism, the writer:</p>
+                <label><input type="radio" name="q28" value="A"> A. Points out a risk involved</label>
+                <label><input type="radio" name="q28" value="B"> B. Specifies its origins</label>
+                <label><input type="radio" name="q28" value="C"> C. Mentions its chief supporters</label>
+                <label><input type="radio" name="q28" value="D"> D. Weighs up pros and cons</label>
+            </div>
+
+            <div class="question">
+                <p>29. Many politicians may:</p>
+                <label><input type="radio" name="q29" value="A"> A. Fail to appreciate AI's true potential</label>
+                <label><input type="radio" name="q29" value="B"> B. Misunderstand the function of machine learning</label>
+                <label><input type="radio" name="q29" value="C"> C. Be unaware of challenges of implementation</label>
+                <label><input type="radio" name="q29" value="D"> D. Be too keen to dominate the sector</label>
+            </div>
+
+            <h2>Questions 30–35</h2>
+            <p>Choose the correct word from the list.</p>
+
+            <div class="question">
+                <p>30. Neural networks may promote ______.</p>
+                <label><input type="radio" name="q30" value="A"> A. reliability</label>
+                <label><input type="radio" name="q30" value="B"> B. funding</label>
+                <label><input type="radio" name="q30" value="C"> C. skills</label>
+                <label><input type="radio" name="q30" value="D"> D. prejudices</label>
+                <label><input type="radio" name="q30" value="E"> E. computers</label>
+                <label><input type="radio" name="q30" value="F"> F. equality</label>
+                <label><input type="radio" name="q30" value="G"> G. framework</label>
+                <label><input type="radio" name="q30" value="H"> H. confidentiality</label>
+                <label><input type="radio" name="q30" value="I"> I. approval</label>
+            </div>
+
+            <div class="question">
+                <p>31. Public organisations lack the necessary data ______.</p>
+                <label><input type="radio" name="q31" value="G"> G. framework</label>
+                <label><input type="radio" name="q31" value="F"> F. equality</label>
+                <label><input type="radio" name="q31" value="A"> A. reliability</label>
+            </div>
+
+            <div class="question">
+                <p>32. People need special ______ to access data.</p>
+                <label><input type="radio" name="q32" value="I"> I. approval</label>
+                <label><input type="radio" name="q32" value="H"> H. confidentiality</label>
+                <label><input type="radio" name="q32" value="B"> B. funding</label>
+            </div>
+
+            <div class="question">
+                <p>33. Employees lack the necessary ______.</p>
+                <label><input type="radio" name="q33" value="C"> C. skills</label>
+                <label><input type="radio" name="q33" value="E"> E. computers</label>
+                <label><input type="radio" name="q33" value="G"> G. framework</label>
+            </div>
+
+            <div class="question">
+                <p>34. Medical experts distrusted the programme's ______.</p>
+                <label><input type="radio" name="q34" value="A"> A. reliability</label>
+                <label><input type="radio" name="q34" value="I"> I. approval</label>
+                <label><input type="radio" name="q34" value="F"> F. equality</label>
+            </div>
+
+            <div class="question">
+                <p>35. Legal algorithms amplified existing ______.</p>
+                <label><input type="radio" name="q35" value="D"> D. prejudices</label>
+                <label><input type="radio" name="q35" value="B"> B. funding</label>
+                <label><input type="radio" name="q35" value="H"> H. confidentiality</label>
+            </div>
+
+            <h2>Questions 36–39</h2>
+
+            <div class="question">
+                <p>36. Stuart Russell's proposals are impractical.</p>
+                <label><input type="radio" name="q36" value="YES"> YES</label>
+                <label><input type="radio" name="q36" value="NO"> NO</label>
+                <label><input type="radio" name="q36" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>37. Rodney Brooks' view has attracted unfair criticism.</p>
+                <label><input type="radio" name="q37" value="YES"> YES</label>
+                <label><input type="radio" name="q37" value="NO"> NO</label>
+                <label><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>38. AI security is always considered when systems are installed.</p>
+                <label><input type="radio" name="q38" value="YES"> YES</label>
+                <label><input type="radio" name="q38" value="NO"> NO</label>
+                <label><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>39. We must explore people's concerns about AI.</p>
+                <label><input type="radio" name="q39" value="YES"> YES</label>
+                <label><input type="radio" name="q39" value="NO"> NO</label>
+                <label><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
+            </div>
+
+            <div class="question">
+                <p>40. Choose the best subtitle for Passage 3.</p>
+                <label><input type="radio" name="q40" value="A"> A. How to make the most of AI</label>
+                <label><input type="radio" name="q40" value="B"> B. Why AI may not be the answer to our problems</label>
+                <label><input type="radio" name="q40" value="C"> C. Why governments should not invest in AI</label>
+                <label><input type="radio" name="q40" value="D"> D. How AI could improve public-sector efficiency</label>
+            </div>
+
+        </section>
+
+        <button type="button" class="submit-reading" onclick="submitReadingTest()">
+            Submit Reading Test
+        </button>
+
+    </form>
+
+    <div id="resultBox"></div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* Use your existing Supabase URL and existing anon key */
+const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+let timeLeft = 60 * 60;
+let submitted = false;
+
+const answers = {
+    q1: "rats",
+    q2: "visual",
+    q3: "half",
+    q4: "temperature",
+    q5: "vivid",
+
+    q6: "TRUE",
+    q7: "FALSE",
+    q8: "NOT GIVEN",
+    q9: "FALSE",
+    q10: "TRUE",
+    q11: "FALSE",
+    q12: "NOT GIVEN",
+    q13: "NOT GIVEN",
+
+    q14: "E",
+    q15: "G",
+    q16: "C",
+    q17: "D",
+    q18: "B",
+    q19: "A",
+
+    q20: ["B", "D"],
+
+    q22: "prosperity",
+    q23: "whistles",
+    q24: "bodies",
+    q25: "ancestors",
+    q26: ["jewellery", "jewelry"],
+
+    q27: "B",
+    q28: "A",
+    q29: "C",
+    q30: "F",
+    q31: "G",
+    q32: "I",
+    q33: "C",
+    q34: "A",
+    q35: "D",
+
+    q36: "NO",
+    q37: "NOT GIVEN",
+    q38: "NO",
+    q39: "YES",
+    q40: "B"
+};
+
+function showPart(number) {
+    document.querySelectorAll(".reading-part").forEach(part => {
+        part.classList.remove("active");
+    });
+
+    document.getElementById("part" + number).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function updateTimer() {
+    if (submitted) return;
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+    if (timeLeft <= 0) {
+        submitReadingTest();
+        return;
+    }
+
+    timeLeft--;
+}
+
+setInterval(updateTimer, 1000);
+
+function normalize(value) {
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+function getAnswer(questionNumber) {
+    const element = document.querySelector(
+        `[name="q${questionNumber}"]:checked`
+    );
+
+    if (element) {
+        return element.value;
+    }
+
+    const textInput = document.querySelector(
+        `input[name="q${questionNumber}"]`
+    );
+
+    if (textInput) {
+        return textInput.value;
+    }
+
+    return "";
+}
+
+function submitReadingTest() {
+    if (submitted) return;
+
+    submitted = true;
+
+    let score = 0;
+
+    for (let i = 1; i <= 40; i++) {
+        const questionName = "q" + i;
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers[questionName];
+
+        if (Array.isArray(correctAnswer)) {
+            const selected = [
+                ...document.querySelectorAll(
+                    `input[name="${questionName}"]:checked`
+                )
+            ].map(item => item.value);
+
+            const correct = correctAnswer.every(answer =>
+                selected.includes(answer)
+            ) && selected.length === correctAnswer.length;
+
+            if (correct) score++;
+        } else {
+            if (
+                normalize(userAnswer) ===
+                normalize(correctAnswer)
+            ) {
+                score++;
+            }
+        }
+    }
+
+    saveReadingScore(score);
+}
+
+async function saveReadingScore(score) {
+    const studentId = sessionStorage.getItem("studentId");
+
+    const resultBox = document.getElementById("resultBox");
+
+    resultBox.style.display = "block";
+    resultBox.innerHTML = `
+        <h2>Reading Test Completed</h2>
+        <p>Your score is:</p>
+        <h1>${score} / 40</h1>
+        <p>Saving your result...</p>
+    `;
+
+    document.querySelector(".submit-reading").disabled = true;
+
+    if (!studentId) {
+        resultBox.innerHTML += `
+            <p>Your result could not be linked to a student account.</p>
+        `;
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("test_results")
+        .insert({
+            student_id: Number(studentId),
+            test_name: "Test 2 - Reading",
+            reading_score: score
+        });
+
+    if (error) {
+        console.error(error);
+
+        resultBox.innerHTML = `
+            <h2>Reading Test Completed</h2>
+            <h1>${score} / 40</h1>
+            <p>Score calculated, but saving failed.</p>
+        `;
+        return;
+    }
+
+    resultBox.innerHTML = `
+        <h2>Reading Test Completed</h2>
+        <h1>${score} / 40</h1>
+        <p>Your Reading score has been saved successfully.</p>
+        <br>
+        <a href="../student-dashboard.html">Return to Dashboard</a>
+    `;
+}
+</script>
+
+</body>
+</html>

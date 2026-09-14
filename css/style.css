@@ -1113,3 +1113,218 @@ body::after {
     display: block;
     object-fit: contain;
 }
+
+/* ============================= */
+/* IELTS READING TEST PAGE */
+/* ============================= */
+
+:root {
+    --reading-primary-green: #123c2b;
+    --reading-secondary-green: #1f5c43;
+    --reading-light-green: #eef5f0;
+    --reading-accent-pink: #d98aa5;
+    --reading-text-dark: #24352d;
+    --reading-border-light: #dce6df;
+    --reading-white: #ffffff;
+}
+
+.reading-wrapper {
+    max-width: 1150px;
+    margin: 35px auto;
+    padding: 20px;
+    color: var(--reading-text-dark);
+}
+
+.reading-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: var(--reading-light-green);
+    border-left: 5px solid var(--reading-accent-pink);
+    padding: 22px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.reading-top h1 {
+    color: var(--reading-primary-green);
+    margin: 0;
+    font-size: 28px;
+}
+
+.timer {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--reading-accent-pink);
+    background: var(--reading-white);
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--reading-border-light);
+    white-space: nowrap;
+}
+
+.part-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.part-buttons button {
+    padding: 12px 24px;
+    border: 1px solid var(--reading-secondary-green);
+    border-radius: 7px;
+    cursor: pointer;
+    background: var(--reading-primary-green);
+    color: var(--reading-white);
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.part-buttons button:hover {
+    background: var(--reading-secondary-green);
+    transform: translateY(-1px);
+}
+
+.reading-part {
+    display: none;
+}
+
+.reading-part.active {
+    display: block;
+}
+
+.passage {
+    background: var(--reading-light-green);
+    border: 1px solid var(--reading-border-light);
+    padding: 25px;
+    border-radius: 10px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.passage h2 {
+    color: var(--reading-primary-green);
+    margin-top: 0;
+    border-bottom: 2px solid var(--reading-accent-pink);
+    padding-bottom: 10px;
+}
+
+.question {
+    border: 1px solid var(--reading-border-light);
+    padding: 18px;
+    border-radius: 9px;
+    margin: 16px 0;
+    background: var(--reading-white);
+    box-shadow: 0 2px 7px rgba(18, 60, 43, 0.05);
+}
+
+.question p {
+    font-weight: 600;
+    color: var(--reading-text-dark);
+}
+
+.question input[type="text"] {
+    padding: 10px;
+    width: 240px;
+    max-width: 100%;
+    margin-top: 8px;
+    border: 1px solid #bfcfc4;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.question input[type="text"]:focus {
+    outline: none;
+    border-color: var(--reading-accent-pink);
+    box-shadow: 0 0 0 2px rgba(217, 138, 165, 0.15);
+}
+
+.question label {
+    display: block;
+    margin: 9px 0;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.question input[type="radio"],
+.question input[type="checkbox"] {
+    accent-color: var(--reading-secondary-green);
+    margin-right: 8px;
+}
+
+.reading-wrapper h2 {
+    color: var(--reading-primary-green);
+    margin-top: 30px;
+}
+
+.submit-reading {
+    margin-top: 30px;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 7px;
+    background: var(--reading-accent-pink);
+    color: var(--reading-white);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.submit-reading:hover {
+    background: #c67592;
+    transform: translateY(-1px);
+}
+
+.submit-reading:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#resultBox {
+    display: none;
+    background: var(--reading-light-green);
+    border: 1px solid var(--reading-secondary-green);
+    padding: 28px;
+    border-radius: 10px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+#resultBox h1 {
+    color: var(--reading-primary-green);
+    font-size: 40px;
+}
+
+#resultBox a {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--reading-secondary-green);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+    .reading-wrapper {
+        padding: 12px;
+    }
+
+    .reading-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .reading-top h1 {
+        font-size: 23px;
+    }
+
+    .timer {
+        font-size: 22px;
+    }
+
+    .passage,
+    .question {
+        padding: 16px;
+    }
+}
