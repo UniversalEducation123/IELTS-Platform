@@ -612,163 +612,86 @@
     });
 
 
-    /*
-     * SUBMIT PART 3
-     */
+   /*
+ * SUBMIT PART 3
+ */
 
-    document.getElementById("submitPart3Btn")
-        .addEventListener("click", function() {
+document.getElementById("submitPart3Btn")
+    .addEventListener("click", function() {
 
+        const q21_22 = getSelected("q21_22");
 
-            const q21_22 = getSelected("q21_22");
+        const q23_24 = getSelected("q23_24");
 
-            const q23_24 = getSelected("q23_24");
+        const q25_26 = getSelected("q25_26");
 
-            const q25_26 = getSelected("q25_26");
+        const q27 = document
+            .getElementById("q27")
+            .value
+            .trim()
+            .toUpperCase();
 
+        const q28 = document
+            .getElementById("q28")
+            .value
+            .trim()
+            .toUpperCase();
 
-            const q27 = document
-                .getElementById("q27")
-                .value
-                .trim()
-                .toUpperCase();
+        const q29 = document
+            .getElementById("q29")
+            .value
+            .trim()
+            .toUpperCase();
 
-            const q28 = document
-                .getElementById("q28")
-                .value
-                .trim()
-                .toUpperCase();
-
-            const q29 = document
-                .getElementById("q29")
-                .value
-                .trim()
-                .toUpperCase();
-
-            const q30 = document
-                .getElementById("q30")
-                .value
-                .trim()
-                .toUpperCase();
+        const q30 = document
+            .getElementById("q30")
+            .value
+            .trim()
+            .toUpperCase();
 
 
-            /*
-             * Validate Questions 21–22
-             */
-
-            if (q21_22.length !== 2) {
-
-                alert(
-                    "Please select exactly TWO answers for Questions 21–22."
-                );
-
-                return;
-
-            }
+        /*
+         * No required-answer validation here.
+         * Students can continue even if answers are empty.
+         */
 
 
-            /*
-             * Validate Questions 23–24
-             */
+        /*
+         * Save answers
+         */
 
-            if (q23_24.length !== 2) {
+        const answers = {
 
-                alert(
-                    "Please select exactly TWO answers for Questions 23–24."
-                );
+            q21_22: q21_22,
 
-                return;
+            q23_24: q23_24,
 
-            }
+            q25_26: q25_26,
 
+            q27: q27,
 
-            /*
-             * Validate Questions 25–26
-             */
+            q28: q28,
 
-            if (q25_26.length !== 2) {
+            q29: q29,
 
-                alert(
-                    "Please select exactly TWO answers for Questions 25–26."
-                );
+            q30: q30
 
-                return;
-
-            }
+        };
 
 
-            /*
-             * Validate Questions 27–30
-             */
-
-            if (!q27 || !q28 || !q29 || !q30) {
-
-                alert(
-                    "Please answer Questions 27–30."
-                );
-
-                return;
-
-            }
+        sessionStorage.setItem(
+            "listeningPart3Answers",
+            JSON.stringify(answers)
+        );
 
 
-            /*
-             * Validate that answers are A–F
-             */
+        /*
+         * Continue to Part 4
+         */
 
-            const flowchartAnswers = [q27, q28, q29, q30];
+        window.location.href = "listening-test-4.html";
 
-            for (let i = 0; i < flowchartAnswers.length; i++) {
-
-                if (!/^[A-F]$/.test(flowchartAnswers[i])) {
-
-                    alert(
-                        "Questions 27–30 must contain one letter from A to F."
-                    );
-
-                    return;
-
-                }
-
-            }
-
-
-            /*
-             * Save answers
-             */
-
-            const answers = {
-
-                q21_22: q21_22,
-
-                q23_24: q23_24,
-
-                q25_26: q25_26,
-
-                q27: q27,
-
-                q28: q28,
-
-                q29: q29,
-
-                q30: q30
-
-            };
-
-
-            sessionStorage.setItem(
-                "listeningPart3Answers",
-                JSON.stringify(answers)
-            );
-
-
-            /*
-             * Continue to Part 4
-             */
-
-            window.location.href = "listening-test-4.html";
-
-        });
+    });
 
        function updateQuestionProgress() {
     // Questions 21–22

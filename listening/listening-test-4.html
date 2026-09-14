@@ -236,19 +236,24 @@ audio.addEventListener("pause", function () {
     }
 });
 
+
+/*
+ * SUBMIT PART 4
+ * Students can finish even if some answers are empty.
+ */
+
 document.getElementById("submitPart4Btn").addEventListener("click", function () {
 
     const answers = {};
 
     for (let i = 31; i <= 40; i++) {
-        const value = document.getElementById(`q${i}`).value.trim();
+        const input = document.getElementById(`q${i}`);
 
-        if (!value) {
-            alert(`Please answer Question ${i}.`);
-            return;
+        if (input) {
+            answers[`q${i}`] = input.value.trim();
+        } else {
+            answers[`q${i}`] = "";
         }
-
-        answers[`q${i}`] = value;
     }
 
     sessionStorage.setItem(
@@ -259,9 +264,15 @@ document.getElementById("submitPart4Btn").addEventListener("click", function () 
     window.location.href = "listening-final.html";
 });
 
+
+/*
+ * QUESTION PROGRESS
+ */
+
 function updateQuestionProgress() {
     for (let i = 31; i <= 40; i++) {
         const input = document.querySelector(`[name="q${i}"]`);
+
         const button = document.querySelector(
             `.question-progress-button[data-question="${i}"]`
         );
@@ -296,6 +307,11 @@ document.querySelectorAll(
     input.addEventListener("change", updateQuestionProgress);
     input.addEventListener("input", updateQuestionProgress);
 });
+
+
+/*
+ * JUMP TO QUESTION
+ */
 
 function goToQuestion(questionNumber) {
     const input = document.querySelector(
