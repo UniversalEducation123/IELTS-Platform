@@ -1068,3 +1068,30 @@ body::after {
     height: auto;
     margin: 0 auto;
 }
+
+/* Listening test navigation buttons */
+
+.continue-button,
+.finish-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 14px 24px;
+    background: #b85c78;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.continue-button:hover,
+.finish-button:hover {
+    background: #963f5e;
+}
