@@ -7,52 +7,52 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body class="listening-page">
+<body>
 
     <div class="listening-section-navigation">
-    <strong>Go to:</strong>
+        <strong>Go to:</strong>
 
-    <a href="listening-test-1.html"
-       class="section-jump-button">
-        Part 1
-    </a>
+        <a href="listening-test-1.html"
+           class="section-jump-button">
+            Part 1
+        </a>
 
-    <a href="listening-test-2.html"
-       class="section-jump-button">
-        Part 2
-    </a>
+        <a href="listening-test-2.html"
+           class="section-jump-button">
+            Part 2
+        </a>
 
-    <a href="listening-test-3.html"
-       class="section-jump-button">
-        Part 3
-    </a>
+        <a href="listening-test-3.html"
+           class="section-jump-button">
+            Part 3
+        </a>
 
-    <a href="listening-test-4.html"
-       class="section-jump-button active-section">
-        Part 4
-    </a>
-</div>
+        <a href="listening-test-4.html"
+           class="section-jump-button active-section">
+            Part 4
+        </a>
+    </div>
 
-<header class="main-header">
-    <div class="logo">IELTS Practice</div>
+    <header class="main-header">
+        <div class="logo">IELTS Practice</div>
 
-    <div class="header-right">
-        <div class="header-timer">
-            <span>Time Remaining</span>
-            <strong id="timer">30:00</strong>
+        <div class="header-right">
+            <div class="header-timer">
+                <span>Time Remaining</span>
+                <strong id="timer">--:--</strong>
+            </div>
+
+            <a href="../student-dashboard.html">Dashboard</a>
+            <a href="../index.html">Logout</a>
         </div>
+    </header>
 
-        <a href="student-dashboard.html">Dashboard</a>
-        <a href="index.html">Logout</a>
-    </div>
-</header>
-
-<section class="listening-header">
-    <div>
-        <h1>Part 4</h1>
-        <p>Questions 31–40</p>
-    </div>
-</section>
+    <section class="listening-header">
+        <div>
+            <h1>Part 4</h1>
+            <p>Questions 31–40</p>
+        </div>
+    </section>
 
 <main class="listening-container">
 
@@ -214,61 +214,53 @@
  * SHARED LISTENING TIMER
  */
 
-let timeLeft = Number(
-    sessionStorage.getItem("listeningTimeLeft")
-);
+let savedTime = sessionStorage.getItem("listeningTimeLeft");
 
-if (!timeLeft || timeLeft <= 0) {
-    timeLeft = 30 * 60;
-}
+let timeLeft = savedTime !== null
+    ? Number(savedTime)
+    : 30 * 60;
 
-let timerStarted =
+const timerStarted =
     sessionStorage.getItem("listeningTimerStarted") === "true";
 
-let timerInterval;
+const timerElement = document.getElementById("timer");
 
-const timerDisplay = document.getElementById("timer");
-const audio = document.getElementById("listeningAudio");
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
 
-function startTimer() {
-    if (timerStarted) return;
-
-    timerStarted = true;
-
-    sessionStorage.setItem(
-        "listeningTimerStarted",
-        "true"
-    );
-
-    timerInterval = setInterval(() => {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-
-        timerDisplay.textContent =
-            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-        sessionStorage.setItem(
-            "listeningTimeLeft",
-            timeLeft
-        );
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-
-            sessionStorage.removeItem("listeningTimeLeft");
-            sessionStorage.removeItem("listeningTimerStarted");
-
-            if (audio) {
-                audio.pause();
-                audio.controls = false;
-            }
-
-            alert("Time is up.");
-        }
-
-        timeLeft--;
-    }, 1000);
+    timerElement.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
 }
+
+if (timerStarted) {
+    updateTimer();
+} else {
+    timerElement.textContent = "--:--";
+}
+
+const timerInterval = setInterval(function() {
+    if (!timerStarted) return;
+
+    timeLeft--;
+
+    sessionStorage.setItem("listeningTimeLeft", timeLeft);
+
+    updateTimer();
+
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+
+        sessionStorage.removeItem("listeningTimeLeft");
+        sessionStorage.removeItem("listeningTimerStarted");
+
+        timerElement.textContent = "00:00";
+
+        alert("Time is up.");
+    }
+}, 1000);
+
 
 if (audio) {
     audio.addEventListener("play", startTimer);

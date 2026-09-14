@@ -1393,17 +1393,27 @@ body::after {
 }
 
 /* Listening section navigation */
+/* Listening section navigation */
 .listening-section-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
-    padding: 10px;
-    margin: 15px 0;
+
+    height: 48px;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    margin: 0;
+
     background: #fff5f5;
-    border: 1px solid #ffbcbc;
-    border-radius: 5px;
+    border-bottom: 1px solid #ffbcbc;
 }
 
 .listening-section-navigation strong {
@@ -1475,10 +1485,11 @@ body::after {
 /* Fixed IELTS Listening Header */
 
 .main-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    margin-top: 0;
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    z-index: 1999;
 
     display: flex;
     justify-content: space-between;
@@ -1486,11 +1497,15 @@ body::after {
 
     width: 100%;
     box-sizing: border-box;
-
     padding: 14px 25px;
+
     background: white;
     border-bottom: 1px solid #dddddd;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    padding-top: 125px;
 }
 
 .main-header .logo {
@@ -1537,33 +1552,6 @@ body::after {
     text-align: center;
 }
 
-/* Permanently fixed Listening navigation */
 
-.listening-section-navigation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2000;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
 
-    height: 48px;
-    box-sizing: border-box;
-    padding: 8px 10px;
-
-    margin: 0;
-
-    background: #fff5f5;
-    border-bottom: 1px solid #ffbcbc;
-}
-
-/* Leave space below the fixed navigation */
-
-body {
-    padding-top: 48px;
-}
