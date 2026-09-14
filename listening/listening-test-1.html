@@ -271,9 +271,16 @@
 
     </main>
 
-    <script>
-    let timeLeft = 30 * 60;
-    let timerStarted = false;
+   <script>
+    let timeLeft = Number(sessionStorage.getItem("listeningTimeLeft"));
+
+    if (!timeLeft || timeLeft <= 0) {
+        timeLeft = 30 * 60;
+    }
+
+    let timerStarted =
+        sessionStorage.getItem("listeningTimerStarted") === "true";
+
     let countdown;
 
     const timerElement = document.getElementById("timer");
@@ -294,18 +301,31 @@
 
         timerStarted = true;
 
+        sessionStorage.setItem("listeningTimerStarted", "true");
+
         audioStatus.textContent =
             "Listening test in progress. Audio cannot be paused.";
 
         countdown = setInterval(function () {
             timeLeft--;
+
+            sessionStorage.setItem(
+                "listeningTimeLeft",
+                timeLeft
+            );
+
             updateTimer();
 
             if (timeLeft <= 0) {
                 clearInterval(countdown);
+
+                sessionStorage.removeItem("listeningTimeLeft");
+                sessionStorage.removeItem("listeningTimerStarted");
+
                 audio.pause();
                 audio.controls = false;
                 audioStatus.textContent = "Time is up.";
+
                 alert("Time is up.");
             }
         }, 1000);
@@ -323,63 +343,68 @@
 
     updateTimer();
 
-    document.getElementById("submitListeningBtn").addEventListener("click", function () {
-    const answers = {};
+    document.getElementById("submitListeningBtn")
+        .addEventListener("click", function () {
 
-    for (let i = 1; i <= 10; i++) {
-        const input = document.querySelector(`[name="q${i}"]`);
+            const answers = {};
 
-        if (input) {
-            const answer = input.value.trim();
+            for (let i = 1; i <= 10; i++) {
+                const input = document.querySelector(`[name="q${i}"]`);
 
-            answers[`q${i}`] = answer;
-        }
-    }
+                if (input) {
+                    answers[`q${i}`] = input.value.trim();
+                }
+            }
 
+            sessionStorage.setItem(
+                "listeningPart1Answers",
+                JSON.stringify(answers)
+            );
 
-    sessionStorage.setItem(
-        "listeningPart1Answers",
-        JSON.stringify(answers)
-    );
-
-    window.location.href = "listening-test-2.html";
-});
-
-function updateQuestionProgress() {
-    for (let i = 1; i <= 10; i++) {
-        const input = document.querySelector(`[name="q${i}"]`);
-        const button = document.querySelector(
-            `.question-progress-button[data-question="${i}"]`
-        );
-
-        if (!input || !button) continue;
-
-        if (input.value.trim() !== "") {
-            button.classList.add("answered");
-        } else {
-            button.classList.remove("answered");
-        }
-    }
-}
-
-document.querySelectorAll(".listening-answer, input[data-question]").forEach(input => {
-    input.addEventListener("input", updateQuestionProgress);
-});
-
-function goToQuestion(questionNumber) {
-    const input = document.querySelector(`[name="q${questionNumber}"]`);
-
-    if (input) {
-        input.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+            window.location.href = "listening-test-2.html";
         });
 
-        input.focus();
-    }
-}
 
-updateQuestionProgress();
+    function updateQuestionProgress() {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.querySelector(`[name="q${i}"]`);
+
+            const button = document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
+
+            if (!input || !button) continue;
+
+            if (input.value.trim() !== "") {
+                button.classList.add("answered");
+            } else {
+                button.classList.remove("answered");
+            }
+        }
+    }
+
+    document.querySelectorAll(
+        ".listening-answer, input[data-question]"
+    ).forEach(input => {
+        input.addEventListener("input", updateQuestionProgress);
+    });
+
+    function goToQuestion(questionNumber) {
+        const input = document.querySelector(
+            `[name="q${questionNumber}"]`
+        );
+
+        if (input) {
+            input.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            input.focus();
+        }
+    }
+
+    updateQuestionProgress();
 
 </script>
 
