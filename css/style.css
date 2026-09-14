@@ -1325,22 +1325,43 @@ body::after {
 }
 
 /* Reading split-screen layout */
+.reading-container,
+.reading-page,
+.reading-test-container {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
 
 .reading-split-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+
     width: 100%;
-    align-items: start;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .passage-panel,
 .questions-panel {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+
     background: #ffffff;
     padding: 22px;
     border-radius: 12px;
+
     height: 70vh;
     overflow-y: auto;
+
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
 }
 
@@ -1380,6 +1401,24 @@ body::after {
     box-sizing: border-box;
 }
 
+/* Remove unnecessary narrow content width */
+.reading-part {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Keep the Part navigation aligned with the full layout */
+.reading-navigation {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+/* Mobile view */
 @media (max-width: 900px) {
     .reading-split-layout {
         grid-template-columns: 1fr;
