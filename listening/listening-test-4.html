@@ -12,29 +12,25 @@
     <div class="listening-section-navigation">
     <strong>Go to:</strong>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(1)">
+    <a href="listening-test-1.html"
+       class="section-jump-button">
         Part 1
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button active-section"
-            onclick="jumpToListeningSection(2)">
+    <a href="listening-test-2.html"
+       class="section-jump-button">
         Part 2
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(3)">
+    <a href="listening-test-3.html"
+       class="section-jump-button">
         Part 3
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(4)">
+    <a href="listening-test-4.html"
+       class="section-jump-button active-section">
         Part 4
-    </button>
+    </a>
 </div>
 
 <header class="listening-header">
@@ -81,13 +77,13 @@
             <h4>Problems with overtourism</h4>
 
             <p>
-                31. <input type="text" id="q31" name="q31">
+                31. <input type="text" id="q31" name="q31"  data-question="31">
                 is one of the worst problems.
             </p>
 
             <p>
                 A tourist
-                32. <input type="text" id="q32" name="q32">
+                32. <input type="text" id="q32" name="q32"  data-question="32">
                 is being introduced in some cities to reduce numbers,
                 e.g. Barcelona.
             </p>
@@ -96,13 +92,13 @@
                 Bruges: action was taken to limit day trips from the nearby port
                 because the city was becoming a “theme park”.
                 Many shops were only stocking
-                33. <input type="text" id="q33" name="q33">
+                33. <input type="text" id="q33" name="q33"  data-question="33">
                 and souvenirs.
             </p>
 
             <p>
                 Dubrovnik: limits the number of tourists by managing the
-                34. <input type="text" id="q34" name="q34">
+                34. <input type="text" id="q34" name="q34"  data-question="34">
                 of cruise ship arrivals.
             </p>
 
@@ -114,13 +110,13 @@
 
             <p>
                 There is an assumption about the
-                35. <input type="text" id="q35" name="q35">
+                35. <input type="text" id="q35" name="q35"  data-question="35">
                 of cruises.
             </p>
 
             <p>
                 People think there may be too many
-                36. <input type="text" id="q36" name="q36">
+                36. <input type="text" id="q36" name="q36"  data-question="36">
                 .
             </p>
 
@@ -135,28 +131,62 @@
 
                 <li>
                     having a wide range of activities, e.g. boxing,
-                    37. <input type="text" id="q37" name="q37">
+                    37. <input type="text" id="q37" name="q37"  data-question="37">
                     and well-being programmes
                 </li>
 
                 <li>
                     offering a diverse selection of food including
-                    38. <input type="text" id="q38" name="q38">
+                    38. <input type="text" id="q38" name="q38"  data-question="38">
                     options
                 </li>
 
                 <li>
                     providing reliable
-                    39. <input type="text" id="q39" name="q39">
+                    39. <input type="text" id="q39" name="q39"  data-question="39">
                 </li>
 
                 <li>
                     improving marketing on social media with high quality
-                    40. <input type="text" id="q40" name="q40">
+                    40. <input type="text" id="q40" name="q40"  data-question="40">
                 </li>
             </ul>
         </div>
     </section>
+
+    <div class="question-progress">
+    <span class="question-progress-title">Questions:</span>
+
+    <button type="button" class="question-progress-button"
+            data-question="31" onclick="goToQuestion(31)">31</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="32" onclick="goToQuestion(32)">32</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="33" onclick="goToQuestion(33)">33</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="34" onclick="goToQuestion(34)">34</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="35" onclick="goToQuestion(35)">35</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="36" onclick="goToQuestion(36)">36</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="37" onclick="goToQuestion(37)">37</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="38" onclick="goToQuestion(38)">38</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="39" onclick="goToQuestion(39)">39</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="40" onclick="goToQuestion(40)">40</button>
+</div>
 
     <section class="submit-section-btn">
         <button
@@ -228,6 +258,62 @@ document.getElementById("submitPart4Btn").addEventListener("click", function () 
 
     window.location.href = "listening-final.html";
 });
+
+function updateQuestionProgress() {
+    for (let i = 31; i <= 40; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
+        );
+
+        if (!input || !button) continue;
+
+        if (
+            input.type === "checkbox" ||
+            input.type === "radio"
+        ) {
+            const groupInputs = document.querySelectorAll(
+                `input[name="${input.name}"]`
+            );
+
+            const answered = Array.from(groupInputs).some(
+                item => item.checked
+            );
+
+            button.classList.toggle("answered", answered);
+        } else {
+            button.classList.toggle(
+                "answered",
+                input.value.trim() !== ""
+            );
+        }
+    }
+}
+
+document.querySelectorAll(
+    'input[type="checkbox"], input[type="radio"], input[type="text"]'
+).forEach(input => {
+    input.addEventListener("change", updateQuestionProgress);
+    input.addEventListener("input", updateQuestionProgress);
+});
+
+function goToQuestion(questionNumber) {
+    const input = document.querySelector(
+        `[name="q${questionNumber}"]`
+    );
+
+    if (input) {
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        input.focus();
+    }
+}
+
+updateQuestionProgress();
+
 </script>
 
 </body>

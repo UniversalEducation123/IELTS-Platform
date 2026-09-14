@@ -14,29 +14,25 @@
     <div class="listening-section-navigation">
     <strong>Go to:</strong>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(1)">
+    <a href="listening-test-1.html"
+       class="section-jump-button">
         Part 1
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button active-section"
-            onclick="jumpToListeningSection(2)">
+    <a href="listening-test-2.html"
+       class="section-jump-button">
         Part 2
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(3)">
+    <a href="listening-test-3.html"
+       class="section-jump-button active-section">
         Part 3
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(4)">
+    <a href="listening-test-4.html"
+       class="section-jump-button">
         Part 4
-    </button>
+    </a>
 </div>
 
 <header class="listening-header">
@@ -99,6 +95,7 @@
                 <input
                     type="checkbox"
                     name="q21_22"
+                    data-question="21"
                     value="A"
                 >
                 A. The amount of plastic in the ocean
@@ -108,6 +105,7 @@
                 <input
                     type="checkbox"
                     name="q21_22"
+                    data-question="21"
                     value="B"
                 >
                 B. The number of diseases caused by contaminated food
@@ -117,6 +115,7 @@
                 <input
                     type="checkbox"
                     name="q21_22"
+                    data-question="21"
                     value="C"
                 >
                 C. The amount of food that is wasted
@@ -126,6 +125,7 @@
                 <input
                     type="checkbox"
                     name="q21_22"
+                    data-question="21"
                     value="D"
                 >
                 D. The number of people who are obese
@@ -135,6 +135,7 @@
                 <input
                     type="checkbox"
                     name="q21_22"
+                    data-question="21"
                     value="E"
                 >
                 E. The result of treating animals with antibiotics
@@ -166,6 +167,7 @@
                 <input
                     type="checkbox"
                     name="q23_24"
+                    data-question="23"
                     value="A"
                 >
                 A. The new technology it used
@@ -175,6 +177,7 @@
                 <input
                     type="checkbox"
                     name="q23_24"
+                    data-question="23"
                     value="B"
                 >
                 B. The publicity it received
@@ -184,6 +187,7 @@
                 <input
                     type="checkbox"
                     name="q23_24"
+                    data-question="23"
                     value="C"
                 >
                 C. The use of multiple tests on food items
@@ -193,6 +197,7 @@
                 <input
                     type="checkbox"
                     name="q23_24"
+                    data-question="23"
                     value="D"
                 >
                 D. The variety of dietary requirements included
@@ -202,6 +207,7 @@
                 <input
                     type="checkbox"
                     name="q23_24"
+                    data-question="23"
                     value="E"
                 >
                 E. The way information was made widely accessible
@@ -233,6 +239,7 @@
                 <input
                     type="checkbox"
                     name="q25_26"
+                    data-question="25"
                     value="A"
                 >
                 A. Sustainable fishing
@@ -242,6 +249,7 @@
                 <input
                     type="checkbox"
                     name="q25_26"
+                    data-question="25"
                     value="B"
                 >
                 B. Targeted nutrition
@@ -251,6 +259,7 @@
                 <input
                     type="checkbox"
                     name="q25_26"
+                    data-question="25"
                     value="C"
                 >
                 C. Global differences in consumption
@@ -260,6 +269,7 @@
                 <input
                     type="checkbox"
                     name="q25_26"
+                    data-question="25"
                     value="D"
                 >
                 D. Sustainable agriculture
@@ -269,6 +279,7 @@
                 <input
                     type="checkbox"
                     name="q25_26"
+                    data-question="25"
                     value="E"
                 >
                 E. Digital technology and food
@@ -323,6 +334,7 @@
                     type="text"
                     id="q27"
                     name="q27"
+                    data-question="27"
                     maxlength="1"
                     placeholder="A–F"
                     autocomplete="off"
@@ -346,6 +358,7 @@
                     type="text"
                     id="q28"
                     name="q28"
+                    data-question="28"
                     maxlength="1"
                     placeholder="A–F"
                     autocomplete="off"
@@ -369,6 +382,7 @@
                     type="text"
                     id="q29"
                     name="q29"
+                    data-question="29"
                     maxlength="1"
                     placeholder="A–F"
                     autocomplete="off"
@@ -392,6 +406,7 @@
                     type="text"
                     id="q30"
                     name="q30"
+                    data-question="30"
                     maxlength="1"
                     placeholder="A–F"
                     autocomplete="off"
@@ -407,6 +422,40 @@
     <!-- SUBMIT -->
 
     <section class="submit-section-btn">
+
+        <div class="question-progress">
+    <span class="question-progress-title">Questions:</span>
+
+    <button type="button" class="question-progress-button"
+            data-question="21" onclick="goToQuestion(21)">21</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="22" onclick="goToQuestion(22)">22</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="23" onclick="goToQuestion(23)">23</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="24" onclick="goToQuestion(24)">24</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="25" onclick="goToQuestion(25)">25</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="26" onclick="goToQuestion(26)">26</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="27" onclick="goToQuestion(27)">27</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="28" onclick="goToQuestion(28)">28</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="29" onclick="goToQuestion(29)">29</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="30" onclick="goToQuestion(30)">30</button>
+</div>
 
     <button
         id="submitPart3Btn"
@@ -720,6 +769,86 @@
             window.location.href = "listening-test-4.html";
 
         });
+
+       function updateQuestionProgress() {
+    // Questions 21–22
+    updateCheckboxGroup("q21_22", 21, 22);
+
+    // Questions 23–24
+    updateCheckboxGroup("q23_24", 23, 24);
+
+    // Questions 25–26
+    updateCheckboxGroup("q25_26", 25, 26);
+
+    // Individual text Questions 27–30
+    for (let i = 27; i <= 30; i++) {
+        updateTextQuestion(i);
+    }
+}
+
+function updateCheckboxGroup(groupName, firstQuestion, secondQuestion) {
+    const selected = document.querySelectorAll(
+        `input[name="${groupName}"]:checked`
+    ).length;
+
+    const firstButton = document.querySelector(
+        `.question-progress-button[data-question="${firstQuestion}"]`
+    );
+
+    const secondButton = document.querySelector(
+        `.question-progress-button[data-question="${secondQuestion}"]`
+    );
+
+    if (firstButton) {
+        firstButton.classList.toggle("answered", selected >= 1);
+    }
+
+    if (secondButton) {
+        secondButton.classList.toggle("answered", selected >= 2);
+    }
+}
+
+function updateTextQuestion(questionNumber) {
+    const input = document.querySelector(
+        `[name="q${questionNumber}"]`
+    );
+
+    const button = document.querySelector(
+        `.question-progress-button[data-question="${questionNumber}"]`
+    );
+
+    if (!input || !button) return;
+
+    button.classList.toggle(
+        "answered",
+        input.value.trim() !== ""
+    );
+}
+    
+
+document.querySelectorAll(
+    'input[type="checkbox"], input[type="radio"], input[type="text"]'
+).forEach(input => {
+    input.addEventListener("change", updateQuestionProgress);
+    input.addEventListener("input", updateQuestionProgress);
+});
+
+function goToQuestion(questionNumber) {
+    const input = document.querySelector(
+        `[name="q${questionNumber}"]`
+    );
+
+    if (input) {
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        input.focus();
+    }
+}
+
+updateQuestionProgress();
 
 </script>
 
