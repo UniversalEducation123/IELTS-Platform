@@ -1096,11 +1096,6 @@ body::after {
     background: #963f5e;
 }
 
-.logo img {
-    height: 45px;
-    width: auto;
-    display: block;
-}
 .logo {
     display: flex;
     align-items: center;
@@ -1108,7 +1103,7 @@ body::after {
 }
 
 .logo img {
-    height: 45px;
+    height: 65px;
     width: auto;
     display: block;
     object-fit: contain;
