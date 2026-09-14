@@ -7,6 +7,13 @@
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+    const facultyId = sessionStorage.getItem("facultyId");
+
+    if (!facultyId) {
+        window.location.href = "faculty-login.html";
+    }
+</script>
 </head>
 <body>
 
