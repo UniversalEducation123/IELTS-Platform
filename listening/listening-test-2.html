@@ -14,29 +14,25 @@
     <div class="listening-section-navigation">
     <strong>Go to:</strong>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(1)">
+    <a href="listening-test-1.html"
+       class="section-jump-button">
         Part 1
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button active-section"
-            onclick="jumpToListeningSection(2)">
+    <a href="listening-test-2.html"
+       class="section-jump-button active-section">
         Part 2
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(3)">
+    <a href="listening-test-3.html"
+       class="section-jump-button">
         Part 3
-    </button>
+    </a>
 
-    <button type="button"
-            class="section-jump-button"
-            onclick="jumpToListeningSection(4)">
+    <a href="listening-test-4.html"
+       class="section-jump-button">
         Part 4
-    </button>
+    </a>
 </div>
 
     <main class="listening-page">
@@ -114,10 +110,11 @@
 
                 <label>
                     <input
-                        type="checkbox"
-                        name="q11_12"
-                        value="A"
-                    >
+    type="checkbox"
+    name="q11_12"
+    value="A"
+    data-question="11"
+>
                     A. Stop for lunch in an ancient town.
                 </label>
 
@@ -126,6 +123,7 @@
                         type="checkbox"
                         name="q11_12"
                         value="B"
+                        data-question="11"
                     >
                     B. Don't miss the ruins of a certain building.
                 </label>
@@ -135,6 +133,7 @@
                         type="checkbox"
                         name="q11_12"
                         value="C"
+                        data-question="11"
                     >
                     C. Catch a boat to the start of this walk.
                 </label>
@@ -144,6 +143,7 @@
                         type="checkbox"
                         name="q11_12"
                         value="D"
+                        data-question="11"
                     >
                     D. Be careful of the steep and rocky paths.
                 </label>
@@ -153,6 +153,7 @@
                         type="checkbox"
                         name="q11_12"
                         value="E"
+                        data-question="11"
                     >
                     E. Don't worry about getting lost.
                 </label>
@@ -186,6 +187,7 @@
                         type="checkbox"
                         name="q13_14"
                         value="A"
+                        data-question="13"
                     >
                     A. This walk is mostly downhill.
                 </label>
@@ -195,6 +197,7 @@
                         type="checkbox"
                         name="q13_14"
                         value="B"
+                        data-question="13"
                     >
                     B. The paths can get busy during the day.
                 </label>
@@ -204,6 +207,7 @@
                         type="checkbox"
                         name="q13_14"
                         value="C"
+                        data-question="13"
                     >
                     C. This is a circular walk.
                 </label>
@@ -213,6 +217,7 @@
                         type="checkbox"
                         name="q13_14"
                         value="D"
+                        data-question="13"
                     >
                     D. A tower stands on the site of an older structure.
                 </label>
@@ -222,6 +227,7 @@
                         type="checkbox"
                         name="q13_14"
                         value="E"
+                        data-question="13"
                     >
                     E. There are far-reaching views the whole way.
                 </label>
@@ -273,6 +279,7 @@
                         type="text"
                         id="q15"
                         name="q15"
+                        data-question="15"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -291,6 +298,7 @@
                         type="text"
                         id="q16"
                         name="q16"
+                        data-question="16"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -309,6 +317,7 @@
                         type="text"
                         id="q17"
                         name="q17"
+                        data-question="17"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -327,6 +336,7 @@
                         type="text"
                         id="q18"
                         name="q18"
+                        data-question="18"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -345,6 +355,7 @@
                         type="text"
                         id="q19"
                         name="q19"
+                        data-question="19"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -363,6 +374,7 @@
                         type="text"
                         id="q20"
                         name="q20"
+                        data-question="20"
                         maxlength="1"
                         placeholder="A–I"
                         autocomplete="off"
@@ -371,7 +383,39 @@
                 </div>
 
             </div>
+<div class="question-progress">
+    <span class="question-progress-title">Questions:</span>
 
+    <button type="button" class="question-progress-button"
+            data-question="11" onclick="goToQuestion(11)">11</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="12" onclick="goToQuestion(12)">12</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="13" onclick="goToQuestion(13)">13</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="14" onclick="goToQuestion(14)">14</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="15" onclick="goToQuestion(15)">15</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="16" onclick="goToQuestion(16)">16</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="17" onclick="goToQuestion(17)">17</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="18" onclick="goToQuestion(18)">18</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="19" onclick="goToQuestion(19)">19</button>
+
+    <button type="button" class="question-progress-button"
+            data-question="20" onclick="goToQuestion(20)">20</button>
+</div>
 
             <!-- CONTINUE BUTTON -->
 
@@ -646,6 +690,85 @@
                 window.location.href = "listening-test-3.html";
 
             });
+
+           function updateQuestionProgress() {
+    // Checkbox group Questions 11–12
+    const group11_12 = document.querySelectorAll(
+        'input[name="q11_12"]'
+    );
+
+    const answered11_12 = Array.from(group11_12).some(
+        input => input.checked
+    );
+
+    [11, 12].forEach(number => {
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${number}"]`
+        );
+
+        if (button) {
+            button.classList.toggle("answered", answered11_12);
+        }
+    });
+
+    // Checkbox group Questions 13–14
+    const group13_14 = document.querySelectorAll(
+        'input[name="q13_14"]'
+    );
+
+    const answered13_14 = Array.from(group13_14).some(
+        input => input.checked
+    );
+
+    [13, 14].forEach(number => {
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${number}"]`
+        );
+
+        if (button) {
+            button.classList.toggle("answered", answered13_14);
+        }
+    });
+
+    // Text Questions 15–20
+    for (let i = 15; i <= 20; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
+        );
+
+        if (!input || !button) continue;
+
+        button.classList.toggle(
+            "answered",
+            input.value.trim() !== ""
+        );
+    }
+}
+
+document.querySelectorAll(
+    'input[type="checkbox"], input[type="text"]'
+).forEach(input => {
+    input.addEventListener("change", updateQuestionProgress);
+    input.addEventListener("input", updateQuestionProgress);
+});
+
+function goToQuestion(questionNumber) {
+    const input = document.querySelector(
+        `[name="q${questionNumber}"]`
+    );
+
+    if (input) {
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        input.focus();
+    }
+}
+
+updateQuestionProgress();
 
     </script>
 

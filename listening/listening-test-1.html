@@ -325,7 +325,6 @@
 
     document.getElementById("submitListeningBtn").addEventListener("click", function () {
     const answers = {};
-    let unansweredQuestions = [];
 
     for (let i = 1; i <= 10; i++) {
         const input = document.querySelector(`[name="q${i}"]`);
@@ -334,22 +333,9 @@
             const answer = input.value.trim();
 
             answers[`q${i}`] = answer;
-
-            if (answer === "") {
-                unansweredQuestions.push(i);
-            }
         }
     }
 
-    if (unansweredQuestions.length > 0) {
-        alert(
-            "Please answer all questions before continuing.\n\n" +
-            "Unanswered questions: " +
-            unansweredQuestions.join(", ")
-        );
-
-        return;
-    }
 
     sessionStorage.setItem(
         "listeningPart1Answers",
