@@ -6,6 +6,8 @@
     <title>View Students - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -27,25 +29,128 @@
             <h1>View Students</h1>
 
             <p class="dashboard-subtitle">
-                Select a student to view their profile and test results.
+                View student accounts and their test scores.
             </p>
 
-            <div class="student-list">
-
-                <a href="student-profile.html" class="student-row">
-                    <div>
-                        <h2>Student Name</h2>
-                        <p>Student ID: Example001</p>
-                    </div>
-
-                    <span>View Profile →</span>
-                </a>
-
+            <div id="loadingMessage">
+                Loading students...
             </div>
+
+            <div class="student-list" id="studentList"></div>
 
         </div>
 
     </main>
+
+    <script>
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+        async function loadStudents() {
+            const loadingMessage = document.getElementById("loadingMessage");
+            const studentList = document.getElementById("studentList");
+
+            const { data: students, error: studentsError } =
+                await supabaseClient
+                    .from("students")
+                    .select("*")
+                    .order("id", { ascending: true });
+
+            if (studentsError) {
+                console.error(studentsError);
+                loadingMessage.textContent =
+                    "Unable to load students.";
+                return;
+            }
+
+            const { data: results, error: resultsError } =
+                await supabaseClient
+                    .from("test_results")
+                    .select("*");
+
+            if (resultsError) {
+                console.error(resultsError);
+                loadingMessage.textContent =
+                    "Students loaded, but scores could not be loaded.";
+                return;
+            }
+
+            loadingMessage.style.display = "none";
+
+            if (!students || students.length === 0) {
+                studentList.innerHTML =
+                    "<p>No students have been added yet.</p>";
+                return;
+            }
+
+            students.forEach(student => {
+                const studentResults = results.filter(result =>
+                    Number(result.student_id) === Number(student.id)
+                );
+
+                const listeningResult = studentResults.find(result =>
+                    result.test_name === "Test 1 - Listening"
+                );
+
+                const readingResult = studentResults.find(result =>
+                    result.test_name === "Test 1 - Reading"
+                );
+
+                const writingResult = studentResults.find(result =>
+                    result.test_name === "Test 1 - Writing"
+                );
+
+                const listeningScore = listeningResult
+                    ? listeningResult.listening_score + " / 40"
+                    : "Not attempted";
+
+                const readingScore = readingResult
+                    ? readingResult.reading_score + " / 40"
+                    : "Not attempted";
+
+                const writingScore = writingResult
+                    ? writingResult.writing_score
+                    : "Not attempted";
+
+                const studentRow = document.createElement("div");
+                studentRow.className = "student-row";
+
+                studentRow.innerHTML = `
+                    <div>
+                        <h2>${student.full_name || "Unnamed Student"}</h2>
+                        <p>Username: ${student.username}</p>
+                        <p>Student ID: ${student.id}</p>
+                    </div>
+
+                    <div class="student-scores">
+                        <p>
+                            <strong>Listening:</strong>
+                            ${listeningScore}
+                        </p>
+
+                        <p>
+                            <strong>Reading:</strong>
+                            ${readingScore}
+                        </p>
+
+                        <p>
+                            <strong>Writing:</strong>
+                            ${writingScore}
+                        </p>
+                    </div>
+                `;
+
+                studentList.appendChild(studentRow);
+            });
+        }
+
+        loadStudents();
+    </script>
 
 </body>
 </html>
