@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faculty Dashboard - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script>
+    const facultyId = sessionStorage.getItem("facultyId");
+
+    if (!facultyId) {
+        window.location.href = "faculty-login.html";
+    }
+</script>
+
 </head>
 <body>
 
