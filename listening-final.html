@@ -159,7 +159,25 @@
         </a>
     </div>
 
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
+        /*
+         * SUPABASE CONNECTION
+         *
+         * Use the same Supabase URL and anon key
+         * that you used in student-login.html.
+         */
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
         /*
          * Convert answers into a standard format.
          * This makes checking:
@@ -548,7 +566,6 @@
          * PART 4
          * Questions 31–40
          */
-
         const part4AnswerKey = {
             q31: ["pollution"],
             q32: ["tax"],
@@ -585,7 +602,7 @@
 
 
         /*
-         * Display only the requested result
+         * Display result
          */
         document.getElementById("correctAnswers").textContent =
             correctCount;
@@ -598,6 +615,62 @@
 
         document.getElementById("bandScore").textContent =
             bandScore;
+
+
+        /*
+         * SAVE RESULT TO SUPABASE
+         *
+         * This runs only once for this completed test session.
+         */
+        async function saveResultToSupabase() {
+            const alreadySaved = sessionStorage.getItem(
+                "listeningTest1ResultSaved"
+            );
+
+            if (alreadySaved === "true") {
+                console.log("Result already saved.");
+                return;
+            }
+
+            const studentId = sessionStorage.getItem("studentId");
+            const studentName = sessionStorage.getItem("studentName");
+            const studentUsername = sessionStorage.getItem("studentUsername");
+
+            const { error } = await supabaseClient
+                .from("test_results")
+                .insert({
+                    student_id: studentId ? Number(studentId) : null,
+                    student_name: studentName,
+                    username: studentUsername,
+                    test_name: "Listening Test 1",
+                    correct_answers: correctCount,
+                    wrong_answers: wrongCount,
+                    total_questions: 40,
+                    ielts_band: Number(bandScore)
+                });
+
+            if (error) {
+                console.error("Error saving result:", error);
+                alert(
+                    "Your score was calculated, but there was a problem saving it. Please contact faculty."
+                );
+                return;
+            }
+
+            sessionStorage.setItem(
+                "listeningTest1ResultSaved",
+                "true"
+            );
+
+            console.log("Result saved successfully.");
+        }
+
+
+        /*
+         * Save the result after calculation.
+         */
+        saveResultToSupabase();
+
     </script>
 
 </body>
