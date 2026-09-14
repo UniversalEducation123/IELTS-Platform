@@ -764,9 +764,17 @@ document.querySelectorAll(
 });
 
 function goToQuestion(questionNumber) {
-    const input = document.querySelector(
-        `[name="q${questionNumber}"]`
-    );
+    let input;
+
+    if (questionNumber === 11 || questionNumber === 12) {
+        input = document.querySelector('input[name="q11_12"]');
+    } else if (questionNumber === 13 || questionNumber === 14) {
+        input = document.querySelector('input[name="q13_14"]');
+    } else {
+        input = document.querySelector(
+            `[name="q${questionNumber}"]`
+        );
+    }
 
     if (input) {
         input.scrollIntoView({
