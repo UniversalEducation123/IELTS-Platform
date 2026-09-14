@@ -692,43 +692,53 @@
             });
 
            function updateQuestionProgress() {
-    // Checkbox group Questions 11–12
+    // Questions 11–12
     const group11_12 = document.querySelectorAll(
-        'input[name="q11_12"]'
+        'input[name="q11_12"]:checked'
     );
 
-    const answered11_12 = Array.from(group11_12).some(
-        input => input.checked
+    const count11_12 = group11_12.length;
+
+    const button11 = document.querySelector(
+        '.question-progress-button[data-question="11"]'
     );
 
-    [11, 12].forEach(number => {
-        const button = document.querySelector(
-            `.question-progress-button[data-question="${number}"]`
-        );
+    const button12 = document.querySelector(
+        '.question-progress-button[data-question="12"]'
+    );
 
-        if (button) {
-            button.classList.toggle("answered", answered11_12);
-        }
-    });
+    if (button11) {
+        button11.classList.toggle("answered", count11_12 >= 1);
+    }
 
-    // Checkbox group Questions 13–14
+    if (button12) {
+        button12.classList.toggle("answered", count11_12 >= 2);
+    }
+
+
+    // Questions 13–14
     const group13_14 = document.querySelectorAll(
-        'input[name="q13_14"]'
+        'input[name="q13_14"]:checked'
     );
 
-    const answered13_14 = Array.from(group13_14).some(
-        input => input.checked
+    const count13_14 = group13_14.length;
+
+    const button13 = document.querySelector(
+        '.question-progress-button[data-question="13"]'
     );
 
-    [13, 14].forEach(number => {
-        const button = document.querySelector(
-            `.question-progress-button[data-question="${number}"]`
-        );
+    const button14 = document.querySelector(
+        '.question-progress-button[data-question="14"]'
+    );
 
-        if (button) {
-            button.classList.toggle("answered", answered13_14);
-        }
-    });
+    if (button13) {
+        button13.classList.toggle("answered", count13_14 >= 1);
+    }
+
+    if (button14) {
+        button14.classList.toggle("answered", count13_14 >= 2);
+    }
+
 
     // Text Questions 15–20
     for (let i = 15; i <= 20; i++) {
