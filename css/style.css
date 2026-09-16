@@ -1252,31 +1252,32 @@ body::after {
 }
 
 .submit-reading {
-    margin-top: 30px;
     padding: 14px 30px;
+    background: #123c2b;
+    color: white;
     border: none;
-    border-radius: 7px;
-    background: var(--reading-accent-pink);
-    color: var(--reading-white);
+    border-radius: 6px;
     font-size: 16px;
-    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .submit-reading:hover {
-    background: #c67592;
-    transform: translateY(-1px);
+    background: #1d6045;
 }
 
 .submit-reading:disabled {
-    opacity: 0.6;
+    background: #777;
     cursor: not-allowed;
 }
 
 .submit-reading-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
     text-align: center;
-    margin: 30px 0;
 }
 
 .reading-question-progress {
