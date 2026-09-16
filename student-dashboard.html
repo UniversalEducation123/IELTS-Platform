@@ -73,53 +73,53 @@
 
     <script>
 function startFreshListeningTest() {
-    // Reset shared Listening timer
-    sessionStorage.removeItem("listeningTimeLeft");
-    sessionStorage.removeItem("listeningTimerStarted");
-
-    // Reset saved answers
-    sessionStorage.removeItem("listeningPart1Answers");
-    sessionStorage.removeItem("listeningPart2Answers");
-    sessionStorage.removeItem("listeningPart3Answers");
-    sessionStorage.removeItem("listeningPart4Answers");
-
-    // Reset pathname-based answer storage
-    sessionStorage.removeItem(
-        "listeningAnswers_/listening-test-1.html"
-    );
-
-    sessionStorage.removeItem(
-        "listeningAnswers_/listening-test-2.html"
-    );
-
-    sessionStorage.removeItem(
-        "listeningAnswers_/listening-test-3.html"
-    );
-
-    sessionStorage.removeItem(
-        "listeningAnswers_/listening-test-4.html"
-    );
+    clearListeningProgress();
 }
 
-function logout() {
+function clearListeningProgress() {
+    // Clear sessionStorage
     sessionStorage.removeItem("listeningTimeLeft");
     sessionStorage.removeItem("listeningTimerStarted");
-
     sessionStorage.removeItem("listeningPart1Answers");
     sessionStorage.removeItem("listeningPart2Answers");
     sessionStorage.removeItem("listeningPart3Answers");
     sessionStorage.removeItem("listeningPart4Answers");
 
-    // Clear all Listening answer keys
+    // Clear localStorage
+    localStorage.removeItem("listeningTimeLeft");
+    localStorage.removeItem("listeningTimerStarted");
+    localStorage.removeItem("listeningPart1Answers");
+    localStorage.removeItem("listeningPart2Answers");
+    localStorage.removeItem("listeningPart3Answers");
+    localStorage.removeItem("listeningPart4Answers");
+
+    // Clear all saved Listening answer keys
     for (let i = sessionStorage.length - 1; i >= 0; i--) {
         const key = sessionStorage.key(i);
 
-        if (key && key.startsWith("listeningAnswers_")) {
+        if (key && (
+            key.toLowerCase().includes("listening") ||
+            key.toLowerCase().includes("answer")
+        )) {
             sessionStorage.removeItem(key);
+        }
+    }
+
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+
+        if (key && (
+            key.toLowerCase().includes("listening") ||
+            key.toLowerCase().includes("answer")
+        )) {
+            localStorage.removeItem(key);
         }
     }
 }
 
+function logout() {
+    clearListeningProgress();
+}
 </script>
 
 </body>
