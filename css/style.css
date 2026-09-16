@@ -1284,10 +1284,10 @@ body::after {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 12px;
     width: 100%;
     box-sizing: border-box;
-    margin: 15px 0 20px;
+    margin: 35px 0 20px;
     padding: 12px;
     background: #f7f7f7;
     border: 1px solid #d8d8d8;
@@ -1299,7 +1299,7 @@ body::after {
 }
 
 .reading-question-progress button {
-    width: 32px;
+    width: 42px;
     height: 32px;
     padding: 0;
     border: 1px solid #888;
@@ -1311,7 +1311,7 @@ body::after {
 }
 
 .reading-question-progress button:hover {
-    background: #eeeeee;
+    background: #f38e8e;
 }
 
 .reading-question-progress button.answered {
@@ -1789,7 +1789,7 @@ body::after {
 }
 
 body {
-    padding-top: 70px;
+    padding-top: 55px;
 }
 
 body.listening-page {
@@ -1840,6 +1840,22 @@ body.listening-page {
     text-align: center;
 }
 
+#part3 {
+    display: block !important;
+}
+
+#part3 .reading-split-layout {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+#part3 .passage-panel,
+#part3 .questions-panel {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
 
 
 
