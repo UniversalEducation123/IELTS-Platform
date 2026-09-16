@@ -69,20 +69,21 @@
             Press Play to begin the listening test
         </div>
 
-        <audio
-    id="listeningAudio"
-    controls
-    controlsList="nodownload noplaybackrate"
-    preload="auto">
+        <div class="custom-audio-player">
+    <button type="button" id="playPauseBtn" class="audio-play-btn">
+        ▶ Play
+    </button>
 
-    
-            <source
-    src="../assets/listening-section-1.mp3"
-    type="audio/mpeg"
->
-            Your browser does not support the audio element.
-        </audio>
-        </div>
+    <div class="audio-progress-container">
+        <div id="audioProgress" class="audio-progress"></div>
+    </div>
+
+    <span id="audioTime" class="audio-time">0:00</span>
+</div>
+
+<audio id="listeningAudio" preload="auto">
+    <source src="YOUR_EXISTING_AUDIO_FILE.mp3" type="audio/mpeg">
+</audio>
 
         <div class="question-section">
 
@@ -610,6 +611,43 @@ document.querySelectorAll(
 
 /* Restore answers when page opens */
 restoreListeningAnswers();
+
+</script>
+
+<script>
+const playPauseBtn = document.getElementById("playPauseBtn");
+const audioProgress = document.getElementById("audioProgress");
+const audioTime = document.getElementById("audioTime");
+const audio = document.getElementById("listeningAudio");
+
+if (audio && playPauseBtn) {
+
+    playPauseBtn.addEventListener("click", function () {
+        audio.play();
+
+        // Remove the button permanently after starting
+        playPauseBtn.style.display = "none";
+    });
+
+    audio.addEventListener("timeupdate", function () {
+        if (audio.duration) {
+            const percentage =
+                (audio.currentTime / audio.duration) * 100;
+
+            audioProgress.style.width = percentage + "%";
+        }
+
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        audioTime.textContent =
+            minutes + ":" + String(seconds).padStart(2, "0");
+    });
+
+    audio.addEventListener("ended", function () {
+        audioTime.textContent = "Finished";
+    });
+}
 </script>
 
 </body>
