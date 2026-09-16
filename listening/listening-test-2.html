@@ -70,7 +70,12 @@
                     The audio can only be played once.
                 </p>
 
-                <audio id="listeningAudio" controls>
+                <audio
+    id="listeningAudio"
+    controls
+    controlsList="nodownload noplaybackrate"
+    preload="auto">
+    
                     <source
                        src="../assets/listening-section-2.mp3"
                         type="audio/mpeg"

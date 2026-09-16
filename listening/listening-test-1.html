@@ -73,8 +73,9 @@
     id="listeningAudio"
     controls
     controlsList="nodownload noplaybackrate"
-    oncontextmenu="return false;">
+    preload="auto">
 
+    
             <source
     src="../assets/listening-section-1.mp3"
     type="audio/mpeg"
@@ -416,31 +417,45 @@ if (submitButton) {
 }
 
 /*
- * Prevent audio forward/backward seeking
+ * STRICTLY PREVENT AUDIO FORWARD/BACKWARD SEEKING
  */
-let lastAudioTime = 0;
-let isAudioResetting = false;
 
 if (audio) {
+
+    let allowedAudioTime = 0;
+    let correctingAudio = false;
+
     audio.addEventListener("timeupdate", function () {
-        if (!isAudioResetting) {
-            lastAudioTime = audio.currentTime;
+
+        if (!correctingAudio) {
+            allowedAudioTime = audio.currentTime;
         }
+
     });
 
     audio.addEventListener("seeking", function () {
-        if (isAudioResetting) return;
 
-        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
-            isAudioResetting = true;
-            audio.currentTime = lastAudioTime;
+        if (correctingAudio) return;
 
-            setTimeout(function () {
-                isAudioResetting = false;
-            }, 100);
-        }
+        correctingAudio = true;
+
+        // Immediately force audio back to the allowed position
+        audio.currentTime = allowedAudioTime;
+
+        setTimeout(function () {
+            correctingAudio = false;
+        }, 50);
+
     });
+
+    audio.addEventListener("loadedmetadata", function () {
+        allowedAudioTime = 0;
+        audio.currentTime = 0;
+    });
+
 }
+
+
     function updateQuestionProgress() {
         for (let i = 1; i <= 10; i++) {
             const input = document.querySelector(`[name="q${i}"]`);
