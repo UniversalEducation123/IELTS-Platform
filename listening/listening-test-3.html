@@ -478,10 +478,6 @@
 
 <script>
 
-    /*
- * TIMER
- */
-
 /*
  * SHARED LISTENING TIMER
  */
@@ -498,6 +494,8 @@ const timerStarted =
 const timerElement = document.getElementById("timer");
 
 function updateTimer() {
+    if (!timerElement) return;
+
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
@@ -508,16 +506,19 @@ function updateTimer() {
 
 if (timerStarted) {
     updateTimer();
-} else {
+} else if (timerElement) {
     timerElement.textContent = "--:--";
 }
 
-const timerInterval = setInterval(function() {
+const timerInterval = setInterval(function () {
     if (!timerStarted) return;
 
     timeLeft--;
 
-    sessionStorage.setItem("listeningTimeLeft", timeLeft);
+    sessionStorage.setItem(
+        "listeningTimeLeft",
+        timeLeft
+    );
 
     updateTimer();
 
@@ -527,133 +528,93 @@ const timerInterval = setInterval(function() {
         sessionStorage.removeItem("listeningTimeLeft");
         sessionStorage.removeItem("listeningTimerStarted");
 
-        timerElement.textContent = "00:00";
+        if (timerElement) {
+            timerElement.textContent = "00:00";
+        }
 
         alert("Time is up.");
     }
 }, 1000);
 
 
-    audio.addEventListener("play", startTimer);
+/*
+ * GET SELECTED CHECKBOX ANSWERS
+ */
 
-
-    /*
-     * PREVENT PAUSING AFTER AUDIO STARTS
-     */
-
-    audio.addEventListener("pause", function() {
-
-        if (timerStarted && !audio.ended) {
-            audio.play();
-        }
-
+function getSelected(name) {
+    return Array.from(
+        document.querySelectorAll(
+            `input[name="${name}"]:checked`
+        )
+    ).map(function (input) {
+        return input.value;
     });
+}
 
 
-    /*
-     * GET SELECTED CHECKBOX ANSWERS
-     */
+/*
+ * MAKE TEXT ANSWERS UPPERCASE
+ */
 
-    function getSelected(name) {
+document.querySelectorAll(
+    'input[type="text"]'
+).forEach(function (input) {
+    input.addEventListener("input", function () {
+        input.value = input.value
+            .toUpperCase()
+            .replace(/[^A-Z]/g, "")
+            .slice(0, 1);
 
-        return Array.from(
-            document.querySelectorAll(
-                `input[name="${name}"]:checked`
-            )
-        ).map(function(input) {
-            return input.value;
-        });
-
-    }
+        updateQuestionProgress();
+    });
+});
 
 
-    /*
-     * MAKE TEXT BOX ANSWERS UPPERCASE
-     */
+/*
+ * LIMIT EACH CHECKBOX GROUP TO TWO ANSWERS
+ */
 
-    const textInputs = document.querySelectorAll(
-        'input[type="text"]'
+const checkboxGroups = [
+    "q21_22",
+    "q23_24",
+    "q25_26"
+];
+
+checkboxGroups.forEach(function (groupName) {
+    const checkboxes = document.querySelectorAll(
+        `input[name="${groupName}"]`
     );
 
-    textInputs.forEach(function(input) {
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            const selected = document.querySelectorAll(
+                `input[name="${groupName}"]:checked`
+            );
 
-        input.addEventListener("input", function() {
+            if (selected.length > 2) {
+                checkbox.checked = false;
+                alert("You can select a maximum of TWO answers.");
+            }
 
-            input.value = input.value
-                .toUpperCase()
-                .replace(/[^A-F]/g, "")
-                .slice(0, 1);
-
+            updateQuestionProgress();
         });
-
     });
+});
 
 
-    /*
-     * LIMIT CHECKBOXES TO TWO ANSWERS
-     */
-
-    const checkboxGroups = [
-        "q21_22",
-        "q23_24",
-        "q25_26"
-    ];
-
-    checkboxGroups.forEach(function(groupName) {
-
-        const checkboxes = document.querySelectorAll(
-            `input[name="${groupName}"]`
-        );
-
-        checkboxes.forEach(function(checkbox) {
-
-            checkbox.addEventListener("change", function() {
-
-                const selected = document.querySelectorAll(
-                    `input[name="${groupName}"]:checked`
-                );
-
-                if (selected.length > 2) {
-
-                    checkbox.checked = false;
-
-                    alert(
-                        "Please select exactly TWO answers."
-                    );
-
-                }
-
-            });
-
-        });
-
-    });
-
-
-   /*
+/*
  * SAVE PART 3 ANSWERS AND CONTINUE
  */
 
-document.getElementById("submitPart3Btn")
-    .addEventListener("click", function () {
+const submitPart3Button =
+    document.getElementById("submitPart3Btn");
 
-        const selected21_22 = Array.from(
-            document.querySelectorAll('input[name="q21_22"]:checked')
-        ).map(function (input) {
-            return input.value;
-        });
+if (submitPart3Button) {
+    submitPart3Button.addEventListener("click", function () {
 
-        const selected23_24 = Array.from(
-            document.querySelectorAll('input[name="q23_24"]:checked')
-        ).map(function (input) {
-            return input.value;
-        });
-
-        const selected25_26 = Array.from(
-            document.querySelectorAll('input[name="q25_26"]:checked')
-        ).map(function (input) {
-            return input.value;
-        });
+        const selected21_22 = getSelected("q21_22");
+        const selected23_24 = getSelected("q23_24");
+        const selected25_26 = getSelected("q25_26");
 
         const answers = {
             q21: selected21_22[0] || "",
@@ -667,7 +628,9 @@ document.getElementById("submitPart3Btn")
         };
 
         for (let i = 27; i <= 30; i++) {
-            const input = document.querySelector(`[name="q${i}"]`);
+            const input = document.querySelector(
+                `[name="q${i}"]`
+            );
 
             answers[`q${i}`] = input
                 ? input.value.trim().toUpperCase()
@@ -681,8 +644,14 @@ document.getElementById("submitPart3Btn")
 
         window.location.href = "listening-test-4.html";
     });
+}
 
-       function updateQuestionProgress() {
+
+/*
+ * QUESTION PROGRESS
+ */
+
+function updateQuestionProgress() {
     updateCheckboxGroup("q21_22", 21, 22);
     updateCheckboxGroup("q23_24", 23, 24);
     updateCheckboxGroup("q25_26", 25, 26);
@@ -692,7 +661,11 @@ document.getElementById("submitPart3Btn")
     }
 }
 
-function updateCheckboxGroup(groupName, firstQuestion, secondQuestion) {
+function updateCheckboxGroup(
+    groupName,
+    firstQuestion,
+    secondQuestion
+) {
     const selected = document.querySelectorAll(
         `input[name="${groupName}"]:checked`
     ).length;
@@ -706,11 +679,17 @@ function updateCheckboxGroup(groupName, firstQuestion, secondQuestion) {
     );
 
     if (firstButton) {
-        firstButton.classList.toggle("answered", selected >= 1);
+        firstButton.classList.toggle(
+            "answered",
+            selected >= 1
+        );
     }
 
     if (secondButton) {
-        secondButton.classList.toggle("answered", selected >= 2);
+        secondButton.classList.toggle(
+            "answered",
+            selected >= 2
+        );
     }
 }
 
@@ -731,22 +710,32 @@ function updateTextQuestion(questionNumber) {
     );
 }
 
-document.querySelectorAll(
-    'input[type="checkbox"], input[type="text"]'
-).forEach(function (input) {
-    input.addEventListener("change", updateQuestionProgress);
-    input.addEventListener("input", updateQuestionProgress);
-});
+
+/*
+ * CLICK QUESTION NUMBER TO JUMP
+ */
 
 function goToQuestion(questionNumber) {
     let input;
 
     if (questionNumber === 21 || questionNumber === 22) {
-        input = document.querySelector('input[name="q21_22"]');
-    } else if (questionNumber === 23 || questionNumber === 24) {
-        input = document.querySelector('input[name="q23_24"]');
-    } else if (questionNumber === 25 || questionNumber === 26) {
-        input = document.querySelector('input[name="q25_26"]');
+        input = document.querySelector(
+            'input[name="q21_22"]'
+        );
+    } else if (
+        questionNumber === 23 ||
+        questionNumber === 24
+    ) {
+        input = document.querySelector(
+            'input[name="q23_24"]'
+        );
+    } else if (
+        questionNumber === 25 ||
+        questionNumber === 26
+    ) {
+        input = document.querySelector(
+            'input[name="q25_26"]'
+        );
     } else {
         input = document.querySelector(
             `[name="q${questionNumber}"]`
