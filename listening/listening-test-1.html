@@ -618,33 +618,32 @@ restoreListeningAnswers();
 const playPauseBtn = document.getElementById("playPauseBtn");
 const audioProgress = document.getElementById("audioProgress");
 const audioTime = document.getElementById("audioTime");
-const audio = document.getElementById("listeningAudio");
+const customAudio = document.getElementById("listeningAudio");
 
-if (audio && playPauseBtn) {
+if (customAudio && playPauseBtn) {
 
     playPauseBtn.addEventListener("click", function () {
-        audio.play();
+        customAudio.play();
 
-        // Remove the button permanently after starting
         playPauseBtn.style.display = "none";
     });
 
-    audio.addEventListener("timeupdate", function () {
-        if (audio.duration) {
+    customAudio.addEventListener("timeupdate", function () {
+        if (customAudio.duration) {
             const percentage =
-                (audio.currentTime / audio.duration) * 100;
+                (customAudio.currentTime / customAudio.duration) * 100;
 
             audioProgress.style.width = percentage + "%";
         }
 
-        const minutes = Math.floor(audio.currentTime / 60);
-        const seconds = Math.floor(audio.currentTime % 60);
+        const minutes = Math.floor(customAudio.currentTime / 60);
+        const seconds = Math.floor(customAudio.currentTime % 60);
 
         audioTime.textContent =
             minutes + ":" + String(seconds).padStart(2, "0");
     });
 
-    audio.addEventListener("ended", function () {
+    customAudio.addEventListener("ended", function () {
         audioTime.textContent = "Finished";
     });
 }
