@@ -47,7 +47,7 @@
                 <button
     type="button"
     class="primary-btn"
-    onclick="window.location.href='listening/listening-test-1.html';">
+    onclick="startFreshListeningTest();">
     Begin Test
 </button>
 
@@ -56,6 +56,54 @@
         </div>
 
     </main>
+
+<script>
+function startFreshListeningTest() {
+    // Clear timer
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+
+    localStorage.removeItem("listeningTimeLeft");
+    localStorage.removeItem("listeningTimerStarted");
+
+    // Clear saved answers
+    sessionStorage.removeItem("listeningPart1Answers");
+    sessionStorage.removeItem("listeningPart2Answers");
+    sessionStorage.removeItem("listeningPart3Answers");
+    sessionStorage.removeItem("listeningPart4Answers");
+
+    localStorage.removeItem("listeningPart1Answers");
+    localStorage.removeItem("listeningPart2Answers");
+    localStorage.removeItem("listeningPart3Answers");
+    localStorage.removeItem("listeningPart4Answers");
+
+    // Clear all Listening-related keys
+    for (let i = sessionStorage.length - 1; i >= 0; i--) {
+        const key = sessionStorage.key(i);
+
+        if (key && (
+            key.toLowerCase().includes("listening") ||
+            key.toLowerCase().includes("answer")
+        )) {
+            sessionStorage.removeItem(key);
+        }
+    }
+
+    for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+
+        if (key && (
+            key.toLowerCase().includes("listening") ||
+            key.toLowerCase().includes("answer")
+        )) {
+            localStorage.removeItem(key);
+        }
+    }
+
+    // Open actual Listening test
+    window.location.href = "listening/listening-test-1.html";
+}
+</script>
 
 </body>
 </html>
