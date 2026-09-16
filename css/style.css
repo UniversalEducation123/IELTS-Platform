@@ -1500,20 +1500,41 @@ body::after {
     color: #24352d;
 }
 
-.summary-answer {
-    width: 90px;
-    max-width: 100%;
-    padding: 3px 5px;
-    margin: 0 4px;
-    border: none;
-    border-bottom: 1px solid #555;
-    background: transparent;
-    font-size: 15px;
-    text-align: center;
+.inline-question {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 3px;
     vertical-align: middle;
 }
 
-.summary-answer:focus {
+.inline-question strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #555;
+    background: #ffffff;
+    color: #111;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.inline-question input {
+    display: inline-block;
+    width: 105px;
+    height: 24px;
+    padding: 2px 5px;
+    border: none;
+    border-bottom: 1px solid #555;
+    border-radius: 0;
+    background: transparent;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.inline-question input:focus {
     outline: none;
     border-bottom: 2px solid #1f5c43;
     background: #f4faf6;
