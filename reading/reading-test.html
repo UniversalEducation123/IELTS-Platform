@@ -837,6 +837,19 @@ function submitReadingTest() {
 
     let score = 0;
 
+    console.log("STARTING READING SCORE CHECK");
+
+for (let i = 1; i <= 40; i++) {
+    console.log(
+        "Question:",
+        i,
+        "User answer:",
+        getAnswer(i),
+        "Correct answer:",
+        answers["q" + i]
+    );
+}
+
     for (let i = 1; i <= 40; i++) {
         const questionName = "q" + i;
         const userAnswer = getAnswer(i);
