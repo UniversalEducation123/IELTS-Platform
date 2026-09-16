@@ -461,27 +461,249 @@ p {
     box-shadow: 0 8px 22px rgba(100, 70, 80, 0.05);
 }
 
-/* =====================================
-   LISTENING TEST PAGE
-===================================== */
+/* =====================================================
+   IELTS LISTENING TEST PAGE
+   Shared CSS for Listening Parts 1, 2, 3 and 4
+===================================================== */
+
+
+/* =====================================================
+   MAIN PAGE BACKGROUND AND LAYOUT
+===================================================== */
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(244, 190, 207, 0.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(190, 214, 190, 0.35),
+            transparent 35%
+        ),
+        #fff8fa;
+
+    background-attachment: fixed;
+}
+
+/*
+   Space reserved for:
+   - Top navigation bar
+   - Fixed main header
+*/
+body.listening-page {
+    padding-top: 125px;
+}
+
+
+/* =====================================================
+   LISTENING PAGE MAIN CONTAINER
+===================================================== */
 
 .listening-page {
     min-height: 100vh;
-    padding: 25px 6% 40px;
-    background: linear-gradient(135deg, #fff5f7, #f4faf5, #fffaf2);
+    box-sizing: border-box;
+    padding: 25px 6% 45px;
+    background: linear-gradient(
+        135deg,
+        #fff5f7,
+        #f4faf5,
+        #fffaf2
+    );
 }
+
+
+/* =====================================================
+   FIXED PART NAVIGATION
+   Used on all four Listening pages
+===================================================== */
+
+.listening-section-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 5px;
+    min-height: 48px;
+    box-sizing: border-box;
+
+    padding: 8px 10px;
+    margin: 0;
+
+    background: #fff5f5;
+    border-bottom: 1px solid #ffbcbc;
+}
+
+/* "Go to:" text */
+.listening-section-navigation strong {
+    margin-right: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Part 1, Part 2, Part 3 and Part 4 buttons */
+.section-jump-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 65px;
+    padding: 7px 14px;
+
+    border: 1px solid #777;
+    border-radius: 5px;
+
+    background: white;
+    color: #111;
+
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+/* Navigation button hover */
+.section-jump-button:hover {
+    background: #eeeeee;
+}
+
+/* Current active Listening part */
+.section-jump-button.active-section {
+    background: #333;
+    color: white;
+}
+
+
+/* =====================================================
+   FIXED MAIN HEADER
+   Contains logo, timer, Dashboard and Logout
+===================================================== */
+
+.main-header {
+    position: fixed;
+    top: 48px;
+    left: 0;
+    right: 0;
+    z-index: 1999;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    min-height: 70px;
+    box-sizing: border-box;
+
+    padding: 10px 25px;
+
+    background: white;
+    border-bottom: 1px solid #dddddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Logo container */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Logo image */
+.logo img {
+    display: block;
+    width: auto;
+    height: 65px;
+    object-fit: contain;
+}
+
+/* Right side of header */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Dashboard and Logout links */
+.header-right a {
+    color: #222;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Link hover */
+.header-right a:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   HEADER TIMER
+===================================================== */
+
+.header-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    background: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+}
+
+/* Timer label */
+.header-timer span {
+    color: #555;
+    font-size: 13px;
+}
+
+/* Timer value */
+.header-timer strong {
+    min-width: 55px;
+    color: #b00000;
+    font-size: 18px;
+    text-align: center;
+}
+
+
+/* =====================================================
+   LISTENING TEST HEADER
+===================================================== */
 
 .listening-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-bottom: 30px;
     padding: 28px 32px;
+
     border-radius: 18px;
-    background: linear-gradient(135deg, #b85c78, #789b78);
+
+    background: linear-gradient(
+        135deg,
+        #b85c78,
+        #789b78
+    );
+
     box-shadow: 0 12px 30px rgba(120, 80, 90, 0.18);
 }
 
+/* Optional small heading */
 .listening-header .small-heading {
     color: #ffe8ef;
     letter-spacing: 2px;
@@ -489,32 +711,44 @@ p {
     font-weight: 700;
 }
 
+/* Main Listening title */
 .listening-header h1 {
+    margin: 8px 0;
     color: white;
     font-size: 38px;
-    margin: 8px 0;
 }
 
+/* Question range text */
 .listening-header p {
-    color: #fff1f4;
     margin: 0;
+    color: #fff1f4;
 }
+
+
+/* =====================================================
+   OLD TIMER BOX
+   Kept for compatibility if used inside the page header
+===================================================== */
 
 .timer-box {
     min-width: 180px;
     padding: 18px 25px;
+
     text-align: center;
+
     border-radius: 14px;
+
     background: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.45);
+
     backdrop-filter: blur(10px);
 }
 
 .timer-box span {
     display: block;
+    margin-bottom: 7px;
     color: #fff0f4;
     font-size: 13px;
-    margin-bottom: 7px;
 }
 
 .timer-box strong {
@@ -524,16 +758,26 @@ p {
     letter-spacing: 2px;
 }
 
+
+/* =====================================================
+   AUDIO AND QUESTION SECTIONS
+===================================================== */
+
 .audio-section,
 .question-section {
+    box-sizing: border-box;
+
+    margin-bottom: 28px;
+    padding: 30px;
+
     background: #ffffff;
     border: none;
     border-radius: 18px;
-    padding: 30px;
-    margin-bottom: 28px;
+
     box-shadow: 0 10px 28px rgba(100, 70, 80, 0.08);
 }
 
+/* Audio section top decoration */
 .audio-section {
     position: relative;
     overflow: hidden;
@@ -541,111 +785,219 @@ p {
 
 .audio-section::before {
     content: "";
+
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, #d97998, #8eae8b);
+
+    background: linear-gradient(
+        90deg,
+        #d97998,
+        #8eae8b
+    );
 }
 
+/* Audio heading */
 .audio-section h2 {
+    margin-bottom: 20px;
     color: #704052;
     font-size: 21px;
-    margin-bottom: 20px;
 }
 
+/* Audio player background */
 .audio-player-container {
-    background: linear-gradient(135deg, #fff0f4, #eff8ef);
+    padding: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #fff0f4,
+        #eff8ef
+    );
+
     border: 1px solid #f1d5dd;
     border-radius: 14px;
-    padding: 20px;
 }
 
+/* Audio status text */
 .audio-status {
+    margin-bottom: 14px;
     color: #758f70;
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 14px;
 }
 
+/* Audio player width */
 .audio-section audio {
     width: 100%;
     height: 48px;
 }
 
+
+/* =====================================================
+   QUESTION SECTION HEADINGS
+===================================================== */
+
 .question-heading {
-    border-bottom: 1px solid #eadfe2;
-    padding-bottom: 20px;
     margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eadfe2;
 }
 
 .question-heading h2 {
+    margin-bottom: 10px;
     color: #704052;
     font-size: 24px;
-    margin-bottom: 10px;
 }
 
 .question-heading p {
-    color: #718071;
     margin-bottom: 8px;
+    color: #718071;
 }
 
+/* Instruction label */
 .question-heading .instruction {
     display: inline-block;
+
     margin-top: 10px;
     padding: 9px 14px;
+
     border-radius: 8px;
+
     background: #edf6eb;
     color: #66815f;
+
     font-size: 13px;
     font-weight: 700;
 }
 
-/* =====================================
+
+/* =====================================================
+   QUESTION PROGRESS NAVIGATION
+   Same style for all four Listening parts
+===================================================== */
+
+.question-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    margin: 20px 0 18px;
+    padding: 10px 12px;
+
+    background: #f7f7f7;
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+
+    box-sizing: border-box;
+}
+
+/* "Questions:" label */
+.question-progress-title {
+    margin-right: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Individual number boxes */
+.question-progress-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    border: 1px solid #888888;
+    border-radius: 3px;
+
+    background: white;
+    color: #222222;
+
+    cursor: pointer;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Number box hover */
+.question-progress-button:hover {
+    background: #eeeeee;
+}
+
+/* Answered question */
+.question-progress-button.answered {
+    background: #333333;
+    color: white;
+    border-color: #333333;
+}
+
+
+/* =====================================================
    LISTENING TABLE
-===================================== */
+===================================================== */
 
 .question-table {
     width: 100%;
+
     border: 1px solid #e5d8dc;
     border-radius: 12px;
+
     overflow: hidden;
 }
 
+/* Each table row */
 .table-row {
     display: grid;
     grid-template-columns: 15% 18% 19% 48%;
+
     min-height: 82px;
+
     border-bottom: 1px solid #eadfe2;
 }
 
+/* Remove border from final row */
 .table-row:last-child {
     border-bottom: none;
 }
 
+/* Table cells */
 .table-row > div {
     padding: 18px 14px;
+
     border-right: 1px solid #eadfe2;
+
     color: #4f5e52;
     font-size: 14px;
     line-height: 1.8;
 }
 
+/* Remove border from last cell */
 .table-row > div:last-child {
     border-right: none;
 }
 
+/* Table header */
 .table-header {
-    background: linear-gradient(135deg, #b85c78, #789b78);
+    background: linear-gradient(
+        135deg,
+        #b85c78,
+        #789b78
+    );
 }
 
 .table-header > div {
     color: white;
-    font-weight: 700;
     font-size: 14px;
+    font-weight: 700;
 }
 
+/* Alternating row colors */
 .table-row:not(.table-header):nth-child(even) {
     background: #fff8fa;
 }
@@ -654,31 +1006,47 @@ p {
     background: #f8fcf7;
 }
 
+/* Table row hover */
 .table-row:not(.table-header):hover {
     background: #f5e9ed;
 }
+
+
+/* =====================================================
+   QUESTION NUMBER LABELS
+===================================================== */
 
 .question-number {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+
     width: 22px;
     height: 22px;
     margin: 0 5px;
+
     background: #f9dce5;
     border: 1px solid #e3aabd;
-    color: #a94f6e;
     border-radius: 6px;
+
+    color: #a94f6e;
     font-size: 12px;
     font-weight: 700;
 }
 
+
+/* =====================================================
+   TABLE INPUTS
+===================================================== */
+
 .question-table input {
     width: 100px;
     padding: 8px 9px;
+
     background: #fffdfd;
     border: 1px solid #c9d8c6;
     border-radius: 6px;
+
     color: #4d604f;
     transition: all 0.2s ease;
 }
@@ -693,16 +1061,314 @@ p {
     box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
 }
 
+
+/* =====================================================
+   MULTIPLE CHOICE QUESTIONS
+===================================================== */
+
+.multiple-choice-question {
+    margin-bottom: 35px;
+    padding: 25px;
+
+    background: #fff8fa;
+    border: 1px solid #eadfe2;
+    border-radius: 12px;
+}
+
+.multiple-choice-question > p {
+    margin-bottom: 18px;
+    color: #704052;
+}
+
+/* Multiple choice option */
+.multiple-choice-question label {
+    display: block;
+
+    margin-bottom: 10px;
+    padding: 13px 15px;
+
+    background: #ffffff;
+    border: 1px solid #eadfe2;
+    border-radius: 8px;
+
+    color: #4f5e52;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.multiple-choice-question label:hover {
+    background: #fdf0f4;
+    border-color: #d58ca3;
+}
+
+.multiple-choice-question input {
+    margin-right: 10px;
+    accent-color: #b85c78;
+}
+
+.second-question-heading {
+    margin-top: 35px;
+}
+
+
+/* =====================================================
+   MAP QUESTIONS
+===================================================== */
+
+.map-container {
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 25px 0;
+    padding: 20px;
+
+    text-align: center;
+
+    background: #fff8fa;
+    border: 1px solid #ead5dc;
+    border-radius: 12px;
+
+    overflow-x: auto;
+}
+
+/* Map image */
+.listening-map {
+    display: block;
+
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+/* Map question grid */
+.map-questions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Individual map question */
+.map-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+    padding: 17px 20px;
+
+    background: #ffffff;
+    border: 1px solid #eadfe2;
+    border-radius: 10px;
+
+    color: #4f5e52;
+}
+
+/* Map question number */
+.map-question strong {
+    color: #a94f6e;
+}
+
+/* Map select and text input */
+.map-question input,
+.map-question select,
+.question-section input[type="text"] {
+    width: 100%;
+    max-width: 180px;
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    background: #fff;
+    border: 1px solid #d8b8c4;
+    border-radius: 8px;
+
+    font-size: 16px;
+}
+
+/* Map select specific styling */
+.map-question select {
+    padding: 9px 12px;
+    color: #4f5e52;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Input focus */
+.map-question input:focus,
+.map-question select:focus,
+.question-section input[type="text"]:focus {
+    outline: none;
+    border-color: #b85c78;
+    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
+}
+
+
+/* =====================================================
+   ANSWER BOX
+===================================================== */
+
+.answer-box {
+    margin: 20px 0;
+    padding: 18px;
+
+    background: #f5faf5;
+    border: 1px solid #c8ddc8;
+    border-radius: 12px;
+}
+
+.answer-box p {
+    margin: 7px 0;
+}
+
+
+/* =====================================================
+   FLOWCHART QUESTIONS
+===================================================== */
+
+.flowchart {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    max-width: 600px;
+    margin: 25px auto;
+}
+
+.flow-step {
+    padding: 15px;
+
+    background: #fff8fa;
+    border: 1px solid #e8c5d0;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.flow-step label {
+    display: inline-block;
+    margin-right: 12px;
+    font-weight: bold;
+}
+
+.flow-step select {
+    padding: 8px 15px;
+
+    border: 1px solid #c9aab5;
+    border-radius: 7px;
+
+    font-size: 16px;
+}
+
+
+/* =====================================================
+   NOTES / FORM COMPLETION QUESTIONS
+===================================================== */
+
+.notes-box {
+    padding: 25px;
+
+    background: #fff8fa;
+    border: 1px solid #e8c5d0;
+    border-radius: 14px;
+
+    font-size: 17px;
+    line-height: 2;
+}
+
+.notes-box h3 {
+    margin-top: 0;
+    color: #8d4c64;
+}
+
+.notes-box h4 {
+    margin-top: 25px;
+    color: #527052;
+}
+
+.notes-box input {
+    width: 150px;
+    box-sizing: border-box;
+
+    margin: 0 5px;
+    padding: 7px 10px;
+
+    border: 1px solid #c9aab5;
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
+.notes-box li {
+    margin-bottom: 14px;
+}
+
+
+/* =====================================================
+   CONTINUE AND FINISH BUTTONS
+===================================================== */
+
+.continue-button,
+.finish-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+
+    padding: 14px 24px;
+
+    background: #b85c78;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Continue/finish hover */
+.continue-button:hover,
+.finish-button:hover {
+    background: #963f5e;
+}
+
+
+/* =====================================================
+   SUBMIT SECTION BUTTON
+===================================================== */
+
 .submit-section-btn {
     margin-top: 28px;
     padding: 14px 25px;
+
+    background: linear-gradient(
+        135deg,
+        #b85c78,
+        #789b78
+    );
+
+    color: white;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(135deg, #b85c78, #789b78);
-    color: white;
+
     font-size: 15px;
     font-weight: 700;
+
     cursor: pointer;
+
     box-shadow: 0 7px 16px rgba(184, 92, 120, 0.2);
     transition: all 0.2s ease;
 }
@@ -712,12 +1378,129 @@ p {
     box-shadow: 0 12px 22px rgba(120, 155, 120, 0.3);
 }
 
-/* =====================================
+
+/* =====================================================
+   LOGO TEXT COMPATIBILITY
+===================================================== */
+
+.main-header .logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #222;
+}
+
+
+/* =====================================================
    MOBILE RESPONSIVENESS
-===================================== */
+===================================================== */
 
 @media (max-width: 800px) {
 
+    /* Reduce page spacing */
+    .listening-page {
+        padding: 20px;
+    }
+
+    /* Header becomes vertical */
+    .main-header {
+        padding: 8px 15px;
+    }
+
+    .main-header .logo img {
+        height: 48px;
+    }
+
+    .header-right {
+        gap: 8px;
+    }
+
+    .header-right a {
+        font-size: 12px;
+    }
+
+    .header-timer {
+        padding: 6px 8px;
+        gap: 4px;
+    }
+
+    .header-timer span {
+        font-size: 11px;
+    }
+
+    .header-timer strong {
+        font-size: 15px;
+        min-width: 45px;
+    }
+
+    /* Listening navigation */
+    .listening-section-navigation {
+        gap: 3px;
+        padding: 6px;
+    }
+
+    .section-jump-button {
+        min-width: 55px;
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    /* Listening header */
+    .listening-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 22px;
+    }
+
+    .listening-header h1 {
+        font-size: 30px;
+    }
+
+    .timer-box {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Sections */
+    .question-section,
+    .audio-section {
+        padding: 18px;
+    }
+
+    /* Tables scroll horizontally */
+    .question-table {
+        overflow-x: auto;
+    }
+
+    .table-row {
+        min-width: 850px;
+    }
+
+    /* Map questions become one column */
+    .map-questions {
+        grid-template-columns: 1fr;
+    }
+
+    .map-question {
+        padding: 15px;
+    }
+
+    /* Multiple choice spacing */
+    .multiple-choice-question {
+        padding: 18px;
+    }
+
+    /* Notes box */
+    .notes-box {
+        padding: 16px;
+        font-size: 15px;
+    }
+
+    .notes-box input {
+        width: 110px;
+    }
+
+    /* Login compatibility */
     .navbar {
         padding: 18px 5%;
     }
@@ -728,10 +1511,6 @@ p {
 
     nav a {
         font-size: 13px;
-    }
-
-    h1 {
-        font-size: 38px;
     }
 
     .hero {
@@ -753,360 +1532,9 @@ p {
         padding: 45px 6%;
     }
 
-    .listening-page {
-        padding: 20px;
-    }
-
-    .listening-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .timer-box {
-        width: 100%;
-    }
-
-    .question-section,
-    .audio-section {
-        padding: 18px;
-    }
-
-    .question-table {
-        overflow-x: auto;
-    }
-
-    .table-row {
-        min-width: 850px;
-    }
-
     .auth-form {
         padding: 25px;
     }
-}
-
-body {
-  background:
-    radial-gradient(circle at top left, rgba(244, 190, 207, 0.35), transparent 35%),
-    radial-gradient(circle at bottom right, rgba(190, 214, 190, 0.35), transparent 35%),
-    #fff8fa;
-  background-attachment: fixed;
-}
-
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(10px);
-}
-
-body::before {
-  top: 100px;
-  left: -80px;
-  background: rgba(244, 190, 207, 0.25);
-}
-
-body::after {
-  bottom: 40px;
-  right: -80px;
-  background: rgba(190, 214, 190, 0.3);
-}
-
-/* =====================================
-   PART 2 MULTIPLE CHOICE
-===================================== */
-
-.multiple-choice-question {
-    background: #fff8fa;
-    border: 1px solid #eadfe2;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 35px;
-}
-
-.multiple-choice-question > p {
-    color: #704052;
-    margin-bottom: 18px;
-}
-
-.multiple-choice-question label {
-    display: block;
-    padding: 13px 15px;
-    margin-bottom: 10px;
-    border: 1px solid #eadfe2;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #4f5e52;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.multiple-choice-question label:hover {
-    background: #fdf0f4;
-    border-color: #d58ca3;
-}
-
-.multiple-choice-question input {
-    margin-right: 10px;
-    accent-color: #b85c78;
-}
-
-.second-question-heading {
-    margin-top: 35px;
-}
-
-
-/* =====================================
-   PART 2 MAP
-===================================== */
-
-.map-container {
-    width: 100%;
-    text-align: center;
-    background: #fff8fa;
-    border: 1px solid #eadfe2;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 25px;
-    overflow-x: auto;
-}
-
-.listening-map {
-    display: block;
-    width: 100%;
-    max-width: 850px;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 8px;
-}
-
-
-.map-questions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.map-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    background: #ffffff;
-    border: 1px solid #eadfe2;
-    border-radius: 10px;
-    padding: 17px 20px;
-    color: #4f5e52;
-}
-
-.map-question strong {
-    color: #a94f6e;
-}
-
-.map-question select {
-    padding: 9px 12px;
-    border: 1px solid #c9d8c6;
-    border-radius: 7px;
-    background: #fffdfd;
-    color: #4f5e52;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.map-question select:focus {
-    outline: none;
-    border-color: #b85c78;
-    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.12);
-}
-
-
-/* =====================================
-   MOBILE PART 2
-===================================== */
-
-@media (max-width: 700px) {
-
-    .map-questions {
-        grid-template-columns: 1fr;
-    }
-
-    .map-question {
-        padding: 15px;
-    }
-
-    .multiple-choice-question {
-        padding: 18px;
-    }
-
-}
-
-.answer-box {
-    background: #f5faf5;
-    border: 1px solid #c8ddc8;
-    border-radius: 12px;
-    padding: 18px;
-    margin: 20px 0;
-}
-
-.answer-box p {
-    margin: 7px 0;
-}
-
-.flowchart {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-width: 600px;
-    margin: 25px auto;
-}
-
-.flow-step {
-    background: #fff8fa;
-    border: 1px solid #e8c5d0;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-}
-
-.flow-step label {
-    display: inline-block;
-    margin-right: 12px;
-    font-weight: bold;
-}
-
-.flow-step select {
-    padding: 8px 15px;
-    border: 1px solid #c9aab5;
-    border-radius: 7px;
-    font-size: 16px;
-}
-
-.notes-box {
-    background: #fff8fa;
-    border: 1px solid #e8c5d0;
-    border-radius: 14px;
-    padding: 25px;
-    line-height: 2;
-    font-size: 17px;
-}
-
-.notes-box h3 {
-    margin-top: 0;
-    color: #8d4c64;
-}
-
-.notes-box h4 {
-    margin-top: 25px;
-    color: #527052;
-}
-
-.notes-box input {
-    width: 150px;
-    padding: 7px 10px;
-    margin: 0 5px;
-    border: 1px solid #c9aab5;
-    border-radius: 6px;
-    font-size: 16px;
-}
-
-.notes-box li {
-    margin-bottom: 14px;
-}
-
-@media (max-width: 700px) {
-    .notes-box {
-        padding: 16px;
-        font-size: 15px;
-    }
-
-    .notes-box input {
-        width: 110px;
-    }
-}
-
-.map-question input,
-.map-question select,
-.question-section input[type="text"] {
-    width: 100%;
-    max-width: 180px;
-    padding: 12px;
-    border: 1px solid #d8b8c4;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #fff;
-    text-transform: uppercase;
-}
-
-.map-question input:focus,
-.question-section input[type="text"]:focus {
-    outline: none;
-    border-color: #b85c78;
-    box-shadow: 0 0 0 3px rgba(184, 92, 120, 0.15);
-}
-
-.map-container {
-    width: 100%;
-    margin: 25px 0;
-    padding: 20px;
-    text-align: center;
-    background: #fff8fa;
-    border: 1px solid #ead5dc;
-    border-radius: 12px;
-    overflow-x: auto;
-}
-
-.listening-map {
-    display: block;
-    width: 100%;
-    max-width: 900px;
-    height: auto;
-    margin: 0 auto;
-}
-
-/* Listening test navigation buttons */
-
-.continue-button,
-.finish-button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 48px;
-    padding: 14px 24px;
-    background: #b85c78;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-.continue-button:hover,
-.finish-button:hover {
-    background: #963f5e;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.logo img {
-    height: 65px;
-    width: auto;
-    display: block;
-    object-fit: contain;
 }
 
 /* ============================= */
