@@ -231,6 +231,15 @@ function showTestResults(testName, clickedButton = null) {
 
             <div class="test-result-card">
                 <h3>${escapeHTML(result.test_name || "Unnamed Test")}</h3>
+                
+                <p class="test-date">
+    Test Date:
+    ${
+        result.test_date
+            ? new Date(result.test_date + "T00:00:00").toLocaleDateString()
+            : "Not available"
+    }
+</p>
 
                 <div class="score-grid">
                     <div class="score-item">

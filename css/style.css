@@ -2114,7 +2114,7 @@ body.listening-page {
 
 .student-card-header h2 {
     margin: 0 0 8px;
-    color: #1e3a8a;
+    color: #2c1b33;
     font-size: 22px;
 }
 
@@ -2151,7 +2151,7 @@ body.listening-page {
 }
 
 .score-item strong {
-    color: #1e3a8a;
+    color: #412544;
     font-size: 15px;
 }
 
@@ -2209,4 +2209,11 @@ body.listening-page {
     .test-filter-button {
         padding: 9px 15px;
     }
+}
+
+.test-date {
+    margin: -5px 0 15px;
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
 }

@@ -1284,6 +1284,9 @@ async function saveReadingScore(score) {
     const studentId = sessionStorage.getItem("studentId");
     const studentName = sessionStorage.getItem("studentName");
 
+    // Save the date on which the student submitted the test
+    const testDate = new Date().toISOString().split("T")[0];
+
     const submitButton = document.querySelector(".submit-reading");
 
     if (submitButton) {
@@ -1307,7 +1310,6 @@ async function saveReadingScore(score) {
     if (findError) {
         console.error("Error finding Test 1 result:", findError);
 
-        // Still show the result page even if saving fails
         window.location.href = "reading-final.html";
         return;
     }
@@ -1321,6 +1323,7 @@ async function saveReadingScore(score) {
             .from("test_results")
             .update({
                 student_name: studentName,
+                test_date: testDate,
                 reading_score: score
             })
             .eq("id", existingResult.id);
@@ -1334,6 +1337,7 @@ async function saveReadingScore(score) {
                 student_id: Number(studentId),
                 student_name: studentName,
                 test_name: "Test 1",
+                test_date: testDate,
                 reading_score: score
             });
 
@@ -1343,7 +1347,7 @@ async function saveReadingScore(score) {
     if (saveError) {
         console.error("Error saving Reading score:", saveError);
     } else {
-        console.log("Reading score saved successfully.");
+        console.log("Reading score and test date saved successfully.");
     }
 
     // Open the final Reading result page
