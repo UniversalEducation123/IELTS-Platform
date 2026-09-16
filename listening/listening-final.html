@@ -296,6 +296,8 @@
         /*
          * IELTS Listening Band Score Conversion
          */
+        document.addEventListener("DOMContentLoaded", function() {
+
         function calculateBand(correctCount) {
             if (correctCount >= 39) return "9.0";
             if (correctCount >= 37) return "8.5";
@@ -616,6 +618,8 @@
         document.getElementById("bandScore").textContent =
             bandScore;
 
+            });
+
 
         /*
          * SAVE RESULT TO SUPABASE
@@ -623,6 +627,13 @@
          * This runs only once for this completed test session.
          */
         async function saveResultToSupabase() {
+
+    if (
+        sessionStorage.getItem("listeningTest1ResultSaved") === "true"
+    ) {
+        return;
+    }
+
     const alreadySaved = sessionStorage.getItem(
         "listeningTest1ResultSaved"
     );
@@ -662,9 +673,24 @@
 
 
         /*
-         * Save the result after calculation.
-         */
-        saveResultToSupabase();
+ * Save the result after calculation.
+ */
+saveResultToSupabase();
+
+/*
+ * Clear Listening progress after result is displayed.
+ */
+sessionStorage.removeItem("listeningTimeLeft");
+sessionStorage.removeItem("listeningTimerStarted");
+sessionStorage.removeItem("listeningPart1Answers");
+sessionStorage.removeItem("listeningPart2Answers");
+sessionStorage.removeItem("listeningPart3Answers");
+sessionStorage.removeItem("listeningPart4Answers");
+sessionStorage.removeItem("listeningAutoSubmitted");
+
+document.addEventListener("DOMContentLoaded", function() {
+    calculateListeningScore();
+});
 
     </script>
 

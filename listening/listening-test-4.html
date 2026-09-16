@@ -220,10 +220,13 @@ let timeLeft = savedTime !== null
     ? Number(savedTime)
     : 30 * 60;
 
-const timerStarted =
+let timerStarted =
     sessionStorage.getItem("listeningTimerStarted") === "true";
 
+let timerInterval;
+
 const timerElement = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
 
 function updateTimer() {
     if (!timerElement) return;
@@ -236,67 +239,112 @@ function updateTimer() {
         String(seconds).padStart(2, "0");
 }
 
-if (timerStarted) {
-    updateTimer();
-} else if (timerElement) {
-    timerElement.textContent = "--:--";
-}
+function savePart4Answers() {
+    const answers = {};
 
-const timerInterval = setInterval(function () {
-    if (!timerStarted) return;
+    for (let i = 31; i <= 40; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
 
-    timeLeft--;
+        if (input) {
+            answers[`q${i}`] = input.value.trim();
+        }
+    }
 
     sessionStorage.setItem(
-        "listeningTimeLeft",
-        timeLeft
+        "listeningPart4Answers",
+        JSON.stringify(answers)
+    );
+}
+
+function autoSubmitListeningTest() {
+    savePart4Answers();
+
+    if (audio) {
+        audio.pause();
+    }
+
+    sessionStorage.setItem(
+        "listeningAutoSubmitted",
+        "true"
     );
 
-    updateTimer();
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
 
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
+    window.location.href =
+        "listening-final.html?autoSubmit=true";
+}
 
-        sessionStorage.removeItem("listeningTimeLeft");
-        sessionStorage.removeItem("listeningTimerStarted");
+function runSharedTimer() {
+    if (timerInterval) return;
 
-        if (timerElement) {
-            timerElement.textContent = "00:00";
+    timerInterval = setInterval(function() {
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "listeningTimeLeft",
+            timeLeft
+        );
+
+        updateTimer();
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            autoSubmitListeningTest();
         }
 
-        alert("Time is up.");
-    }
-}, 1000);
+    }, 1000);
+}
 
+if (timerStarted) {
+    updateTimer();
+    runSharedTimer();
+} else {
+    if (timerElement) {
+        timerElement.textContent = "--:--";
+    }
+}
 
 /*
  * SAVE PART 4 ANSWERS AND FINISH TEST
  */
 
-const submitPart4Button =
-    document.getElementById("submitPart4Btn");
+const submitButton = document.getElementById(
+    "submitListeningBtn"
+);
 
-if (submitPart4Button) {
-    submitPart4Button.addEventListener("click", function () {
+if (submitButton) {
+    submitButton.addEventListener("click", function() {
+        savePart4Answers();
 
-        const answers = {};
+        window.location.href =
+            "listening-final.html";
+    });
+}
 
-        for (let i = 31; i <= 40; i++) {
-            const input = document.querySelector(
-                `[name="q${i}"]`
-            );
+let lastAudioTime = 0;
+let isAudioResetting = false;
 
-            answers[`q${i}`] = input
-                ? input.value.trim().toUpperCase()
-                : "";
+if (audio) {
+    audio.addEventListener("timeupdate", function () {
+        if (!isAudioResetting) {
+            lastAudioTime = audio.currentTime;
         }
+    });
 
-        sessionStorage.setItem(
-            "listeningPart4Answers",
-            JSON.stringify(answers)
-        );
+    audio.addEventListener("seeking", function () {
+        if (isAudioResetting) return;
 
-        window.location.href = "listening-final.html";
+        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
+            isAudioResetting = true;
+            audio.currentTime = lastAudioTime;
+
+            setTimeout(function () {
+                isAudioResetting = false;
+            }, 100);
+        }
     });
 }
 

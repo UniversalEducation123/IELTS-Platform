@@ -69,7 +69,12 @@
             Press Play to begin the listening test
         </div>
 
-        <audio id="listeningAudio" controls controlsList="nodownload">
+        <audio
+    id="listeningAudio"
+    controls
+    controlsList="nodownload noplaybackrate"
+    oncontextmenu="return false;">
+
             <source
     src="../assets/listening-section-1.mp3"
     type="audio/mpeg"
@@ -272,7 +277,7 @@
 
    <script>
 
-    /*
+  /*
  * SHARED LISTENING TIMER
  */
 
@@ -304,33 +309,66 @@ function updateTimer() {
 }
 
 function runSharedTimer() {
-    if (localTimerRunning) return;
-
-    localTimerRunning = true;
+    // Prevent multiple timers from running
+    if (timerInterval) return;
 
     timerInterval = setInterval(function () {
         timeLeft--;
+        updateTimer();
 
         sessionStorage.setItem("listeningTimeLeft", timeLeft);
-        updateTimer();
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
+            timerInterval = null;
 
             sessionStorage.removeItem("listeningTimeLeft");
             sessionStorage.removeItem("listeningTimerStarted");
 
-            if (audio) {
-                audio.pause();
-                audio.controls = false;
-            }
-
-            alert("Time is up.");
+            autoSubmitListeningTest();
         }
     }, 1000);
 }
 
+function saveCurrentPart1Answers() {
+    const answers = {};
+
+    for (let i = 1; i <= 10; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+
+        if (input) {
+            answers[`q${i}`] = input.value.trim();
+        }
+    }
+
+    sessionStorage.setItem(
+        "listeningPart1Answers",
+        JSON.stringify(answers)
+    );
+}
+
+function autoSubmitListeningTest() {
+    // Save current Part 1 answers before closing
+    saveCurrentPart1Answers();
+
+    // Stop audio
+    if (audio) {
+        audio.pause();
+    }
+
+    // Mark test as automatically submitted
+    sessionStorage.setItem("listeningAutoSubmitted", "true");
+
+    // Go to final score page
+    window.location.href = "listening-final.html?autoSubmit=true";
+}
+
 function startTimer() {
+    if (timerStarted) return;
+
+    timerStarted = true;
+    localTimerRunning = true;
+
     sessionStorage.setItem("listeningTimerStarted", "true");
 
     if (audioStatus) {
@@ -342,10 +380,11 @@ function startTimer() {
 }
 
 /*
- * If timer was already started in another part,
- * continue it immediately when returning to Part 1.
+ * Continue timer if it was already started
  */
 if (sessionStorage.getItem("listeningTimerStarted") === "true") {
+    timerStarted = true;
+    localTimerRunning = true;
     runSharedTimer();
 }
 
@@ -361,33 +400,47 @@ if (audio) {
 
 if (timerStarted) {
     updateTimer();
-} else {
+} else if (timerElement) {
     timerElement.textContent = "--:--";
 }
 
-    document.getElementById("submitListeningBtn")
-    .addEventListener("click", function () {
+const submitButton = document.getElementById("submitListeningBtn");
 
-        const answers = {};
+if (submitButton) {
+    submitButton.addEventListener("click", function () {
+        saveCurrentPart1Answers();
 
-        for (let i = 1; i <= 10; i++) {
-            const input = document.querySelector(`[name="q${i}"]`);
-
-            if (input) {
-                answers[`q${i}`] = input.value.trim();
-            }
-        }
-
-        // Save Part 1 answers before moving to Part 2
-        sessionStorage.setItem(
-            "listeningPart1Answers",
-            JSON.stringify(answers)
-        );
-
-        // Continue to Part 2
+        // Continue to Part 2 without resetting timer
         window.location.href = "listening-test-2.html";
     });
+}
 
+/*
+ * Prevent audio forward/backward seeking
+ */
+let lastAudioTime = 0;
+let isAudioResetting = false;
+
+if (audio) {
+    audio.addEventListener("timeupdate", function () {
+        if (!isAudioResetting) {
+            lastAudioTime = audio.currentTime;
+        }
+    });
+
+    audio.addEventListener("seeking", function () {
+        if (isAudioResetting) return;
+
+        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
+            isAudioResetting = true;
+            audio.currentTime = lastAudioTime;
+
+            setTimeout(function () {
+                isAudioResetting = false;
+            }, 100);
+        }
+    });
+}
     function updateQuestionProgress() {
         for (let i = 1; i <= 10; i++) {
             const input = document.querySelector(`[name="q${i}"]`);

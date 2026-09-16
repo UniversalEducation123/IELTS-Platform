@@ -440,7 +440,7 @@
      * TIMER
      */
 
-   /*
+/*
  * SHARED LISTENING TIMER
  */
 
@@ -450,12 +450,17 @@ let timeLeft = savedTime !== null
     ? Number(savedTime)
     : 30 * 60;
 
-const timerStarted =
+let timerStarted =
     sessionStorage.getItem("listeningTimerStarted") === "true";
 
+let timerInterval;
+
 const timerElement = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
 
 function updateTimer() {
+    if (!timerElement) return;
+
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
@@ -464,183 +469,283 @@ function updateTimer() {
         String(seconds).padStart(2, "0");
 }
 
-if (timerStarted) {
-    updateTimer();
-} else {
-    timerElement.textContent = "--:--";
+
+/*
+ * SAVE PART 2 ANSWERS
+ */
+
+function savePart2Answers() {
+    const answers = {};
+
+    // Normal questions
+    for (let i = 15; i <= 20; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+
+        if (input) {
+            answers[`q${i}`] = input.value.trim();
+        }
+    }
+
+    // Questions 11–12 checkbox pair
+    const pair11_12 = Array.from(
+        document.querySelectorAll('input[name="q11_12"]:checked')
+    ).map(input => input.value);
+
+    answers.q11 = pair11_12[0] || "";
+    answers.q12 = pair11_12[1] || "";
+
+    // Questions 13–14 checkbox pair
+    const pair13_14 = Array.from(
+        document.querySelectorAll('input[name="q13_14"]:checked')
+    ).map(input => input.value);
+
+    answers.q13 = pair13_14[0] || "";
+    answers.q14 = pair13_14[1] || "";
+
+    sessionStorage.setItem(
+        "listeningPart2Answers",
+        JSON.stringify(answers)
+    );
 }
 
-const timerInterval = setInterval(function() {
-    if (!timerStarted) return;
 
-    timeLeft--;
+/*
+ * AUTOMATICALLY SUBMIT WHEN TIME ENDS
+ */
 
-    sessionStorage.setItem("listeningTimeLeft", timeLeft);
+function autoSubmitListeningTest() {
+    savePart2Answers();
 
-    updateTimer();
-
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-
-        sessionStorage.removeItem("listeningTimeLeft");
-        sessionStorage.removeItem("listeningTimerStarted");
-
-        timerElement.textContent = "00:00";
-
-        alert("Time is up.");
+    if (audio) {
+        audio.pause();
     }
-}, 1000);
+
+    sessionStorage.setItem(
+        "listeningAutoSubmitted",
+        "true"
+    );
+
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+
+    window.location.href =
+        "listening-final.html?autoSubmit=true";
+}
 
 
-        /*
-         * AUDIO CAN ONLY BE PLAYED ONCE
-         */
+/*
+ * RUN SHARED TIMER
+ */
 
-        const audio = document.getElementById("listeningAudio");
+function runSharedTimer() {
+    if (timerInterval) return;
 
-        let audioStarted = false;
+    timerInterval = setInterval(function() {
+        timeLeft--;
 
-        audio.addEventListener("play", function() {
-            audioStarted = true;
-        });
-
-        audio.addEventListener("pause", function() {
-
-            if (audioStarted && !audio.ended) {
-                audio.play();
-            }
-
-        });
-
-
-        /*
-         * LIMIT QUESTIONS 11–12 TO TWO OPTIONS
-         */
-
-        const q11_12 = document.querySelectorAll(
-            'input[name="q11_12"]'
+        sessionStorage.setItem(
+            "listeningTimeLeft",
+            timeLeft
         );
 
-        q11_12.forEach(function(checkbox) {
+        updateTimer();
 
-            checkbox.addEventListener("change", function() {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
 
-                const selected = document.querySelectorAll(
-                    'input[name="q11_12"]:checked'
-                );
+            autoSubmitListeningTest();
+        }
 
-                if (selected.length > 2) {
-
-                    checkbox.checked = false;
-
-                    alert(
-                        "Please choose exactly TWO answers for Questions 11–12."
-                    );
-
-                }
-
-            });
-
-        });
+    }, 1000);
+}
 
 
-        /*
-         * LIMIT QUESTIONS 13–14 TO TWO OPTIONS
-         */
+/*
+ * START TIMER IF ALREADY STARTED IN PART 1
+ */
 
-        const q13_14 = document.querySelectorAll(
-            'input[name="q13_14"]'
+if (timerStarted) {
+    updateTimer();
+    runSharedTimer();
+} else {
+    if (timerElement) {
+        timerElement.textContent = "--:--";
+    }
+}
+
+
+/*
+ * AUDIO CAN ONLY BE PLAYED ONCE
+ */
+
+let audioStarted = false;
+
+if (audio) {
+
+    audio.addEventListener("play", function() {
+        audioStarted = true;
+    });
+
+    audio.addEventListener("pause", function() {
+
+        if (audioStarted && !audio.ended) {
+            audio.play();
+        }
+
+    });
+
+}
+
+
+/*
+ * LIMIT QUESTIONS 11–12 TO TWO OPTIONS
+ */
+
+const q11_12 = document.querySelectorAll(
+    'input[name="q11_12"]'
+);
+
+q11_12.forEach(function(checkbox) {
+
+    checkbox.addEventListener("change", function() {
+
+        const selected = document.querySelectorAll(
+            'input[name="q11_12"]:checked'
         );
 
-        q13_14.forEach(function(checkbox) {
+        if (selected.length > 2) {
 
-            checkbox.addEventListener("change", function() {
+            checkbox.checked = false;
 
-                const selected = document.querySelectorAll(
-                    'input[name="q13_14"]:checked'
-                );
+            alert(
+                "Please choose exactly TWO answers for Questions 11–12."
+            );
 
-                if (selected.length > 2) {
+        }
 
-                    checkbox.checked = false;
+    });
 
-                    alert(
-                        "Please choose exactly TWO answers for Questions 13–14."
-                    );
-
-                }
-
-            });
-
-        });
+});
 
 
-        /*
-         * MAKE MAP TEXT BOXES UPPERCASE
-         */
+/*
+ * LIMIT QUESTIONS 13–14 TO TWO OPTIONS
+ */
 
-        const mapInputs = document.querySelectorAll(
-            '.map-question input[type="text"]'
+const q13_14 = document.querySelectorAll(
+    'input[name="q13_14"]'
+);
+
+q13_14.forEach(function(checkbox) {
+
+    checkbox.addEventListener("change", function() {
+
+        const selected = document.querySelectorAll(
+            'input[name="q13_14"]:checked'
         );
 
-        mapInputs.forEach(function(input) {
+        if (selected.length > 2) {
 
-            input.addEventListener("input", function() {
+            checkbox.checked = false;
 
-                input.value = input.value
-                    .toUpperCase()
-                    .replace(/[^A-I]/g, "")
-                    .slice(0, 1);
+            alert(
+                "Please choose exactly TWO answers for Questions 13–14."
+            );
 
-            });
+        }
 
-        });
+    });
+
+});
 
 
-       /*
+/*
+ * MAKE MAP TEXT BOXES UPPERCASE
+ */
+
+const mapInputs = document.querySelectorAll(
+    '.map-question input[type="text"]'
+);
+
+mapInputs.forEach(function(input) {
+
+    input.addEventListener("input", function() {
+
+        input.value = input.value
+            .toUpperCase()
+            .replace(/[^A-I]/g, "")
+            .slice(0, 1);
+
+    });
+
+});
+
+
+/*
  * SAVE PART 2 ANSWERS AND CONTINUE
  */
 
-document.getElementById("submitPart2Btn")
-    .addEventListener("click", function () {
+const submitButton = document.getElementById(
+    "submitListeningBtn"
+);
 
-        const selected11_12 = Array.from(
-            document.querySelectorAll('input[name="q11_12"]:checked')
-        ).map(function (input) {
-            return input.value;
-        });
+if (submitButton) {
 
-        const selected13_14 = Array.from(
-            document.querySelectorAll('input[name="q13_14"]:checked')
-        ).map(function (input) {
-            return input.value;
-        });
+    submitButton.addEventListener("click", function() {
 
-        const answers = {
-            q11: selected11_12[0] || "",
-            q12: selected11_12[1] || "",
+        savePart2Answers();
 
-            q13: selected13_14[0] || "",
-            q14: selected13_14[1] || ""
-        };
+        window.location.href =
+            "listening-test-3.html";
 
-        for (let i = 15; i <= 20; i++) {
-            const input = document.querySelector(`[name="q${i}"]`);
-
-            answers[`q${i}`] = input
-                ? input.value.trim().toUpperCase()
-                : "";
-        }
-
-        sessionStorage.setItem(
-            "listeningPart2Answers",
-            JSON.stringify(answers)
-        );
-
-        window.location.href = "listening-test-3.html";
     });
 
-           function updateQuestionProgress() {
+}
+
+
+/*
+ * PREVENT AUDIO FORWARD/BACKWARD SEEKING
+ */
+
+let lastAudioTime = 0;
+let isAudioResetting = false;
+
+if (audio) {
+
+    audio.addEventListener("timeupdate", function() {
+
+        if (!isAudioResetting) {
+            lastAudioTime = audio.currentTime;
+        }
+
+    });
+
+    audio.addEventListener("seeking", function() {
+
+        if (isAudioResetting) return;
+
+        if (
+            Math.abs(audio.currentTime - lastAudioTime) > 1
+        ) {
+
+            isAudioResetting = true;
+
+            audio.currentTime = lastAudioTime;
+
+            setTimeout(function() {
+                isAudioResetting = false;
+            }, 100);
+
+        }
+
+    });
+
+}
+
+
+
+function updateQuestionProgress() {
     // Questions 11–12
     const group11_12 = document.querySelectorAll(
         'input[name="q11_12"]:checked'

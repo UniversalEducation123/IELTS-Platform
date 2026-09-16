@@ -488,10 +488,13 @@ let timeLeft = savedTime !== null
     ? Number(savedTime)
     : 30 * 60;
 
-const timerStarted =
+let timerStarted =
     sessionStorage.getItem("listeningTimerStarted") === "true";
 
+let timerInterval;
+
 const timerElement = document.getElementById("timer");
+
 
 function updateTimer() {
     if (!timerElement) return;
@@ -504,53 +507,73 @@ function updateTimer() {
         String(seconds).padStart(2, "0");
 }
 
-if (timerStarted) {
-    updateTimer();
-} else if (timerElement) {
-    timerElement.textContent = "--:--";
-}
+function savePart3Answers() {
+    const answers = {};
 
-const timerInterval = setInterval(function () {
-    if (!timerStarted) return;
+    for (let i = 21; i <= 30; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
 
-    timeLeft--;
+        if (input) {
+            answers[`q${i}`] = input.value.trim();
+        }
+    }
 
     sessionStorage.setItem(
-        "listeningTimeLeft",
-        timeLeft
+        "listeningPart3Answers",
+        JSON.stringify(answers)
     );
-
-    updateTimer();
-
-    if (timeLeft <= 0) {
-        clearInterval(timerInterval);
-
-        sessionStorage.removeItem("listeningTimeLeft");
-        sessionStorage.removeItem("listeningTimerStarted");
-
-        if (timerElement) {
-            timerElement.textContent = "00:00";
-        }
-
-        alert("Time is up.");
-    }
-}, 1000);
-
-
-/*
- * GET SELECTED CHECKBOX ANSWERS
- */
-
-function getSelected(name) {
-    return Array.from(
-        document.querySelectorAll(
-            `input[name="${name}"]:checked`
-        )
-    ).map(function (input) {
-        return input.value;
-    });
 }
 
+function autoSubmitListeningTest() {
+    savePart3Answers();
+
+    if (audio) {
+        audio.pause();
+    }
+
+    sessionStorage.setItem(
+        "listeningAutoSubmitted",
+        "true"
+    );
+
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+
+    window.location.href =
+        "listening-final.html?autoSubmit=true";
+}
+
+function runSharedTimer() {
+    if (timerInterval) return;
+
+    timerInterval = setInterval(function() {
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "listeningTimeLeft",
+            timeLeft
+        );
+
+        updateTimer();
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            autoSubmitListeningTest();
+        }
+
+    }, 1000);
+}
+
+if (timerStarted) {
+    updateTimer();
+    runSharedTimer();
+} else {
+    if (timerElement) {
+        timerElement.textContent = "--:--";
+    }
+}
 
 /*
  * MAKE TEXT ANSWERS UPPERCASE
@@ -606,35 +629,18 @@ checkboxGroups.forEach(function (groupName) {
  * SAVE PART 3 ANSWERS AND CONTINUE
  */
 
-const submitPart3Button =
-    document.getElementById("submitPart3Btn");
+const submitButton = document.getElementById("submitListeningBtn");
 
-if (submitPart3Button) {
-    submitPart3Button.addEventListener("click", function () {
+if (submitButton) {
+    submitButton.addEventListener("click", function () {
+        const answers = {};
 
-        const selected21_22 = getSelected("q21_22");
-        const selected23_24 = getSelected("q23_24");
-        const selected25_26 = getSelected("q25_26");
+        for (let i = 21; i <= 30; i++) {
+            const input = document.querySelector(`[name="q${i}"]`);
 
-        const answers = {
-            q21: selected21_22[0] || "",
-            q22: selected21_22[1] || "",
-
-            q23: selected23_24[0] || "",
-            q24: selected23_24[1] || "",
-
-            q25: selected25_26[0] || "",
-            q26: selected25_26[1] || ""
-        };
-
-        for (let i = 27; i <= 30; i++) {
-            const input = document.querySelector(
-                `[name="q${i}"]`
-            );
-
-            answers[`q${i}`] = input
-                ? input.value.trim().toUpperCase()
-                : "";
+            if (input) {
+                answers[`q${i}`] = input.value.trim();
+            }
         }
 
         sessionStorage.setItem(
@@ -643,6 +649,30 @@ if (submitPart3Button) {
         );
 
         window.location.href = "listening-test-4.html";
+    });
+}
+
+let lastAudioTime = 0;
+let isAudioResetting = false;
+
+if (audio) {
+    audio.addEventListener("timeupdate", function () {
+        if (!isAudioResetting) {
+            lastAudioTime = audio.currentTime;
+        }
+    });
+
+    audio.addEventListener("seeking", function () {
+        if (isAudioResetting) return;
+
+        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
+            isAudioResetting = true;
+            audio.currentTime = lastAudioTime;
+
+            setTimeout(function () {
+                isAudioResetting = false;
+            }, 100);
+        }
     });
 }
 
