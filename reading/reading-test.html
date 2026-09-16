@@ -720,7 +720,7 @@ Zimbabwe.
 
         <!-- PART 3 -->
 
-<section id="part3" class="reading-part active">
+<section id="part3" class="reading-part">
 
     <div class="reading-split-layout">
 
@@ -1113,17 +1113,20 @@ q22: "prosperity",
     q40: "B"
 };
 
-function showPart(number) {
-    document.querySelectorAll(".reading-part").forEach(part => {
+function showPart(partNumber) {
+    document.querySelectorAll(".reading-part").forEach(function(part) {
         part.classList.remove("active");
     });
 
-    document.getElementById("part" + number).classList.add("active");
+    const selectedPart = document.getElementById("part" + partNumber);
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    if (selectedPart) {
+        selectedPart.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
 }
 
 function updateTimer() {
@@ -1351,28 +1354,19 @@ async function saveReadingScore(score) {
 
 function updateReadingQuestionProgress() {
     for (let i = 1; i <= 40; i++) {
-
         const button = document.querySelector(
             `.reading-question-progress button[data-question="${i}"]`
         );
 
         if (!button) continue;
 
-        const radioOrCheckbox = document.querySelector(
-            `input[name="q${i}"]:checked`
-        );
-
-        const textInput = document.querySelector(
-            `input[name="q${i}"]`
-        );
-
-        const selectInput = document.querySelector(
-            `select[name="q${i}"]`
-        );
+        const textInput = document.querySelector(`input[name="q${i}"]`);
+        const selectInput = document.querySelector(`select[name="q${i}"]`);
+        const checkedInput = document.querySelector(`input[name="q${i}"]:checked`);
 
         let answered = false;
 
-        if (radioOrCheckbox) {
+        if (checkedInput) {
             answered = true;
         } else if (textInput && textInput.value.trim() !== "") {
             answered = true;
@@ -1386,11 +1380,9 @@ function updateReadingQuestionProgress() {
 
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
-).forEach(function (input) {
-
+).forEach(function(input) {
     input.addEventListener("input", updateReadingQuestionProgress);
     input.addEventListener("change", updateReadingQuestionProgress);
-
 });
 
 updateReadingQuestionProgress();

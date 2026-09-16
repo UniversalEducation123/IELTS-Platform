@@ -1840,22 +1840,7 @@ body.listening-page {
     text-align: center;
 }
 
-#part3 {
-    display: block !important;
-}
 
-#part3 .reading-split-layout {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-#part3 .passage-panel,
-#part3 .questions-panel {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
 
 
 
