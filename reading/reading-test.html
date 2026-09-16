@@ -1352,6 +1352,7 @@ async function saveReadingScore(score) {
     `;
 }
 
+
 function updateReadingQuestionProgress() {
     for (let i = 1; i <= 40; i++) {
         const button = document.querySelector(
@@ -1360,21 +1361,55 @@ function updateReadingQuestionProgress() {
 
         if (!button) continue;
 
+        // Always remove the highlight first
+        button.classList.remove("answered");
+
         const textInput = document.querySelector(`input[name="q${i}"]`);
         const selectInput = document.querySelector(`select[name="q${i}"]`);
-        const checkedInput = document.querySelector(`input[name="q${i}"]:checked`);
+        const checkedInputs = document.querySelectorAll(
+            `input[name="q${i}"]:checked`
+        );
 
         let answered = false;
 
-        if (checkedInput) {
+        if (checkedInputs.length > 0) {
             answered = true;
-        } else if (textInput && textInput.value.trim() !== "") {
+        } else if (
+            textInput &&
+            textInput.value.trim() !== ""
+        ) {
             answered = true;
-        } else if (selectInput && selectInput.value.trim() !== "") {
+        } else if (
+            selectInput &&
+            selectInput.value.trim() !== ""
+        ) {
             answered = true;
         }
 
-        button.classList.toggle("answered", answered);
+        if (answered) {
+            button.classList.add("answered");
+        }
+    }
+
+    // Questions 20–21 share the same checkbox group
+    const selectedQ20 = document.querySelectorAll(
+        'input[name="q20"]:checked'
+    ).length;
+
+    const button20 = document.querySelector(
+        '.reading-question-progress button[data-question="20"]'
+    );
+
+    const button21 = document.querySelector(
+        '.reading-question-progress button[data-question="21"]'
+    );
+
+    if (button20) {
+        button20.classList.toggle("answered", selectedQ20 >= 1);
+    }
+
+    if (button21) {
+        button21.classList.toggle("answered", selectedQ20 >= 2);
     }
 }
 
@@ -1385,7 +1420,14 @@ document.querySelectorAll(
     input.addEventListener("change", updateReadingQuestionProgress);
 });
 
+document.querySelectorAll(
+    '.reading-question-progress button'
+).forEach(function(button) {
+    button.classList.remove("answered");
+});
+
 updateReadingQuestionProgress();
+
 
 </script>
 
