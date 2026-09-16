@@ -715,6 +715,10 @@ Zimbabwe.
 
         </div>
 
+ </section>
+
+    </div>
+
 </section>
 
 
@@ -1354,6 +1358,14 @@ async function saveReadingScore(score) {
 
 
 function updateReadingQuestionProgress() {
+    // First clear all highlights
+    document.querySelectorAll(
+        ".reading-question-progress button"
+    ).forEach(function(button) {
+        button.classList.remove("answered");
+    });
+
+    // Check Questions 1–40
     for (let i = 1; i <= 40; i++) {
         const button = document.querySelector(
             `.reading-question-progress button[data-question="${i}"]`
@@ -1361,13 +1373,16 @@ function updateReadingQuestionProgress() {
 
         if (!button) continue;
 
-        // Always remove the highlight first
-        button.classList.remove("answered");
-
-        const textInput = document.querySelector(`input[name="q${i}"]`);
-        const selectInput = document.querySelector(`select[name="q${i}"]`);
         const checkedInputs = document.querySelectorAll(
             `input[name="q${i}"]:checked`
+        );
+
+        const textInput = document.querySelector(
+            `input[type="text"][name="q${i}"]`
+        );
+
+        const selectInput = document.querySelector(
+            `select[name="q${i}"]`
         );
 
         let answered = false;
@@ -1391,8 +1406,8 @@ function updateReadingQuestionProgress() {
         }
     }
 
-    // Questions 20–21 share the same checkbox group
-    const selectedQ20 = document.querySelectorAll(
+    // Questions 20 and 21 share one checkbox group
+    const selectedQ20Q21 = document.querySelectorAll(
         'input[name="q20"]:checked'
     ).length;
 
@@ -1405,14 +1420,21 @@ function updateReadingQuestionProgress() {
     );
 
     if (button20) {
-        button20.classList.toggle("answered", selectedQ20 >= 1);
+        button20.classList.toggle(
+            "answered",
+            selectedQ20Q21 >= 1
+        );
     }
 
     if (button21) {
-        button21.classList.toggle("answered", selectedQ20 >= 2);
+        button21.classList.toggle(
+            "answered",
+            selectedQ20Q21 >= 2
+        );
     }
 }
 
+// Update when the user types, selects, or clicks an answer
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
 ).forEach(function(input) {
@@ -1420,15 +1442,14 @@ document.querySelectorAll(
     input.addEventListener("change", updateReadingQuestionProgress);
 });
 
+// Start with all boxes unhighlighted
 document.querySelectorAll(
-    '.reading-question-progress button'
+    ".reading-question-progress button"
 ).forEach(function(button) {
     button.classList.remove("answered");
 });
 
 updateReadingQuestionProgress();
-
-
 </script>
 
 </body>
