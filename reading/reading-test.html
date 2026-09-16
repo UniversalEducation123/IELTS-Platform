@@ -23,6 +23,56 @@
     </nav>
 </header>
 
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
 <main class="reading-wrapper">
 
     <div class="reading-top">
@@ -663,75 +713,14 @@ Zimbabwe.
             made from a local metal have been found at the site.
         </p>
 
-    </div><h2>Questions 22–26</h2>
-
-    <p>Complete the summary below.</p>
-
-    <p>
-        Choose <strong>ONE WORD ONLY</strong> from the passage
-        for each answer.
-    </p>
-
-    <div class="summary-box">
-
-        <h3>Archaeological discoveries</h3>
-
-        <p>
-            The Mapungubwe community's
-            <span class="inline-question">
-                <strong>22</strong>
-                <input
-                    type="text"
-                    name="q22"
-                    aria-label="Question 22">
-            </span>
-            is indicated by the amount of professionally made pottery
-            discovered at the site. Many of these objects, such as beakers
-            and bowls, are highly decorated and have been marked with stamps.
-            Other finds include round ceramic objects,
-            <span class="inline-question">
-                <strong>23</strong>
-                <input
-                    type="text"
-                    name="q23"
-                    aria-label="Question 23">
-            </span>
-            and figures of various animals, as well as models of people
-            with stretched
-            <span class="inline-question">
-                <strong>24</strong>
-                <input
-                    type="text"
-                    name="q24"
-                    aria-label="Question 24">
-            </span>.
-            It is possible that these had a role in ceremonies to honour
-            <span class="inline-question">
-                <strong>25</strong>
-                <input
-                    type="text"
-                    name="q25"
-                    aria-label="Question 25">
-            </span>.
-            In addition, pieces of
-            <span class="inline-question">
-                <strong>26</strong>
-                <input
-                    type="text"
-                    name="q26"
-                    aria-label="Question 26">
-            </span>
-            made from a local metal have been found at the site.
-        </p>
-
-    </div>
+        </div>
 
 </section>
 
 
         <!-- PART 3 -->
 
-        <section id="part3" class="reading-part">
+       <section id="part3" class="reading-part active">
 
     <div class="reading-split-layout">
 
@@ -1040,17 +1029,21 @@ Zimbabwe.
                 <label><input type="radio" name="q40" value="D"> D. How AI could improve public-sector efficiency</label>
             </div>
 
+            <div class="submit-reading-container">
+    <button
+        type="button"
+        class="submit-reading"
+        onclick="submitReadingTest()">
+        Submit Reading Test
+    </button>
+</div>
+
         </section>
 
     </div>
 
 </section>
 
-        <button type="button" class="submit-reading" onclick="submitReadingTest()">
-            Submit Reading Test
-        </button>
-
-    </form>
 
     <div id="resultBox"></div>
 
@@ -1355,6 +1348,53 @@ async function saveReadingScore(score) {
         <a href="../student-dashboard.html">Return to Dashboard</a>
     `;
 }
+
+function updateReadingQuestionProgress() {
+    for (let i = 1; i <= 40; i++) {
+
+        const button = document.querySelector(
+            `.reading-question-progress button[data-question="${i}"]`
+        );
+
+        if (!button) continue;
+
+        const radioOrCheckbox = document.querySelector(
+            `input[name="q${i}"]:checked`
+        );
+
+        const textInput = document.querySelector(
+            `input[name="q${i}"]`
+        );
+
+        const selectInput = document.querySelector(
+            `select[name="q${i}"]`
+        );
+
+        let answered = false;
+
+        if (radioOrCheckbox) {
+            answered = true;
+        } else if (textInput && textInput.value.trim() !== "") {
+            answered = true;
+        } else if (selectInput && selectInput.value.trim() !== "") {
+            answered = true;
+        }
+
+        button.classList.toggle("answered", answered);
+    }
+}
+
+document.querySelectorAll(
+    'input[type="text"], input[type="radio"], input[type="checkbox"], select'
+).forEach(function (input) {
+
+    input.addEventListener("input", updateReadingQuestionProgress);
+    input.addEventListener("change", updateReadingQuestionProgress);
+
+});
+
+updateReadingQuestionProgress();
+
 </script>
 
 </body>
