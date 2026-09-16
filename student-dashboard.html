@@ -16,7 +16,7 @@
 
         <nav>
             <a href="index.html">Home</a>
-            <a href="student-login.html">Logout</a>
+            <a href="student-login.html" onclick="logout()">Logout</a>
         </nav>
     </header>
 
@@ -35,20 +35,22 @@
             <div class="dashboard-options">
 
                 <!-- Listening Test -->
-                <a href="test-1.html" class="dashboard-card">
+                <a
+    href="test-1.html"
+    class="dashboard-card"
+    onclick="startFreshListeningTest()">
 
-                    <div class="dashboard-icon">🎧</div>
+    <div class="dashboard-icon">🎧</div>
 
-                    <h2>Listening Test 1</h2>
+    <h2>Listening Test 1</h2>
 
-                    <p>
-                        Practice IELTS Academic Listening and check your score.
-                    </p>
+    <p>
+        Practice IELTS Academic Listening and check your score.
+    </p>
 
-                    <span>Start Listening →</span>
+    <span>Start Listening →</span>
 
-                </a>
-
+</a>
                 <!-- Reading Test -->
                 <a href="reading/reading-test.html" class="dashboard-card">
                     <div class="dashboard-icon">📖</div>
@@ -68,6 +70,57 @@
         </div>
 
     </main>
+
+    <script>
+function startFreshListeningTest() {
+    // Reset shared Listening timer
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+
+    // Reset saved answers
+    sessionStorage.removeItem("listeningPart1Answers");
+    sessionStorage.removeItem("listeningPart2Answers");
+    sessionStorage.removeItem("listeningPart3Answers");
+    sessionStorage.removeItem("listeningPart4Answers");
+
+    // Reset pathname-based answer storage
+    sessionStorage.removeItem(
+        "listeningAnswers_/listening-test-1.html"
+    );
+
+    sessionStorage.removeItem(
+        "listeningAnswers_/listening-test-2.html"
+    );
+
+    sessionStorage.removeItem(
+        "listeningAnswers_/listening-test-3.html"
+    );
+
+    sessionStorage.removeItem(
+        "listeningAnswers_/listening-test-4.html"
+    );
+}
+
+function logout() {
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+
+    sessionStorage.removeItem("listeningPart1Answers");
+    sessionStorage.removeItem("listeningPart2Answers");
+    sessionStorage.removeItem("listeningPart3Answers");
+    sessionStorage.removeItem("listeningPart4Answers");
+
+    // Clear all Listening answer keys
+    for (let i = sessionStorage.length - 1; i >= 0; i--) {
+        const key = sessionStorage.key(i);
+
+        if (key && key.startsWith("listeningAnswers_")) {
+            sessionStorage.removeItem(key);
+        }
+    }
+}
+
+</script>
 
 </body>
 </html>

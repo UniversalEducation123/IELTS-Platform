@@ -2079,10 +2079,10 @@ body.listening-page {
 
 .test-filter-button {
     padding: 10px 22px;
-    border: 1px solid #4d135cc5;
+    border: 1px solid #1b3515c5;
     border-radius: 6px;
     background: white;
-    color: #b39ed4;
+    color: #567e6a;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -2090,7 +2090,7 @@ body.listening-page {
 
 .test-filter-button:hover,
 .test-filter-button.active {
-    background: #887096;
+    background: #0d2011;
     color: white;
 }
 
@@ -2114,7 +2114,7 @@ body.listening-page {
 
 .student-card-header h2 {
     margin: 0 0 8px;
-    color: #2c1b33;
+    color: #072b13;
     font-size: 22px;
 }
 
@@ -2151,7 +2151,7 @@ body.listening-page {
 }
 
 .score-item strong {
-    color: #412544;
+    color: #313a31;
     font-size: 15px;
 }
 
