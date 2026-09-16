@@ -41,11 +41,44 @@
                 View student accounts and their test scores.
             </p>
 
-            <div id="loadingMessage">
-                Loading students...
-            </div>
+            <!-- Test filter buttons -->
+<div class="test-filter-buttons">
 
-            <div class="student-list" id="studentList"></div>
+    <button
+        type="button"
+        class="test-filter-button active"
+        onclick="showTestResults('Test 1', this)">
+        Test 1
+    </button>
+
+    <button
+        type="button"
+        class="test-filter-button"
+        onclick="showTestResults('Test 2', this)">
+        Test 2
+    </button>
+
+    <button
+        type="button"
+        class="test-filter-button"
+        onclick="showTestResults('Test 3', this)">
+        Test 3
+    </button>
+
+    <button
+        type="button"
+        class="test-filter-button"
+        onclick="showTestResults('ALL', this)">
+        All Tests
+    </button>
+
+</div>
+
+<div id="loadingMessage">
+    Loading students...
+</div>
+
+<div class="student-list" id="studentList"></div>
 
         </div>
 
@@ -55,111 +88,279 @@
         const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
-        const supabaseClient = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
+        const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+let allStudents = [];
+let allResults = [];
+let selectedTest = "Test 1";
+
+
+// Load students and test results
+async function loadStudentsAndResults() {
+    const loadingMessage = document.getElementById("loadingMessage");
+    const studentList = document.getElementById("studentList");
+
+    loadingMessage.style.display = "block";
+    studentList.innerHTML = "";
+
+    const { data: students, error: studentsError } =
+        await supabaseClient
+            .from("students")
+            .select("*")
+            .order("id", { ascending: true });
+
+    if (studentsError) {
+        loadingMessage.textContent =
+            "Error loading students: " + studentsError.message;
+        return;
+    }
+
+    const { data: results, error: resultsError } =
+        await supabaseClient
+            .from("test_results")
+            .select("*")
+            .order("id", { ascending: true });
+
+    if (resultsError) {
+        loadingMessage.textContent =
+            "Error loading test results: " + resultsError.message;
+        return;
+    }
+
+    allStudents = students || [];
+    allResults = results || [];
+
+    loadingMessage.style.display = "none";
+
+    showTestResults(selectedTest);
+}
+
+
+// Show results according to selected test
+function showTestResults(testName, clickedButton = null) {
+    selectedTest = testName;
+
+    document.querySelectorAll(".test-filter-button").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    if (clickedButton) {
+        clickedButton.classList.add("active");
+    } else {
+        const firstButton = document.querySelector(
+            `.test-filter-button[onclick*="'${testName}'"]`
         );
 
-        async function loadStudents() {
-            const loadingMessage = document.getElementById("loadingMessage");
-            const studentList = document.getElementById("studentList");
-
-            const { data: students, error: studentsError } =
-                await supabaseClient
-                    .from("students")
-                    .select("*")
-                    .order("id", { ascending: true });
-
-            if (studentsError) {
-                console.error(studentsError);
-                loadingMessage.textContent =
-                    "Unable to load students.";
-                return;
-            }
-
-            const { data: results, error: resultsError } =
-                await supabaseClient
-                    .from("test_results")
-                    .select("*");
-
-            if (resultsError) {
-                console.error(resultsError);
-                loadingMessage.textContent =
-                    "Students loaded, but scores could not be loaded.";
-                return;
-            }
-
-            loadingMessage.style.display = "none";
-
-            if (!students || students.length === 0) {
-                studentList.innerHTML =
-                    "<p>No students have been added yet.</p>";
-                return;
-            }
-
-            students.forEach(student => {
-                const studentResults = results.filter(result =>
-                    Number(result.student_id) === Number(student.id)
-                );
-
-                const listeningResult = studentResults.find(result =>
-                    result.test_name === "Test 1 - Listening"
-                );
-
-                const readingResult = studentResults.find(result =>
-                    result.test_name === "Test 1 - Reading"
-                );
-
-                const writingResult = studentResults.find(result =>
-                    result.test_name === "Test 1 - Writing"
-                );
-
-                const listeningScore = listeningResult
-                    ? listeningResult.listening_score + " / 40"
-                    : "Not attempted";
-
-                const readingScore = readingResult
-                    ? readingResult.reading_score + " / 40"
-                    : "Not attempted";
-
-                const writingScore = writingResult
-                    ? writingResult.writing_score
-                    : "Not attempted";
-
-                const studentRow = document.createElement("div");
-                studentRow.className = "student-row";
-
-                studentRow.innerHTML = `
-                    <div>
-                        <h2>${student.full_name || "Unnamed Student"}</h2>
-                        <p>Username: ${student.username}</p>
-                        <p>Student ID: ${student.id}</p>
-                    </div>
-
-                    <div class="student-scores">
-                        <p>
-                            <strong>Listening:</strong>
-                            ${listeningScore}
-                        </p>
-
-                        <p>
-                            <strong>Reading:</strong>
-                            ${readingScore}
-                        </p>
-
-                        <p>
-                            <strong>Writing:</strong>
-                            ${writingScore}
-                        </p>
-                    </div>
-                `;
-
-                studentList.appendChild(studentRow);
-            });
+        if (firstButton) {
+            firstButton.classList.add("active");
         }
+    }
 
-        loadStudents();
-    </script>
+    const studentList = document.getElementById("studentList");
+
+    let filteredResults;
+
+    if (testName === "ALL") {
+        filteredResults = allResults;
+    } else {
+        filteredResults = allResults.filter(result =>
+            result.test_name === testName
+        );
+    }
+
+    if (filteredResults.length === 0) {
+        studentList.innerHTML = `
+            <div class="no-students-message">
+                No results found for ${testName === "ALL" ? "any test" : testName}.
+            </div>
+        `;
+        return;
+    }
+
+    studentList.innerHTML = "";
+
+    filteredResults.forEach(result => {
+        const student = allStudents.find(
+            student => Number(student.id) === Number(result.student_id)
+        );
+
+        const studentName =
+            result.student_name ||
+            (student ? student.full_name : "Unknown Student");
+
+        const username =
+            student && student.username
+                ? student.username
+                : "N/A";
+
+        const listeningScore = result.listening_score;
+        const readingScore = result.reading_score;
+        const writingScore = result.writing_score;
+
+        const listeningBand =
+            listeningScore !== null && listeningScore !== undefined
+                ? getListeningBand(listeningScore)
+                : "Not submitted";
+
+        const readingBand =
+            readingScore !== null && readingScore !== undefined
+                ? getReadingBand(readingScore)
+                : "Not submitted";
+
+        const studentCard = document.createElement("div");
+        studentCard.className = "student-card";
+
+        studentCard.innerHTML = `
+            <div class="student-card-header">
+                <div>
+                    <h2>${escapeHTML(studentName)}</h2>
+                    <p>Username: ${escapeHTML(username)}</p>
+                    <p>Student ID: ${result.student_id}</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="delete-test-button"
+                    onclick="deleteTestResult(${result.student_id}, '${escapeHTML(result.test_name)}')">
+                    Delete This Test
+                </button>
+            </div>
+
+            <div class="test-result-card">
+                <h3>${escapeHTML(result.test_name || "Unnamed Test")}</h3>
+
+                <div class="score-grid">
+                    <div class="score-item">
+                        <strong>Listening</strong>
+                        <span>
+                            ${
+                                listeningScore !== null &&
+                                listeningScore !== undefined
+                                    ? listeningScore + " / 40"
+                                    : "Not submitted"
+                            }
+                        </span>
+                        <small>Band: ${listeningBand}</small>
+                    </div>
+
+                    <div class="score-item">
+                        <strong>Reading</strong>
+                        <span>
+                            ${
+                                readingScore !== null &&
+                                readingScore !== undefined
+                                    ? readingScore + " / 40"
+                                    : "Not submitted"
+                            }
+                        </span>
+                        <small>Band: ${readingBand}</small>
+                    </div>
+
+                    <div class="score-item">
+                        <strong>Writing</strong>
+                        <span>
+                            ${
+                                writingScore !== null &&
+                                writingScore !== undefined
+                                    ? writingScore
+                                    : "Not submitted"
+                            }
+                        </span>
+                        <small>Writing Score</small>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        studentList.appendChild(studentCard);
+    });
+}
+
+
+// Delete only the selected student's selected test result
+async function deleteTestResult(studentId, testName) {
+    const confirmed = confirm(
+        `Delete ${testName} result for this student? This will not delete the student account.`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("test_results")
+        .delete()
+        .eq("student_id", Number(studentId))
+        .eq("test_name", testName);
+
+    if (error) {
+        alert("Error deleting test result: " + error.message);
+        return;
+    }
+
+    alert(`${testName} result deleted successfully.`);
+
+    await loadStudentsAndResults();
+}
+
+
+// Listening score to IELTS band
+function getListeningBand(score) {
+    score = Number(score);
+
+    if (score >= 39) return "9";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8";
+    if (score >= 32) return "7.5";
+    if (score >= 30) return "7";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6";
+    if (score >= 20) return "5.5";
+    if (score >= 16) return "5";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4";
+
+    return "Below 4";
+}
+
+
+// Reading score to IELTS band
+function getReadingBand(score) {
+    score = Number(score);
+
+    if (score >= 39) return "9";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8";
+    if (score >= 33) return "7.5";
+    if (score >= 30) return "7";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6";
+    if (score >= 19) return "5.5";
+    if (score >= 15) return "5";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4";
+
+    return "Below 4";
+}
+
+
+// Prevent HTML injection in student names
+function escapeHTML(value) {
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+// Start loading
+loadStudentsAndResults();
+</script>
 
 </body>
 </html>
