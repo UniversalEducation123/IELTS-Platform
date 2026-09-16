@@ -178,127 +178,132 @@
         <!-- RIGHT SIDE: QUESTIONS -->
         <section class="questions-panel">
 
-    <h2>Questions 1–5</h2>
+   <h2>Questions 1–5</h2>
 
-    <p>
-        Complete the table. Choose <strong>ONE WORD ONLY</strong>
-        from the passage for each answer.
-    </p>
+<p>
+    Complete the table. Choose <strong>ONE WORD ONLY</strong>
+    from the passage for each answer.
+</p>
 
-    <div class="reading-table-wrapper">
+<div class="reading-table-wrapper">
 
-        <table class="reading-answer-table">
+    <table class="reading-answer-table">
 
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Research findings</th>
-                    <th>Comment</th>
-                </tr>
-            </thead>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Research findings</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
 
-            <tbody>
+        <tbody>
 
-                <tr>
-                    <td>Humans</td>
+            <tr>
+                <td>Humans</td>
 
-                    <td>
-                        <ul>
-                            <li>humans experience REM sleep and non-REM sleep</li>
-                            <li>in REM sleep, the eyes and muscles move</li>
-                        </ul>
-                    </td>
+                <td>
+                    <ul>
+                        <li>humans experience REM sleep and non-REM sleep</li>
+                        <li>in REM sleep, the eyes and muscles move</li>
+                    </ul>
+                </td>
 
-                    <td></td>
-                </tr>
+                <td></td>
+            </tr>
 
-                <tr>
-                    <td>
-                        <input
-                            type="text"
-                            name="q1"
-                            class="table-answer-input"
-                            aria-label="Question 1">
-                    </td>
+            <tr>
+                <td>
+                    <strong>1.</strong>
+                    <input
+                        type="text"
+                        name="q1"
+                        class="table-answer-input"
+                        aria-label="Question 1">
+                </td>
 
-                    <td>
-                        <ul>
-                            <li>similar brain patterns were observed when active and sleeping</li>
-                        </ul>
-                    </td>
+                <td>
+                    <ul>
+                        <li>similar brain patterns were observed when active and sleeping</li>
+                    </ul>
+                </td>
 
-                    <td>
-                        indicative of dreaming
-                    </td>
-                </tr>
+                <td>
+                    indicative of dreaming
+                </td>
+            </tr>
 
-                <tr>
-                    <td>Pigeons</td>
+            <tr>
+                <td>Pigeons</td>
 
-                    <td>
-                        when sleeping, pigeons displayed activity in parts
-                        of the brain that deal with
+                <td>
+                    when sleeping, pigeons displayed activity in parts
+                    of the brain that deal with
 
-                        <input
-                            type="text"
-                            name="q2"
-                            class="inline-answer-input"
-                            aria-label="Question 2">
+                    <strong>2.</strong>
+                    <input
+                        type="text"
+                        name="q2"
+                        class="inline-answer-input"
+                        aria-label="Question 2">
 
-                        information
-                    </td>
+                    information
+                </td>
 
-                    <td>
-                        may have been dreaming of flying
-                    </td>
-                </tr>
+                <td>
+                    may have been dreaming of flying
+                </td>
+            </tr>
 
-                <tr>
-                    <td>Whales and dolphins</td>
+            <tr>
+                <td>Whales and dolphins</td>
 
-                    <td>
-                        <ul>
-                            <li>
-                                still have
+                <td>
+                    <ul>
+                        <li>
+                            still have
 
-                                <input
-                                    type="text"
-                                    name="q3"
-                                    class="inline-answer-input"
-                                    aria-label="Question 3">
+                            <strong>3.</strong>
+                            <input
+                                type="text"
+                                name="q3"
+                                class="inline-answer-input"
+                                aria-label="Question 3">
 
-                                of their brain awake when they sleep
-                            </li>
+                            of their brain awake when they sleep
+                        </li>
 
-                            <li>
-                                don't experience REM sleep, as this could
-                                affect their sensitivity to
+                        <li>
+                            don't experience REM sleep, as this could
+                            affect their sensitivity to
 
-                                <input
-                                    type="text"
-                                    name="q4"
-                                    class="inline-answer-input"
-                                    aria-label="Question 4">
-                            </li>
-                        </ul>
-                    </td>
+                            <strong>4.</strong>
+                            <input
+                                type="text"
+                                name="q4"
+                                class="inline-answer-input"
+                                aria-label="Question 4">
+                        </li>
+                    </ul>
+                </td>
 
-                    <td>
-                        their dreams are probably not very
+                <td>
+                    their dreams are probably not very
 
-                        <input
-                            type="text"
-                            name="q5"
-                            class="inline-answer-input"
-                            aria-label="Question 5">
-                    </td>
-                </tr>
+                    <strong>5.</strong>
+                    <input
+                        type="text"
+                        name="q5"
+                        class="inline-answer-input"
+                        aria-label="Question 5">
+                </td>
+            </tr>
 
-            </tbody>
+        </tbody>
 
-        </table>
+    </table>
 
-    </div>
+</div>
 
             <h2>Questions 6–13</h2>
             <p>TRUE if the statement agrees with the information
@@ -1273,7 +1278,7 @@ async function saveReadingScore(score) {
 
     if (!studentId) {
         console.error("Student information is missing.");
-        window.location.href = "../reading-final.html";
+        window.location.href = "reading-final.html";
         return;
     }
 
@@ -1328,7 +1333,7 @@ async function saveReadingScore(score) {
     }
 
     // Open the final Reading result page
-    window.location.href = "../reading-final.html";
+    window.location.href = "reading-final.html";
 }
     
 

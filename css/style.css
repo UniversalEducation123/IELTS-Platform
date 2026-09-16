@@ -1272,12 +1272,15 @@ body::after {
 }
 
 .submit-reading-container {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    text-align: center;
+    position: sticky;
+    bottom: 15px;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 25px;
+    background: white;
 }
 
 .reading-question-progress {
@@ -1790,7 +1793,7 @@ body::after {
 }
 
 body {
-    padding-top: 40px;
+    padding-top: 25px;
 }
 
 body.listening-page {
