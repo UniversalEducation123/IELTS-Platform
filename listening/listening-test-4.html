@@ -59,15 +59,24 @@
     <section class="audio-section">
         <h2>Listen to Part 4</h2>
 
-        <audio
-    id="listeningAudio"
-    controls
-    controlsList="nodownload noplaybackrate"
-    preload="auto">
-    
-            <source src="../assets/listening-section-4.mp3" type="audio/mpeg">
-            Your browser does not support audio.
-        </audio>
+        <div class="custom-audio-player">
+    <button type="button" id="playPauseBtn" class="audio-play-btn">
+        ▶ Play
+    </button>
+
+    <div class="audio-progress-container">
+        <div id="audioProgress" class="audio-progress"></div>
+    </div>
+
+    <span id="audioTime" class="audio-time">0:00</span>
+</div>
+
+<audio id="listeningAudio" preload="auto">
+    <source
+        src="../assets/listening-section-4.mp3"
+        type="audio/mpeg"
+    >
+</audio>
 
         <p class="audio-note">
             The timer starts when you play the audio.
@@ -317,7 +326,7 @@ if (timerStarted) {
  */
 
 const submitButton = document.getElementById(
-    "submitListeningBtn"
+    "submitPart4Btn"
 );
 
 if (submitButton) {
@@ -326,30 +335,6 @@ if (submitButton) {
 
         window.location.href =
             "listening-final.html";
-    });
-}
-
-let lastAudioTime = 0;
-let isAudioResetting = false;
-
-if (audio) {
-    audio.addEventListener("timeupdate", function () {
-        if (!isAudioResetting) {
-            lastAudioTime = audio.currentTime;
-        }
-    });
-
-    audio.addEventListener("seeking", function () {
-        if (isAudioResetting) return;
-
-        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
-            isAudioResetting = true;
-            audio.currentTime = lastAudioTime;
-
-            setTimeout(function () {
-                isAudioResetting = false;
-            }, 100);
-        }
     });
 }
 
@@ -522,6 +507,80 @@ document.querySelectorAll(
 
 /* Restore answers when page opens */
 restoreListeningAnswers();
+</script>
+
+<script>
+const part4PlayButton = document.getElementById("playPauseBtn");
+const part4AudioProgress = document.getElementById("audioProgress");
+const part4AudioTime = document.getElementById("audioTime");
+
+if (audio && part4PlayButton) {
+    let part4AudioHasStarted = false;
+    let part4AllowedAudioTime = 0;
+    let part4CorrectingAudio = false;
+
+    part4PlayButton.addEventListener("click", function () {
+        if (part4AudioHasStarted) return;
+
+        part4AudioHasStarted = true;
+        audio.play();
+        part4PlayButton.style.display = "none";
+
+        sessionStorage.setItem(
+            "listeningTimerStarted",
+            "true"
+        );
+
+        if (!timerInterval) {
+            runSharedTimer();
+        }
+    });
+
+    audio.addEventListener("timeupdate", function () {
+        if (!part4CorrectingAudio) {
+            part4AllowedAudioTime = audio.currentTime;
+        }
+
+        if (audio.duration) {
+            const percentage =
+                (audio.currentTime / audio.duration) * 100;
+
+            part4AudioProgress.style.width =
+                percentage + "%";
+        }
+
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        part4AudioTime.textContent =
+            minutes + ":" + String(seconds).padStart(2, "0");
+    });
+
+    audio.addEventListener("seeking", function () {
+        if (part4CorrectingAudio) return;
+
+        part4CorrectingAudio = true;
+        audio.currentTime = part4AllowedAudioTime;
+
+        setTimeout(function () {
+            part4CorrectingAudio = false;
+        }, 50);
+    });
+
+    audio.addEventListener("pause", function () {
+        if (
+            part4AudioHasStarted &&
+            !audio.ended &&
+            sessionStorage.getItem("listeningAutoSubmitted") !== "true"
+        ) {
+            audio.play();
+        }
+    });
+
+    audio.addEventListener("ended", function () {
+        part4AudioTime.textContent = "Finished";
+    });
+}
 </script>
 
 </body>

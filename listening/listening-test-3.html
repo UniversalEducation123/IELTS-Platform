@@ -65,19 +65,24 @@
 
         <h2>Listen to Part 3</h2>
 
-        <audio
-    id="listeningAudio"
-    controls
-    controlsList="nodownload noplaybackrate"
-    preload="auto">
-    
-            <source
-                src="../assets/listening-section-3.mp3"
-                type="audio/mpeg"
-            >
+        <div class="custom-audio-player">
+    <button type="button" id="playPauseBtn" class="audio-play-btn">
+        ▶ Play
+    </button>
 
-            Your browser does not support audio.
-        </audio>
+    <div class="audio-progress-container">
+        <div id="audioProgress" class="audio-progress"></div>
+    </div>
+
+    <span id="audioTime" class="audio-time">0:00</span>
+</div>
+
+<audio id="listeningAudio" preload="auto">
+    <source
+        src="../assets/listening-section-3.mp3"
+        type="audio/mpeg"
+    >
+</audio>
 
         <p class="audio-note">
             The timer starts when you play the audio.
@@ -499,6 +504,7 @@ let timerStarted =
 let timerInterval;
 
 const timerElement = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
 
 
 function updateTimer() {
@@ -634,7 +640,7 @@ checkboxGroups.forEach(function (groupName) {
  * SAVE PART 3 ANSWERS AND CONTINUE
  */
 
-const submitButton = document.getElementById("submitListeningBtn");
+const submitButton = document.getElementById("submitPart3Btn");
 
 if (submitButton) {
     submitButton.addEventListener("click", function () {
@@ -657,29 +663,6 @@ if (submitButton) {
     });
 }
 
-let lastAudioTime = 0;
-let isAudioResetting = false;
-
-if (audio) {
-    audio.addEventListener("timeupdate", function () {
-        if (!isAudioResetting) {
-            lastAudioTime = audio.currentTime;
-        }
-    });
-
-    audio.addEventListener("seeking", function () {
-        if (isAudioResetting) return;
-
-        if (Math.abs(audio.currentTime - lastAudioTime) > 1) {
-            isAudioResetting = true;
-            audio.currentTime = lastAudioTime;
-
-            setTimeout(function () {
-                isAudioResetting = false;
-            }, 100);
-        }
-    });
-}
 
 
 /*
@@ -902,6 +885,80 @@ document.querySelectorAll(
 
 /* Restore answers when page opens */
 restoreListeningAnswers();
+</script>
+
+<script>
+const part3PlayButton = document.getElementById("playPauseBtn");
+const part3AudioProgress = document.getElementById("audioProgress");
+const part3AudioTime = document.getElementById("audioTime");
+
+if (audio && part3PlayButton) {
+    let part3AudioHasStarted = false;
+    let part3AllowedAudioTime = 0;
+    let part3CorrectingAudio = false;
+
+    part3PlayButton.addEventListener("click", function () {
+        if (part3AudioHasStarted) return;
+
+        part3AudioHasStarted = true;
+        audio.play();
+        part3PlayButton.style.display = "none";
+
+        sessionStorage.setItem(
+            "listeningTimerStarted",
+            "true"
+        );
+
+        if (!timerInterval) {
+            runSharedTimer();
+        }
+    });
+
+    audio.addEventListener("timeupdate", function () {
+        if (!part3CorrectingAudio) {
+            part3AllowedAudioTime = audio.currentTime;
+        }
+
+        if (audio.duration) {
+            const percentage =
+                (audio.currentTime / audio.duration) * 100;
+
+            part3AudioProgress.style.width =
+                percentage + "%";
+        }
+
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        part3AudioTime.textContent =
+            minutes + ":" + String(seconds).padStart(2, "0");
+    });
+
+    audio.addEventListener("seeking", function () {
+        if (part3CorrectingAudio) return;
+
+        part3CorrectingAudio = true;
+        audio.currentTime = part3AllowedAudioTime;
+
+        setTimeout(function () {
+            part3CorrectingAudio = false;
+        }, 50);
+    });
+
+    audio.addEventListener("pause", function () {
+        if (
+            part3AudioHasStarted &&
+            !audio.ended &&
+            sessionStorage.getItem("listeningAutoSubmitted") !== "true"
+        ) {
+            audio.play();
+        }
+    });
+
+    audio.addEventListener("ended", function () {
+        part3AudioTime.textContent = "Finished";
+    });
+}
 </script>
 
 </body>

@@ -70,20 +70,36 @@
                     The audio can only be played once.
                 </p>
 
-                <audio
-    id="listeningAudio"
-    controls
-    controlsList="nodownload noplaybackrate"
-    preload="auto">
-    
-                    <source
-                       src="../assets/listening-section-2.mp3"
-                        type="audio/mpeg"
-                    >
+                <div class="custom-audio-player">
 
-                    Your browser does not support the audio element.
-                </audio>
+    <button
+        type="button"
+        id="playPauseBtn"
+        class="audio-play-btn">
+        ▶ Play
+    </button>
 
+    <div class="audio-progress-container">
+        <div
+            id="audioProgress"
+            class="audio-progress">
+        </div>
+    </div>
+
+    <span
+        id="audioTime"
+        class="audio-time">
+        0:00
+    </span>
+
+</div>
+
+<audio id="listeningAudio" preload="auto">
+    <source
+        src="../assets/listening-section-2.mp3"
+        type="audio/mpeg"
+    >
+</audio>
             </div>
 
         </section>
@@ -580,28 +596,6 @@ if (timerStarted) {
 }
 
 
-/*
- * AUDIO CAN ONLY BE PLAYED ONCE
- */
-
-let audioStarted = false;
-
-if (audio) {
-
-    audio.addEventListener("play", function() {
-        audioStarted = true;
-    });
-
-    audio.addEventListener("pause", function() {
-
-        if (audioStarted && !audio.ended) {
-            audio.play();
-        }
-
-    });
-
-}
-
 
 /*
  * LIMIT QUESTIONS 11–12 TO TWO OPTIONS
@@ -691,9 +685,7 @@ mapInputs.forEach(function(input) {
  * SAVE PART 2 ANSWERS AND CONTINUE
  */
 
-const submitButton = document.getElementById(
-    "submitListeningBtn"
-);
+const submitButton = document.getElementById("submitPart2Btn");
 
 if (submitButton) {
 
@@ -703,46 +695,6 @@ if (submitButton) {
 
         window.location.href =
             "listening-test-3.html";
-
-    });
-
-}
-
-
-/*
- * PREVENT AUDIO FORWARD/BACKWARD SEEKING
- */
-
-let lastAudioTime = 0;
-let isAudioResetting = false;
-
-if (audio) {
-
-    audio.addEventListener("timeupdate", function() {
-
-        if (!isAudioResetting) {
-            lastAudioTime = audio.currentTime;
-        }
-
-    });
-
-    audio.addEventListener("seeking", function() {
-
-        if (isAudioResetting) return;
-
-        if (
-            Math.abs(audio.currentTime - lastAudioTime) > 1
-        ) {
-
-            isAudioResetting = true;
-
-            audio.currentTime = lastAudioTime;
-
-            setTimeout(function() {
-                isAudioResetting = false;
-            }, 100);
-
-        }
 
     });
 
@@ -960,6 +912,81 @@ document.querySelectorAll(
 
 /* Restore answers when page opens */
 restoreListeningAnswers();
+</script>
+
+<script>
+const part2PlayButton = document.getElementById("playPauseBtn");
+const part2AudioProgress = document.getElementById("audioProgress");
+const part2AudioTime = document.getElementById("audioTime");
+
+if (audio && part2PlayButton) {
+
+    let part2AudioHasStarted = false;
+    let part2AllowedAudioTime = 0;
+    let part2CorrectingAudio = false;
+
+    part2PlayButton.addEventListener("click", function () {
+
+        if (part2AudioHasStarted) return;
+
+        part2AudioHasStarted = true;
+
+        audio.play();
+
+        // Remove Play button permanently
+        part2PlayButton.style.display = "none";
+    });
+
+    audio.addEventListener("timeupdate", function () {
+
+        if (!part2CorrectingAudio) {
+            part2AllowedAudioTime = audio.currentTime;
+        }
+
+        if (audio.duration) {
+            const percentage =
+                (audio.currentTime / audio.duration) * 100;
+
+            part2AudioProgress.style.width = percentage + "%";
+        }
+
+        const minutes = Math.floor(audio.currentTime / 60);
+        const seconds = Math.floor(audio.currentTime % 60);
+
+        part2AudioTime.textContent =
+            minutes + ":" + String(seconds).padStart(2, "0");
+    });
+
+    audio.addEventListener("seeking", function () {
+
+        if (part2CorrectingAudio) return;
+
+        part2CorrectingAudio = true;
+
+        audio.currentTime = part2AllowedAudioTime;
+
+        setTimeout(function () {
+            part2CorrectingAudio = false;
+        }, 50);
+    });
+
+    audio.addEventListener("pause", function () {
+
+        if (
+            part2AudioHasStarted &&
+            !audio.ended &&
+            sessionStorage.getItem("listeningAutoSubmitted") !== "true"
+        ) {
+            audio.play();
+        }
+
+    });
+
+    audio.addEventListener("ended", function () {
+        part2AudioTime.textContent = "Finished";
+    });
+
+}
 </script>
 
 </body>

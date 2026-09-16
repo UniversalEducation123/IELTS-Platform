@@ -82,7 +82,7 @@
 </div>
 
 <audio id="listeningAudio" preload="auto">
-    <source src="YOUR_EXISTING_AUDIO_FILE.mp3" type="audio/mpeg">
+    <source src="../assets/listening-section-1.mp3" type="audio/mpeg">
 </audio>
 
         <div class="question-section">
@@ -418,7 +418,7 @@ if (submitButton) {
 }
 
 /*
- * STRICTLY PREVENT AUDIO FORWARD/BACKWARD SEEKING
+ * PREVENT AUDIO FORWARD/BACKWARD SEEKING
  */
 
 if (audio) {
@@ -427,11 +427,9 @@ if (audio) {
     let correctingAudio = false;
 
     audio.addEventListener("timeupdate", function () {
-
         if (!correctingAudio) {
             allowedAudioTime = audio.currentTime;
         }
-
     });
 
     audio.addEventListener("seeking", function () {
@@ -439,14 +437,11 @@ if (audio) {
         if (correctingAudio) return;
 
         correctingAudio = true;
-
-        // Immediately force audio back to the allowed position
         audio.currentTime = allowedAudioTime;
 
         setTimeout(function () {
             correctingAudio = false;
         }, 50);
-
     });
 
     audio.addEventListener("loadedmetadata", function () {
@@ -455,7 +450,6 @@ if (audio) {
     });
 
 }
-
 
     function updateQuestionProgress() {
         for (let i = 1; i <= 10; i++) {
@@ -615,73 +609,46 @@ restoreListeningAnswers();
 </script>
 
 <script>
-const playPauseBtn = document.getElementById("playPauseBtn");
-const audioProgress = document.getElementById("audioProgress");
-const audioTime = document.getElementById("audioTime");
-const audio = document.getElementById("listeningAudio");
+const customPlayButton = document.getElementById("playPauseBtn");
+const customAudioProgress = document.getElementById("audioProgress");
+const customAudioTime = document.getElementById("audioTime");
 
-if (audio && playPauseBtn) {
+if (audio && customPlayButton) {
 
-    playPauseBtn.addEventListener("click", function () {
+    let audioHasStarted = false;
+
+    customPlayButton.addEventListener("click", function () {
+
+        if (audioHasStarted) return;
+
+        audioHasStarted = true;
+
         audio.play();
 
-        // Remove the button permanently after starting
-        playPauseBtn.style.display = "none";
+        // Hide play button permanently
+        customPlayButton.style.display = "none";
     });
 
     audio.addEventListener("timeupdate", function () {
+
         if (audio.duration) {
             const percentage =
                 (audio.currentTime / audio.duration) * 100;
 
-            audioProgress.style.width = percentage + "%";
+            customAudioProgress.style.width = percentage + "%";
         }
 
         const minutes = Math.floor(audio.currentTime / 60);
         const seconds = Math.floor(audio.currentTime % 60);
 
-        audioTime.textContent =
+        customAudioTime.textContent =
             minutes + ":" + String(seconds).padStart(2, "0");
     });
 
     audio.addEventListener("ended", function () {
-        audioTime.textContent = "Finished";
-    });
-}
-</script>
-
-<script>
-const playPauseBtn = document.getElementById("playPauseBtn");
-const audioProgress = document.getElementById("audioProgress");
-const audioTime = document.getElementById("audioTime");
-const customAudio = document.getElementById("listeningAudio");
-
-if (customAudio && playPauseBtn) {
-
-    playPauseBtn.addEventListener("click", function () {
-        customAudio.play();
-
-        playPauseBtn.style.display = "none";
+        customAudioTime.textContent = "Finished";
     });
 
-    customAudio.addEventListener("timeupdate", function () {
-        if (customAudio.duration) {
-            const percentage =
-                (customAudio.currentTime / customAudio.duration) * 100;
-
-            audioProgress.style.width = percentage + "%";
-        }
-
-        const minutes = Math.floor(customAudio.currentTime / 60);
-        const seconds = Math.floor(customAudio.currentTime % 60);
-
-        audioTime.textContent =
-            minutes + ":" + String(seconds).padStart(2, "0");
-    });
-
-    customAudio.addEventListener("ended", function () {
-        audioTime.textContent = "Finished";
-    });
 }
 </script>
 
