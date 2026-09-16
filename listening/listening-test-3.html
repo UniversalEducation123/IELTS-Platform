@@ -756,5 +756,118 @@ updateQuestionProgress();
 
 </script>
 
+<script>
+/* =====================================================
+   SAVE AND RESTORE LISTENING ANSWERS
+   Keeps answers when switching between Parts 1–4
+===================================================== */
+
+/* Create a separate storage key for each Listening page */
+const answerStorageKey = "listeningAnswers_" + window.location.pathname;
+
+/* Save all current answers */
+function saveListeningAnswers() {
+    const answers = {};
+
+    document.querySelectorAll(
+        'input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    ).forEach(function(input) {
+
+        /* Save text inputs */
+        if (input.type === "text") {
+            answers[input.name] = input.value;
+        }
+
+        /* Save selected radio buttons */
+        else if (input.type === "radio") {
+            if (input.checked) {
+                answers[input.name] = input.value;
+            }
+        }
+
+        /* Save selected checkboxes */
+        else if (input.type === "checkbox") {
+            if (!answers[input.name]) {
+                answers[input.name] = [];
+            }
+
+            if (input.checked) {
+                answers[input.name].push(input.value);
+            }
+        }
+
+        /* Save dropdown selections */
+        else if (input.tagName === "SELECT") {
+            answers[input.name] = input.value;
+        }
+    });
+
+    sessionStorage.setItem(
+        answerStorageKey,
+        JSON.stringify(answers)
+    );
+}
+
+/* Restore saved answers */
+function restoreListeningAnswers() {
+    const savedAnswers = sessionStorage.getItem(answerStorageKey);
+
+    if (!savedAnswers) return;
+
+    const answers = JSON.parse(savedAnswers);
+
+    document.querySelectorAll(
+        'input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    ).forEach(function(input) {
+
+        const savedValue = answers[input.name];
+
+        if (savedValue === undefined) return;
+
+        /* Restore text inputs */
+        if (input.type === "text") {
+            input.value = savedValue;
+        }
+
+        /* Restore radio buttons */
+        else if (input.type === "radio") {
+            input.checked = input.value === savedValue;
+        }
+
+        /* Restore checkboxes */
+        else if (input.type === "checkbox") {
+            input.checked =
+                Array.isArray(savedValue) &&
+                savedValue.includes(input.value);
+        }
+
+        /* Restore dropdowns */
+        else if (input.tagName === "SELECT") {
+            input.value = savedValue;
+        }
+    });
+
+    /* Refresh question progress boxes after restoring answers */
+    if (typeof updateQuestionProgress === "function") {
+        updateQuestionProgress();
+    }
+
+    if (typeof updateReadingQuestionProgress === "function") {
+        updateReadingQuestionProgress();
+    }
+}
+
+/* Automatically save whenever an answer changes */
+document.querySelectorAll(
+    'input[type="text"], input[type="radio"], input[type="checkbox"], select'
+).forEach(function(input) {
+    input.addEventListener("input", saveListeningAnswers);
+    input.addEventListener("change", saveListeningAnswers);
+});
+
+/* Restore answers when page opens */
+restoreListeningAnswers();
+</script>
+
 </body>
 </html>
