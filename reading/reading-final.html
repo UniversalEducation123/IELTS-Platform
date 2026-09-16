@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Result</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #222;
+        }
+
+        .result-header {
+            background: #123c2b;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .result-header h1 {
+            margin: 0 0 8px;
+        }
+
+        .result-container {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        .student-name {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: #123c2b;
+            font-weight: bold;
+        }
+
+        .score-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .score {
+            font-size: 55px;
+            font-weight: bold;
+            color: #123c2b;
+            margin: 10px 0;
+        }
+
+        .band {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #8b5e00;
+        }
+
+        .result-message {
+            font-size: 16px;
+            margin: 20px 0;
+            color: #555;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        .dashboard-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #123c2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 5px;
+        }
+
+        .dashboard-button:hover {
+            background: #1d6045;
+        }
+
+        .details {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            text-align: left;
+        }
+
+        .details h2 {
+            color: #123c2b;
+            font-size: 20px;
+        }
+
+        .details p {
+            line-height: 1.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="result-header">
+        <h1>IELTS Reading Result</h1>
+        <p>Your Reading test has been completed</p>
+    </header>
+
+    <main class="result-container">
+        <section class="result-card">
+
+            <div class="student-name" id="studentName">
+                Student
+            </div>
+
+            <div class="score-title">
+                Your Reading Score
+            </div>
+
+            <div class="score" id="readingScore">
+                0 / 40
+            </div>
+
+            <div class="band" id="readingBand">
+                IELTS Band: -
+            </div>
+
+            <p class="result-message" id="resultMessage">
+                Calculating your result...
+            </p>
+
+            <div class="details">
+                <h2>Result Details</h2>
+                <p>
+                    Correct Answers:
+                    <strong id="correctAnswers">0</strong>
+                </p>
+
+                <p>
+                    Incorrect Answers:
+                    <strong id="incorrectAnswers">0</strong>
+                </p>
+
+                <p>
+                    Total Questions:
+                    <strong>40</strong>
+                </p>
+            </div>
+
+            <div class="button-container">
+                <a href="student-dashboard.html" class="dashboard-button">
+                    Back to Dashboard
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        const studentName =
+            sessionStorage.getItem("studentName") || "Student";
+
+        document.getElementById("studentName").textContent = studentName;
+
+        /*
+         * These values will be supplied by reading-test.html
+         * before redirecting to this page.
+         */
+        const savedScore = sessionStorage.getItem("readingScore");
+        const savedCorrect = sessionStorage.getItem("readingCorrect");
+
+        const score = savedScore !== null
+            ? Number(savedScore)
+            : 0;
+
+        const correct = savedCorrect !== null
+            ? Number(savedCorrect)
+            : score;
+
+        const incorrect = 40 - correct;
+
+        function getReadingBand(correctAnswers) {
+            if (correctAnswers >= 39) return 9.0;
+            if (correctAnswers >= 37) return 8.5;
+            if (correctAnswers >= 35) return 8.0;
+            if (correctAnswers >= 33) return 7.5;
+            if (correctAnswers >= 30) return 7.0;
+            if (correctAnswers >= 27) return 6.5;
+            if (correctAnswers >= 23) return 6.0;
+            if (correctAnswers >= 19) return 5.5;
+            if (correctAnswers >= 15) return 5.0;
+            if (correctAnswers >= 13) return 4.5;
+            if (correctAnswers >= 10) return 4.0;
+            if (correctAnswers >= 8) return 3.5;
+            if (correctAnswers >= 6) return 3.0;
+            if (correctAnswers >= 4) return 2.5;
+            return 2.0;
+        }
+
+        const band = getReadingBand(correct);
+
+        document.getElementById("readingScore").textContent =
+            correct + " / 40";
+
+        document.getElementById("readingBand").textContent =
+            "IELTS Band: " + band;
+
+        document.getElementById("correctAnswers").textContent =
+            correct;
+
+        document.getElementById("incorrectAnswers").textContent =
+            incorrect;
+
+        document.getElementById("resultMessage").textContent =
+            "Your Reading test result has been calculated successfully.";
+    </script>
+
+</body>
+</html>

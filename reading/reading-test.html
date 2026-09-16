@@ -1189,16 +1189,16 @@ function submitReadingTest() {
 
     console.log("STARTING READING SCORE CHECK");
 
-for (let i = 1; i <= 40; i++) {
-    console.log(
-        "Question:",
-        i,
-        "User answer:",
-        getAnswer(i),
-        "Correct answer:",
-        answers["q" + i]
-    );
-}
+    for (let i = 1; i <= 40; i++) {
+        console.log(
+            "Question:",
+            i,
+            "User answer:",
+            getAnswer(i),
+            "Correct answer:",
+            answers["q" + i]
+        );
+    }
 
     for (let i = 1; i <= 40; i++) {
         const questionName = "q" + i;
@@ -1213,7 +1213,6 @@ for (let i = 1; i <= 40; i++) {
                 )
             ].map(item => item.value);
 
-            // Blank multiple-answer question cannot be correct
             if (selected.length === 0) {
                 continue;
             }
@@ -1227,7 +1226,7 @@ for (let i = 1; i <= 40; i++) {
             }
 
         } else {
-            // Blank unanswered question cannot be correct
+            // Blank unanswered question
             if (
                 userAnswer === null ||
                 userAnswer === undefined ||
@@ -1236,7 +1235,7 @@ for (let i = 1; i <= 40; i++) {
                 continue;
             }
 
-            // Missing answer key cannot be counted as correct
+            // Missing answer key
             if (
                 correctAnswer === null ||
                 correctAnswer === undefined ||
@@ -1254,22 +1253,17 @@ for (let i = 1; i <= 40; i++) {
         }
     }
 
+    // Save score for reading-final.html
+    sessionStorage.setItem("readingScore", score);
+    sessionStorage.setItem("readingCorrect", score);
+
     saveReadingScore(score);
 }
+
 
 async function saveReadingScore(score) {
     const studentId = sessionStorage.getItem("studentId");
     const studentName = sessionStorage.getItem("studentName");
-
-    const resultBox = document.getElementById("resultBox");
-
-    resultBox.style.display = "block";
-    resultBox.innerHTML = `
-        <h2>Reading Test Completed</h2>
-        <p>Your score is:</p>
-        <h1>${score} / 40</h1>
-        <p>Saving your result...</p>
-    `;
 
     const submitButton = document.querySelector(".submit-reading");
 
@@ -1278,11 +1272,8 @@ async function saveReadingScore(score) {
     }
 
     if (!studentId) {
-        resultBox.innerHTML = `
-            <h2>Reading Test Completed</h2>
-            <h1>${score} / 40</h1>
-            <p>Student information is missing. Score was not saved.</p>
-        `;
+        console.error("Student information is missing.");
+        window.location.href = "../reading-final.html";
         return;
     }
 
@@ -1297,19 +1288,14 @@ async function saveReadingScore(score) {
     if (findError) {
         console.error("Error finding Test 1 result:", findError);
 
-        resultBox.innerHTML = `
-            <h2>Reading Test Completed</h2>
-            <h1>${score} / 40</h1>
-            <p>Score calculated, but saving failed.</p>
-            <p>Please check the browser console for details.</p>
-        `;
+        // Still show the result page even if saving fails
+        window.location.href = "../reading-final.html";
         return;
     }
 
     let saveError = null;
 
     if (existingResults && existingResults.length > 0) {
-        // Use the first existing Test 1 row
         const existingResult = existingResults[0];
 
         const { error } = await supabaseClient
@@ -1321,8 +1307,8 @@ async function saveReadingScore(score) {
             .eq("id", existingResult.id);
 
         saveError = error;
+
     } else {
-        // Create a new Test 1 row
         const { error } = await supabaseClient
             .from("test_results")
             .insert({
@@ -1337,25 +1323,14 @@ async function saveReadingScore(score) {
 
     if (saveError) {
         console.error("Error saving Reading score:", saveError);
-
-        resultBox.innerHTML = `
-            <h2>Reading Test Completed</h2>
-            <h1>${score} / 40</h1>
-            <p>Score calculated, but saving failed.</p>
-            <p>Please check the browser console for details.</p>
-        `;
-        return;
+    } else {
+        console.log("Reading score saved successfully.");
     }
 
-    resultBox.innerHTML = `
-        <h2>Reading Test Completed</h2>
-        <h1>${score} / 40</h1>
-        <p>Your Reading score has been saved successfully.</p>
-        <br>
-        <a href="../student-dashboard.html">Return to Dashboard</a>
-    `;
+    // Open the final Reading result page
+    window.location.href = "../reading-final.html";
 }
-
+    
 
 function updateReadingQuestionProgress() {
     // First clear all highlights
