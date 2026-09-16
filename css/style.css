@@ -2079,10 +2079,10 @@ body.listening-page {
 
 .test-filter-button {
     padding: 10px 22px;
-    border: 1px solid #1e3a8a;
+    border: 1px solid #4d135cc5;
     border-radius: 6px;
     background: white;
-    color: #1e3a8a;
+    color: #b39ed4;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -2090,7 +2090,7 @@ body.listening-page {
 
 .test-filter-button:hover,
 .test-filter-button.active {
-    background: #1e3a8a;
+    background: #887096;
     color: white;
 }
 
@@ -2167,7 +2167,7 @@ body.listening-page {
 }
 
 .delete-test-button {
-    background: #b91c1c;
+    background: #411919;
     color: white;
     border: none;
     border-radius: 6px;
@@ -2179,7 +2179,7 @@ body.listening-page {
 }
 
 .delete-test-button:hover {
-    background: #991b1b;
+    background: #8f3838;
 }
 
 .no-students-message {
