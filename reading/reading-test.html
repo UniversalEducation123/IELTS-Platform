@@ -841,6 +841,7 @@ function submitReadingTest() {
         const userAnswer = getAnswer(i);
         const correctAnswer = answers[questionName];
 
+        // Multiple-answer questions
         if (Array.isArray(correctAnswer)) {
             const selected = [
                 ...document.querySelectorAll(
@@ -848,12 +849,38 @@ function submitReadingTest() {
                 )
             ].map(item => item.value);
 
+            // Blank multiple-answer question cannot be correct
+            if (selected.length === 0) {
+                continue;
+            }
+
             const correct = correctAnswer.every(answer =>
                 selected.includes(answer)
             ) && selected.length === correctAnswer.length;
 
-            if (correct) score++;
+            if (correct) {
+                score++;
+            }
+
         } else {
+            // Blank unanswered question cannot be correct
+            if (
+                userAnswer === null ||
+                userAnswer === undefined ||
+                String(userAnswer).trim() === ""
+            ) {
+                continue;
+            }
+
+            // Missing answer key cannot be counted as correct
+            if (
+                correctAnswer === null ||
+                correctAnswer === undefined ||
+                String(correctAnswer).trim() === ""
+            ) {
+                continue;
+            }
+
             if (
                 normalize(userAnswer) ===
                 normalize(correctAnswer)
@@ -880,23 +907,28 @@ async function saveReadingScore(score) {
         <p>Saving your result...</p>
     `;
 
-    document.querySelector(".submit-reading").disabled = true;
+    const submitButton = document.querySelector(".submit-reading");
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
 
     if (!studentId) {
-        resultBox.innerHTML += `
-            <p>Your result could not be linked to a student account.</p>
+        resultBox.innerHTML = `
+            <h2>Reading Test Completed</h2>
+            <h1>${score} / 40</h1>
+            <p>Student information is missing. Score was not saved.</p>
         `;
         return;
     }
 
-    // Find the existing Test 1 row for this student
-    const { data: existingResult, error: findError } =
+    const { data: existingResults, error: findError } =
         await supabaseClient
             .from("test_results")
             .select("*")
             .eq("student_id", Number(studentId))
             .eq("test_name", "Test 1")
-            .maybeSingle();
+            .order("id", { ascending: true });
 
     if (findError) {
         console.error("Error finding Test 1 result:", findError);
@@ -905,14 +937,17 @@ async function saveReadingScore(score) {
             <h2>Reading Test Completed</h2>
             <h1>${score} / 40</h1>
             <p>Score calculated, but saving failed.</p>
+            <p>Please check the browser console for details.</p>
         `;
         return;
     }
 
-    let saveError;
+    let saveError = null;
 
-    if (existingResult) {
-        // Update the existing Test 1 row
+    if (existingResults && existingResults.length > 0) {
+        // Use the first existing Test 1 row
+        const existingResult = existingResults[0];
+
         const { error } = await supabaseClient
             .from("test_results")
             .update({
@@ -923,7 +958,7 @@ async function saveReadingScore(score) {
 
         saveError = error;
     } else {
-        // Create a Test 1 row if one does not exist
+        // Create a new Test 1 row
         const { error } = await supabaseClient
             .from("test_results")
             .insert({
@@ -937,12 +972,13 @@ async function saveReadingScore(score) {
     }
 
     if (saveError) {
-        console.error(saveError);
+        console.error("Error saving Reading score:", saveError);
 
         resultBox.innerHTML = `
             <h2>Reading Test Completed</h2>
             <h1>${score} / 40</h1>
             <p>Score calculated, but saving failed.</p>
+            <p>Please check the browser console for details.</p>
         `;
         return;
     }

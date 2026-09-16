@@ -226,6 +226,8 @@ const timerStarted =
 const timerElement = document.getElementById("timer");
 
 function updateTimer() {
+    if (!timerElement) return;
+
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
 
@@ -236,16 +238,19 @@ function updateTimer() {
 
 if (timerStarted) {
     updateTimer();
-} else {
+} else if (timerElement) {
     timerElement.textContent = "--:--";
 }
 
-const timerInterval = setInterval(function() {
+const timerInterval = setInterval(function () {
     if (!timerStarted) return;
 
     timeLeft--;
 
-    sessionStorage.setItem("listeningTimeLeft", timeLeft);
+    sessionStorage.setItem(
+        "listeningTimeLeft",
+        timeLeft
+    );
 
     updateTimer();
 
@@ -255,52 +260,45 @@ const timerInterval = setInterval(function() {
         sessionStorage.removeItem("listeningTimeLeft");
         sessionStorage.removeItem("listeningTimerStarted");
 
-        timerElement.textContent = "00:00";
+        if (timerElement) {
+            timerElement.textContent = "00:00";
+        }
 
         alert("Time is up.");
     }
 }, 1000);
 
 
-if (audio) {
-    audio.addEventListener("play", startTimer);
-
-    audio.addEventListener("pause", function () {
-        if (timerStarted && timeLeft > 0) {
-            audio.play();
-        }
-    });
-}
-
-timerDisplay.textContent =
-    `${String(Math.floor(timeLeft / 60)).padStart(2, "0")}:${String(timeLeft % 60).padStart(2, "0")}`;
-
 /*
- * SUBMIT PART 4
- * Students can finish even if some answers are empty.
+ * SAVE PART 4 ANSWERS AND FINISH TEST
  */
 
-document.getElementById("submitPart4Btn").addEventListener("click", function () {
+const submitPart4Button =
+    document.getElementById("submitPart4Btn");
 
-    const answers = {};
+if (submitPart4Button) {
+    submitPart4Button.addEventListener("click", function () {
 
-    for (let i = 31; i <= 40; i++) {
-        const input = document.getElementById(`q${i}`);
+        const answers = {};
 
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        } else {
-            answers[`q${i}`] = "";
+        for (let i = 31; i <= 40; i++) {
+            const input = document.querySelector(
+                `[name="q${i}"]`
+            );
+
+            answers[`q${i}`] = input
+                ? input.value.trim().toUpperCase()
+                : "";
         }
-    }
 
-    sessionStorage.setItem(
-        "listeningPart4Answers",
-        JSON.stringify(answers)
-    );
+        sessionStorage.setItem(
+            "listeningPart4Answers",
+            JSON.stringify(answers)
+        );
 
-    window.location.href = "listening-final.html";
-});
+        window.location.href = "listening-final.html";
+    });
+}
 
 
 /*
@@ -309,7 +307,9 @@ document.getElementById("submitPart4Btn").addEventListener("click", function () 
 
 function updateQuestionProgress() {
     for (let i = 31; i <= 40; i++) {
-        const input = document.querySelector(`[name="q${i}"]`);
+        const input = document.querySelector(
+            `[name="q${i}"]`
+        );
 
         const button = document.querySelector(
             `.question-progress-button[data-question="${i}"]`
@@ -317,39 +317,27 @@ function updateQuestionProgress() {
 
         if (!input || !button) continue;
 
-        if (
-            input.type === "checkbox" ||
-            input.type === "radio"
-        ) {
-            const groupInputs = document.querySelectorAll(
-                `input[name="${input.name}"]`
-            );
-
-            const answered = Array.from(groupInputs).some(
-                item => item.checked
-            );
-
-            button.classList.toggle("answered", answered);
-        } else {
-            button.classList.toggle(
-                "answered",
-                input.value.trim() !== ""
-            );
-        }
+        button.classList.toggle(
+            "answered",
+            input.value.trim() !== ""
+        );
     }
 }
 
 document.querySelectorAll(
-    'input[type="checkbox"], input[type="radio"], input[type="text"]'
-).forEach(input => {
-    input.addEventListener("change", updateQuestionProgress);
-    input.addEventListener("input", updateQuestionProgress);
+    'input[type="text"]'
+).forEach(function (input) {
+    input.addEventListener(
+        "input",
+        updateQuestionProgress
+    );
+
+    input.addEventListener(
+        "change",
+        updateQuestionProgress
+    );
 });
 
-
-/*
- * JUMP TO QUESTION
- */
 
 function goToQuestion(questionNumber) {
     const input = document.querySelector(
