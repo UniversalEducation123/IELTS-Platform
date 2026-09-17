@@ -344,9 +344,16 @@ function saveCurrentPart1Answers() {
         }
     }
 
+    console.log("PART 1 SAVE FUNCTION RAN:", answers);
+
     sessionStorage.setItem(
         "listeningPart1Answers",
         JSON.stringify(answers)
+    );
+
+    console.log(
+        "PART 1 SAVED TO SESSION:",
+        sessionStorage.getItem("listeningPart1Answers")
     );
 }
 
@@ -411,9 +418,8 @@ const submitButton = document.getElementById("submitListeningBtn");
 
 if (submitButton) {
     submitButton.addEventListener("click", function () {
+        console.log("PART 1 CONTINUE BUTTON CLICKED");
         saveCurrentPart1Answers();
-
-        // Continue to Part 2 without resetting timer
         window.location.href = "listening-test-2.html";
     });
 }
