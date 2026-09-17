@@ -85,7 +85,7 @@
 </audio>
 
         <p class="audio-note">
-            The timer starts when you play the audio.
+            
         </p>
 
     </section>
@@ -521,7 +521,28 @@ function updateTimer() {
 function savePart3Answers() {
     const answers = {};
 
-    for (let i = 21; i <= 30; i++) {
+    const pair21_22 = Array.from(
+        document.querySelectorAll('input[name="q21_22"]:checked')
+    ).map(input => input.value);
+
+    answers.q21 = pair21_22[0] || "";
+    answers.q22 = pair21_22[1] || "";
+
+    const pair23_24 = Array.from(
+        document.querySelectorAll('input[name="q23_24"]:checked')
+    ).map(input => input.value);
+
+    answers.q23 = pair23_24[0] || "";
+    answers.q24 = pair23_24[1] || "";
+
+    const pair25_26 = Array.from(
+        document.querySelectorAll('input[name="q25_26"]:checked')
+    ).map(input => input.value);
+
+    answers.q25 = pair25_26[0] || "";
+    answers.q26 = pair25_26[1] || "";
+
+    for (let i = 27; i <= 30; i++) {
         const input = document.querySelector(`[name="q${i}"]`);
 
         if (input) {

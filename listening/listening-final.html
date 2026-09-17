@@ -352,6 +352,11 @@
 
         let correctCount = 0;
 
+        console.log("Part 1 answers:", part1);
+        console.log("Part 2 answers:", part2);
+        console.log("Part 3 answers:", part3);
+        console.log("Part 4 answers:", part4);
+
 
         /*
          * PART 1
@@ -618,6 +623,8 @@
         document.getElementById("bandScore").textContent =
             bandScore;
 
+            saveResultToSupabase(correctCount);
+
             });
 
 
@@ -626,7 +633,7 @@
          *
          * This runs only once for this completed test session.
          */
-        async function saveResultToSupabase() {
+        async function saveResultToSupabase(score) {
 
     if (
         sessionStorage.getItem("listeningTest1ResultSaved") === "true"
@@ -652,7 +659,7 @@
             student_id: studentId ? Number(studentId) : null,
             student_name: studentName,
             test_name: "Test 1",
-            listening_score: correctCount
+            llistening_score: score
         });
 
     if (error) {
@@ -675,7 +682,7 @@
         /*
  * Save the result after calculation.
  */
-saveResultToSupabase();
+
 
 /*
  * Clear Listening progress after result is displayed.
@@ -688,9 +695,7 @@ sessionStorage.removeItem("listeningPart3Answers");
 sessionStorage.removeItem("listeningPart4Answers");
 sessionStorage.removeItem("listeningAutoSubmitted");
 
-document.addEventListener("DOMContentLoaded", function() {
-    calculateListeningScore();
-});
+
 
     </script>
 
