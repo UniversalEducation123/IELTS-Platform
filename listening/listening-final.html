@@ -239,31 +239,49 @@ function getPairValues(firstValue, secondValue) {
 }
 
 function checkTwoAnswers(studentAnswers, correctAnswers) {
-    if (!Array.isArray(studentAnswers)) {
-        return false;
-    }
+    const results = [];
+    const usedCorrectAnswers = [];
 
-    if (!Array.isArray(correctAnswers)) {
-        return false;
-    }
+    studentAnswers.forEach(function (studentAnswer) {
+        const normalizedStudent = normalizeAnswer(studentAnswer);
 
-    if (studentAnswers.length !== correctAnswers.length) {
-        return false;
-    }
+        if (normalizedStudent === "") {
+            results.push(false);
+            return;
+        }
 
-    const student = studentAnswers
-        .map(normalizeAnswer)
-        .sort();
+        let matchedIndex = -1;
 
-    const correct = correctAnswers
-        .map(normalizeAnswer)
-        .sort();
+        for (let i = 0; i < correctAnswers.length; i++) {
+            const normalizedCorrect = normalizeAnswer(correctAnswers[i]);
 
-    return student.every(function (answer, index) {
-        return answer === correct[index];
+            if (
+                normalizedStudent === normalizedCorrect &&
+                !usedCorrectAnswers.includes(i)
+            ) {
+                matchedIndex = i;
+                break;
+            }
+        }
+
+        if (matchedIndex !== -1) {
+            usedCorrectAnswers.push(matchedIndex);
+            results.push(true);
+        } else {
+            results.push(false);
+        }
     });
+
+    return results;
 }
 
+function countCorrectPairAnswers(studentAnswers, correctAnswers) {
+    const results = checkTwoAnswers(studentAnswers, correctAnswers);
+
+    return results.filter(function (result) {
+        return result === true;
+    }).length;
+}
 
 /* ===============================
    BAND SCORE
@@ -349,24 +367,19 @@ async function calculateListeningScore() {
 
     /* PART 2 */
 
-    if (
-        checkTwoAnswers(
-            getPairValues(part2.q11, part2.q12),
-            ["B", "E"]
-        )
-    ) {
-        correctCount += 2;
-    }
+    const part2Pair1 = getPairValues(part2.q11, part2.q12);
 
-    if (
-        checkTwoAnswers(
-            getPairValues(part2.q13, part2.q14),
-            ["C", "D"]
-        )
-    ) {
-        correctCount += 2;
-    }
+correctCount += countCorrectPairAnswers(
+    part2Pair1,
+    ["B", "E"]
+);
 
+const part2Pair2 = getPairValues(part2.q13, part2.q14);
+
+correctCount += countCorrectPairAnswers(
+    part2Pair2,
+    ["C", "D"]
+);
     const part2AnswerKey = {
         q15: ["F"],
         q16: ["B"],
@@ -388,21 +401,17 @@ async function calculateListeningScore() {
     /* PART 3 */
 
     const part3Pairs = [
-        ["q21", "q22", ["B", "E"]],
-        ["q23", "q24", ["C", "D"]],
-        ["q25", "q26", ["A", "C"]]
-    ];
+    ["q21", "q22", ["B", "E"]],
+    ["q23", "q24", ["C", "D"]],
+    ["q25", "q26", ["A", "C"]]
+];
 
-    part3Pairs.forEach(function(pair) {
-        if (
-            checkTwoAnswers(
-                getPairValues(part3[pair[0]], part3[pair[1]]),
-                pair[2]
-            )
-        ) {
-            correctCount += 2;
-        }
-    });
+part3Pairs.forEach(function(pair) {
+    correctCount += countCorrectPairAnswers(
+        getPairValues(part3[pair[0]], part3[pair[1]]),
+        pair[2]
+    );
+});
 
     const part3AnswerKey = {
         q27: ["C"],
