@@ -634,18 +634,9 @@
          * This runs only once for this completed test session.
          */
         async function saveResultToSupabase(score) {
-
     if (
         sessionStorage.getItem("listeningTest1ResultSaved") === "true"
     ) {
-        return;
-    }
-
-    const alreadySaved = sessionStorage.getItem(
-        "listeningTest1ResultSaved"
-    );
-
-    if (alreadySaved === "true") {
         console.log("Result already saved.");
         return;
     }
@@ -653,14 +644,18 @@
     const studentId = sessionStorage.getItem("studentId");
     const studentName = sessionStorage.getItem("studentName");
 
+    const resultData = {
+        student_id: studentId ? Number(studentId) : null,
+        student_name: studentName,
+        test_name: "Test 1",
+        listening_score: score
+    };
+
+    console.log("Data being sent to Supabase:", resultData);
+
     const { error } = await supabaseClient
         .from("test_results")
-        .insert({
-            student_id: studentId ? Number(studentId) : null,
-            student_name: studentName,
-            test_name: "Test 1",
-            listening_score: score
-        });
+        .insert(resultData);
 
     if (error) {
         console.error("Error saving result:", error);
@@ -676,8 +671,7 @@
     );
 
     console.log("Result saved successfully.");
-}   
-
+}
 
         /*
  * Save the result after calculation.
