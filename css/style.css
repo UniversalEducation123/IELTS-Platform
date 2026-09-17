@@ -2268,3 +2268,96 @@ body.listening-page {
 .passage-panel p:last-child {
     margin-bottom: 0;
 }
+
+/* =====================================
+   ANSWER REVIEW SECTION
+===================================== */
+
+.answer-review-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.answer-review-section h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: #743b58;
+    font-size: 26px;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 12px;
+}
+
+.answer-review-item {
+    padding: 17px 20px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    border-left: 5px solid;
+    box-sizing: border-box;
+}
+
+.answer-review-item.correct {
+    background: #eef8ef;
+    border-left-color: #4d9b57;
+}
+
+.answer-review-item.wrong {
+    background: #fff0f0;
+    border-left-color: #d9534f;
+}
+
+.answer-review-item strong:first-child {
+    font-size: 17px;
+    color: #333333;
+}
+
+.review-status {
+    float: right;
+    font-weight: 700;
+}
+
+.answer-review-item.correct .review-status {
+    color: #398443;
+}
+
+.answer-review-item.wrong .review-status {
+    color: #c0392b;
+}
+
+.answer-review-item p {
+    margin: 9px 0 0;
+    color: #555555;
+    line-height: 1.6;
+}
+
+.answer-review-item p strong {
+    color: #222222;
+}
+
+/* Mobile responsive styling */
+
+@media (max-width: 600px) {
+    .answer-review-section {
+        padding: 18px;
+        margin: 25px auto;
+    }
+
+    .answer-review-section h2 {
+        font-size: 22px;
+    }
+
+    .answer-review-item {
+        padding: 15px;
+    }
+
+    .review-status {
+        float: none;
+        display: block;
+        margin-top: 6px;
+    }
+}

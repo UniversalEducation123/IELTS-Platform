@@ -154,6 +154,11 @@
             <span id="bandScore">0.0</span>
         </div>
 
+        <div class="answer-review-section">
+            <h2>Answer Review</h2>
+            <div id="answerReview"></div>
+        </div>
+
         <a href="../index.html" class="home-button">
     Back to Home
 </a>    
@@ -186,15 +191,17 @@ function normalizeAnswer(answer) {
     return String(answer || "")
         .toLowerCase()
         .trim()
-        .replace(/[\s\-_.,/]/g, "");
+        .replace(/[^a-z0-9]/g, "");
 }
 
 function isCorrect(studentAnswer, acceptedAnswers) {
     const student = normalizeAnswer(studentAnswer);
 
-    if (student === "") return false;
+    if (!student) {
+        return false;
+    }
 
-    return acceptedAnswers.some(function(answer) {
+    return acceptedAnswers.some(function (answer) {
         return student === normalizeAnswer(answer);
     });
 }
@@ -232,25 +239,29 @@ function getPairValues(firstValue, secondValue) {
 }
 
 function checkTwoAnswers(studentAnswers, correctAnswers) {
-    if (!Array.isArray(studentAnswers)) return false;
-    if (studentAnswers.length !== 2) return false;
+    if (!Array.isArray(studentAnswers)) {
+        return false;
+    }
+
+    if (!Array.isArray(correctAnswers)) {
+        return false;
+    }
+
+    if (studentAnswers.length !== correctAnswers.length) {
+        return false;
+    }
 
     const student = studentAnswers
-        .map(function(answer) {
-            return String(answer).trim().toUpperCase();
-        })
+        .map(normalizeAnswer)
         .sort();
 
     const correct = correctAnswers
-        .map(function(answer) {
-            return String(answer).trim().toUpperCase();
-        })
+        .map(normalizeAnswer)
         .sort();
 
-    return (
-        student[0] === correct[0] &&
-        student[1] === correct[1]
-    );
+    return student.every(function (answer, index) {
+        return answer === correct[index];
+    });
 }
 
 
@@ -435,35 +446,197 @@ async function calculateListeningScore() {
 
     /* DISPLAY RESULT */
 
-    const wrongCount = 40 - correctCount;
-    const bandScore = calculateBand(correctCount);
+const wrongCount = 40 - correctCount;
+const bandScore = calculateBand(correctCount);
 
-    document.getElementById("correctAnswers").textContent = correctCount;
-    document.getElementById("wrongAnswers").textContent = wrongCount;
-    document.getElementById("totalScore").textContent =
-        correctCount + " / 40";
-    document.getElementById("bandScore").textContent = bandScore;
+document.getElementById("correctAnswers").textContent = correctCount;
+document.getElementById("wrongAnswers").textContent = wrongCount;
+document.getElementById("totalScore").textContent =
+    correctCount + " / 40";
+document.getElementById("bandScore").textContent = bandScore;
 
-    console.log("FINAL CORRECT COUNT:", correctCount);
+console.log("FINAL CORRECT COUNT:", correctCount);
 
 
-    /* SAVE RESULT */
+/* =====================================
+   QUESTION-BY-QUESTION ANSWER REVIEW
+===================================== */
 
-    await saveResultToSupabase(correctCount);
+const answerReview = document.getElementById("answerReview");
 
-    /*
-     * Clear answers ONLY AFTER score calculation
-     * and Supabase saving attempt.
-     */
+if (answerReview) {
+    answerReview.innerHTML = "";
 
-    sessionStorage.removeItem("listeningTimeLeft");
-    sessionStorage.removeItem("listeningTimerStarted");
-    sessionStorage.removeItem("listeningPart1Answers");
-    sessionStorage.removeItem("listeningPart2Answers");
-    sessionStorage.removeItem("listeningPart3Answers");
-    sessionStorage.removeItem("listeningPart4Answers");
-    sessionStorage.removeItem("listeningAutoSubmitted");
+    function addReviewItem(
+        questionNumber,
+        studentAnswer,
+        correctAnswer,
+        correct
+    ) {
+        const reviewItem = document.createElement("div");
+
+        reviewItem.className = correct
+            ? "answer-review-item correct"
+            : "answer-review-item wrong";
+
+        reviewItem.innerHTML = `
+            <strong>Question ${questionNumber}</strong>
+            <span class="review-status">
+                ${correct ? "✓ Correct" : "✗ Wrong"}
+            </span>
+            <p>Your answer:
+                <strong>${studentAnswer || "Not answered"}</strong>
+            </p>
+            <p>Correct answer:
+                <strong>${correctAnswer}</strong>
+            </p>
+        `;
+
+        answerReview.appendChild(reviewItem);
+    }
+
+
+    /* PART 1 */
+
+    for (let i = 1; i <= 10; i++) {
+        const key = "q" + i;
+        const student = part1[key] || "";
+        const correctAnswers = part1AnswerKey[key] || [];
+
+        addReviewItem(
+            i,
+            student,
+            correctAnswers.join(" / "),
+            isCorrect(student, correctAnswers)
+        );
+    }
+
+
+    /* PART 2: QUESTIONS 11–12 */
+
+    const part2Pair1 = getPairValues(part2.q11, part2.q12);
+
+    addReviewItem(
+        "11–12",
+        part2Pair1.join(", ") || "Not answered",
+        "B and E",
+        checkTwoAnswers(part2Pair1, ["B", "E"])
+    );
+
+
+    /* PART 2: QUESTIONS 13–14 */
+
+    const part2Pair2 = getPairValues(part2.q13, part2.q14);
+
+    addReviewItem(
+        "13–14",
+        part2Pair2.join(", ") || "Not answered",
+        "C and D",
+        checkTwoAnswers(part2Pair2, ["C", "D"])
+    );
+
+
+    /* PART 2: QUESTIONS 15–20 */
+
+    for (let i = 15; i <= 20; i++) {
+        const key = "q" + i;
+        const student = part2[key] || "";
+        const correctAnswers = part2AnswerKey[key] || [];
+
+        addReviewItem(
+            i,
+            student,
+            correctAnswers.join(" / "),
+            isCorrect(student, correctAnswers)
+        );
+    }
+
+
+    /* PART 3: QUESTIONS 21–22 */
+
+    const part3Pair1 = getPairValues(part3.q21, part3.q22);
+
+    addReviewItem(
+        "21–22",
+        part3Pair1.join(", ") || "Not answered",
+        "B and E",
+        checkTwoAnswers(part3Pair1, ["B", "E"])
+    );
+
+
+    /* PART 3: QUESTIONS 23–24 */
+
+    const part3Pair2 = getPairValues(part3.q23, part3.q24);
+
+    addReviewItem(
+        "23–24",
+        part3Pair2.join(", ") || "Not answered",
+        "C and D",
+        checkTwoAnswers(part3Pair2, ["C", "D"])
+    );
+
+
+    /* PART 3: QUESTIONS 25–26 */
+
+    const part3Pair3 = getPairValues(part3.q25, part3.q26);
+
+    addReviewItem(
+        "25–26",
+        part3Pair3.join(", ") || "Not answered",
+        "A and C",
+        checkTwoAnswers(part3Pair3, ["A", "C"])
+    );
+
+
+    /* PART 3: QUESTIONS 27–30 */
+
+    for (let i = 27; i <= 30; i++) {
+        const key = "q" + i;
+        const student = part3[key] || "";
+        const correctAnswers = part3AnswerKey[key] || [];
+
+        addReviewItem(
+            i,
+            student,
+            correctAnswers.join(" / "),
+            isCorrect(student, correctAnswers)
+        );
+    }
+
+
+    /* PART 4: QUESTIONS 31–40 */
+
+    for (let i = 31; i <= 40; i++) {
+        const key = "q" + i;
+        const student = part4[key] || "";
+        const correctAnswers = part4AnswerKey[key] || [];
+
+        addReviewItem(
+            i,
+            student,
+            correctAnswers.join(" / "),
+            isCorrect(student, correctAnswers)
+        );
+    }
 }
+
+
+/* SAVE RESULT */
+
+await saveResultToSupabase(correctCount);
+
+/*
+ * Clear answers ONLY AFTER score calculation
+ * and Supabase saving attempt.
+ */
+
+sessionStorage.removeItem("listeningTimeLeft");
+sessionStorage.removeItem("listeningTimerStarted");
+sessionStorage.removeItem("listeningPart1Answers");
+sessionStorage.removeItem("listeningPart2Answers");
+sessionStorage.removeItem("listeningPart3Answers");
+sessionStorage.removeItem("listeningPart4Answers");
+sessionStorage.removeItem("listeningAutoSubmitted");
 
 
 /* ===============================
