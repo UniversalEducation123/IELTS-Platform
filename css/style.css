@@ -2257,3 +2257,14 @@ body.listening-page {
     min-width: 45px;
     font-size: 14px;
 }
+
+/* Reading passage paragraph spacing */
+.passage-panel p {
+    margin-top: 0;
+    margin-bottom: 24px;
+    line-height: 1.8;
+}
+
+.passage-panel p:last-child {
+    margin-bottom: 0;
+}
