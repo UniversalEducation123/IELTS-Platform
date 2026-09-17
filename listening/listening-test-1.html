@@ -414,22 +414,24 @@ if (timerStarted) {
     timerElement.textContent = "--:--";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const submitButton = document.getElementById("submitListeningBtn");
+const submitButton = document.getElementById("submitListeningBtn");
 
-    if (submitButton) {
-        submitButton.addEventListener("click", function () {
-            console.log("PART 1 CONTINUE BUTTON CLICKED");
+if (submitButton) {
+    submitButton.addEventListener("click", function () {
+        console.log("PART 1 CONTINUE BUTTON CLICKED");
 
-            saveCurrentPart1Answers();
+        saveCurrentPart1Answers();
 
-            window.location.href = "listening-test-2.html";
-        });
-    } else {
-        console.log("PART 1 SUBMIT BUTTON NOT FOUND");
-    }
-});
+        console.log(
+            "FINAL PART 1 SESSION DATA:",
+            sessionStorage.getItem("listeningPart1Answers")
+        );
 
+        window.location.href = "listening-test-2.html";
+    });
+} else {
+    console.log("PART 1 SUBMIT BUTTON NOT FOUND");
+}
 /*
  * PREVENT AUDIO FORWARD/BACKWARD SEEKING
  */
