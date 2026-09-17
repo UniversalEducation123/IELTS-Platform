@@ -173,467 +173,305 @@
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
         const supabaseClient = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 
 
-        /*
-         * Convert answers into a standard format.
-         * This makes checking:
-         * - case-insensitive
-         * - space-insensitive
-         * - hyphen-insensitive
-         * - punctuation-insensitive
-         */
-        function normalizeAnswer(answer) {
-            return String(answer || "")
-                .toLowerCase()
-                .trim()
-                .replace(/[\s\-_.,/]/g, "");
+/* ===============================
+   ANSWER NORMALIZATION
+================================ */
+
+function normalizeAnswer(answer) {
+    return String(answer || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[\s\-_.,/]/g, "");
+}
+
+function isCorrect(studentAnswer, acceptedAnswers) {
+    const student = normalizeAnswer(studentAnswer);
+
+    if (student === "") return false;
+
+    return acceptedAnswers.some(function(answer) {
+        return student === normalizeAnswer(answer);
+    });
+}
+
+function getPairValues(firstValue, secondValue) {
+    let values = [];
+
+    if (Array.isArray(firstValue)) {
+        values = values.concat(firstValue);
+    } else if (
+        firstValue !== undefined &&
+        firstValue !== null &&
+        String(firstValue).trim() !== ""
+    ) {
+        values.push(firstValue);
+    }
+
+    if (Array.isArray(secondValue)) {
+        values = values.concat(secondValue);
+    } else if (
+        secondValue !== undefined &&
+        secondValue !== null &&
+        String(secondValue).trim() !== ""
+    ) {
+        values.push(secondValue);
+    }
+
+    return values
+        .map(function(value) {
+            return String(value).trim().toUpperCase();
+        })
+        .filter(function(value) {
+            return value !== "";
+        });
+}
+
+function checkTwoAnswers(studentAnswers, correctAnswers) {
+    if (!Array.isArray(studentAnswers)) return false;
+    if (studentAnswers.length !== 2) return false;
+
+    const student = studentAnswers
+        .map(function(answer) {
+            return String(answer).trim().toUpperCase();
+        })
+        .sort();
+
+    const correct = correctAnswers
+        .map(function(answer) {
+            return String(answer).trim().toUpperCase();
+        })
+        .sort();
+
+    return (
+        student[0] === correct[0] &&
+        student[1] === correct[1]
+    );
+}
+
+
+/* ===============================
+   BAND SCORE
+================================ */
+
+function calculateBand(correctCount) {
+    if (correctCount >= 39) return "9.0";
+    if (correctCount >= 37) return "8.5";
+    if (correctCount >= 35) return "8.0";
+    if (correctCount >= 32) return "7.5";
+    if (correctCount >= 30) return "7.0";
+    if (correctCount >= 26) return "6.5";
+    if (correctCount >= 23) return "6.0";
+    if (correctCount >= 18) return "5.5";
+    if (correctCount >= 16) return "5.0";
+    if (correctCount >= 13) return "4.5";
+    if (correctCount >= 10) return "4.0";
+    if (correctCount >= 8) return "3.5";
+    if (correctCount >= 6) return "3.0";
+    if (correctCount >= 4) return "2.5";
+
+    return "2.0";
+}
+
+
+/* ===============================
+   READ SAVED ANSWERS
+================================ */
+
+function readAnswers(storageKey) {
+    const raw = sessionStorage.getItem(storageKey);
+
+    console.log(storageKey + ":", raw);
+
+    if (!raw) return {};
+
+    try {
+        return JSON.parse(raw);
+    } catch (error) {
+        console.error("Could not parse " + storageKey, error);
+        return {};
+    }
+}
+
+
+/* ===============================
+   CALCULATE SCORE
+================================ */
+
+async function calculateListeningScore() {
+
+    const part1 = readAnswers("listeningPart1Answers");
+    const part2 = readAnswers("listeningPart2Answers");
+    const part3 = readAnswers("listeningPart3Answers");
+    const part4 = readAnswers("listeningPart4Answers");
+
+    let correctCount = 0;
+
+
+    /* PART 1 */
+
+    const part1AnswerKey = {
+        q1: ["13th January", "13 January", "January 13", "January 13th", "13.01", "13.1"],
+        q2: ["48"],
+        q3: ["pizza"],
+        q4: ["India"],
+        q5: ["mirror"],
+        q6: ["6th April", "6 April", "April 6", "April 6th", "06.04", "6.4"],
+        q7: ["natural"],
+        q8: ["67.50"],
+        q9: ["shirt"],
+        q10: ["hammer"]
+    };
+
+    for (let i = 1; i <= 10; i++) {
+        const question = "q" + i;
+
+        if (isCorrect(part1[question], part1AnswerKey[question])) {
+            correctCount++;
         }
+    }
 
 
-        /*
-         * Check a normal one-answer question.
-         * Multiple accepted answers can be provided.
-         */
-        function isCorrect(studentAnswer, acceptedAnswers) {
-            const student = normalizeAnswer(studentAnswer);
+    /* PART 2 */
 
-            if (student === "") {
-                return false;
-            }
+    if (
+        checkTwoAnswers(
+            getPairValues(part2.q11, part2.q12),
+            ["B", "E"]
+        )
+    ) {
+        correctCount += 2;
+    }
 
-            return acceptedAnswers.some(function(answer) {
-                return student === normalizeAnswer(answer);
-            });
+    if (
+        checkTwoAnswers(
+            getPairValues(part2.q13, part2.q14),
+            ["C", "D"]
+        )
+    ) {
+        correctCount += 2;
+    }
+
+    const part2AnswerKey = {
+        q15: ["F"],
+        q16: ["B"],
+        q17: ["D"],
+        q18: ["A"],
+        q19: ["H"],
+        q20: ["E"]
+    };
+
+    for (let i = 15; i <= 20; i++) {
+        const question = "q" + i;
+
+        if (isCorrect(part2[question], part2AnswerKey[question])) {
+            correctCount++;
         }
+    }
 
 
-        /*
-         * Get two answers regardless of how they were saved.
-         *
-         * It supports:
-         * - arrays: ["B", "E"]
-         * - two separate values: "B", "E"
-         * - empty values
-         */
-        function getPairValues(firstValue, secondValue) {
-            let values = [];
+    /* PART 3 */
 
-            if (Array.isArray(firstValue)) {
-                values = values.concat(firstValue);
-            } else if (
-                firstValue !== undefined &&
-                firstValue !== null &&
-                String(firstValue).trim() !== ""
-            ) {
-                values.push(firstValue);
-            }
+    const part3Pairs = [
+        ["q21", "q22", ["B", "E"]],
+        ["q23", "q24", ["C", "D"]],
+        ["q25", "q26", ["A", "C"]]
+    ];
 
-            if (Array.isArray(secondValue)) {
-                values = values.concat(secondValue);
-            } else if (
-                secondValue !== undefined &&
-                secondValue !== null &&
-                String(secondValue).trim() !== ""
-            ) {
-                values.push(secondValue);
-            }
-
-            return values
-                .map(function(value) {
-                    return String(value).trim().toUpperCase();
-                })
-                .filter(function(value) {
-                    return value !== "";
-                });
-        }
-
-
-        /*
-         * Paired questions:
-         *
-         * Both answers must be correct.
-         * Order does not matter.
-         *
-         * Example:
-         * Correct: B and E
-         * Student: B and E = correct
-         * Student: E and B = correct
-         * Student: B and B = wrong
-         * Student: B and C = wrong
-         */
-        function checkTwoAnswers(studentAnswers, correctAnswers) {
-            if (!Array.isArray(studentAnswers)) {
-                return false;
-            }
-
-            if (studentAnswers.length !== 2) {
-                return false;
-            }
-
-            const student = studentAnswers
-                .map(function(answer) {
-                    return String(answer).trim().toUpperCase();
-                })
-                .sort();
-
-            const correct = correctAnswers
-                .map(function(answer) {
-                    return String(answer).trim().toUpperCase();
-                })
-                .sort();
-
-            return (
-                student[0] === correct[0] &&
-                student[1] === correct[1]
-            );
-        }
-
-
-        /*
-         * IELTS Listening Band Score Conversion
-         */
-        document.addEventListener("DOMContentLoaded", function() {
-
-        function calculateBand(correctCount) {
-            if (correctCount >= 39) return "9.0";
-            if (correctCount >= 37) return "8.5";
-            if (correctCount >= 35) return "8.0";
-            if (correctCount >= 32) return "7.5";
-            if (correctCount >= 30) return "7.0";
-            if (correctCount >= 26) return "6.5";
-            if (correctCount >= 23) return "6.0";
-            if (correctCount >= 18) return "5.5";
-            if (correctCount >= 16) return "5.0";
-            if (correctCount >= 13) return "4.5";
-            if (correctCount >= 10) return "4.0";
-            if (correctCount >= 8) return "3.5";
-            if (correctCount >= 6) return "3.0";
-            if (correctCount >= 4) return "2.5";
-
-            return "2.0";
-        }
-
-
-        /*
-         * Read answers saved from Part 1
-         */
-        const part1 = JSON.parse(
-            sessionStorage.getItem("listeningPart1Answers") || "{}"
-        );
-
-
-        /*
-         * Read answers saved from Part 2
-         */
-        const part2 = JSON.parse(
-            sessionStorage.getItem("listeningPart2Answers") || "{}"
-        );
-
-
-        /*
-         * Read answers saved from Part 3
-         */
-        const part3 = JSON.parse(
-            sessionStorage.getItem("listeningPart3Answers") || "{}"
-        );
-
-
-        /*
-         * Read answers saved from Part 4
-         */
-        const part4 = JSON.parse(
-            sessionStorage.getItem("listeningPart4Answers") || "{}"
-        );
-
-
-        let correctCount = 0;
-
-        console.log("Part 1 answers:", JSON.stringify(part1));
-        console.log("Part 2 answers:", JSON.stringify(part2));
-        console.log("Part 3 answers:", JSON.stringify(part3));
-        console.log("Part 4 answers:", JSON.stringify(part4));
-
-
-        /*
-         * PART 1
-         * Questions 1–10
-         */
-        const part1AnswerKey = {
-            q1: [
-                "13th January",
-                "13 January",
-                "January 13",
-                "January 13th",
-                "13.01",
-                "13.1"
-            ],
-
-            q2: ["48"],
-
-            q3: ["pizza"],
-
-            q4: ["India"],
-
-            q5: ["mirror"],
-
-            q6: [
-                "6th April",
-                "6 April",
-                "April 6",
-                "April 6th",
-                "06.04",
-                "6.4"
-            ],
-
-            q7: ["natural"],
-
-            q8: ["67.50"],
-
-            q9: ["shirt"],
-
-            q10: ["hammer"]
-        };
-
-
-        for (let i = 1; i <= 10; i++) {
-            const question = "q" + i;
-
-            if (
-                isCorrect(
-                    part1[question],
-                    part1AnswerKey[question]
-                )
-            ) {
-                correctCount++;
-            }
-        }
-
-
-        /*
-         * PART 2
-         * Questions 11–20
-         */
-
-        // Questions 11 and 12
-        const part2Pair11_12 = getPairValues(
-            part2.q11,
-            part2.q12
-        );
-
+    part3Pairs.forEach(function(pair) {
         if (
             checkTwoAnswers(
-                part2Pair11_12,
-                ["B", "E"]
+                getPairValues(part3[pair[0]], part3[pair[1]]),
+                pair[2]
             )
         ) {
             correctCount += 2;
         }
+    });
 
+    const part3AnswerKey = {
+        q27: ["C"],
+        q28: ["D"],
+        q29: ["F"],
+        q30: ["A"]
+    };
 
-        // Questions 13 and 14
-        const part2Pair13_14 = getPairValues(
-            part2.q13,
-            part2.q14
-        );
+    for (let i = 27; i <= 30; i++) {
+        const question = "q" + i;
 
-        if (
-            checkTwoAnswers(
-                part2Pair13_14,
-                ["C", "D"]
-            )
-        ) {
-            correctCount += 2;
+        if (isCorrect(part3[question], part3AnswerKey[question])) {
+            correctCount++;
         }
+    }
 
 
-        // Questions 15–20
-        const part2AnswerKey = {
-            q15: ["F"],
-            q16: ["B"],
-            q17: ["D"],
-            q18: ["A"],
-            q19: ["H"],
-            q20: ["E"]
-        };
+    /* PART 4 */
 
+    const part4AnswerKey = {
+        q31: ["pollution"],
+        q32: ["tax"],
+        q33: ["chocolate"],
+        q34: ["timing"],
+        q35: ["cost"],
+        q36: ["rules"],
+        q37: ["diving"],
+        q38: ["vegan"],
+        q39: ["wifi", "wi-fi"],
+        q40: ["videos"]
+    };
 
-        for (let i = 15; i <= 20; i++) {
-            const question = "q" + i;
+    for (let i = 31; i <= 40; i++) {
+        const question = "q" + i;
 
-            if (
-                isCorrect(
-                    part2[question],
-                    part2AnswerKey[question]
-                )
-            ) {
-                correctCount++;
-            }
+        if (isCorrect(part4[question], part4AnswerKey[question])) {
+            correctCount++;
         }
+    }
 
 
-        /*
-         * PART 3
-         * Questions 21–30
-         */
+    /* DISPLAY RESULT */
 
-        // Questions 21 and 22
-        let part3Pair21_22 = [];
+    const wrongCount = 40 - correctCount;
+    const bandScore = calculateBand(correctCount);
 
-        if (Array.isArray(part3.q21_22)) {
-            part3Pair21_22 = part3.q21_22;
-        } else {
-            part3Pair21_22 = getPairValues(
-                part3.q21,
-                part3.q22
-            );
-        }
+    document.getElementById("correctAnswers").textContent = correctCount;
+    document.getElementById("wrongAnswers").textContent = wrongCount;
+    document.getElementById("totalScore").textContent =
+        correctCount + " / 40";
+    document.getElementById("bandScore").textContent = bandScore;
 
-        if (
-            checkTwoAnswers(
-                part3Pair21_22,
-                ["B", "E"]
-            )
-        ) {
-            correctCount += 2;
-        }
+    console.log("FINAL CORRECT COUNT:", correctCount);
 
 
-        // Questions 23 and 24
-        let part3Pair23_24 = [];
+    /* SAVE RESULT */
 
-        if (Array.isArray(part3.q23_24)) {
-            part3Pair23_24 = part3.q23_24;
-        } else {
-            part3Pair23_24 = getPairValues(
-                part3.q23,
-                part3.q24
-            );
-        }
+    await saveResultToSupabase(correctCount);
 
-        if (
-            checkTwoAnswers(
-                part3Pair23_24,
-                ["C", "D"]
-            )
-        ) {
-            correctCount += 2;
-        }
+    /*
+     * Clear answers ONLY AFTER score calculation
+     * and Supabase saving attempt.
+     */
+
+    sessionStorage.removeItem("listeningTimeLeft");
+    sessionStorage.removeItem("listeningTimerStarted");
+    sessionStorage.removeItem("listeningPart1Answers");
+    sessionStorage.removeItem("listeningPart2Answers");
+    sessionStorage.removeItem("listeningPart3Answers");
+    sessionStorage.removeItem("listeningPart4Answers");
+    sessionStorage.removeItem("listeningAutoSubmitted");
+}
 
 
-        // Questions 25 and 26
-        let part3Pair25_26 = [];
+/* ===============================
+   SAVE RESULT TO SUPABASE
+================================ */
 
-        if (Array.isArray(part3.q25_26)) {
-            part3Pair25_26 = part3.q25_26;
-        } else {
-            part3Pair25_26 = getPairValues(
-                part3.q25,
-                part3.q26
-            );
-        }
+async function saveResultToSupabase(score) {
 
-        if (
-            checkTwoAnswers(
-                part3Pair25_26,
-                ["A", "C"]
-            )
-        ) {
-            correctCount += 2;
-        }
-
-
-        // Questions 27–30
-        const part3AnswerKey = {
-            q27: ["C"],
-            q28: ["D"],
-            q29: ["F"],
-            q30: ["A"]
-        };
-
-
-        for (let i = 27; i <= 30; i++) {
-            const question = "q" + i;
-
-            if (
-                isCorrect(
-                    part3[question],
-                    part3AnswerKey[question]
-                )
-            ) {
-                correctCount++;
-            }
-        }
-
-
-        /*
-         * PART 4
-         * Questions 31–40
-         */
-        const part4AnswerKey = {
-            q31: ["pollution"],
-            q32: ["tax"],
-            q33: ["chocolate"],
-            q34: ["timing"],
-            q35: ["cost"],
-            q36: ["rules"],
-            q37: ["diving"],
-            q38: ["vegan"],
-            q39: ["wifi", "wi-fi"],
-            q40: ["videos"]
-        };
-
-
-        for (let i = 31; i <= 40; i++) {
-            const question = "q" + i;
-
-            if (
-                isCorrect(
-                    part4[question],
-                    part4AnswerKey[question]
-                )
-            ) {
-                correctCount++;
-            }
-        }
-
-
-        /*
-         * Calculate final result
-         */
-        const wrongCount = 40 - correctCount;
-        const bandScore = calculateBand(correctCount);
-
-
-        /*
-         * Display result
-         */
-        document.getElementById("correctAnswers").textContent =
-            correctCount;
-
-        document.getElementById("wrongAnswers").textContent =
-            wrongCount;
-
-        document.getElementById("totalScore").textContent =
-            correctCount + " / 40";
-
-        document.getElementById("bandScore").textContent =
-            bandScore;
-
-            saveResultToSupabase(correctCount);
-
-            });
-
-
-        /*
-         * SAVE RESULT TO SUPABASE
-         *
-         * This runs only once for this completed test session.
-         */
-        async function saveResultToSupabase(score) {
     if (
         sessionStorage.getItem("listeningTest1ResultSaved") === "true"
     ) {
@@ -659,9 +497,6 @@
 
     if (error) {
         console.error("Error saving result:", error);
-        alert(
-            "Your score was calculated, but there was a problem saving it. Please contact faculty."
-        );
         return;
     }
 
@@ -673,25 +508,16 @@
     console.log("Result saved successfully.");
 }
 
-        /*
- * Save the result after calculation.
- */
 
+/* ===============================
+   START CALCULATION
+================================ */
 
-/*
- * Clear Listening progress after result is displayed.
- */
-sessionStorage.removeItem("listeningTimeLeft");
-sessionStorage.removeItem("listeningTimerStarted");
-sessionStorage.removeItem("listeningPart1Answers");
-sessionStorage.removeItem("listeningPart2Answers");
-sessionStorage.removeItem("listeningPart3Answers");
-sessionStorage.removeItem("listeningPart4Answers");
-sessionStorage.removeItem("listeningAutoSubmitted");
+document.addEventListener("DOMContentLoaded", function() {
+    calculateListeningScore();
+});
 
-
-
-    </script>
+</script>
 
 </body>
 </html>

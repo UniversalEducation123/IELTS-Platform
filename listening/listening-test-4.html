@@ -253,11 +253,20 @@ function updateTimer() {
         String(seconds).padStart(2, "0");
 }
 
+
+/*
+ * SAVE PART 4 ANSWERS
+ */
+
 function savePart4Answers() {
     const answers = {};
 
     for (let i = 31; i <= 40; i++) {
-        const input = document.querySelector(`[name="q${i}"]`);
+        let input = document.querySelector(`[name="q${i}"]`);
+
+        if (!input) {
+            input = document.getElementById(`q${i}`);
+        }
 
         if (input) {
             answers[`q${i}`] = input.value.trim();
@@ -268,7 +277,17 @@ function savePart4Answers() {
         "listeningPart4Answers",
         JSON.stringify(answers)
     );
+
+    console.log(
+        "PART 4 SAVED:",
+        sessionStorage.getItem("listeningPart4Answers")
+    );
 }
+
+
+/*
+ * AUTO SUBMIT WHEN TIMER ENDS
+ */
 
 function autoSubmitListeningTest() {
     savePart4Answers();
@@ -289,10 +308,15 @@ function autoSubmitListeningTest() {
         "listening-final.html?autoSubmit=true";
 }
 
+
+/*
+ * SHARED TIMER
+ */
+
 function runSharedTimer() {
     if (timerInterval) return;
 
-    timerInterval = setInterval(function() {
+    timerInterval = setInterval(function () {
         timeLeft--;
 
         sessionStorage.setItem(
@@ -308,7 +332,6 @@ function runSharedTimer() {
 
             autoSubmitListeningTest();
         }
-
     }, 1000);
 }
 
@@ -321,6 +344,7 @@ if (timerStarted) {
     }
 }
 
+
 /*
  * SAVE PART 4 ANSWERS AND FINISH TEST
  */
@@ -330,8 +354,13 @@ const submitButton = document.getElementById(
 );
 
 if (submitButton) {
-    submitButton.addEventListener("click", function() {
+    submitButton.addEventListener("click", function () {
         savePart4Answers();
+
+        console.log(
+            "PART 4 FINAL SAVED DATA:",
+            sessionStorage.getItem("listeningPart4Answers")
+        );
 
         window.location.href =
             "listening-final.html";
@@ -376,7 +405,6 @@ document.querySelectorAll(
     );
 });
 
-
 function goToQuestion(questionNumber) {
     const input = document.querySelector(
         `[name="q${questionNumber}"]`
@@ -396,36 +424,38 @@ updateQuestionProgress();
 
 </script>
 
+
 <script>
-/* =====================================================
-   SAVE AND RESTORE LISTENING ANSWERS
-   Keeps answers when switching between Parts 1–4
-===================================================== */
 
-/* Create a separate storage key for each Listening page */
-const answerStorageKey = "listeningAnswers_" + window.location.pathname;
+/*
+ * SAVE AND RESTORE LISTENING ANSWERS
+ */
 
-/* Save all current answers */
+const answerStorageKey =
+    "listeningAnswers_" + window.location.pathname;
+
 function saveListeningAnswers() {
     const answers = {};
 
     document.querySelectorAll(
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
-    ).forEach(function(input) {
+    ).forEach(function (input) {
 
-        /* Save text inputs */
-        if (input.type === "text") {
+        if (!input.name) return;
+
+        if (
+            input.type === "text" ||
+            input.tagName === "SELECT"
+        ) {
             answers[input.name] = input.value;
         }
 
-        /* Save selected radio buttons */
         else if (input.type === "radio") {
             if (input.checked) {
                 answers[input.name] = input.value;
             }
         }
 
-        /* Save selected checkboxes */
         else if (input.type === "checkbox") {
             if (!answers[input.name]) {
                 answers[input.name] = [];
@@ -435,11 +465,6 @@ function saveListeningAnswers() {
                 answers[input.name].push(input.value);
             }
         }
-
-        /* Save dropdown selections */
-        else if (input.tagName === "SELECT") {
-            answers[input.name] = input.value;
-        }
     });
 
     sessionStorage.setItem(
@@ -448,9 +473,9 @@ function saveListeningAnswers() {
     );
 }
 
-/* Restore saved answers */
 function restoreListeningAnswers() {
-    const savedAnswers = sessionStorage.getItem(answerStorageKey);
+    const savedAnswers =
+        sessionStorage.getItem(answerStorageKey);
 
     if (!savedAnswers) return;
 
@@ -458,129 +483,179 @@ function restoreListeningAnswers() {
 
     document.querySelectorAll(
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
-    ).forEach(function(input) {
+    ).forEach(function (input) {
+
+        if (!input.name) return;
 
         const savedValue = answers[input.name];
 
         if (savedValue === undefined) return;
 
-        /* Restore text inputs */
-        if (input.type === "text") {
+        if (
+            input.type === "text" ||
+            input.tagName === "SELECT"
+        ) {
             input.value = savedValue;
         }
 
-        /* Restore radio buttons */
         else if (input.type === "radio") {
-            input.checked = input.value === savedValue;
+            input.checked =
+                input.value === savedValue;
         }
 
-        /* Restore checkboxes */
         else if (input.type === "checkbox") {
             input.checked =
                 Array.isArray(savedValue) &&
                 savedValue.includes(input.value);
         }
-
-        /* Restore dropdowns */
-        else if (input.tagName === "SELECT") {
-            input.value = savedValue;
-        }
     });
 
-    /* Refresh question progress boxes after restoring answers */
-    if (typeof updateQuestionProgress === "function") {
-        updateQuestionProgress();
-    }
-
-    if (typeof updateReadingQuestionProgress === "function") {
-        updateReadingQuestionProgress();
-    }
+    updateQuestionProgress();
 }
 
-/* Automatically save whenever an answer changes */
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
-).forEach(function(input) {
-    input.addEventListener("input", saveListeningAnswers);
-    input.addEventListener("change", saveListeningAnswers);
+).forEach(function (input) {
+    input.addEventListener(
+        "input",
+        saveListeningAnswers
+    );
+
+    input.addEventListener(
+        "change",
+        saveListeningAnswers
+    );
 });
 
-/* Restore answers when page opens */
 restoreListeningAnswers();
+
 </script>
 
+
 <script>
-const part4PlayButton = document.getElementById("playPauseBtn");
-const part4AudioProgress = document.getElementById("audioProgress");
-const part4AudioTime = document.getElementById("audioTime");
+
+/*
+ * PART 4 CUSTOM AUDIO PLAYER
+ */
+
+const part4PlayButton =
+    document.getElementById("playPauseBtn");
+
+const part4AudioProgress =
+    document.getElementById("audioProgress");
+
+const part4AudioTime =
+    document.getElementById("audioTime");
 
 if (audio && part4PlayButton) {
+
     let part4AudioHasStarted = false;
     let part4AllowedAudioTime = 0;
     let part4CorrectingAudio = false;
 
-    part4PlayButton.addEventListener("click", function () {
-        if (part4AudioHasStarted) return;
+    part4PlayButton.addEventListener(
+        "click",
+        function () {
 
-        part4AudioHasStarted = true;
-        audio.play();
-        part4PlayButton.style.display = "none";
+            if (part4AudioHasStarted) return;
 
-        sessionStorage.setItem(
-            "listeningTimerStarted",
-            "true"
-        );
+            part4AudioHasStarted = true;
 
-        if (!timerInterval) {
-            runSharedTimer();
-        }
-    });
-
-    audio.addEventListener("timeupdate", function () {
-        if (!part4CorrectingAudio) {
-            part4AllowedAudioTime = audio.currentTime;
-        }
-
-        if (audio.duration) {
-            const percentage =
-                (audio.currentTime / audio.duration) * 100;
-
-            part4AudioProgress.style.width =
-                percentage + "%";
-        }
-
-        const minutes = Math.floor(audio.currentTime / 60);
-        const seconds = Math.floor(audio.currentTime % 60);
-
-        part4AudioTime.textContent =
-            minutes + ":" + String(seconds).padStart(2, "0");
-    });
-
-    audio.addEventListener("seeking", function () {
-        if (part4CorrectingAudio) return;
-
-        part4CorrectingAudio = true;
-        audio.currentTime = part4AllowedAudioTime;
-
-        setTimeout(function () {
-            part4CorrectingAudio = false;
-        }, 50);
-    });
-
-    audio.addEventListener("pause", function () {
-        if (
-            part4AudioHasStarted &&
-            !audio.ended &&
-            sessionStorage.getItem("listeningAutoSubmitted") !== "true"
-        ) {
             audio.play();
-        }
-    });
 
-    audio.addEventListener("ended", function () {
-        part4AudioTime.textContent = "Finished";
-    });
+            part4PlayButton.style.display = "none";
+
+            sessionStorage.setItem(
+                "listeningTimerStarted",
+                "true"
+            );
+
+            if (!timerInterval) {
+                timerStarted = true;
+                runSharedTimer();
+            }
+        }
+    );
+
+    audio.addEventListener(
+        "timeupdate",
+        function () {
+
+            if (!part4CorrectingAudio) {
+                part4AllowedAudioTime =
+                    audio.currentTime;
+            }
+
+            if (
+                audio.duration &&
+                part4AudioProgress
+            ) {
+                const percentage =
+                    (audio.currentTime / audio.duration) * 100;
+
+                part4AudioProgress.style.width =
+                    percentage + "%";
+            }
+
+            if (part4AudioTime) {
+                const minutes =
+                    Math.floor(audio.currentTime / 60);
+
+                const seconds =
+                    Math.floor(audio.currentTime % 60);
+
+                part4AudioTime.textContent =
+                    minutes + ":" +
+                    String(seconds).padStart(2, "0");
+            }
+        }
+    );
+
+    audio.addEventListener(
+        "seeking",
+        function () {
+
+            if (part4CorrectingAudio) return;
+
+            part4CorrectingAudio = true;
+
+            audio.currentTime =
+                part4AllowedAudioTime;
+
+            setTimeout(function () {
+                part4CorrectingAudio = false;
+            }, 50);
+        }
+    );
+
+    audio.addEventListener(
+        "pause",
+        function () {
+
+            if (
+                part4AudioHasStarted &&
+                !audio.ended &&
+                sessionStorage.getItem(
+                    "listeningAutoSubmitted"
+                ) !== "true"
+            ) {
+                audio.play();
+            }
+        }
+    );
+
+    audio.addEventListener(
+        "ended",
+        function () {
+
+            if (part4AudioTime) {
+                part4AudioTime.textContent =
+                    "Finished";
+            }
+        }
+    );
 }
+
 </script>
 
 </body>
