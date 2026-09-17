@@ -523,26 +523,42 @@ if (answerReview) {
 
     /* PART 2: QUESTIONS 11–12 */
 
-    const part2Pair1 = getPairValues(part2.q11, part2.q12);
+    // Part 2 questions 11–12
+const part2Pair1 = getPairValues(part2.q11, part2.q12);
+const part2Pair1Results = checkTwoAnswers(part2Pair1, ["B", "E"]);
 
-    addReviewItem(
-        "11–12",
-        part2Pair1.join(", ") || "Not answered",
-        "B and E",
-        checkTwoAnswers(part2Pair1, ["B", "E"])
-    );
+addReviewItem(
+    11,
+    part2Pair1[0] || "",
+    "B or E",
+    part2Pair1Results[0]
+);
+
+addReviewItem(
+    12,
+    part2Pair1[1] || "",
+    "B or E",
+    part2Pair1Results[1]
+);
 
 
-    /* PART 2: QUESTIONS 13–14 */
+    // Part 2 questions 13–14
+const part2Pair2 = getPairValues(part2.q13, part2.q14);
+const part2Pair2Results = checkTwoAnswers(part2Pair2, ["C", "D"]);
 
-    const part2Pair2 = getPairValues(part2.q13, part2.q14);
+addReviewItem(
+    13,
+    part2Pair2[0] || "",
+    "C or D",
+    part2Pair2Results[0]
+);
 
-    addReviewItem(
-        "13–14",
-        part2Pair2.join(", ") || "Not answered",
-        "C and D",
-        checkTwoAnswers(part2Pair2, ["C", "D"])
-    );
+addReviewItem(
+    14,
+    part2Pair2[1] || "",
+    "C or D",
+    part2Pair2Results[1]
+);
 
 
     /* PART 2: QUESTIONS 15–20 */
@@ -561,40 +577,60 @@ if (answerReview) {
     }
 
 
-    /* PART 3: QUESTIONS 21–22 */
+    // Part 3 questions 21–22
+const part3Pair1 = getPairValues(part3.q21, part3.q22);
+const part3Pair1Results = checkTwoAnswers(part3Pair1, ["B", "E"]);
 
-    const part3Pair1 = getPairValues(part3.q21, part3.q22);
+addReviewItem(
+    21,
+    part3Pair1[0] || "",
+    "B or E",
+    part3Pair1Results[0]
+);
 
-    addReviewItem(
-        "21–22",
-        part3Pair1.join(", ") || "Not answered",
-        "B and E",
-        checkTwoAnswers(part3Pair1, ["B", "E"])
-    );
+addReviewItem(
+    22,
+    part3Pair1[1] || "",
+    "B or E",
+    part3Pair1Results[1]
+);
+
+    // Part 3 questions 23–24
+const part3Pair2 = getPairValues(part3.q23, part3.q24);
+const part3Pair2Results = checkTwoAnswers(part3Pair2, ["C", "D"]);
+
+addReviewItem(
+    23,
+    part3Pair2[0] || "",
+    "C or D",
+    part3Pair2Results[0]
+);
+
+addReviewItem(
+    24,
+    part3Pair2[1] || "",
+    "C or D",
+    part3Pair2Results[1]
+);
 
 
-    /* PART 3: QUESTIONS 23–24 */
+    // Part 3 questions 25–26
+const part3Pair3 = getPairValues(part3.q25, part3.q26);
+const part3Pair3Results = checkTwoAnswers(part3Pair3, ["A", "C"]);
 
-    const part3Pair2 = getPairValues(part3.q23, part3.q24);
+addReviewItem(
+    25,
+    part3Pair3[0] || "",
+    "A or C",
+    part3Pair3Results[0]
+);
 
-    addReviewItem(
-        "23–24",
-        part3Pair2.join(", ") || "Not answered",
-        "C and D",
-        checkTwoAnswers(part3Pair2, ["C", "D"])
-    );
-
-
-    /* PART 3: QUESTIONS 25–26 */
-
-    const part3Pair3 = getPairValues(part3.q25, part3.q26);
-
-    addReviewItem(
-        "25–26",
-        part3Pair3.join(", ") || "Not answered",
-        "A and C",
-        checkTwoAnswers(part3Pair3, ["A", "C"])
-    );
+addReviewItem(
+    26,
+    part3Pair3[1] || "",
+    "A or C",
+    part3Pair3Results[1]
+);
 
 
     /* PART 3: QUESTIONS 27–30 */
