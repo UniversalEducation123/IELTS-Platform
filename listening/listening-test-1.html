@@ -423,10 +423,10 @@ if (submitButton) {
     submitButton.onclick = function () {
         saveCurrentPart1Answers();
 
-        alert(
-            "Part 1 saved:\n\n" +
+        console.log(
+            "PART 1 SAVED:",
             sessionStorage.getItem("listeningPart1Answers")
-        );
+);
 
         window.location.href = "listening-test-2.html";
     };
