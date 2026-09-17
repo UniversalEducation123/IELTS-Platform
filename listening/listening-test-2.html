@@ -506,7 +506,12 @@ function savePart2Answers() {
      */
 
     for (let i = 15; i <= 20; i++) {
-        const input = document.querySelector(`[name="q${i}"]`);
+        let input = document.querySelector(`[name="q${i}"]`);
+
+        // Backup search by ID
+        if (!input) {
+            input = document.getElementById(`q${i}`);
+        }
 
         if (input) {
             answers[`q${i}`] = input.value.trim();
@@ -522,8 +527,8 @@ function savePart2Answers() {
         document.querySelectorAll(
             'input[name="q11_12"]:checked'
         )
-    ).map(function(input) {
-        return input.value;
+    ).map(function (input) {
+        return input.value.trim();
     });
 
     answers.q11 = pair11_12[0] || "";
@@ -538,8 +543,8 @@ function savePart2Answers() {
         document.querySelectorAll(
             'input[name="q13_14"]:checked'
         )
-    ).map(function(input) {
-        return input.value;
+    ).map(function (input) {
+        return input.value.trim();
     });
 
     answers.q13 = pair13_14[0] || "";
@@ -556,7 +561,7 @@ function savePart2Answers() {
     );
 
     console.log(
-        "PART 2 SAVED:",
+        "PART 2 FINAL SAVED DATA:",
         sessionStorage.getItem("listeningPart2Answers")
     );
 }

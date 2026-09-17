@@ -537,8 +537,8 @@ function savePart3Answers() {
         document.querySelectorAll(
             'input[name="q21_22"]:checked'
         )
-    ).map(function(input) {
-        return input.value;
+    ).map(function (input) {
+        return input.value.trim();
     });
 
     answers.q21 = pair21_22[0] || "";
@@ -553,8 +553,8 @@ function savePart3Answers() {
         document.querySelectorAll(
             'input[name="q23_24"]:checked'
         )
-    ).map(function(input) {
-        return input.value;
+    ).map(function (input) {
+        return input.value.trim();
     });
 
     answers.q23 = pair23_24[0] || "";
@@ -569,8 +569,8 @@ function savePart3Answers() {
         document.querySelectorAll(
             'input[name="q25_26"]:checked'
         )
-    ).map(function(input) {
-        return input.value;
+    ).map(function (input) {
+        return input.value.trim();
     });
 
     answers.q25 = pair25_26[0] || "";
@@ -582,9 +582,13 @@ function savePart3Answers() {
      */
 
     for (let i = 27; i <= 30; i++) {
-        const input = document.querySelector(
+        let input = document.querySelector(
             `[name="q${i}"]`
         );
+
+        if (!input) {
+            input = document.getElementById(`q${i}`);
+        }
 
         if (input) {
             answers[`q${i}`] = input.value.trim();
@@ -602,11 +606,10 @@ function savePart3Answers() {
     );
 
     console.log(
-        "PART 3 SAVED:",
+        "PART 3 FINAL SAVED DATA:",
         sessionStorage.getItem("listeningPart3Answers")
     );
 }
-
 
 /*
  * AUTOMATIC SUBMIT WHEN TIME ENDS

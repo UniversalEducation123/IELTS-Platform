@@ -339,7 +339,7 @@ function saveCurrentPart1Answers() {
     for (let i = 1; i <= 10; i++) {
         let input = document.querySelector(`[name="q${i}"]`);
 
-        // Fallback: find by ID if name is missing
+        // Backup: also search by ID
         if (!input) {
             input = document.getElementById(`q${i}`);
         }
