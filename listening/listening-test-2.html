@@ -716,21 +716,21 @@ mapInputs.forEach(function(input) {
 const submitButton = document.getElementById("submitPart2Btn");
 
 if (submitButton) {
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    submitButton.addEventListener("click", function() {
+        console.log("PART 2 CONTINUE BUTTON CLICKED");
 
         savePart2Answers();
 
-        console.log(
-            "PART 2 FINAL SAVED DATA:",
-            sessionStorage.getItem("listeningPart2Answers")
+        const savedPart2 = sessionStorage.getItem(
+            "listeningPart2Answers"
         );
 
-        window.location.href =
-            "listening-test-3.html";
+        console.log("PART 2 SAVED DATA:", savedPart2);
 
+        window.location.href = "listening-test-3.html";
     });
-
 } else {
     console.error("Part 2 submit button not found.");
 }
