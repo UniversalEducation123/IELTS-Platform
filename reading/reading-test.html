@@ -1208,61 +1208,106 @@ function submitReadingTest() {
 
     console.log("STARTING READING SCORE CHECK");
 
-    for (let i = 1; i <= 40; i++) {
-        console.log(
-            "Question:",
-            i,
-            "User answer:",
-            getAnswer(i),
-            "Correct answer:",
-            answers["q" + i]
-        );
-    }
-
-    for (let i = 1; i <= 40; i++) {
+    /*
+     * Questions 1–19
+     */
+    for (let i = 1; i <= 19; i++) {
         const questionName = "q" + i;
         const userAnswer = getAnswer(i);
         const correctAnswer = answers[questionName];
 
-        // Multiple-answer questions
+        console.log(
+            "Question:",
+            i,
+            "User answer:",
+            userAnswer,
+            "Correct answer:",
+            correctAnswer
+        );
+
+        if (
+            userAnswer === null ||
+            userAnswer === undefined ||
+            String(userAnswer).trim() === ""
+        ) {
+            continue;
+        }
+
+        if (
+            correctAnswer === null ||
+            correctAnswer === undefined ||
+            String(correctAnswer).trim() === ""
+        ) {
+            continue;
+        }
+
+        if (normalize(userAnswer) === normalize(correctAnswer)) {
+            score++;
+        }
+    }
+
+    /*
+     * Questions 20–21
+     * One shared checkbox group.
+     * Each correct selected answer receives one mark.
+     */
+    const selected20_21 = Array.from(
+        document.querySelectorAll('input[name="q20"]:checked')
+    ).map(function(input) {
+        return normalize(input.value);
+    });
+
+    const correct20_21 = ["b", "d"];
+
+    console.log(
+        "Questions 20–21 selected:",
+        selected20_21,
+        "Correct:",
+        correct20_21
+    );
+
+    selected20_21.forEach(function(selectedAnswer) {
+        if (correct20_21.includes(selectedAnswer)) {
+            score++;
+        }
+    });
+
+    /*
+     * Questions 22–26
+     */
+    for (let i = 22; i <= 26; i++) {
+        const questionName = "q" + i;
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers[questionName];
+
+        console.log(
+            "Question:",
+            i,
+            "User answer:",
+            userAnswer,
+            "Correct answer:",
+            correctAnswer
+        );
+
+        if (
+            userAnswer === null ||
+            userAnswer === undefined ||
+            String(userAnswer).trim() === ""
+        ) {
+            continue;
+        }
+
         if (Array.isArray(correctAnswer)) {
-            const selected = [
-                ...document.querySelectorAll(
-                    `input[name="${questionName}"]:checked`
-                )
-            ].map(item => item.value);
+            const normalizedUser = normalize(userAnswer);
 
-            if (selected.length === 0) {
-                continue;
-            }
+            const isCorrect = correctAnswer.some(function(answer) {
+                return normalize(answer) === normalizedUser;
+            });
 
-            const correct = correctAnswer.every(answer =>
-                selected.includes(answer)
-            ) && selected.length === correctAnswer.length;
-
-            if (correct) {
+            if (isCorrect) {
                 score++;
             }
-
         } else {
-            // Blank unanswered question
-            if (
-                userAnswer === null ||
-                userAnswer === undefined ||
-                String(userAnswer).trim() === ""
-            ) {
-                continue;
-            }
-
-            // Missing answer key
-            if (
-                correctAnswer === null ||
-                correctAnswer === undefined ||
-                String(correctAnswer).trim() === ""
-            ) {
-                continue;
-            }
-
             if (
                 normalize(userAnswer) ===
                 normalize(correctAnswer)
@@ -1272,7 +1317,74 @@ function submitReadingTest() {
         }
     }
 
-    // Save score for reading-final.html
+    /*
+     * Questions 27–35
+     */
+    for (let i = 27; i <= 35; i++) {
+        const questionName = "q" + i;
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers[questionName];
+
+        console.log(
+            "Question:",
+            i,
+            "User answer:",
+            userAnswer,
+            "Correct answer:",
+            correctAnswer
+        );
+
+        if (
+            userAnswer === null ||
+            userAnswer === undefined ||
+            String(userAnswer).trim() === ""
+        ) {
+            continue;
+        }
+
+        if (
+            normalize(userAnswer) ===
+            normalize(correctAnswer)
+        ) {
+            score++;
+        }
+    }
+
+    /*
+     * Questions 36–40
+     */
+    for (let i = 36; i <= 40; i++) {
+        const questionName = "q" + i;
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers[questionName];
+
+        console.log(
+            "Question:",
+            i,
+            "User answer:",
+            userAnswer,
+            "Correct answer:",
+            correctAnswer
+        );
+
+        if (
+            userAnswer === null ||
+            userAnswer === undefined ||
+            String(userAnswer).trim() === ""
+        ) {
+            continue;
+        }
+
+        if (
+            normalize(userAnswer) ===
+            normalize(correctAnswer)
+        ) {
+            score++;
+        }
+    }
+
+    console.log("FINAL READING SCORE:", score, "/ 40");
+
     sessionStorage.setItem("readingScore", score);
     sessionStorage.setItem("readingCorrect", score);
 
