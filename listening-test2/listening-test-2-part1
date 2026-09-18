@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Listening Test 2 - Part 1</title>
 
     <link rel="stylesheet" href="../css/style.css">
@@ -10,15 +11,214 @@
 
 <body>
 
-    <div class="container">
+    <div class="test-container">
+
         <h1>IELTS Listening Test 2</h1>
         <h2>Part 1</h2>
 
-        <p>Listen carefully and answer the questions.</p>
+        <div class="timer">
+            Time Remaining: <span id="timer">--:--</span>
+        </div>
 
-        <!-- Questions will be added here -->
+        <audio id="listeningAudio" preload="auto">
+            <source src="../assets/listening-test-2.mpeg" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="custom-audio-player">
+            <button id="playPauseBtn">▶ Play</button>
+
+            <div class="audio-progress-container">
+                <div id="audioProgress" class="audio-progress"></div>
+            </div>
+
+            <span id="audioTime">0:00</span>
+        </div>
+
+        <p id="audioStatus">
+             Press Play to start the listening test.
+        </p>
+
+        <div id="questions-container">
+            <!-- Part 1 questions will be added here -->
+        </div>
 
     </div>
+
+    <script>
+/*
+ * LISTENING TEST 2 SHARED TIMER
+ */
+
+let savedTime = sessionStorage.getItem("listeningTest2TimeLeft");
+
+let timeLeft = savedTime !== null
+    ? Number(savedTime)
+    : 30 * 60;
+
+let timerStarted =
+    sessionStorage.getItem("listeningTest2TimerStarted") === "true";
+
+let timerInterval;
+let localTimerRunning = false;
+
+const timerElement = document.getElementById("timer");
+const audio = document.getElementById("listeningAudio");
+const audioStatus = document.getElementById("audioStatus");
+
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    if (timerElement) {
+        timerElement.textContent =
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+    }
+}
+
+function runSharedTimer() {
+    if (timerInterval) return;
+
+    timerInterval = setInterval(function () {
+        timeLeft--;
+        updateTimer();
+
+        sessionStorage.setItem("listeningTest2TimeLeft", timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+
+            sessionStorage.removeItem("listeningTest2TimeLeft");
+            sessionStorage.removeItem("listeningTest2TimerStarted");
+
+            if (audio) {
+                audio.pause();
+            }
+
+            alert("Time is up!");
+        }
+    }, 1000);
+}
+
+function startTimer() {
+    if (timerStarted) return;
+
+    timerStarted = true;
+    localTimerRunning = true;
+
+    sessionStorage.setItem("listeningTest2TimerStarted", "true");
+
+    if (audioStatus) {
+        audioStatus.textContent =
+            "Listening test in progress. Audio cannot be paused.";
+    }
+
+    updateTimer();
+    runSharedTimer();
+}
+
+if (audio) {
+    audio.addEventListener("play", startTimer);
+
+    audio.addEventListener("pause", function () {
+        if (localTimerRunning && timeLeft > 0) {
+            audio.play();
+        }
+    });
+}
+
+/*
+ * Prevent audio forward/backward seeking
+ */
+
+if (audio) {
+    let allowedAudioTime = 0;
+    let correctingAudio = false;
+
+    audio.addEventListener("timeupdate", function () {
+        if (!correctingAudio) {
+            allowedAudioTime = audio.currentTime;
+        }
+    });
+
+    audio.addEventListener("seeking", function () {
+        if (correctingAudio) return;
+
+        correctingAudio = true;
+        audio.currentTime = allowedAudioTime;
+
+        setTimeout(function () {
+            correctingAudio = false;
+        }, 50);
+    });
+
+    audio.addEventListener("loadedmetadata", function () {
+        allowedAudioTime = 0;
+        audio.currentTime = 0;
+    });
+}
+
+/*
+ * Restore timer if already started
+ */
+
+if (timerStarted) {
+    localTimerRunning = true;
+    updateTimer();
+    runSharedTimer();
+} else if (timerElement) {
+    timerElement.textContent = "--:--";
+}
+</script>
+
+<script>
+const customPlayButton = document.getElementById("playPauseBtn");
+const customAudioProgress = document.getElementById("audioProgress");
+const customAudioTime = document.getElementById("audioTime");
+
+if (audio && customPlayButton) {
+
+    let audioHasStarted = false;
+
+    customPlayButton.addEventListener("click", function () {
+
+        if (audioHasStarted) return;
+
+        audioHasStarted = true;
+
+        audio.play();
+
+        customPlayButton.textContent = "Playing...";
+        customPlayButton.disabled = true;
+    });
+
+    audio.addEventListener("timeupdate", function () {
+
+        if (audio.duration && customAudioProgress) {
+            const percentage =
+                (audio.currentTime / audio.duration) * 100;
+
+            customAudioProgress.style.width = percentage + "%";
+        }
+
+        if (customAudioTime) {
+            const minutes = Math.floor(audio.currentTime / 60);
+            const seconds = Math.floor(audio.currentTime % 60);
+
+            customAudioTime.textContent =
+                minutes + ":" + String(seconds).padStart(2, "0");
+        }
+    });
+
+    audio.addEventListener("ended", function () {
+        if (customAudioTime) {
+            customAudioTime.textContent = "Finished";
+        }
+    });
+}
+</script>
 
 </body>
 </html>

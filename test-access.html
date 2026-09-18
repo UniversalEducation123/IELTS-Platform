@@ -94,12 +94,16 @@
             title: "Listening Test 1"
         },
 
+        "listening-test-2": {
+            page: "listening-test2/listening-test-2-part1.html",
+            title: "Listening Test 2"
+        },
+
         "reading-test-1": {
             page: "reading/reading-test.html",
             title: "Reading Test 1"
         }
     };
-
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get("test");
     console.log("TEST ID:", testId);
