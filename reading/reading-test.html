@@ -12,6 +12,17 @@
 
 <body>
 
+    <script>
+    const readingAccessKey = "access_reading-test-1";
+    const readingAccessGranted = sessionStorage.getItem(readingAccessKey);
+
+    sessionStorage.removeItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+        window.location.href = "../test-access.html?test=reading-test-1";
+    }
+</script>
+
 <header class="navbar">
     <a href="../index.html" class="logo">
         <img src="../assets/logo.png" alt="Universal Education Logo">
