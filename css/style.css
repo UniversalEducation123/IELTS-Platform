@@ -2530,37 +2530,39 @@ body.listening-page {
     }
 }
 
-/* Listening Test 2 attempted question highlight */
+/* Question progress buttons */
 
-.listening-question-table tr:has(input:not(:placeholder-shown)) {
-    background: #f1f8ed;
+.question-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(100, 70, 80, 0.08);
 }
 
-.listening-question-table tr.question-attempted th,
-.listening-question-table tr.question-attempted td {
-    background: #edf6eb;
-    transition: background 0.3s ease;
+.question-progress-button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #d8c4ca;
+    border-radius: 8px;
+    background: #fff8fa;
+    color: #704052;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.listening-question-table tr.question-attempted {
-    box-shadow: inset 5px 0 0 #789b78;
+.question-progress-button:hover {
+    background: #f8dce5;
 }
 
-/* Stronger attempted-question indicator */
-
-.listening-question-table tr.question-attempted {
-    position: relative;
-    box-shadow: inset 5px 0 0 #789b78;
-}
-
-.listening-question-table tr.question-attempted th {
-    color: #4d684f;
-}
-
-.listening-question-table tr.question-attempted input {
-    border-bottom-color: #789b78;
-}
-
-.listening-question-table tr.question-attempted input:focus {
-    background: #f4faf5;
+.question-progress-button.answered {
+    background: #789b78;
+    border-color: #789b78;
+    color: #ffffff;
 }

@@ -434,36 +434,43 @@ if (audio && customPlayButton) {
 </script>
 
 <script>
-/* Highlight Test 2 question rows when attempted */
+/* Highlight only the question-number buttons */
 
-function updateAttemptedQuestions() {
-    document.querySelectorAll(
-        ".listening-question-table tr"
-    ).forEach(function(row) {
+function updateQuestionProgress() {
 
-        const inputs = row.querySelectorAll("input");
+    for (let i = 1; i <= 10; i++) {
 
-        if (inputs.length === 0) return;
+        const inputs = document.querySelectorAll(
+            `[name^="q${i}"]`
+        );
+
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
+        );
+
+        if (!button) continue;
 
         const attempted = Array.from(inputs).some(function(input) {
             return input.value.trim() !== "";
         });
 
         if (attempted) {
-            row.classList.add("question-attempted");
+            button.classList.add("answered");
         } else {
-            row.classList.remove("question-attempted");
+            button.classList.remove("answered");
         }
-    });
+    }
 }
 
 document.querySelectorAll(
     ".listening-question-table input"
 ).forEach(function(input) {
-    input.addEventListener("input", updateAttemptedQuestions);
+
+    input.addEventListener("input", updateQuestionProgress);
+
 });
 
-updateAttemptedQuestions();
+updateQuestionProgress();
 </script>
 
 </body>
