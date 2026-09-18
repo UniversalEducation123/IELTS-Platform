@@ -158,6 +158,11 @@
                 </p>
             </div>
 
+            <div class="answer-review-section">
+                <h2>Answer Review</h2>
+                <div id="reviewContainer"></div>
+            </div>
+
             <div class="button-container">
                 <a href="../student-dashboard.html" class="dashboard-button">
                     Back to Dashboard
@@ -224,6 +229,70 @@
 
         document.getElementById("resultMessage").textContent =
             "Your Reading test result has been calculated successfully.";
+
+            const reviewContainer = document.getElementById("reviewContainer");
+const savedReview = sessionStorage.getItem("readingAnswerReview");
+
+if (savedReview && reviewContainer) {
+    const review = JSON.parse(savedReview);
+
+    for (let i = 1; i <= 40; i++) {
+        const item = review["q" + i];
+
+        if (!item) continue;
+
+        const userAnswer = item.userAnswer;
+        const correctAnswer = item.correctAnswer;
+
+        let isCorrect = false;
+
+        if (Array.isArray(correctAnswer)) {
+            const userAnswers = Array.isArray(userAnswer)
+                ? userAnswer
+                : [userAnswer];
+
+            isCorrect = userAnswers.some(function(answer) {
+                return correctAnswer.some(function(correct) {
+                    return String(answer).trim().toLowerCase() ===
+                           String(correct).trim().toLowerCase();
+                });
+            });
+        } else {
+            isCorrect =
+                userAnswer !== null &&
+                userAnswer !== undefined &&
+                String(userAnswer).trim().toLowerCase() ===
+                String(correctAnswer).trim().toLowerCase();
+        }
+
+        const reviewItem = document.createElement("div");
+
+        reviewItem.className =
+            "answer-review-item " +
+            (isCorrect ? "correct" : "wrong");
+
+        const displayedUserAnswer =
+            Array.isArray(userAnswer)
+                ? userAnswer.join(", ") || "Not answered"
+                : userAnswer || "Not answered";
+
+        const displayedCorrectAnswer =
+            Array.isArray(correctAnswer)
+                ? correctAnswer.join(" / ")
+                : correctAnswer;
+
+        reviewItem.innerHTML = `
+            <strong>Question ${i}</strong>
+            <span class="review-status">
+                ${isCorrect ? "✓ Correct" : "✗ Incorrect"}
+            </span>
+            <p><strong>Your answer:</strong> ${displayedUserAnswer}</p>
+            <p><strong>Correct answer:</strong> ${displayedCorrectAnswer}</p>
+        `;
+
+        reviewContainer.appendChild(reviewItem);
+    }
+}
     </script>
 
 </body>
