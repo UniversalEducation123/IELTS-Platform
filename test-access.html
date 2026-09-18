@@ -39,7 +39,7 @@
             width: 100%;
             padding: 12px;
             margin-top: 15px;
-            background: #35194e;
+            background: #ce3dc7;
             color: white;
             border: none;
             border-radius: 6px;
@@ -47,7 +47,7 @@
         }
 
         button:hover {
-            background: #4d1f5f;
+            background: #af1f9c;
         }
 
         #message {
@@ -102,6 +102,7 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     const testId = urlParams.get("test");
+    console.log("TEST ID:", testId);
     const selectedTest = testPages[testId];
 
     const testTitle = document.getElementById("testTitle");
