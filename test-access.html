@@ -168,7 +168,7 @@
                 return;
             }
 
-            localStorage.setItem("access_" + testId, "true");
+            sessionStorage.setItem("access_" + testId, "true");
 
             window.location.href = selectedTest.page;
 

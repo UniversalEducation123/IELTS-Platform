@@ -11,13 +11,15 @@
 <body>
 
     <script>
-    const listeningAccessGranted =
-        localStorage.getItem("access_listening-test-1");
+    const accessKey = "access_listening-test-1";
+    const listeningAccessGranted = sessionStorage.getItem(accessKey);
+
+    sessionStorage.removeItem(accessKey);
 
     if (listeningAccessGranted !== "true") {
         window.location.href = "../test-access.html?test=listening-test-1";
     }
-    </script>
+</script>
 
     <div class="listening-section-navigation">
         <strong>Go to:</strong>
