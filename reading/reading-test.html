@@ -1312,7 +1312,7 @@ function submitReadingTest() {
         return normalize(input.value);
     });
 
-    const correct20_21 = ["b", "d"];
+    const correct20_21 = ["B", "D"].map(answer => normalize(answer));
 
     console.log(
         "Questions 20–21 selected:",
