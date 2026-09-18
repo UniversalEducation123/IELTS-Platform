@@ -11,14 +11,32 @@
 
 <body>
 
-    <div class="test-container">
+    <div class="listening-header">
+
+    <div>
+        <p class="small-heading">IELTS ACADEMIC LISTENING</p>
 
         <h1>IELTS Listening Test 2</h1>
-        <h2>Part 1</h2>
 
-        <div class="timer">
-            Time Remaining: <span id="timer">--:--</span>
-        </div>
+        <p>Part 1 · Questions 1–10</p>
+    </div>
+
+    <div class="timer-box">
+        <span>Time Remaining</span>
+        <strong id="timer">--:--</strong>
+    </div>
+
+</div>
+
+        <div class="audio-section">
+
+    <h2>Listening Audio</h2>
+
+    <div class="audio-player-container">
+
+        <p id="audioStatus" class="audio-status">
+            Press Play to start the listening test.
+        </p>
 
         <audio id="listeningAudio" preload="auto">
             <source src="../assets/listening-test-2.mpeg" type="audio/mpeg">
@@ -26,6 +44,7 @@
         </audio>
 
         <div class="custom-audio-player">
+
             <button id="playPauseBtn">▶ Play</button>
 
             <div class="audio-progress-container">
@@ -33,23 +52,27 @@
             </div>
 
             <span id="audioTime">0:00</span>
+
         </div>
 
-        <p id="audioStatus">
-             Press Play to start the listening test.
+    </div>
+
+</div>
+        <div class="question-section">
+
+    <div class="question-heading">
+
+        <h2>Part 1 — Questions 1–10</h2>
+
+        <p>Complete the form below.</p>
+
+        <p class="instruction">
+            Write NO MORE THAN TWO WORDS AND / OR A NUMBER for each answer.
         </p>
 
-        <div id="questions-container">
+    </div>
 
-    <h3>Questions 1–10</h3>
-
-    <p><em>Complete the form below.</em></p>
-
-    <p>
-        <strong>Write NO MORE THAN TWO WORDS AND / OR A NUMBER for each answer.</strong>
-    </p>
-
-    <div class="listening-form">
+    <div id="questions-container">
 
         <h2>COMPLAINT RECORD FORM</h2>
 
@@ -147,13 +170,12 @@
 
         </table>
 
-    </div>
+        </div>
 
 </div>
 
-    </div>
-
-    <script>
+<script>
+    
 /*
  * LISTENING TEST 2 SHARED TIMER
  */
