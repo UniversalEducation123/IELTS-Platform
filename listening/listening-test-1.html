@@ -10,6 +10,15 @@
 </head>
 <body>
 
+    <script>
+    const listeningAccessGranted =
+        localStorage.getItem("access_listening-test-1");
+
+    if (listeningAccessGranted !== "true") {
+        window.location.href = "../test-access.html?test=listening-test-1";
+    }
+    </script>
+
     <div class="listening-section-navigation">
         <strong>Go to:</strong>
 

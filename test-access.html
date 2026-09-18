@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Access</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .access-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="access-box">
+        <h2 id="testTitle">Test Access</h2>
+
+        <p>Enter the password provided by your teacher.</p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Enter password"
+        >
+
+        <button onclick="checkPassword()">Access Test</button>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const testPasswords = {
+            "listening-test-1": {
+                password: "IELTS@Listen27!",
+                page: "listening/listening-test-1.html",
+                title: "Listening Test 1"
+            },
+
+            "reading-test-1": {
+                password: "read101",
+                page: "test-1.html",
+                title: "Reading Test 1"
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const testId = urlParams.get("test");
+
+        const selectedTest = testPasswords[testId];
+
+        if (!selectedTest) {
+            document.getElementById("testTitle").textContent = "Invalid Test";
+            document.getElementById("passwordInput").style.display = "none";
+            document.querySelector("button").style.display = "none";
+            document.querySelector("p").textContent = "This test link is invalid.";
+        } else {
+            document.getElementById("testTitle").textContent =
+                selectedTest.title;
+        }
+
+        function checkPassword() {
+            if (!selectedTest) return;
+
+            const enteredPassword =
+                document.getElementById("passwordInput").value.trim();
+
+            const usedKey = "usedPassword_" + testId;
+            const accessKey = "access_" + testId;
+
+            if (localStorage.getItem(usedKey) === "true") {
+                document.getElementById("message").textContent =
+                    "This password has already been used on this browser.";
+                return;
+            }
+
+            if (enteredPassword === selectedTest.password) {
+                localStorage.setItem(usedKey, "true");
+                localStorage.setItem(accessKey, "true");
+
+                window.location.href = selectedTest.page;
+                } else {
+                document.getElementById("message").textContent =
+                    "Incorrect password. Please try again.";
+            }
+        }
+    </script>
+
+</body>
+</html>
