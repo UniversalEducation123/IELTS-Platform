@@ -55,6 +55,9 @@
             color: red;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
 </head>
 
 <body>
@@ -76,24 +79,44 @@
     </div>
 
     <script>
-        const testPasswords = {
-            "listening-test-1": {
-                password: "IELTS@Listen27!",
-                page: "listening/listening-test-1.html",
-                title: "Listening Test 1"
-            },
 
-            "reading-test-1": {
-                password: "read101",
-                page: "test-1.html",
-                title: "Reading Test 1"
-            }
-        };
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+);
+
+async function hashPassword(password) {
+    const data = new TextEncoder().encode(password);
+
+    const hashBuffer = await crypto.subtle.digest(
+        "SHA-256",
+        data
+    );
+
+    return Array.from(new Uint8Array(hashBuffer))
+        .map(byte => byte.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+        const testPages = {
+    "listening-test-1": {
+        page: "listening/listening-test-1.html",
+        title: "Listening Test 1"
+    },
+
+    "reading-test-1": {
+        page: "test-1.html",
+        title: "Reading Test 1"
+    }
+};
 
         const urlParams = new URLSearchParams(window.location.search);
         const testId = urlParams.get("test");
 
-        const selectedTest = testPasswords[testId];
+        const selectedTest = testPages[testId];
 
         if (!selectedTest) {
             document.getElementById("testTitle").textContent = "Invalid Test";
@@ -105,31 +128,73 @@
                 selectedTest.title;
         }
 
-        function checkPassword() {
-            if (!selectedTest) return;
+        async function checkPassword() {
+    if (!selectedTest) return;
 
-            const enteredPassword =
-                document.getElementById("passwordInput").value.trim();
+    const enteredPassword =
+        document.getElementById("passwordInput").value.trim();
 
-            const usedKey = "usedPassword_" + testId;
-            const accessKey = "access_" + testId;
+    const message = document.getElementById("message");
+    const button = document.querySelector("button");
 
-            if (localStorage.getItem(usedKey) === "true") {
-                document.getElementById("message").textContent =
-                    "This password has already been used on this browser.";
-                return;
-            }
+    if (!enteredPassword) {
+        message.textContent = "Please enter the password.";
+        return;
+    }
 
-            if (enteredPassword === selectedTest.password) {
-                localStorage.setItem(usedKey, "true");
-                localStorage.setItem(accessKey, "true");
+    button.disabled = true;
+    message.textContent = "Checking password...";
 
-                window.location.href = selectedTest.page;
-                } else {
-                document.getElementById("message").textContent =
-                    "Incorrect password. Please try again.";
-            }
+    try {
+        const passwordHash = await hashPassword(enteredPassword);
+
+        const { data, error } = await supabase
+            .from("test_access_codes")
+            .select("*")
+            .eq("test_id", testId)
+            .eq("password_hash", passwordHash)
+            .eq("is_used", false)
+            .maybeSingle();
+
+        if (error) {
+            console.error(error);
+            message.textContent = "Unable to verify password.";
+            button.disabled = false;
+            return;
         }
+
+        if (!data) {
+            message.textContent =
+                "Incorrect password or this password has already been used.";
+            button.disabled = false;
+            return;
+        }
+
+        const { error: updateError } = await supabase
+            .from("test_access_codes")
+            .update({
+                is_used: true
+            })
+            .eq("id", data.id)
+            .eq("is_used", false);
+
+        if (updateError) {
+            console.error(updateError);
+            message.textContent = "Could not activate this password.";
+            button.disabled = false;
+            return;
+        }
+
+        localStorage.setItem("access_" + testId, "true");
+
+        window.location.href = selectedTest.page;
+
+    } catch (error) {
+        console.error(error);
+        message.textContent = "Something went wrong.";
+        button.disabled = false;
+    }
+}
     </script>
 
 </body>
