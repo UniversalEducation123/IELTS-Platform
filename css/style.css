@@ -2566,3 +2566,88 @@ body.listening-page {
     border-color: #789b78;
     color: #ffffff;
 }
+
+/* =====================================================
+   LISTENING TEST 2 - PART 4 DIAGRAM
+===================================================== */
+
+.diagram-question-box {
+    width: 100%;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.test2-diagram-image {
+    display: block;
+    width: 100%;
+    max-width: 1100px;
+    height: auto;
+    margin: 0 auto 25px auto;
+    border: 1px solid #e5d8dc;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(100, 70, 80, 0.08);
+}
+
+.diagram-answer-boxes {
+    width: 100%;
+    max-width: 1100px;
+    margin: 25px auto 0 auto;
+    padding: 25px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e5d8dc;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(100, 70, 80, 0.08);
+}
+
+.diagram-answer-boxes h3 {
+    margin-bottom: 20px;
+    color: #704052;
+    font-size: 22px;
+}
+
+.diagram-answer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 35px;
+    text-align: left;
+}
+
+.diagram-answer-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #4f5e52;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.diagram-answer-grid input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 2px dotted #b85c78;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    color: #333333;
+}
+
+.diagram-answer-grid input:focus {
+    border-bottom-color: #789b78;
+    background: #f4faf5;
+}
+
+@media (max-width: 768px) {
+
+    .diagram-answer-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .diagram-answer-boxes {
+        padding: 18px;
+    }
+
+}
