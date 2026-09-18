@@ -11,53 +11,106 @@
 
 <body>
 
-    <div class="listening-header">
+<script>
+    const accessKey = "access_listening-test-2";
+    const listeningAccessGranted = sessionStorage.getItem(accessKey);
 
-    <div>
-        <p class="small-heading">IELTS ACADEMIC LISTENING</p>
+    sessionStorage.removeItem(accessKey);
 
-        <h1>IELTS Listening Test 2</h1>
+    if (listeningAccessGranted !== "true") {
+        window.location.href = "../test-access.html?test=listening-test-2";
+    }
+</script>
 
-        <p>Part 1 · Questions 1–10</p>
-    </div>
+<div class="listening-section-navigation">
 
-    <div class="timer-box">
-        <span>Time Remaining</span>
-        <strong id="timer">--:--</strong>
-    </div>
+    <strong>Go to:</strong>
+
+    <a href="listening-test-2-part1.html"
+       class="section-jump-button active-section">
+        Part 1
+    </a>
+
+    <a href="listening-test-2-part2.html"
+       class="section-jump-button">
+        Part 2
+    </a>
+
+    <a href="listening-test-2-part3.html"
+       class="section-jump-button">
+        Part 3
+    </a>
+
+    <a href="listening-test-2-part4.html"
+       class="section-jump-button">
+        Part 4
+    </a>
 
 </div>
 
-        <div class="audio-section">
+<header class="main-header">
 
-    <h2>Listening Audio</h2>
+    <div class="logo">IELTS Practice</div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">--:--</strong>
+        </div>
+
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../index.html">Logout</a>
+
+    </div>
+
+</header>
+
+<section class="listening-header">
+
+    <div>
+        <h1>Part 1</h1>
+        <p>Questions 1–10</p>
+    </div>
+
+</section>
+
+<main class="listening-container">
+
+<section class="listening-card audio-section">
+
+    <h2>Part 1: Listen and answer questions 1–10</h2>
 
     <div class="audio-player-container">
 
-        <p id="audioStatus" class="audio-status">
-            Press Play to start the listening test.
-        </p>
-
-        <audio id="listeningAudio" preload="auto">
-            <source src="../assets/listening-test-2.mpeg" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="audio-status" id="audioStatus">
+            Press Play to begin the listening test
+        </div>
 
         <div class="custom-audio-player">
 
-            <button id="playPauseBtn">▶ Play</button>
+            <button type="button"
+                    id="playPauseBtn"
+                    class="audio-play-btn">
+                ▶ Play
+            </button>
 
             <div class="audio-progress-container">
                 <div id="audioProgress" class="audio-progress"></div>
             </div>
 
-            <span id="audioTime">0:00</span>
+            <span id="audioTime" class="audio-time">0:00</span>
 
         </div>
 
+        <audio id="listeningAudio" preload="auto">
+            <source src="../assets/listening-test-2.mpeg" type="audio/mpeg">
+        </audio>
+
     </div>
 
-</div>
+</section>
+
         <div class="question-section">
 
     <div class="question-heading">
@@ -168,11 +221,41 @@
                 </td>
             </tr>
 
-        </table>
+                </table>
 
-        </div>
+    </div>
+    <!-- End questions-container -->
+
+    <div class="question-progress">
+
+        <strong>Questions:</strong>
+
+        <button type="button" class="question-progress-button" data-question="1">1</button>
+        <button type="button" class="question-progress-button" data-question="2">2</button>
+        <button type="button" class="question-progress-button" data-question="3">3</button>
+        <button type="button" class="question-progress-button" data-question="4">4</button>
+        <button type="button" class="question-progress-button" data-question="5">5</button>
+        <button type="button" class="question-progress-button" data-question="6">6</button>
+        <button type="button" class="question-progress-button" data-question="7">7</button>
+        <button type="button" class="question-progress-button" data-question="8">8</button>
+        <button type="button" class="question-progress-button" data-question="9">9</button>
+        <button type="button" class="question-progress-button" data-question="10">10</button>
+
+    </div>
 
 </div>
+<!-- End question-section -->
+
+<div class="part-navigation">
+
+    <a href="listening-test-2-part2.html"
+       class="continue-button">
+        Continue to Part 2
+    </a>
+
+</div>
+
+</main>
 
 <script>
 
