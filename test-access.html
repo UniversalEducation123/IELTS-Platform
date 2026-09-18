@@ -145,6 +145,7 @@
 
         try {
             const passwordHash = await hashPassword(enteredPassword);
+            console.log("ENTERED HASH:", passwordHash);
 
             const { data, error } = await db
                 .from("test_access_codes")
