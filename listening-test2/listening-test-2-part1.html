@@ -175,7 +175,7 @@
 </div>
 
 <script>
-    
+
 /*
  * LISTENING TEST 2 SHARED TIMER
  */
@@ -348,6 +348,39 @@ if (audio && customPlayButton) {
         }
     });
 }
+</script>
+
+<script>
+/* Highlight Test 2 question rows when attempted */
+
+function updateAttemptedQuestions() {
+    document.querySelectorAll(
+        ".listening-question-table tr"
+    ).forEach(function(row) {
+
+        const inputs = row.querySelectorAll("input");
+
+        if (inputs.length === 0) return;
+
+        const attempted = Array.from(inputs).some(function(input) {
+            return input.value.trim() !== "";
+        });
+
+        if (attempted) {
+            row.classList.add("question-attempted");
+        } else {
+            row.classList.remove("question-attempted");
+        }
+    });
+}
+
+document.querySelectorAll(
+    ".listening-question-table input"
+).forEach(function(input) {
+    input.addEventListener("input", updateAttemptedQuestions);
+});
+
+updateAttemptedQuestions();
 </script>
 
 </body>

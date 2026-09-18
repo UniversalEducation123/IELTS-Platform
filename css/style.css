@@ -2368,7 +2368,6 @@ body.listening-page {
    Uses the same style as Listening Test 1
 ===================================================== */
 
-
 /* Test 2 form section */
 .listening-form {
     width: 100%;
@@ -2381,24 +2380,25 @@ body.listening-page {
     overflow-x: auto;
 }
 
-
 /* Complaint form title */
 .listening-form h2 {
     margin-bottom: 25px;
     color: #704052;
     text-align: center;
     font-size: 24px;
+    background: linear-gradient(135deg, #f8dce5, #e4f1e3);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(100, 70, 80, 0.08);
 }
 
-
-/* PDF-style question table */
+/* Question table */
 .listening-question-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 16px;
     border: 1px solid #e5d8dc;
 }
-
 
 /* Table cells */
 .listening-question-table th,
@@ -2407,9 +2407,9 @@ body.listening-page {
     border: 1px solid #eadfe2;
     text-align: left;
     vertical-align: top;
-    line-height: 1.8;
+    line-height: 2;
+    font-size: 16px;
 }
-
 
 /* Left labels */
 .listening-question-table th {
@@ -2419,45 +2419,44 @@ body.listening-page {
     font-weight: 700;
 }
 
-
 /* Right answer cells */
 .listening-question-table td {
     background: #fff8fa;
     color: #4f5e52;
 }
 
-
 /* Question numbers */
 .listening-question-table strong {
     color: #704052;
 }
 
+/* Answer boxes */
+.inline-answer,
+.form-answer {
+    padding: 4px 6px;
+    border: none;
+    border-bottom: 2px dotted #b85c78;
+    outline: none;
+    background: transparent;
+    color: #333;
+    font-size: 16px;
+    vertical-align: middle;
+    margin: 2px 4px;
+}
 
 /* Inline answer boxes */
 .inline-answer {
     width: 125px;
-    padding: 4px 6px;
-    border: none;
-    border-bottom: 2px dotted #b85c78;
-    outline: none;
-    background: transparent;
-    color: #333;
-    font-size: 14px;
+    display: inline-block;
 }
-
 
 /* Full-width answer boxes */
 .form-answer {
     width: 80%;
-    padding: 4px 6px;
-    border: none;
-    border-bottom: 2px dotted #b85c78;
-    outline: none;
-    background: transparent;
-    color: #333;
-    font-size: 14px;
+    display: inline-block;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
-
 
 /* Focus effect */
 .inline-answer:focus,
@@ -2466,35 +2465,12 @@ body.listening-page {
     background: #f4faf5;
 }
 
-
 /* Complaint detail paragraphs */
 .listening-question-table p {
     margin: 6px 0;
 }
 
-
-/* Mobile compatibility */
-@media (max-width: 768px) {
-
-    .listening-form {
-        padding: 20px;
-    }
-
-    .listening-question-table {
-        min-width: 650px;
-    }
-
-    .inline-answer {
-        width: 100px;
-    }
-
-    .form-answer {
-        width: 70%;
-    }
-}
-
-/* Listening Test 2 question heading compatibility */
-
+/* Question heading */
 .question-section {
     margin-top: 30px;
 }
@@ -2522,8 +2498,7 @@ body.listening-page {
     font-weight: 600;
 }
 
-/* Listening Test 2 form responsiveness */
-
+/* Responsive styling */
 @media (max-width: 768px) {
 
     .listening-header {
@@ -2553,4 +2528,39 @@ body.listening-page {
     .form-answer {
         width: 70%;
     }
+}
+
+/* Listening Test 2 attempted question highlight */
+
+.listening-question-table tr:has(input:not(:placeholder-shown)) {
+    background: #f1f8ed;
+}
+
+.listening-question-table tr.question-attempted th,
+.listening-question-table tr.question-attempted td {
+    background: #edf6eb;
+    transition: background 0.3s ease;
+}
+
+.listening-question-table tr.question-attempted {
+    box-shadow: inset 5px 0 0 #789b78;
+}
+
+/* Stronger attempted-question indicator */
+
+.listening-question-table tr.question-attempted {
+    position: relative;
+    box-shadow: inset 5px 0 0 #789b78;
+}
+
+.listening-question-table tr.question-attempted th {
+    color: #4d684f;
+}
+
+.listening-question-table tr.question-attempted input {
+    border-bottom-color: #789b78;
+}
+
+.listening-question-table tr.question-attempted input:focus {
+    background: #f4faf5;
 }
