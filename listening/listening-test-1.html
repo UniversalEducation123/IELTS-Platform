@@ -333,19 +333,20 @@ function runSharedTimer() {
     }, 1000);
 }
 
-function saveCurrentPart1Answers() {
+function savePart1Answers() {
     const answers = {};
 
     for (let i = 1; i <= 10; i++) {
         let input = document.querySelector(`[name="q${i}"]`);
 
-        // Backup: also search by ID
         if (!input) {
             input = document.getElementById(`q${i}`);
         }
 
         if (input) {
             answers[`q${i}`] = input.value.trim();
+        } else {
+            answers[`q${i}`] = "";
         }
     }
 
