@@ -39,7 +39,7 @@
             width: 100%;
             padding: 12px;
             margin-top: 15px;
-            background: #2563eb;
+            background: #35194e;
             color: white;
             border: none;
             border-radius: 6px;
@@ -47,7 +47,7 @@
         }
 
         button:hover {
-            background: #1d4ed8;
+            background: #4d1f5f;
         }
 
         #message {
@@ -65,7 +65,7 @@
     <div class="access-box">
         <h2 id="testTitle">Test Access</h2>
 
-        <p>Enter the password provided by your teacher.</p>
+        <p>Enter the password provided by your faculty.</p>
 
         <input
             type="password"
@@ -83,10 +83,10 @@
         const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
-        const supabaseClient = window.supabase.createClient(
+        const db = window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
-    );
+        );
 
     const testPages = {
         "listening-test-1": {
@@ -145,7 +145,7 @@
         try {
             const passwordHash = await hashPassword(enteredPassword);
 
-            const { data, error } = await supabaseClient
+            const { data, error } = await db
                 .from("test_access_codes")
                 .select("*")
                 .eq("test_id", testId)
