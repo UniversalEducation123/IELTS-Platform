@@ -912,52 +912,6 @@ const answerStorageKey =
  * Save current answers continuously
  */
 
-function savePart2Answers() {
-    const answers = {};
-
-    // Questions 15–20
-    for (let i = 15; i <= 20; i++) {
-        let input = document.querySelector(`[name="q${i}"]`);
-
-        if (!input) {
-            input = document.getElementById(`q${i}`);
-        }
-
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        }
-    }
-
-    // Questions 11–12
-    const pair11_12 = Array.from(
-        document.querySelectorAll('input[name="q11_12"]:checked')
-    ).map(function(input) {
-        return input.value.trim();
-    });
-
-    answers.q11 = pair11_12[0] || "";
-    answers.q12 = pair11_12[1] || "";
-
-    // Questions 13–14
-    const pair13_14 = Array.from(
-        document.querySelectorAll('input[name="q13_14"]:checked')
-    ).map(function(input) {
-        return input.value.trim();
-    });
-
-    answers.q13 = pair13_14[0] || "";
-    answers.q14 = pair13_14[1] || "";
-
-    sessionStorage.setItem(
-        "listeningPart2Answers",
-        JSON.stringify(answers)
-    );
-
-    console.log(
-        "PART 2 SAVED:",
-        sessionStorage.getItem("listeningPart2Answers")
-    );
-}
 
 /*
  * Restore answers

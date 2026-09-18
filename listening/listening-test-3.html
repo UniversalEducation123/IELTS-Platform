@@ -906,62 +906,7 @@ const answerStorageKey =
  * Save current answers continuously
  */
 
-function savePart3Answers() {
-    const answers = {};
 
-    // Questions 21–22
-    const pair21_22 = Array.from(
-        document.querySelectorAll('input[name="q21_22"]:checked')
-    ).map(function(input) {
-        return input.value.trim();
-    });
-
-    answers.q21 = pair21_22[0] || "";
-    answers.q22 = pair21_22[1] || "";
-
-    // Questions 23–24
-    const pair23_24 = Array.from(
-        document.querySelectorAll('input[name="q23_24"]:checked')
-    ).map(function(input) {
-        return input.value.trim();
-    });
-
-    answers.q23 = pair23_24[0] || "";
-    answers.q24 = pair23_24[1] || "";
-
-    // Questions 25–26
-    const pair25_26 = Array.from(
-        document.querySelectorAll('input[name="q25_26"]:checked')
-    ).map(function(input) {
-        return input.value.trim();
-    });
-
-    answers.q25 = pair25_26[0] || "";
-    answers.q26 = pair25_26[1] || "";
-
-    // Questions 27–30
-    for (let i = 27; i <= 30; i++) {
-        let input = document.querySelector(`[name="q${i}"]`);
-
-        if (!input) {
-            input = document.getElementById(`q${i}`);
-        }
-
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        }
-    }
-
-    sessionStorage.setItem(
-        "listeningPart3Answers",
-        JSON.stringify(answers)
-    );
-
-    console.log(
-        "PART 3 SAVED:",
-        sessionStorage.getItem("listeningPart3Answers")
-    );
-}
 
 /*
  * Restore saved answers
