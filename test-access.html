@@ -154,6 +154,9 @@
                 .eq("password_hash", passwordHash)
                 .maybeSingle();
 
+                console.log("SUPABASE DATA:", data);
+                console.log("SUPABASE ERROR:", error);
+
             if (error) {
                 console.error("Supabase error:", error);
                 message.textContent = "Unable to verify password.";
