@@ -44,5 +44,47 @@
         </div>
     </main>
 
+    <script>
+    // Clear previous test attempts after logout
+
+    // Listening Test 1
+    for (let i = 1; i <= 40; i++) {
+        sessionStorage.removeItem("listeningTest1_q" + i);
+    }
+
+    // Listening Test 2
+    for (let i = 1; i <= 40; i++) {
+        sessionStorage.removeItem("listeningTest2_q" + i);
+    }
+
+    // Reading Test 1
+    for (let i = 1; i <= 40; i++) {
+        sessionStorage.removeItem("readingTest1_q" + i);
+    }
+
+    // Reading Test 2
+    for (let i = 1; i <= 40; i++) {
+        sessionStorage.removeItem("readingTest2_q" + i);
+    }
+
+    // Clear Reading Test 2 timer
+    sessionStorage.removeItem("readingTest2TimeLeft");
+    sessionStorage.removeItem("readingTest2TimerStarted");
+
+    // Clear Reading Test 1 timer if used
+    sessionStorage.removeItem("readingTimeLeft");
+    sessionStorage.removeItem("readingTimerStarted");
+
+    // Clear Listening result guards
+    sessionStorage.removeItem("listeningTest1ResultSaved");
+    sessionStorage.removeItem("listeningTest2ResultSaved");
+
+    // Clear Reading result/session data
+    sessionStorage.removeItem("readingTest2ResultSaved");
+    sessionStorage.removeItem("readingAnswerReview");
+    sessionStorage.removeItem("readingScore");
+    sessionStorage.removeItem("readingCorrect");
+</script>
+
 </body>
 </html>
