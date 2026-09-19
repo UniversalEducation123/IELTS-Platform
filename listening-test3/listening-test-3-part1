@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Listening Test 3 - Part 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .listening-test-container {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .listening-test-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .listening-test-header h1 {
+            margin-bottom: 5px;
+        }
+
+        .listening-test-header p {
+            margin: 0;
+            color: #666;
+        }
+
+        .audio-box {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .audio-box h2 {
+            margin-top: 0;
+        }
+
+        .audio-box audio {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timer {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #b00020;
+        }
+
+        .question-progress {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .question-progress-button {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .question-progress-button.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+
+        .question-progress-button.current {
+            outline: 3px solid #222;
+        }
+
+        .listening-part {
+            display: none;
+        }
+
+        .listening-part.active {
+            display: block;
+        }
+
+        .question-box {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
+        }
+
+        .question-box h2 {
+            margin-top: 0;
+        }
+
+        .question {
+            margin-bottom: 22px;
+        }
+
+        .question p {
+            font-weight: 600;
+        }
+
+        .option {
+            display: block;
+            margin: 8px 0;
+            font-weight: normal;
+        }
+
+        .answer-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .navigation-buttons button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .next-btn {
+            background: #198754;
+            color: white;
+        }
+
+        .submit-btn {
+            background: #b00020;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+    </a>
+
+    <nav>
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../login.html">
+            Logout
+        </a>
+    </nav>
+
+</header>
+
+
+<main class="listening-test-container">
+
+    <div class="listening-test-header">
+
+        <h1>IELTS Academic Listening Test 3</h1>
+
+        <p>
+            Part 1 of 4
+        </p>
+
+    </div>
+
+
+    <!-- AUDIO -->
+
+    <div class="audio-box">
+
+        <h2>Listening Audio</h2>
+
+        <audio
+            id="listeningAudio"
+            controls
+            preload="auto">
+
+            <source
+                src="../assets/listening-test-3.mp3"
+                type="audio/mpeg">
+
+            Your browser does not support the audio element.
+
+        </audio>
+
+        <div class="timer" id="timer">
+            30:00
+        </div>
+
+        <p>
+            The timer starts when the audio starts.
+            The audio cannot be paused or rewound.
+        </p>
+
+    </div>
+
+
+    <!-- QUESTION PROGRESS -->
+
+    <div class="question-progress">
+
+        <button
+            class="question-progress-button current"
+            data-question="1">
+            1
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="2">
+            2
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="3">
+            3
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="4">
+            4
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="5">
+            5
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="6">
+            6
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="7">
+            7
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="8">
+            8
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="9">
+            9
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="10">
+            10
+        </button>
+
+    </div>
+
+
+    <form id="listeningForm">
+
+
+        <!-- QUESTIONS 1-5 -->
+
+        <section class="listening-part active">
+
+            <div class="question-box">
+
+                <h2>
+                    Section 1
+                </h2>
+
+                <h3>
+                    Questions 1–5
+                </h3>
+
+                <p>
+                    Choose the correct letter, A, B, or C.
+                </p>
+
+
+                <!-- Q1 -->
+
+                <div class="question">
+
+                    <p>
+                        1. Steve and Rachel will check in for their flight
+                    </p>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q1"
+                            value="A">
+                        A. at a special desk in the airport.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q1"
+                            value="B">
+                        B. at the check in desks.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q1"
+                            value="C">
+                        C. on the Internet.
+                    </label>
+
+                </div>
+
+
+                <!-- Q2 -->
+
+                <div class="question">
+
+                    <p>
+                        2. Steve and Rachel will go to the airport by
+                    </p>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q2"
+                            value="A">
+                        A. bus.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q2"
+                            value="B">
+                        B. taxi.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q2"
+                            value="C">
+                        C. train.
+                    </label>
+
+                </div>
+
+
+                <!-- Q3 -->
+
+                <div class="question">
+
+                    <p>
+                        3. Steve and Rachel will go to their hotel by
+                    </p>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q3"
+                            value="A">
+                        A. taxi.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q3"
+                            value="B">
+                        B. courtesy car.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q3"
+                            value="C">
+                        C. bus.
+                    </label>
+
+                </div>
+
+
+                <!-- Q4 -->
+
+                <div class="question">
+
+                    <p>
+                        4. Steve and Rachel will stay at
+                    </p>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q4"
+                            value="A">
+                        A. the Orchid Hotel.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q4"
+                            value="B">
+                        B. the Richmond Hotel.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q4"
+                            value="C">
+                        C. the Kings Cross Hotel.
+                    </label>
+
+                </div>
+
+
+                <!-- Q5 -->
+
+                <div class="question">
+
+                    <p>
+                        5. Steve and Rachel's deal in their hotel is
+                    </p>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q5"
+                            value="A">
+                        A. full board.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q5"
+                            value="B">
+                        B. half board.
+                    </label>
+
+                    <label class="option">
+                        <input
+                            type="radio"
+                            name="q5"
+                            value="C">
+                        C. bed and breakfast.
+                    </label>
+
+                </div>
+
+
+                <div class="navigation-buttons">
+
+                    <span></span>
+
+                    <button
+                        type="button"
+                        class="next-btn"
+                        onclick="showQuestions6to10()">
+                        Next →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUESTIONS 6-10 -->
+
+        <section
+            class="listening-part"
+            id="questions6to10">
+
+            <div class="question-box">
+
+                <h2>
+                    Questions 6–10
+                </h2>
+
+                <p>
+                    Complete the notes below.
+                </p>
+
+                <p>
+                    Write NO MORE THAN ONE WORD from the listening
+                    for each answer.
+                </p>
+
+
+                <h3>
+                    The Sydney Trip
+                </h3>
+
+
+                <!-- Q6 -->
+
+                <div class="question">
+
+                    <p>
+                        6. Sydney Opera House: Do a tour
+                        (a ______ is necessary).
+                    </p>
+
+                    <input
+                        type="text"
+                        name="q6"
+                        class="answer-input"
+                        autocomplete="off">
+
+                </div>
+
+
+                <!-- Q7 -->
+
+                <div class="question">
+
+                    <p>
+                        7. Harbour cruise: About 3 hours long;
+                        look at ______ and bunkers; can get off and on.
+                    </p>
+
+                    <input
+                        type="text"
+                        name="q7"
+                        class="answer-input"
+                        autocomplete="off">
+
+                </div>
+
+
+                <!-- Q8 -->
+
+                <div class="question">
+
+                    <p>
+                        8. Wander Kings Cross: Do this after ______.
+                    </p>
+
+                    <input
+                        type="text"
+                        name="q8"
+                        class="answer-input"
+                        autocomplete="off">
+
+                </div>
+
+
+                <!-- Q9 -->
+
+                <div class="question">
+
+                    <p>
+                        9. Sydney Harbour Bridge: Cheap and only storms
+                        and/or powerful ______ will cause cancellation.
+                    </p>
+
+                    <input
+                        type="text"
+                        name="q9"
+                        class="answer-input"
+                        autocomplete="off">
+
+                </div>
+
+
+                <!-- Q10 -->
+
+                <div class="question">
+
+                    <p>
+                        10. Day 3: Visit some ______ in the morning.
+                    </p>
+
+                    <input
+                        type="text"
+                        name="q10"
+                        class="answer-input"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="navigation-buttons">
+
+                    <button
+                        type="button"
+                        onclick="showQuestions1to5()">
+                        ← Previous
+                    </button>
+
+                    <button
+                        type="button"
+                        class="submit-btn"
+                        onclick="submitTest()">
+                        Submit Test
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+    /* =========================================
+       ACCESS CHECK
+    ========================================= */
+
+    const listeningAccessKey =
+        "access_listening-test-3";
+
+    const listeningAccessGranted =
+        sessionStorage.getItem(listeningAccessKey);
+
+    if (listeningAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=listening-test-3";
+
+    }
+
+
+    /* =========================================
+       AUDIO
+    ========================================= */
+
+    const audio =
+        document.getElementById("listeningAudio");
+
+    let audioStarted = false;
+
+    let lastAudioTime = 0;
+
+
+    audio.addEventListener("play", function () {
+
+        if (!audioStarted) {
+
+            audioStarted = true;
+
+            startTimer();
+
+        }
+
+    });
+
+
+    /*
+       Prevent pausing
+    */
+
+    audio.addEventListener("pause", function () {
+
+        if (!audio.ended && audioStarted) {
+
+            audio.play();
+
+        }
+
+    });
+
+
+    /*
+       Prevent seeking backwards or forwards
+    */
+
+    audio.addEventListener("timeupdate", function () {
+
+        if (
+            Math.abs(audio.currentTime - lastAudioTime) > 1.5
+        ) {
+
+            audio.currentTime = lastAudioTime;
+
+        } else {
+
+            lastAudioTime =
+                audio.currentTime;
+
+        }
+
+    });
+
+
+    /* =========================================
+       TIMER
+    ========================================= */
+
+    let timeLeft = 30 * 60;
+
+    let timerInterval = null;
+
+
+    function startTimer() {
+
+        if (timerInterval) {
+            return;
+        }
+
+        timerInterval =
+            setInterval(function () {
+
+                timeLeft--;
+
+                updateTimer();
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timerInterval);
+
+                    timerInterval = null;
+
+                    submitTest();
+
+                }
+
+            }, 1000);
+
+    }
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
+    }
+
+
+    /* =========================================
+       SAVE ANSWERS
+    ========================================= */
+
+    function saveAnswers() {
+
+        for (let i = 1; i <= 10; i++) {
+
+            const inputs =
+                document.querySelectorAll(
+                    `[name="q${i}"]`
+                );
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type === "radio" ||
+                    input.type === "checkbox"
+                ) {
+
+                    if (input.checked) {
+
+                        sessionStorage.setItem(
+                            "listeningTest3_q" + i,
+                            input.value
+                        );
+
+                    }
+
+                } else {
+
+                    sessionStorage.setItem(
+                        "listeningTest3_q" + i,
+                        input.value
+                    );
+
+                }
+
+            });
+
+        }
+
+    }
+
+
+    /* =========================================
+       RESTORE ANSWERS
+    ========================================= */
+
+    function restoreAnswers() {
+
+        for (let i = 1; i <= 10; i++) {
+
+            const saved =
+                sessionStorage.getItem(
+                    "listeningTest3_q" + i
+                );
+
+            if (!saved) {
+                continue;
+            }
+
+            const inputs =
+                document.querySelectorAll(
+                    `[name="q${i}"]`
+                );
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type === "radio" ||
+                    input.type === "checkbox"
+                ) {
+
+                    input.checked =
+                        input.value === saved;
+
+                } else {
+
+                    input.value = saved;
+
+                }
+
+            });
+
+        }
+
+        updateQuestionProgress();
+
+    }
+
+
+    /* =========================================
+       QUESTION PROGRESS
+    ========================================= */
+
+    function updateQuestionProgress() {
+
+        for (let i = 1; i <= 10; i++) {
+
+            const inputs =
+                document.querySelectorAll(
+                    `[name="q${i}"]`
+                );
+
+            const button =
+                document.querySelector(
+                    `.question-progress-button[data-question="${i}"]`
+                );
+
+            if (!button) {
+                continue;
+            }
+
+            let attempted = false;
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type === "radio" ||
+                    input.type === "checkbox"
+                ) {
+
+                    if (input.checked) {
+                        attempted = true;
+                    }
+
+                } else {
+
+                    if (input.value.trim() !== "") {
+                        attempted = true;
+                    }
+
+                }
+
+            });
+
+            if (attempted) {
+
+                button.classList.add("answered");
+
+            } else {
+
+                button.classList.remove("answered");
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================
+       INPUT LISTENERS
+    ========================================= */
+
+    document
+        .getElementById("listeningForm")
+        .addEventListener("input", function () {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        });
+
+
+    document
+        .getElementById("listeningForm")
+        .addEventListener("change", function () {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        });
+
+
+    /* =========================================
+       SHOW QUESTIONS
+    ========================================= */
+
+    function showQuestions6to10() {
+
+        saveAnswers();
+
+        document
+            .querySelectorAll(".listening-part")
+            .forEach(function(part) {
+
+                part.classList.remove("active");
+
+            });
+
+        document
+            .getElementById("questions6to10")
+            .classList.add("active");
+
+    }
+
+
+    function showQuestions1to5() {
+
+        saveAnswers();
+
+        document
+            .querySelectorAll(".listening-part")
+            .forEach(function(part) {
+
+                part.classList.remove("active");
+
+            });
+
+        document
+            .querySelector(".listening-part")
+            .classList.add("active");
+
+    }
+
+
+    /* =========================================
+       SUBMIT
+    ========================================= */
+
+    function submitTest() {
+
+        saveAnswers();
+
+        window.location.href =
+            "listening-test-3-final.html";
+
+    }
+
+
+    /* =========================================
+       START
+    ========================================= */
+
+    restoreAnswers();
+
+    updateTimer();
+
+</script>
+
+</body>
+</html>
