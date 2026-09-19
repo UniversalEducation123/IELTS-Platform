@@ -61,6 +61,16 @@
             margin-right: 8px;
         }
 
+        .reading-test-2-part {
+            padding-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .reading-test-2-part .passage-panel,
+        .reading-test-2-part .questions-panel {
+            overflow-y: auto;
+        }
+
         @media (max-width: 700px) {
             .diagram-answer-row {
                 flex-wrap: wrap;
@@ -176,7 +186,7 @@
             data-question="11">11</button>
 
         <button
-            class="question-progress-button answered"
+            class="question-progress-button"
             data-question="12">12</button>
 
         <button
@@ -335,7 +345,7 @@
 
 <section
     id="part2"
-    class="reading-part active">
+    class="reading-part active reading-test-2-part">
 
     <div class="reading-split-layout">
 

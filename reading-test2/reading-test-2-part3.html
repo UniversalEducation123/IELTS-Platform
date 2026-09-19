@@ -61,6 +61,16 @@
             margin-right: 8px;
         }
 
+        .reading-test-2-part {
+            padding-top: 10px;
+            box-sizing: border-box;
+        }
+
+        .reading-test-2-part .passage-panel,
+        .reading-test-2-part .questions-panel {
+            overflow-y: auto;
+        }
+
         @media (max-width: 700px) {
             .diagram-answer-row {
                 flex-wrap: wrap;
@@ -72,7 +82,7 @@
             }
         }
     </style>
-    
+
 </head>
 
 <body>
@@ -216,7 +226,7 @@
 
 <section
     id="part3"
-    class="reading-part active">
+    class="reading-part active reading-test-2-part">
 
     <div class="reading-split-layout">
 
@@ -936,6 +946,15 @@
                     during the day.
                 </p>
 
+            </div>
+
+            <div class="submit-reading-container">
+                <button
+                    type="button"
+                    class="submit-reading"
+                    onclick="submitReadingTest()">
+                    Submit Reading Test
+                </button>
             </div>
 
         </section>
