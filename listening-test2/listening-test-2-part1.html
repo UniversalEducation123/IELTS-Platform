@@ -434,6 +434,31 @@ if (audio && customPlayButton) {
 <script>
 /* Highlight only the question-number buttons */
 
+function saveAnswers() {
+    document.querySelectorAll(
+        ".listening-question-table input"
+    ).forEach(function(input) {
+        sessionStorage.setItem(
+            "listeningTest2_" + input.name,
+            input.value
+        );
+    });
+}
+
+function restoreAnswers() {
+    document.querySelectorAll(
+        ".listening-question-table input"
+    ).forEach(function(input) {
+        const savedAnswer = sessionStorage.getItem(
+            "listeningTest2_" + input.name
+        );
+
+        if (savedAnswer !== null) {
+            input.value = savedAnswer;
+        }
+    });
+}
+
 function updateQuestionProgress() {
 
     for (let i = 1; i <= 10; i++) {
@@ -468,20 +493,20 @@ function updateQuestionProgress() {
     }
 }
 
-
 document.querySelectorAll(
     ".listening-question-table input"
 ).forEach(function(input) {
 
-    input.addEventListener(
-        "input",
-        updateQuestionProgress
-    );
+    input.addEventListener("input", function() {
+        saveAnswers();
+        updateQuestionProgress();
+    });
 
 });
 
-
+restoreAnswers();
 updateQuestionProgress();
+
 </script>
 
 </body>

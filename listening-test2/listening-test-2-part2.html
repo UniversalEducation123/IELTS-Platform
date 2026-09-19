@@ -469,6 +469,31 @@ if (timerStarted) {
 <script>
 /* Highlight only answered question-number buttons */
 
+function saveAnswers() {
+    document.querySelectorAll(
+        ".listening-question-table input"
+    ).forEach(function(input) {
+        sessionStorage.setItem(
+            "listeningTest2_" + input.name,
+            input.value
+        );
+    });
+}
+
+function restoreAnswers() {
+    document.querySelectorAll(
+        ".listening-question-table input"
+    ).forEach(function(input) {
+        const savedAnswer = sessionStorage.getItem(
+            "listeningTest2_" + input.name
+        );
+
+        if (savedAnswer !== null) {
+            input.value = savedAnswer;
+        }
+    });
+}
+
 function updateQuestionProgress() {
 
     for (let i = 11; i <= 20; i++) {
@@ -481,35 +506,28 @@ function updateQuestionProgress() {
             `.question-progress-button[data-question="${i}"]`
         );
 
-        if (!button) continue;
+        if (!input || !button) continue;
 
-        if (input && input.value.trim() !== "") {
-
+        if (input.value.trim() !== "") {
             button.classList.add("answered");
-
         } else {
-
             button.classList.remove("answered");
-
         }
-
     }
-
 }
 
-
 document.querySelectorAll(
-    "#questions-container input"
+    ".listening-question-table input"
 ).forEach(function(input) {
 
-    input.addEventListener(
-        "input",
-        updateQuestionProgress
-    );
+    input.addEventListener("input", function() {
+        saveAnswers();
+        updateQuestionProgress();
+    });
 
 });
 
-
+restoreAnswers();
 updateQuestionProgress();
 
 </script>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Test 2 Result</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(244, 190, 207, 0.55),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(190, 214, 190, 0.55),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fff8fa,
+                    #f5faf5,
+                    #fffaf2
+                );
+        }
+
+        .result-card {
+            width: 100%;
+            max-width: 750px;
+            margin: auto;
+            padding: 40px 30px;
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            margin: 0 0 30px;
+            text-align: center;
+            color: #9c4f6b;
+            font-size: 32px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #9c4f6b;
+            font-size: 24px;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 5px;
+            border-bottom: 1px solid #eeeeee;
+            color: #444;
+            font-size: 18px;
+        }
+
+        .result-line span {
+            font-weight: bold;
+            color: #9c4f6b;
+        }
+
+        .band-line {
+            margin-top: 12px;
+            padding-top: 22px;
+            border-top: 2px solid #d9ead9;
+            font-size: 21px;
+        }
+
+        .band-line span {
+            font-size: 26px;
+            color: #628b62;
+        }
+
+        .answer-review-section {
+            margin-top: 35px;
+        }
+
+        .answer-review-item {
+            margin-bottom: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            background: #fafafa;
+        }
+
+        .answer-review-item.correct {
+            border-left-color: #65a765;
+            background: #f1faf1;
+        }
+
+        .answer-review-item.wrong {
+            border-left-color: #c96b6b;
+            background: #fff3f3;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .review-status {
+            font-weight: bold;
+        }
+
+        .correct .review-status {
+            color: #4d914d;
+        }
+
+        .wrong .review-status {
+            color: #bd4f4f;
+        }
+
+        .answer-review-item p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .answer-review-item strong {
+            color: #333;
+        }
+
+        .home-button {
+            display: block;
+            width: fit-content;
+            margin: 35px auto 0;
+            padding: 13px 28px;
+            background: #b85c78;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .home-button:hover {
+            background: #963f5e;
+        }
+
+        @media (max-width: 600px) {
+
+            .result-card {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .result-line {
+                font-size: 16px;
+            }
+
+            .review-header {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="result-card">
+
+        <h1>Listening Test 2 Result</h1>
+
+        <div class="result-line">
+            <strong>Correct Answers:</strong>
+            <span id="correctAnswers">0</span>
+        </div>
+
+        <div class="result-line">
+            <strong>Wrong Answers:</strong>
+            <span id="wrongAnswers">0</span>
+        </div>
+
+        <div class="result-line">
+            <strong>Total Score:</strong>
+            <span id="totalScore">0 / 40</span>
+        </div>
+
+        <div class="result-line band-line">
+            <strong>IELTS Band:</strong>
+            <span id="bandScore">2.0</span>
+        </div>
+
+        <div class="answer-review-section">
+
+            <h2>Answer Review</h2>
+
+            <div id="answerReview"></div>
+
+        </div>
+
+        <a href="../index.html" class="home-button">
+            Back to Home
+        </a>
+
+    </div>
+
+
+    <!-- SUPABASE -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+    <script>
+
+        /* ===============================
+           SUPABASE CONNECTION
+        =============================== */
+
+        const SUPABASE_URL =
+            "https://gehczgguwxqwfowmbedy.supabase.co";
+
+        const SUPABASE_ANON_KEY =
+            "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const supabaseClient =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+
+        /* ===============================
+           ANSWER NORMALIZATION
+        =============================== */
+
+        function normalizeAnswer(answer) {
+
+            return String(answer || "")
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9]/g, "");
+        }
+
+
+        function isCorrect(
+            studentAnswer,
+            acceptedAnswers
+        ) {
+
+            const student =
+                normalizeAnswer(studentAnswer);
+
+            if (!student) {
+                return false;
+            }
+
+            return acceptedAnswers.some(
+                function(answer) {
+
+                    return student ===
+                        normalizeAnswer(answer);
+
+                }
+            );
+        }
+
+
+        /* ===============================
+           BAND SCORE
+        =============================== */
+
+        function calculateBand(correctCount) {
+
+            if (correctCount >= 39) return "9.0";
+            if (correctCount >= 37) return "8.5";
+            if (correctCount >= 35) return "8.0";
+            if (correctCount >= 32) return "7.5";
+            if (correctCount >= 30) return "7.0";
+            if (correctCount >= 26) return "6.5";
+            if (correctCount >= 23) return "6.0";
+            if (correctCount >= 18) return "5.5";
+            if (correctCount >= 16) return "5.0";
+            if (correctCount >= 13) return "4.5";
+            if (correctCount >= 10) return "4.0";
+            if (correctCount >= 8) return "3.5";
+            if (correctCount >= 6) return "3.0";
+            if (correctCount >= 4) return "2.5";
+
+            return "2.0";
+        }
+
+
+        /* ===============================
+           READ TEST 2 ANSWERS
+        =============================== */
+
+        function readTest2Answers() {
+
+            const answers = {};
+
+            for (
+                let i = 1;
+                i <= 40;
+                i++
+            ) {
+
+                answers["q" + i] =
+                    sessionStorage.getItem(
+                        "listeningTest2_q" + i
+                    ) || "";
+            }
+
+            return answers;
+        }
+
+
+        /* ===============================
+           ANSWER REVIEW
+        =============================== */
+
+        function addReviewItem(
+            questionNumber,
+            studentAnswer,
+            correctAnswer,
+            correct
+        ) {
+
+            const answerReview =
+                document.getElementById(
+                    "answerReview"
+                );
+
+            if (!answerReview) {
+                return;
+            }
+
+
+            const reviewItem =
+                document.createElement("div");
+
+
+            reviewItem.className =
+                correct
+                    ? "answer-review-item correct"
+                    : "answer-review-item wrong";
+
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "review-header";
+
+
+            const question =
+                document.createElement("strong");
+
+            question.textContent =
+                "Question " +
+                questionNumber;
+
+
+            const status =
+                document.createElement("span");
+
+            status.className =
+                "review-status";
+
+            status.textContent =
+                correct
+                    ? "✓ Correct"
+                    : "✗ Wrong";
+
+
+            header.appendChild(question);
+            header.appendChild(status);
+
+
+            const yourAnswer =
+                document.createElement("p");
+
+
+            const yourLabel =
+                document.createElement("strong");
+
+            yourLabel.textContent =
+                "Your answer: ";
+
+
+            yourAnswer.appendChild(
+                yourLabel
+            );
+
+
+            yourAnswer.appendChild(
+                document.createTextNode(
+                    studentAnswer &&
+                    String(studentAnswer).trim() !== ""
+                        ? studentAnswer
+                        : "Not answered"
+                )
+            );
+
+
+            const correctAnswerText =
+                document.createElement("p");
+
+
+            const correctLabel =
+                document.createElement("strong");
+
+            correctLabel.textContent =
+                "Correct answer: ";
+
+
+            correctAnswerText.appendChild(
+                correctLabel
+            );
+
+
+            correctAnswerText.appendChild(
+                document.createTextNode(
+                    correctAnswer
+                )
+            );
+
+
+            reviewItem.appendChild(header);
+
+            reviewItem.appendChild(
+                yourAnswer
+            );
+
+            reviewItem.appendChild(
+                correctAnswerText
+            );
+
+
+            answerReview.appendChild(
+                reviewItem
+            );
+        }
+
+
+        /* ===============================
+           TEST 2 ANSWER KEY
+        =============================== */
+
+        const answerKey = {
+
+            q1: [
+                "Andrew Sharpe"
+            ],
+
+            q2: [
+                "Beaconsfield House"
+            ],
+
+            q3: [
+                "0374 55793"
+            ],
+
+            q4: [
+                "MH66G4"
+            ],
+
+            q5: [
+                "credit card"
+            ],
+
+            q6: [
+                "Gold Star"
+            ],
+
+            q7: [
+                "Mid-winter"
+            ],
+
+            q8: [
+                "16 January",
+                "16th January",
+                "January 16",
+                "January 16th"
+            ],
+
+            q9: [
+                "taxi"
+            ],
+
+            q10: [
+                "bicycle"
+            ],
+
+            q11: [
+                "D"
+            ],
+
+            q12: [
+                "A"
+            ],
+
+            q13: [
+                "C"
+            ],
+
+            q14: [
+                "E"
+            ],
+
+            q15: [
+                "E"
+            ],
+
+            q16: [
+                "personal information"
+            ],
+
+            q17: [
+                "skills"
+            ],
+
+            q18: [
+                "general"
+            ],
+
+            q19: [
+                "role-play"
+            ],
+
+            q20: [
+                "video"
+            ],
+
+            q21: [
+                "following the plan"
+            ],
+
+            q22: [
+                "individual responsibilities"
+            ],
+
+            q23: [
+                "advice service"
+            ],
+
+            q24: [
+                "reference section"
+            ],
+
+            q25: [
+                "methodology"
+            ],
+
+            q26: [
+                "websites"
+            ],
+
+            q27: [
+                "H"
+            ],
+
+            q28: [
+                "B"
+            ],
+
+            q29: [
+                "G"
+            ],
+
+            q30: [
+                "E"
+            ],
+
+            q31: [
+                "competition"
+            ],
+
+            q32: [
+                "British Airways"
+            ],
+
+            q33: [
+                "invented"
+            ],
+
+            q34: [
+                "tides"
+            ],
+
+            q35: [
+                "distilled water"
+            ],
+
+            q36: [
+                "tension"
+            ],
+
+            q37: [
+                "base cap"
+            ],
+
+            q38: [
+                "A-frame"
+            ],
+
+            q39: [
+                "rings"
+            ],
+
+            q40: [
+                "boarding platform"
+            ]
+
+        };
+
+
+        /* ===============================
+           CALCULATE SCORE
+        =============================== */
+
+        async function calculateListeningScore() {
+
+            const answers =
+                readTest2Answers();
+
+
+            let correctCount = 0;
+
+
+            for (
+                let i = 1;
+                i <= 40;
+                i++
+            ) {
+
+                const key =
+                    "q" + i;
+
+
+                const student =
+                    answers[key] || "";
+
+
+                const accepted =
+                    answerKey[key] || [];
+
+
+                const correct =
+                    isCorrect(
+                        student,
+                        accepted
+                    );
+
+
+                if (correct) {
+                    correctCount++;
+                }
+
+
+                addReviewItem(
+                    i,
+                    student,
+                    accepted.join(" / "),
+                    correct
+                );
+            }
+
+
+            /* ===============================
+               DISPLAY SCORE
+            =============================== */
+
+            const wrongCount =
+                40 - correctCount;
+
+
+            document.getElementById(
+                "correctAnswers"
+            ).textContent =
+                correctCount;
+
+
+            document.getElementById(
+                "wrongAnswers"
+            ).textContent =
+                wrongCount;
+
+
+            document.getElementById(
+                "totalScore"
+            ).textContent =
+                correctCount +
+                " / 40";
+
+
+            document.getElementById(
+                "bandScore"
+            ).textContent =
+                calculateBand(
+                    correctCount
+                );
+
+
+            console.log(
+                "FINAL LISTENING TEST 2 SCORE:",
+                correctCount +
+                " / 40"
+            );
+
+
+            /* ===============================
+               SAVE RESULT
+            =============================== */
+
+            await saveResultToSupabase(
+                correctCount
+            );
+        }
+
+
+        /* ===============================
+           SAVE RESULT TO SUPABASE
+        =============================== */
+
+        async function saveResultToSupabase(
+            score
+        ) {
+
+            if (
+                sessionStorage.getItem(
+                    "listeningTest2ResultSaved"
+                ) === "true"
+            ) {
+
+                console.log(
+                    "Listening Test 2 result already saved."
+                );
+
+                return;
+            }
+
+
+            const studentId =
+                sessionStorage.getItem(
+                    "studentId"
+                );
+
+
+            const studentName =
+                sessionStorage.getItem(
+                    "studentName"
+                );
+
+
+            const resultData = {
+
+                student_id:
+                    studentId
+                        ? Number(studentId)
+                        : null,
+
+                student_name:
+                    studentName,
+
+                test_name:
+                    "Test 2",
+
+                listening_score:
+                    score
+            };
+
+
+            console.log(
+                "Data being sent to Supabase:",
+                resultData
+            );
+
+
+            const { error } =
+                await supabaseClient
+                    .from("test_results")
+                    .insert(
+                        resultData
+                    );
+
+
+            if (error) {
+
+                console.error(
+                    "Error saving Listening Test 2 result:",
+                    error
+                );
+
+                return;
+            }
+
+
+            sessionStorage.setItem(
+                "listeningTest2ResultSaved",
+                "true"
+            );
+
+
+            console.log(
+                "Listening Test 2 result saved successfully."
+            );
+        }
+
+
+        /* ===============================
+           START
+        =============================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                calculateListeningScore();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
