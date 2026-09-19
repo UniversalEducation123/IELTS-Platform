@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 2</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .question input[type="text"] {
+            min-width: 180px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .question-number {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .summary-box {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .summary-box input {
+            min-width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+    /* =========================================
+       ACCESS CONTROL
+    ========================================= */
+
+    const readingAccessKey = "access_reading-test-2";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=reading-test-2";
+    }
+</script>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-logo">
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+    </div>
+
+    <div class="navbar-title">
+        IELTS Academic Reading Test
+    </div>
+
+    <div class="navbar-links">
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+    </div>
+
+</nav>
+
+
+<!-- =========================================
+     QUESTION PROGRESS
+========================================= -->
+
+<div class="question-progress-container">
+
+    <div class="question-progress">
+
+        <button class="question-progress-button" data-question="1">1</button>
+        <button class="question-progress-button" data-question="2">2</button>
+        <button class="question-progress-button" data-question="3">3</button>
+        <button class="question-progress-button" data-question="4">4</button>
+        <button class="question-progress-button" data-question="5">5</button>
+        <button class="question-progress-button" data-question="6">6</button>
+        <button class="question-progress-button" data-question="7">7</button>
+        <button class="question-progress-button" data-question="8">8</button>
+        <button class="question-progress-button" data-question="9">9</button>
+        <button class="question-progress-button" data-question="10">10</button>
+        <button class="question-progress-button" data-question="11">11</button>
+        <button class="question-progress-button" data-question="12">12</button>
+        <button class="question-progress-button" data-question="13">13</button>
+        <button class="question-progress-button" data-question="14">14</button>
+        <button class="question-progress-button" data-question="15">15</button>
+        <button class="question-progress-button" data-question="16">16</button>
+        <button class="question-progress-button" data-question="17">17</button>
+        <button class="question-progress-button" data-question="18">18</button>
+        <button class="question-progress-button" data-question="19">19</button>
+        <button class="question-progress-button" data-question="20">20</button>
+        <button class="question-progress-button" data-question="21">21</button>
+        <button class="question-progress-button" data-question="22">22</button>
+        <button class="question-progress-button" data-question="23">23</button>
+        <button class="question-progress-button" data-question="24">24</button>
+        <button class="question-progress-button" data-question="25">25</button>
+        <button class="question-progress-button" data-question="26">26</button>
+        <button class="question-progress-button" data-question="27">27</button>
+        <button class="question-progress-button" data-question="28">28</button>
+        <button class="question-progress-button" data-question="29">29</button>
+        <button class="question-progress-button" data-question="30">30</button>
+        <button class="question-progress-button" data-question="31">31</button>
+        <button class="question-progress-button" data-question="32">32</button>
+        <button class="question-progress-button" data-question="33">33</button>
+        <button class="question-progress-button" data-question="34">34</button>
+        <button class="question-progress-button" data-question="35">35</button>
+        <button class="question-progress-button" data-question="36">36</button>
+        <button class="question-progress-button" data-question="37">37</button>
+        <button class="question-progress-button" data-question="38">38</button>
+        <button class="question-progress-button" data-question="39">39</button>
+        <button class="question-progress-button" data-question="40">40</button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     TIMER
+========================================= -->
+
+<div class="reading-timer-container">
+
+    <div class="reading-timer">
+        Time Remaining:
+        <span id="timer">60:00</span>
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     PART NAVIGATION
+========================================= -->
+
+<div class="reading-part-navigation">
+
+    <button onclick="goToPart(1)">
+        Part 1
+    </button>
+
+    <button onclick="goToPart(2)">
+        Part 2
+    </button>
+
+    <button class="active" onclick="goToPart(3)">
+        Part 3
+    </button>
+
+</div>
+
+
+<form id="readingForm">
+
+<section
+    id="part3"
+    class="reading-part active">
+
+    <div class="reading-split-layout">
+
+
+        <!-- =====================================
+             LEFT SIDE: PASSAGE
+        ====================================== -->
+
+        <section class="passage-panel">
+
+            <h2>
+                Passage 3: Circadian Rhythm
+            </h2>
+
+
+            <h3>A</h3>
+
+            <p>
+                The natural world is dominated by cycles that are constant
+                and repeated. The moon's rotation around the earth, the
+                changing of the seasons, the changes between night and day.
+                It is these cycles or rhythms that in part control changes
+                in our metabolism, mood and behaviour, and even the
+                patterns of our sleep.
+            </p>
+
+
+            <h3>B</h3>
+
+            <p>
+                The circadian rhythm is the cycle that indicates when to be
+                awake and when to be asleep. This is a daily cycle that is
+                controlled by changes in amplitude (highs and lows) of light
+                and temperature.
+            </p>
+
+            <p>
+                As day turns to night, the sun sets and it becomes cooler.
+                The triggers of less light and lower temperatures signal to
+                the body that it is time to slow and begin the pattern of
+                sleep.
+            </p>
+
+            <p>
+                Of course, there may be many hours between sunset and the
+                time people actually go to bed, but it is from this time
+                that we generally become increasingly less alert and
+                reaction times can be noticeably slower.
+            </p>
+
+
+            <h3>C</h3>
+
+            <p>
+                There are a number of factors that can affect our circadian
+                rhythm. Working night shifts, which requires people to act
+                in contradiction to the body's natural rhythm, is perhaps
+                the most damaging.
+            </p>
+
+            <p>
+                Despite getting a good 8 hours sleep during the day, night
+                shift workers still tend to feel drowsy for at least some
+                of the night. This is the main factor for the increase in
+                workplace accidents on this shift when compared to the day
+                shift.
+            </p>
+
+            <p>
+                The seasons can also affect our natural rhythm, with people
+                having less energy during winter months when there is less
+                sunlight and warmth to stimulate the brain.
+            </p>
+
+            <p>
+                International travel, notably when travelling in excess of
+                4 hours, can also have a significant effect. In extreme
+                cases, it can take up to 7 days for your rhythm to reset
+                due to this, a phenomenon referred to as jet lag.
+            </p>
+
+            <p>
+                A similar, although milder, effect can be felt in countries
+                with daylight savings time, when the clocks are moved
+                forward and backward depending on the season.
+            </p>
+
+
+            <h3>D</h3>
+
+            <p>
+                There are some tips for helping your body work with your
+                circadian rhythm.
+            </p>
+
+            <p>
+                First thing in the morning take a short walk outside or
+                open all the curtains to get as much light as possible
+                through the eyes and into the brain.
+            </p>
+
+            <p>
+                Lighting levels that affect circadian rhythm in humans are
+                higher than the levels usually used in artificial lighting
+                in homes.
+            </p>
+
+            <p>
+                In addition to the strength of the light, wavelength
+                (or colour) of light is a factor, the best being that
+                present in sunlight.
+            </p>
+
+            <p>
+                Plan your work and other activities around the highs and
+                lows of your temperature rhythm.
+            </p>
+
+            <p>
+                For example, plan easier activities for first thing in the
+                morning when you're not operating at your physical best.
+                Late morning is better for challenging tasks.
+            </p>
+
+            <p>
+                After lunch you may feel like nodding off. Take scheduled
+                breaks.
+            </p>
+
+            <p>
+                The best time to exercise is in the late afternoon.
+                Your body temperature reaches its daily high, it is warmed
+                up and stretched from spending your day at work.
+            </p>
+
+            <p>
+                Avoid driving during sleep times.
+                Sleepy drivers should stop for a nap.
+            </p>
+
+            <p>
+                Playing loud music or leaving windows open is an overrated
+                misconception.
+            </p>
+
+            <p>
+                At night, close the blinds and curtains and sleep in a dark
+                room.
+            </p>
+
+            <p>
+                If you work the night shift, use bright lights and music in
+                the workplace to keep your brain alert.
+            </p>
+
+            <p>
+                Wear an eye mask to block out the light when you want to go
+                to sleep.
+            </p>
+
+
+            <h3>E</h3>
+
+            <p>
+                Every human, in fact, most non-nocturnal animals, follow the
+                basic rules of the circadian rhythm.
+            </p>
+
+            <p>
+                However, we also have our own unique body clocks which
+                control the daily changes in how we think and feel, and
+                oversee a number of our personal characteristics such as
+                sleep patterns.
+            </p>
+
+            <p>
+                Your body clock dictates whether you are a night owl, happy
+                to work late into the night, an early bird who prefers the
+                morning or a humming bird, happy to work both ends of the
+                day.
+            </p>
+
+            <p>
+                Your body clock determines not only your personal sleep
+                patterns, but also whether or not you are grumpy before you
+                have your morning coffee, when and what you need to eat
+                throughout the day, whether you work better in the morning
+                or the afternoon and the best time for you to do exercise.
+            </p>
+
+            <p>
+                It also affects physical performance, such as temperature,
+                blood pressure, digestion, hormone levels and brain activity
+                such as mood, behaviour, and alertness.
+            </p>
+
+            <p>
+                Your body clock is what causes you to gain a few kilograms
+                in autumn and winter time and to make it easier to lose
+                weight in spring and summer.
+            </p>
+
+
+            <h3>F</h3>
+
+            <p>
+                Being aware of a few issues can help us maintain the best
+                rhythms for our body clocks, but there are some tips and
+                tools that can help.
+            </p>
+
+            <p>
+                Keeping to the same bedtime routine and wake-up schedule,
+                even on your days off, is particularly important. There
+                should be no more than a few hours difference in the time
+                you go to bed.
+            </p>
+
+            <p>
+                Avoiding interruptions to your sleep is also very important.
+                If there is intermittent, irregular noise, use a fan or any
+                white noise device that generates calming sounds.
+            </p>
+
+            <p>
+                This is particularly important for night shift workers,
+                for whom daytime noises are generally louder. Soft,
+                background noise can help drown out daytime activity noises.
+            </p>
+
+            <p>
+                Eat small frequent meals to help stoke your metabolism.
+                This is not only helpful in weight maintenance, but
+                reinforces the "day" phase of your circadian clock.
+            </p>
+
+            <p>
+                Eat most of your energy foods earlier in the day and avoid
+                eating a heavy meal near bedtime.
+            </p>
+
+            <p>
+                Avoid all-nighters, like studying all night before an
+                assessment. Cutting back on sleep the night before may mean
+                that you perform less well.
+            </p>
+
+            <p>
+                Reduce changes to your work shift, such as changing from
+                night shift to day shift.
+            </p>
+
+            <p>
+                Avoid alcohol and cigarettes before sleep time.
+            </p>
+
+            <p>
+                If you feel sleepy during the day, take a short nap.
+                Set an alarm so you sleep for no more than about 20 minutes.
+            </p>
+
+            <p>
+                Anything more than just a "catnap" and you will enter into
+                Stage 3 (deep sleep) and find it harder to wake up from.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             RIGHT SIDE: QUESTIONS
+        ====================================== -->
+
+        <section class="questions-panel">
+
+
+            <!-- QUESTIONS 24–30 -->
+
+            <h2>Questions 24–30</h2>
+
+            <p>
+                Do the following statements agree with the information
+                given in the reading passage?
+            </p>
+
+            <p>
+                <strong>TRUE</strong> if the statement agrees with the
+                information
+            </p>
+
+            <p>
+                <strong>FALSE</strong> if the statement contradicts the
+                information
+            </p>
+
+            <p>
+                <strong>NOT GIVEN</strong> if there is no information
+                on this
+            </p>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">24.</span>
+                    Our reactions are at their slowest at sunset.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q24"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q24"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q24"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">25.</span>
+                    There are more accidents on the night shift because
+                    workers tend to get less sleep.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q25"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q25"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q25"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">26.</span>
+                    Limited air travel has minimal effect on the body's
+                    circadian rhythm.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q26"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q26"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q26"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">27.</span>
+                    The circadian rhythm starts when light reaches the brain.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q27"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q27"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q27"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">28.</span>
+                    If a driver is tired, taking a short sleep, listening to
+                    music or winding down the window are all equally
+                    effective measures for keeping awake.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q28"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q28"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q28"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">29.</span>
+                    Humans share the same trends with regards their body
+                    clocks.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q29"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q29"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q29"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">30.</span>
+                    Many people take a short rest just after eating lunch.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q30"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q30"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q30"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <!-- QUESTIONS 31–36 -->
+
+            <h2>Questions 31–36</h2>
+
+            <p>
+                Answer the questions below using
+                <strong>NO MORE THAN THREE WORDS</strong>
+                from the passage for each answer.
+            </p>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">31.</span>
+                    As well as the intensity, what else is important in
+                    sunlight for our circadian rhythm?
+                </p>
+
+                <input
+                    type="text"
+                    name="q31"
+                    aria-label="Question 31">
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">32.</span>
+                    What specific part of the day is the body at its warmest?
+                </p>
+
+                <input
+                    type="text"
+                    name="q32"
+                    aria-label="Question 32">
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">33.</span>
+                    What should night shift workers use to help them sleep?
+                </p>
+
+                <input
+                    type="text"
+                    name="q33"
+                    aria-label="Question 33">
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">34.</span>
+                    What type of person works equally well in the morning
+                    and the evening?
+                </p>
+
+                <input
+                    type="text"
+                    name="q34"
+                    aria-label="Question 34">
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">35.</span>
+                    What does our body clock make it easier to do after the
+                    winter?
+                </p>
+
+                <input
+                    type="text"
+                    name="q35"
+                    aria-label="Question 35">
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">36.</span>
+                    What should you avoid before bed to help you get a good
+                    night's sleep?
+                </p>
+
+                <input
+                    type="text"
+                    name="q36"
+                    aria-label="Question 36">
+
+            </div>
+
+
+            <!-- QUESTIONS 37–40 -->
+
+            <h2>Questions 37–40</h2>
+
+            <p>
+                Complete the summary below.
+                Choose <strong>NO MORE THAN TWO WORDS</strong>
+                from Reading Passage 3 for each answer.
+            </p>
+
+
+            <div class="summary-box">
+
+                <h3>Maintaining a healthy rhythm</h3>
+
+                <p>
+                    Keep a good
+                    <span class="inline-question">
+                        <strong>37.</strong>
+                        <input
+                            type="text"
+                            name="q37"
+                            aria-label="Question 37">
+                    </span>
+                    by following routines.
+                </p>
+
+                <p>
+                    Try to sleep and wake at roughly the same times when
+                    working and on days off.
+                </p>
+
+                <p>
+                    Use
+                    <span class="inline-question">
+                        <strong>38.</strong>
+                        <input
+                            type="text"
+                            name="q38"
+                            aria-label="Question 38">
+                    </span>
+                    noise to help you sleep if there are external
+                    distractions.
+                </p>
+
+                <p>
+                    Small and regular meals keep your
+                    <span class="inline-question">
+                        <strong>39.</strong>
+                        <input
+                            type="text"
+                            name="q39"
+                            aria-label="Question 39">
+                    </span>
+                    operating at its best.
+                </p>
+
+                <p>
+                    Limit changes to your work shift, and if necessary take
+                    a short
+                    <span class="inline-question">
+                        <strong>40.</strong>
+                        <input
+                            type="text"
+                            name="q40"
+                            aria-label="Question 40">
+                    </span>
+                    during the day.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+</form>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+    /* =========================================
+       TIMER
+    ========================================= */
+
+    let timeLeft = parseInt(
+        sessionStorage.getItem("readingTest2TimeLeft")
+    );
+
+    if (isNaN(timeLeft)) {
+
+        timeLeft = 60 * 60;
+
+        sessionStorage.setItem(
+            "readingTest2TimeLeft",
+            timeLeft
+        );
+
+    }
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
+    }
+
+
+    updateTimer();
+
+
+    const timerInterval = setInterval(function() {
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            sessionStorage.setItem(
+                "readingTest2TimeLeft",
+                0
+            );
+
+            submitReadingTest();
+
+            return;
+
+        }
+
+
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "readingTest2TimeLeft",
+            timeLeft
+        );
+
+        updateTimer();
+
+    }, 1000);
+
+
+
+    /* =========================================
+       SAVE ANSWERS
+    ========================================= */
+
+    function saveAnswers() {
+
+        document.querySelectorAll(
+            "#readingForm input"
+        ).forEach(function(input) {
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                if (input.checked) {
+
+                    sessionStorage.setItem(
+                        "readingTest2_" + input.name,
+                        input.value
+                    );
+
+                }
+
+            } else {
+
+                sessionStorage.setItem(
+                    "readingTest2_" + input.name,
+                    input.value
+                );
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       RESTORE ANSWERS
+    ========================================= */
+
+    function restoreAnswers() {
+
+        document.querySelectorAll(
+            "#readingForm input"
+        ).forEach(function(input) {
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "readingTest2_" + input.name
+                );
+
+
+            if (savedAnswer === null) {
+                return;
+            }
+
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                input.checked =
+                    input.value === savedAnswer;
+
+            } else {
+
+                input.value = savedAnswer;
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       QUESTION PROGRESS
+    ========================================= */
+
+    function updateQuestionProgress() {
+
+        for (let i = 24; i <= 40; i++) {
+
+            const inputs =
+                document.querySelectorAll(
+                    `[name="q${i}"]`
+                );
+
+            const button =
+                document.querySelector(
+                    `.question-progress-button[data-question="${i}"]`
+                );
+
+
+            if (!button) {
+                continue;
+            }
+
+
+            let attempted = false;
+
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type === "radio" ||
+                    input.type === "checkbox"
+                ) {
+
+                    if (input.checked) {
+                        attempted = true;
+                    }
+
+                } else {
+
+                    if (input.value.trim() !== "") {
+                        attempted = true;
+                    }
+
+                }
+
+            });
+
+
+            if (attempted) {
+
+                button.classList.add("answered");
+
+            } else {
+
+                button.classList.remove("answered");
+
+            }
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       INPUT LISTENERS
+    ========================================= */
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        input.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
+
+        input.addEventListener(
+            "change",
+            function() {
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+
+    /* =========================================
+       PART NAVIGATION
+    ========================================= */
+
+    function goToPart(partNumber) {
+
+        saveAnswers();
+
+
+        if (partNumber === 1) {
+
+            window.location.href =
+                "reading-test-2-part1.html";
+
+        }
+
+
+        if (partNumber === 2) {
+
+            window.location.href =
+                "reading-test-2-part2.html";
+
+        }
+
+
+        if (partNumber === 3) {
+
+            window.location.href =
+                "reading-test-2-part3.html";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       SUBMIT TEST
+    ========================================= */
+
+    function submitReadingTest() {
+
+        saveAnswers();
+
+        window.location.href =
+            "reading-test-2-final.html";
+
+    }
+
+
+
+    /* =========================================
+       RESTORE ON LOAD
+    ========================================= */
+
+    restoreAnswers();
+    updateQuestionProgress();
+
+</script>
+
+</body>
+</html>

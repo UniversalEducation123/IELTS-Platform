@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 2</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .reading-diagram {
+            width: 100%;
+            max-width: 650px;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .diagram-answers {
+            margin-top: 20px;
+        }
+
+        .diagram-answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .diagram-answer-row strong {
+            min-width: 30px;
+        }
+
+        .diagram-answer-row input {
+            width: 260px;
+            padding: 9px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 700px) {
+            .diagram-answer-row {
+                flex-wrap: wrap;
+            }
+
+            .diagram-answer-row input {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+    /* ================================
+       READING TEST 2 ACCESS PROTECTION
+       ================================ */
+
+    const readingAccessKey = "access_reading-test-2";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    /*
+       IMPORTANT:
+       Do NOT remove the access key here.
+       It must stay available while the student
+       moves between Part 1, Part 2 and Part 3.
+    */
+
+    if (readingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=reading-test-2";
+    }
+</script>
+
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+    </a>
+
+    <h3>IELTS Academic Reading Test</h3>
+
+    <nav>
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../student-login.html">Logout</a>
+    </nav>
+
+</header>
+
+
+<!-- ================================
+     QUESTION PROGRESS
+     ================================ -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+<main class="reading-wrapper">
+
+    <!-- ================================
+         TIMER
+         ================================ -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+            60:00
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         PART BUTTONS
+         ================================ -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+            Part 1
+        </button>
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+            Part 2
+        </button>
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+            Part 3
+        </button>
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         READING FORM
+         ================================ -->
+
+    <form id="readingForm">
+
+
+        <!-- =========================================
+             PART 1
+             ========================================= -->
+
+        <section
+            id="part1"
+            class="reading-part active">
+
+            <div class="reading-split-layout">
+
+
+                <!-- =================================
+                     LEFT SIDE: PASSAGE
+                     ================================= -->
+
+                <section class="passage-panel">
+
+                    <h2>
+                        Passage 1: HOT AIR BALLOONING
+                    </h2>
+
+
+                    <p>
+                        The birth of the hot air balloon is largely contributed
+                        to the efforts of two French brothers, Joseph and Etienne
+                        Montgolfier, who employed the fact that hot air was lighter
+                        than cool air and using this, managed to lift a small silk
+                        balloon 32 metres into the air. The brothers went on to
+                        elevate a balloon into the air ten thousand metres before
+                        it started to descend and then exploded. Arguably limited
+                        success, but their work came to the eye of the French Science
+                        Academy as the discovery of the properties of hot air balloons
+                        helped scientists to study weather patterns and the atmosphere.
+                    </p>
+
+
+                    <p>
+                        It was not until some considerable time later that a balloon
+                        was launched that was capable of carrying passengers. Initial
+                        flights were trialled by animals, but after the success of
+                        these voyages, two passengers, Jean Francois Pilatre and
+                        Francois Laurent d'Arlendes, were sent up in a balloon which
+                        travelled across Paris for 29 minutes. The men fuelled the fire
+                        in the centre of their wicker basket to keep the balloon
+                        elevated and the trip across Paris was a great success.
+                    </p>
+
+
+                    <p>
+                        The discovery of hydrogen-fuelled flights led to the death
+                        in 1785 of Pilatre, a tragedy which caused a downfall in the
+                        popularity of hot air ballooning but an increase in the
+                        popularity of hydrogen. Hot air ballooning lost further ground
+                        when alternate modes of air travel were introduced, but in the
+                        1950s, ballooning experienced something of a revival as a
+                        leisure activity and sport. Today there are balloons of all
+                        shapes and sizes, with many unique designs.
+                    </p>
+
+
+                    <p>
+                        In 1987, British entrepreneur Richard Branson crossed the
+                        Atlantic in a balloon named Virgin Atlantic Flyer. At the
+                        time, this balloon was the largest ever constructed at 65
+                        thousand cubic metres, but four years later, he and Per
+                        Lindstrand from Sweden flew nearly 8000 kilometres from Japan
+                        to Northern Canada in their balloon the Virgin Pacific Flyer,
+                        which was nearly 10 thousand cubic metres bigger and was the
+                        longest flight in a hot air balloon ever made. The Pacific
+                        Flyer was designed to fly in the trans-oceanic jet streams
+                        and recorded the highest ground speed for a manned balloon at
+                        394 kilometres per hour.
+                    </p>
+
+
+                    <p>
+                        There are now a wide variety of designs and equipment available,
+                        from baskets with room for two people right up to 35 or more,
+                        separated compartments and specially designed flame resistant
+                        fabrics, but the basic parts of the balloon have remained
+                        relatively unchanged. There is a basket, commonly made of
+                        wicker, inside which are stored the propane fuel tanks.
+                        Immediately above the basket and partly wrapped around by the
+                        skirt are the burners, attached on suspension wires. 
+                        The balloon itself is made of strips of fabric called gores
+                        which run from the skirt to the top of the balloon; they are
+                        further broken into individual panels. This section of the
+                        craft is referred to as the envelope. At the top of the
+                        envelope is a self closing flap that allows hot air to escape
+                        at a controlled rate to slow ascents or cause the balloon to
+                        descend descents. This is named the parachute valve, and is
+                        controlled by the vent line – the cable that runs the length
+                        of the envelope and hangs just above the basket so the pilot
+                        can open and close the parachute valve.                 
+                      
+                    </p>
+
+
+                    <p>
+                        At the mercy of prevailing wind currents, piloting a balloon
+                        takes a huge amount of skill but the controls used are fairly
+                        straight forward. To lift a balloon the pilot moves the control
+                        which releases propane. The pilot can control the speed of the
+                        balloon by increasing or decreasing the flow of propane gas,
+                        but they cannot control horizontal direction. As a result,
+                        balloons are often followed by ground crew, who may have to
+                        pick up the pilot, passengers and balloon from any number of
+                        landing sites. A pilot who wants to fly a hot air balloon must
+                        have his commercial pilot’s license to fly and must have at
+                        least 35 hours of flight instruction. There are no official
+                        safety requirements for passengers onboard, but they should
+                        know whom they’re flying with and what qualifications they may
+                        have. For safety reasons, hot air balloons don’t fly in the
+                        rain because the heat in the balloon can cause water to boil on
+                        top of the balloon and destroy the fabric.
+                    </p>
+
+
+                    <p>
+                        One of the largest hot air balloon organisations is the Balloon
+                        Federation of America. Founded in 1961, membership in the BFA
+                        attracts those with a fascination with ballooning (or ‘Lighter
+                        Than Air’ flight). With an active discussion forum, meetings
+                        and displays all around the USA and beyond, the BFA runs on a
+                        number of guiding principles, primarily that the future of
+                        ballooning is directly related to the safety of enthusiasts.
+                        They run a number of training courses, from a novice who is
+                        interested in getting a basic licence to pilot achievement
+                        courses. They even boast of a balloon simulator, which although
+                        will not directly lead to a pilot’s license, it can give
+                        participants a degree of the sensation enjoyed by professional
+                        balloon pilots.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     RIGHT SIDE: QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- QUESTIONS 1–4 -->
+
+                    <h2>Questions 1–4</h2>
+
+                    <p>
+                        Do the following statements agree with the information
+                        given in the reading passage?
+                    </p>
+
+                    <p>
+                        <strong>TRUE</strong>
+                        if the statement agrees with the information
+                    </p>
+
+                    <p>
+                        <strong>FALSE</strong>
+                        if the statement contradicts the information
+                    </p>
+
+                    <p>
+                        <strong>NOT GIVEN</strong>
+                        if there is no information on this
+                    </p>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>1.</strong>
+                            The Montgolfier brothers were the first people
+                            to fly in a hot air balloon.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="TRUE">
+                            TRUE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="FALSE">
+                            FALSE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="NOT GIVEN">
+                            NOT GIVEN
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>2.</strong>
+                            Hot air ballooning became less popular
+                            in the late eighteenth century.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="TRUE">
+                            TRUE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="FALSE">
+                            FALSE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="NOT GIVEN">
+                            NOT GIVEN
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>3.</strong>
+                            The largest hot air balloon had a capacity
+                            of over 75000 cubic metres.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="TRUE">
+                            TRUE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="FALSE">
+                            FALSE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="NOT GIVEN">
+                            NOT GIVEN
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>4.</strong>
+                            Membership of the BFA is only open
+                            to people in America.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="TRUE">
+                            TRUE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="FALSE">
+                            FALSE
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="NOT GIVEN">
+                            NOT GIVEN
+                        </label>
+
+                    </div>
+
+
+                    <!-- QUESTIONS 5–7 -->
+
+                    <h2>Questions 5–7</h2>
+
+                    <p>
+                        Answer the questions below using
+                        <strong>NO MORE THAN THREE WORDS AND/OR A NUMBER</strong>
+                        from the passage for each answer.
+                    </p>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>5.</strong>
+                            Who accompanied the entrepreneur on the
+                            longest balloon flight?
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q5"
+                            aria-label="Question 5">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>6.</strong>
+                            Who follows a hot air balloon’s flight
+                            to retrieve the craft when it lands?
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q6"
+                            aria-label="Question 6">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>7.</strong>
+                            What can give newcomers to the sport
+                            some idea of the feeling of flying a balloon?
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q7"
+                            aria-label="Question 7">
+
+                    </div>
+
+
+                    <!-- QUESTIONS 8–11 -->
+
+                    <h2>Questions 8–11</h2>
+
+                    <p>
+                        Label the diagram below using
+                        <strong>NO MORE THAN TWO WORDS</strong>
+                        from the passage for each answer.
+                    </p>
+
+
+                    <img
+                        src="../assets/hot_air_balloon.png"
+                        alt="Hot air balloon diagram for Questions 8 to 11"
+                        class="reading-diagram">
+
+
+                    <div class="diagram-answers">
+
+                        <div class="diagram-answer-row">
+
+                            <strong>8. A =</strong>
+
+                            <input
+                                type="text"
+                                name="q8"
+                                aria-label="Question 8">
+
+                        </div>
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>9. B =</strong>
+
+                            <input
+                                type="text"
+                                name="q9"
+                                aria-label="Question 9">
+
+                        </div>
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>10. C =</strong>
+
+                            <input
+                                type="text"
+                                name="q10"
+                                aria-label="Question 10">
+
+                        </div>
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>11. D =</strong>
+
+                            <input
+                                type="text"
+                                name="q11"
+                                aria-label="Question 11">
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   READING TEST 2 TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem("readingTest2TimeLeft");
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem("readingTest2TimerStarted") === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+}
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+    timerInterval =
+        setInterval(function () {
+
+            timeLeft--;
+
+            updateTimer();
+
+            sessionStorage.setItem(
+                "readingTest2TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+                sessionStorage.removeItem(
+                    "readingTest2TimeLeft"
+                );
+
+                sessionStorage.removeItem(
+                    "readingTest2TimerStarted"
+                );
+
+                alert("Time is up!");
+
+            }
+
+        }, 1000);
+}
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+    timerStarted = true;
+
+    sessionStorage.setItem(
+        "readingTest2TimerStarted",
+        "true"
+    );
+
+    updateTimer();
+
+    runTimer();
+}
+
+
+/* Start Reading Test 2 timer when Part 1 opens */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            if (input.checked) {
+
+                sessionStorage.setItem(
+                    "readingTest2_" + input.name,
+                    input.value
+                );
+
+            }
+
+        } else {
+
+            sessionStorage.setItem(
+                "readingTest2_" + input.name,
+                input.value
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingTest2_" + input.name
+            );
+
+
+        if (savedAnswer === null) {
+            return;
+        }
+
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            input.checked =
+                input.value === savedAnswer;
+
+        } else {
+
+            input.value = savedAnswer;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 1; i <= 11; i++) {
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+
+        let answered = false;
+
+
+        inputs.forEach(function(input) {
+
+            if (
+                (
+                    input.type === "radio"
+                    || input.type === "checkbox"
+                )
+                && input.checked
+            ) {
+
+                answered = true;
+
+            }
+
+
+            if (
+                input.type !== "radio"
+                && input.type !== "checkbox"
+                && input.value.trim() !== ""
+            ) {
+
+                answered = true;
+
+            }
+
+        });
+
+
+        if (answered) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document.querySelectorAll(
+    "#readingForm input"
+).forEach(function(input) {
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+
+    input.addEventListener(
+        "change",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   RESTORE SAVED ANSWERS
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-2-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-2-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-2-part3.html";
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT TEST
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+    window.location.href =
+        "reading-test-2-final.html";
+
+}
+
+</script>
+
+</body>
+</html>

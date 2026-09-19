@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 2</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .question input[type="text"] {
+            min-width: 180px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .question label {
+            display: block;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .question-number {
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        .paragraph-question {
+            margin: 18px 0;
+        }
+
+        .summary-box {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .summary-box input {
+            min-width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+    /* =========================================
+       ACCESS CONTROL
+    ========================================= */
+
+    const readingAccessKey = "access_reading-test-2";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=reading-test-2";
+    }
+</script>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-logo">
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+    </div>
+
+    <div class="navbar-title">
+        IELTS Academic Reading Test
+    </div>
+
+    <div class="navbar-links">
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+    </div>
+
+</nav>
+
+
+<!-- =========================================
+     QUESTION PROGRESS
+========================================= -->
+
+<div class="question-progress-container">
+
+    <div class="question-progress">
+
+        <button
+            class="question-progress-button"
+            data-question="1">1</button>
+
+        <button
+            class="question-progress-button"
+            data-question="2">2</button>
+
+        <button
+            class="question-progress-button"
+            data-question="3">3</button>
+
+        <button
+            class="question-progress-button"
+            data-question="4">4</button>
+
+        <button
+            class="question-progress-button"
+            data-question="5">5</button>
+
+        <button
+            class="question-progress-button"
+            data-question="6">6</button>
+
+        <button
+            class="question-progress-button"
+            data-question="7">7</button>
+
+        <button
+            class="question-progress-button"
+            data-question="8">8</button>
+
+        <button
+            class="question-progress-button"
+            data-question="9">9</button>
+
+        <button
+            class="question-progress-button"
+            data-question="10">10</button>
+
+        <button
+            class="question-progress-button"
+            data-question="11">11</button>
+
+        <button
+            class="question-progress-button answered"
+            data-question="12">12</button>
+
+        <button
+            class="question-progress-button"
+            data-question="13">13</button>
+
+        <button
+            class="question-progress-button"
+            data-question="14">14</button>
+
+        <button
+            class="question-progress-button"
+            data-question="15">15</button>
+
+        <button
+            class="question-progress-button"
+            data-question="16">16</button>
+
+        <button
+            class="question-progress-button"
+            data-question="17">17</button>
+
+        <button
+            class="question-progress-button"
+            data-question="18">18</button>
+
+        <button
+            class="question-progress-button"
+            data-question="19">19</button>
+
+        <button
+            class="question-progress-button"
+            data-question="20">20</button>
+
+        <button
+            class="question-progress-button"
+            data-question="21">21</button>
+
+        <button
+            class="question-progress-button"
+            data-question="22">22</button>
+
+        <button
+            class="question-progress-button"
+            data-question="23">23</button>
+
+        <button
+            class="question-progress-button"
+            data-question="24">24</button>
+
+        <button
+            class="question-progress-button"
+            data-question="25">25</button>
+
+        <button
+            class="question-progress-button"
+            data-question="26">26</button>
+
+        <button
+            class="question-progress-button"
+            data-question="27">27</button>
+
+        <button
+            class="question-progress-button"
+            data-question="28">28</button>
+
+        <button
+            class="question-progress-button"
+            data-question="29">29</button>
+
+        <button
+            class="question-progress-button"
+            data-question="30">30</button>
+
+        <button
+            class="question-progress-button"
+            data-question="31">31</button>
+
+        <button
+            class="question-progress-button"
+            data-question="32">32</button>
+
+        <button
+            class="question-progress-button"
+            data-question="33">33</button>
+
+        <button
+            class="question-progress-button"
+            data-question="34">34</button>
+
+        <button
+            class="question-progress-button"
+            data-question="35">35</button>
+
+        <button
+            class="question-progress-button"
+            data-question="36">36</button>
+
+        <button
+            class="question-progress-button"
+            data-question="37">37</button>
+
+        <button
+            class="question-progress-button"
+            data-question="38">38</button>
+
+        <button
+            class="question-progress-button"
+            data-question="39">39</button>
+
+        <button
+            class="question-progress-button"
+            data-question="40">40</button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     TIMER
+========================================= -->
+
+<div class="reading-timer-container">
+
+    <div class="reading-timer">
+        Time Remaining:
+        <span id="timer">60:00</span>
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     PART NAVIGATION
+========================================= -->
+
+<div class="reading-part-navigation">
+
+    <button onclick="goToPart(1)">
+        Part 1
+    </button>
+
+    <button class="active" onclick="goToPart(2)">
+        Part 2
+    </button>
+
+    <button onclick="goToPart(3)">
+        Part 3
+    </button>
+
+</div>
+
+
+<form id="readingForm">
+
+<section
+    id="part2"
+    class="reading-part active">
+
+    <div class="reading-split-layout">
+
+
+        <!-- =====================================
+             LEFT SIDE: PASSAGE
+        ====================================== -->
+
+        <section class="passage-panel">
+
+            <h2>
+                Passage 2: Illegal Downloads
+            </h2>
+
+
+            <h3>A</h3>
+
+            <p>
+                Downloading music from the internet has become a simple,
+                fast and easy thing to do. The correct or legal way of
+                going about it seems to be ignored by those who find it
+                too costly. Illegal music downloads have reached an all
+                time high, and a recent survey of high school students
+                revealed an estimated 3.6 billion songs being downloaded
+                per month.
+            </p>
+
+            <p>
+                There are now endless possibilities available to the
+                public where music can be downloaded for free and people
+                are choosing to take this route even though it is illegal.
+                iTunes is one of the most well known sites where music
+                can be bought legally for just over $1 per track.
+                So when it is this cheap why are people still going to
+                alternative unauthorized sites? Or is the legal route
+                still considered a costly way to go about it?
+            </p>
+
+
+            <h3>B</h3>
+
+            <p>
+                If you think that copying music results in simply a slap
+                on the wrist, think twice. Under government law, record
+                companies are entitled to $750 to $30,000 per infringement
+                but the law allows the jury to increase that to as much
+                as $150,000 per song if it finds the infringements were
+                deliberate.
+            </p>
+
+            <p>
+                The music industry has threatened about 35,000 people
+                with charges of copyright infringement over the past
+                decade. In recent months there have been more cases of
+                music piracy heading to the courts. The industry estimates
+                that more than a hundred of these cases remain unsettled
+                in court, with fewer than 10 offenders actively arguing
+                the case against them.
+            </p>
+
+            <p>
+                The penalties for breaching the copyright act differ
+                slightly depending upon whether the infringing is for
+                commercial or private financial gain, with the latter
+                punishment being far milder.
+            </p>
+
+
+            <h3>C</h3>
+
+            <p>
+                Nonetheless, the potential gain from illegal downloading
+                versus the punitive measures that can be taken are, in
+                many cases, poles apart.
+            </p>
+
+            <p>
+                Recently, an American woman shared 27 illegally downloaded
+                songs with her friends and was ordered to pay $1.92 million
+                to the record company for deliberate infringement of the
+                companies' copyrights.
+            </p>
+
+            <p>
+                More recently in America a 12 year old girl was sued for
+                downloading music illegally and could face a penalty of
+                $150,000 per song.
+            </p>
+
+            <p>
+                The order of payment from the courts to the American woman
+                who shared the 27 tracks with her friends has spurred
+                controversy as the public disagree with the ordered
+                infringement. The woman shared 27 songs at $1.99 per song,
+                so should she be liable to pay such a large and impossible
+                amount?
+            </p>
+
+
+            <h3>D</h3>
+
+            <p>
+                It has also been noted that of all measures that can be
+                taken, fining is actually the least likely method of
+                preventing further abuse.
+            </p>
+
+            <p>
+                With driving, for example, statistics have shown that
+                those that repeatedly drive over the speed limit are not
+                discouraged by the loss of a sum of money, but this attitude
+                quickly changed when the penalty was possibly losing their
+                driving licence or even spending time in prison.
+            </p>
+
+
+            <h3>E</h3>
+
+            <p>
+                Being a difficult thing to police, the music industry has
+                decided that it would be much easier to go after the
+                internet service provider than to try and track down each
+                individual case.
+            </p>
+
+            <p>
+                The music industry feels internet piracy has decreased
+                their artists' sales dramatically and is a danger to their
+                business, although on the other hand, online music sales
+                promote individual tracks to be sold rather than albums,
+                therefore increasing the amount spent by the purchaser.
+            </p>
+
+
+            <h3>F</h3>
+
+            <p>
+                If there are so many issues around the downloading of
+                music, you might wonder why sales of MP3 players and CD
+                burners are increasing rapidly.
+            </p>
+
+            <p>
+                The answer is simple. These devices do have a legitimate
+                purpose defined as 'fair use'. You can choose to make your
+                personal back-up copy to use in a MP3 player, or you may
+                visit one of many web sites, like iTunes, which offers
+                music that you pay for as you download.
+            </p>
+
+            <p>
+                While some may wonder why you would pay for something that
+                can be had for free, those who do prefer to obey the
+                copyright protection laws have purchased over 150 million
+                songs from the iTunes site alone.
+            </p>
+
+
+            <h3>G</h3>
+
+            <p>
+                Online music sales are a business just like any other and
+                music companies are fighting to salvage their industry.
+                Cary Sherman, the President of RIAA (Recording Industry
+                Association of America), stated that when your product is
+                being regularly stolen, there comes a time when you have
+                to take appropriate action.
+            </p>
+
+            <p>
+                At the same time, the RIAA has offered amnesty to the
+                illegal downloaders who decide to come forward and agree
+                to stop illegally downloading music over the Internet.
+                People who have already been sued are obviously not
+                eligible for amnesty.
+            </p>
+
+
+            <h3>H</h3>
+
+            <p>
+                When high school students were asked how they felt about
+                the business of downloading illegally from the net they
+                appeared to be divided on the issue.
+            </p>
+
+            <p>
+                Some seemed to think there was absolutely nothing wrong
+                with it. Others felt that it should be thought of as a
+                serious crime like any other form of theft.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             RIGHT SIDE: QUESTIONS
+        ====================================== -->
+
+        <section class="questions-panel">
+
+            <h2>Questions 12–16</h2>
+
+            <p>
+                The reading passage has eight paragraphs, A-H.
+                Which paragraph contains the following information?
+            </p>
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">12.</span>
+                    The disparity between fines and costs
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="A">
+                    A
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="B">
+                    B
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="C">
+                    C
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="D">
+                    D
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="E">
+                    E
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="F">
+                    F
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="G">
+                    G
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q12"
+                        value="H">
+                    H
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">13.</span>
+                    The potential costs of piracy to the defendant
+                </p>
+
+                <label>
+                    <input type="radio" name="q13" value="A"> A
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="B"> B
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="C"> C
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="D"> D
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="E"> E
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="F"> F
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="G"> G
+                </label>
+
+                <label>
+                    <input type="radio" name="q13" value="H"> H
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">14.</span>
+                    The number of songs illegally obtained from the internet
+                </p>
+
+                <label><input type="radio" name="q14" value="A"> A</label>
+                <label><input type="radio" name="q14" value="B"> B</label>
+                <label><input type="radio" name="q14" value="C"> C</label>
+                <label><input type="radio" name="q14" value="D"> D</label>
+                <label><input type="radio" name="q14" value="E"> E</label>
+                <label><input type="radio" name="q14" value="F"> F</label>
+                <label><input type="radio" name="q14" value="G"> G</label>
+                <label><input type="radio" name="q14" value="H"> H</label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">15.</span>
+                    Ambivalence towards the problem
+                </p>
+
+                <label><input type="radio" name="q15" value="A"> A</label>
+                <label><input type="radio" name="q15" value="B"> B</label>
+                <label><input type="radio" name="q15" value="C"> C</label>
+                <label><input type="radio" name="q15" value="D"> D</label>
+                <label><input type="radio" name="q15" value="E"> E</label>
+                <label><input type="radio" name="q15" value="F"> F</label>
+                <label><input type="radio" name="q15" value="G"> G</label>
+                <label><input type="radio" name="q15" value="H"> H</label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">16.</span>
+                    A reprieve for illegal downloaders
+                </p>
+
+                <label><input type="radio" name="q16" value="A"> A</label>
+                <label><input type="radio" name="q16" value="B"> B</label>
+                <label><input type="radio" name="q16" value="C"> C</label>
+                <label><input type="radio" name="q16" value="D"> D</label>
+                <label><input type="radio" name="q16" value="E"> E</label>
+                <label><input type="radio" name="q16" value="F"> F</label>
+                <label><input type="radio" name="q16" value="G"> G</label>
+                <label><input type="radio" name="q16" value="H"> H</label>
+
+            </div>
+
+
+            <h2>Questions 17–20</h2>
+
+            <p>
+                Answer the questions below using
+                <strong>NO MORE THAN THREE WORDS AND/OR A NUMBER</strong>
+                from the passage for each answer.
+            </p>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">17.</span>
+                    The maximum fine that a record company can impose is
+                    <input
+                        type="text"
+                        name="q17"
+                        aria-label="Question 17">
+                </p>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">18.</span>
+                    The penalty for breaking copyright laws is harsher when
+                    undertaken for
+                    <input
+                        type="text"
+                        name="q18"
+                        aria-label="Question 18">
+                    benefit.
+                </p>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">19.</span>
+                    The music industry targets each
+                    <input
+                        type="text"
+                        name="q19"
+                        aria-label="Question 19">
+                    rather than each specific person downloading illegally.
+                </p>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">20.</span>
+                    Appliances used in connection with illegal downloads are
+                    sold under the term
+                    <input
+                        type="text"
+                        name="q20"
+                        aria-label="Question 20">
+                </p>
+
+            </div>
+
+
+            <h2>Questions 21–23</h2>
+
+            <p>
+                Do the following statements agree with the information
+                given in the reading passage?
+            </p>
+
+            <p>
+                <strong>TRUE</strong> if the statement agrees with the
+                information
+            </p>
+
+            <p>
+                <strong>FALSE</strong> if the statement contradicts the
+                information
+            </p>
+
+            <p>
+                <strong>NOT GIVEN</strong> if there is no information
+                on this
+            </p>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">21.</span>
+                    Most people sued for illegal downloading actively fight
+                    back against the record company.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q21"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q21"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q21"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">22.</span>
+                    Illegal downloading can be difficult to monitor and
+                    control.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q22"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q22"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q22"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <span class="question-number">23.</span>
+                    High school students are responsible for illegally
+                    downloading the most music.
+                </p>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q23"
+                        value="TRUE">
+                    TRUE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q23"
+                        value="FALSE">
+                    FALSE
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="q23"
+                        value="NOT GIVEN">
+                    NOT GIVEN
+                </label>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+</form>
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script>
+
+    /* =========================================
+       TIMER
+    ========================================= */
+
+    let timeLeft = parseInt(
+        sessionStorage.getItem("readingTest2TimeLeft")
+    );
+
+    if (isNaN(timeLeft)) {
+        timeLeft = 60 * 60;
+        sessionStorage.setItem(
+            "readingTest2TimeLeft",
+            timeLeft
+        );
+    }
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
+    }
+
+
+    updateTimer();
+
+
+    const timerInterval = setInterval(function() {
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            sessionStorage.setItem(
+                "readingTest2TimeLeft",
+                0
+            );
+
+            submitReadingTest();
+
+            return;
+        }
+
+
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "readingTest2TimeLeft",
+            timeLeft
+        );
+
+        updateTimer();
+
+    }, 1000);
+
+
+
+    /* =========================================
+       SAVE ANSWERS
+    ========================================= */
+
+    function saveAnswers() {
+
+        document.querySelectorAll(
+            "#readingForm input"
+        ).forEach(function(input) {
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                if (input.checked) {
+
+                    sessionStorage.setItem(
+                        "readingTest2_" + input.name,
+                        input.value
+                    );
+
+                }
+
+            } else {
+
+                sessionStorage.setItem(
+                    "readingTest2_" + input.name,
+                    input.value
+                );
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       RESTORE ANSWERS
+    ========================================= */
+
+    function restoreAnswers() {
+
+        document.querySelectorAll(
+            "#readingForm input"
+        ).forEach(function(input) {
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "readingTest2_" + input.name
+                );
+
+
+            if (savedAnswer === null) {
+                return;
+            }
+
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                input.checked =
+                    input.value === savedAnswer;
+
+            } else {
+
+                input.value = savedAnswer;
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =========================================
+       QUESTION PROGRESS
+    ========================================= */
+
+    function updateQuestionProgress() {
+
+        for (let i = 12; i <= 23; i++) {
+
+            const inputs =
+                document.querySelectorAll(
+                    `[name="q${i}"]`
+                );
+
+            const button =
+                document.querySelector(
+                    `.question-progress-button[data-question="${i}"]`
+                );
+
+
+            if (!button) {
+                continue;
+            }
+
+
+            let attempted = false;
+
+
+            inputs.forEach(function(input) {
+
+                if (
+                    input.type === "radio" ||
+                    input.type === "checkbox"
+                ) {
+
+                    if (input.checked) {
+                        attempted = true;
+                    }
+
+                } else {
+
+                    if (input.value.trim() !== "") {
+                        attempted = true;
+                    }
+
+                }
+
+            });
+
+
+            if (attempted) {
+
+                button.classList.add("answered");
+
+            } else {
+
+                button.classList.remove("answered");
+
+            }
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       INPUT LISTENERS
+    ========================================= */
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        input.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
+
+        input.addEventListener(
+            "change",
+            function() {
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+
+    /* =========================================
+       PART NAVIGATION
+    ========================================= */
+
+    function goToPart(partNumber) {
+
+        saveAnswers();
+
+
+        if (partNumber === 1) {
+
+            window.location.href =
+                "reading-test-2-part1.html";
+
+        }
+
+
+        if (partNumber === 2) {
+
+            window.location.href =
+                "reading-test-2-part2.html";
+
+        }
+
+
+        if (partNumber === 3) {
+
+            window.location.href =
+                "reading-test-2-part3.html";
+
+        }
+
+    }
+
+
+
+    /* =========================================
+       SUBMIT TEST
+    ========================================= */
+
+    function submitReadingTest() {
+
+        saveAnswers();
+
+        window.location.href =
+            "reading-test-2-final.html";
+
+    }
+
+
+
+    /* =========================================
+       RESTORE ON LOAD
+    ========================================= */
+
+    restoreAnswers();
+    updateQuestionProgress();
+
+</script>
+
+</body>
+</html>
