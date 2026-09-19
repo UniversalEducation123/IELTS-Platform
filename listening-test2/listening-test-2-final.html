@@ -767,7 +767,6 @@
 
 
             const resultData = {
-
                 student_id:
                     studentId
                         ? Number(studentId)
@@ -779,8 +778,14 @@
                 test_name:
                     "Test 2",
 
+                test_date:
+                    new Date().toISOString().split("T")[0],
+
                 listening_score:
-                    score
+                    score,
+
+                is_submitted:
+                    true
             };
 
 

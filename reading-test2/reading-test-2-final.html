@@ -871,22 +871,13 @@
 
 
         const resultData = {
-
-            student_id:
-                studentId
-                    ? Number(studentId)
-                    : null,
-
-            student_name:
-                studentName,
-
-            test_name:
-                "Test 2",
-
-            reading_score:
-                score
-
-        };
+            student_id: studentId ? Number(studentId) : null,
+            student_name: studentName,
+            test_name: "Test 2",
+            test_date: new Date().toISOString().split("T")[0],
+            reading_score: score,
+            is_submitted: true
+        }
 
 
         console.log(

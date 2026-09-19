@@ -902,7 +902,11 @@
 
                 test_name: "Test 1",
 
-                listening_score: score
+                test_date: new Date().toISOString().split("T")[0],
+
+                listening_score: score,
+
+                is_submitted: true
             };
 
             console.log(

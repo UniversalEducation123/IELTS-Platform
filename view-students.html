@@ -122,6 +122,7 @@ async function loadStudentsAndResults() {
         await supabaseClient
             .from("test_results")
             .select("*")
+            .eq("is_submitted", true)
             .order("id", { ascending: true });
 
     if (resultsError) {

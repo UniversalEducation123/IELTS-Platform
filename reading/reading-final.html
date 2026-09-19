@@ -109,6 +109,9 @@
             line-height: 1.7;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -215,6 +218,59 @@
         }
 
         const band = getReadingBand(correct);
+
+        const SUPABASE_URL =
+            "https://gehczgguwxqwfowmbedy.supabase.co";
+
+        const SUPABASE_ANON_KEY =
+            "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
+
+        const db =
+            window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_ANON_KEY
+            );
+
+        const studentId =
+            sessionStorage.getItem("studentId");
+
+        const resultData = {
+            student_id:
+                studentId
+                    ? Number(studentId)
+                    : null,
+
+            student_name:
+                studentName,
+
+            test_name:
+                "Test 1",
+
+            test_date:
+                new Date().toISOString().split("T")[0],
+
+            reading_score:
+                correct,
+
+            is_submitted:
+                true
+        };
+
+        db
+            .from("test_results")
+            .insert([resultData])
+            .then(function(response) {
+                if (response.error) {
+                    console.error(
+                        "Error saving Reading Test 1 result:",
+                        response.error
+                    );
+                } else {
+                    console.log(
+                        "Reading Test 1 result saved successfully."
+                    );
+                }
+            });
 
         document.getElementById("readingScore").textContent =
             correct + " / 40";
