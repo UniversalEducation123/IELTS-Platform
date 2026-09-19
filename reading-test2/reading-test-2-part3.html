@@ -61,17 +61,6 @@
             margin-right: 8px;
         }
 
-        .reading-test-2-part .reading-split-layout {
-            height: auto;
-            min-height: 0;
-        }
-
-        .reading-test-2-part .passage-panel,
-        .reading-test-2-part .questions-panel {
-            height: calc(100vh - 235px);
-            overflow-y: auto;
-        }
-
         @media (max-width: 700px) {
             .diagram-answer-row {
                 flex-wrap: wrap;
@@ -109,81 +98,68 @@
      NAVBAR
 ========================================= -->
 
-<nav class="navbar">
+<header class="navbar">
+    <a href="../index.html" class="logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
+    </a>
 
-    <div class="navbar-logo">
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
-    </div>
+    <h3>IELTS Academic Reading Test</h3>
 
-    <div class="navbar-title">
-        IELTS Academic Reading Test
-    </div>
-
-    <div class="navbar-links">
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
-    </div>
-
-</nav>
+    <nav>
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../student-login.html">Logout</a>
+    </nav>
+</header>
 
 
 <!-- =========================================
      QUESTION PROGRESS
 ========================================= -->
 
-<div class="question-progress-container">
+<div class="reading-question-progress">
 
-    <div class="question-progress">
+    <strong>Questions:</strong>
 
-        <button class="question-progress-button" data-question="1">1</button>
-        <button class="question-progress-button" data-question="2">2</button>
-        <button class="question-progress-button" data-question="3">3</button>
-        <button class="question-progress-button" data-question="4">4</button>
-        <button class="question-progress-button" data-question="5">5</button>
-        <button class="question-progress-button" data-question="6">6</button>
-        <button class="question-progress-button" data-question="7">7</button>
-        <button class="question-progress-button" data-question="8">8</button>
-        <button class="question-progress-button" data-question="9">9</button>
-        <button class="question-progress-button" data-question="10">10</button>
-        <button class="question-progress-button" data-question="11">11</button>
-        <button class="question-progress-button" data-question="12">12</button>
-        <button class="question-progress-button" data-question="13">13</button>
-        <button class="question-progress-button" data-question="14">14</button>
-        <button class="question-progress-button" data-question="15">15</button>
-        <button class="question-progress-button" data-question="16">16</button>
-        <button class="question-progress-button" data-question="17">17</button>
-        <button class="question-progress-button" data-question="18">18</button>
-        <button class="question-progress-button" data-question="19">19</button>
-        <button class="question-progress-button" data-question="20">20</button>
-        <button class="question-progress-button" data-question="21">21</button>
-        <button class="question-progress-button" data-question="22">22</button>
-        <button class="question-progress-button" data-question="23">23</button>
-        <button class="question-progress-button" data-question="24">24</button>
-        <button class="question-progress-button" data-question="25">25</button>
-        <button class="question-progress-button" data-question="26">26</button>
-        <button class="question-progress-button" data-question="27">27</button>
-        <button class="question-progress-button" data-question="28">28</button>
-        <button class="question-progress-button" data-question="29">29</button>
-        <button class="question-progress-button" data-question="30">30</button>
-        <button class="question-progress-button" data-question="31">31</button>
-        <button class="question-progress-button" data-question="32">32</button>
-        <button class="question-progress-button" data-question="33">33</button>
-        <button class="question-progress-button" data-question="34">34</button>
-        <button class="question-progress-button" data-question="35">35</button>
-        <button class="question-progress-button" data-question="36">36</button>
-        <button class="question-progress-button" data-question="37">37</button>
-        <button class="question-progress-button" data-question="38">38</button>
-        <button class="question-progress-button" data-question="39">39</button>
-        <button class="question-progress-button" data-question="40">40</button>
-
-    </div>
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
 
 </div>
 
@@ -192,14 +168,25 @@
      TIMER
 ========================================= -->
 
-<div class="reading-timer-container">
-
-    <div class="reading-timer">
-        Time Remaining:
-        <span id="timer">60:00</span>
+<main class="reading-wrapper">
+    <div class="reading-top">
+        <div class="timer" id="timer">60:00</div>
     </div>
 
-</div>
+    <div class="part-buttons">
+        <button type="button" onclick="goToPart(1)">Part 1</button>
+        <button type="button" onclick="goToPart(2)">Part 2</button>
+        <button type="button" onclick="goToPart(3)">Part 3</button>
+
+        <div class="submit-reading-container">
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+        </div>
+    </div>
 
 
 <!-- =========================================
@@ -949,15 +936,7 @@
 
             </div>
 
-            <div class="submit-reading-container">
-                <button
-                    type="button"
-                    class="submit-reading"
-                    onclick="submitReadingTest()">
-                    Submit Reading Test
-                </button>
-            </div>
-
+            
         </section>
 
     </div>
@@ -1136,10 +1115,9 @@
                     `[name="q${i}"]`
                 );
 
-            const button =
-                document.querySelector(
-                    `.question-progress-button[data-question="${i}"]`
-                );
+            const button = document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
 
 
             if (!button) {
