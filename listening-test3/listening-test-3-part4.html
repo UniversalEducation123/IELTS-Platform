@@ -478,7 +478,7 @@
                 type="button"
                 class="submit-btn"
                 onclick="goToFinal()">
-                Submit Listening Test 3
+                Finish Test
             </button>
 
         </div>
@@ -690,65 +690,58 @@ function restoreAnswers() {
 
 function updateQuestionProgress() {
 
-    for (
-        let i = 1;
-        i <= 40;
-        i++
-    ) {
+    for (let i = 1; i <= 40; i++) {
 
         const inputs =
             document.querySelectorAll(
                 `[name="q${i}"]`
             );
 
-
         const button =
             document.querySelector(
                 `.question-progress-button[data-question="${i}"]`
             );
 
-
         if (!button) {
             continue;
         }
 
-
         let attempted = false;
 
+        inputs.forEach(function(input) {
 
-        Array.from(inputs).forEach(
-            function(input) {
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
 
-                if (
-                    input.value.trim() !== ""
-                ) {
-
+                if (input.checked) {
                     attempted = true;
+                }
 
+            } else {
+
+                if (input.value.trim() !== "") {
+                    attempted = true;
                 }
 
             }
-        );
 
+        });
 
         if (attempted) {
 
-            button.classList.add(
-                "answered"
-            );
+            button.classList.add("answered");
 
         } else {
 
-            button.classList.remove(
-                "answered"
-            );
+            button.classList.remove("answered");
 
         }
 
     }
 
 }
-
 
 /* =========================================
    AUTO SAVE

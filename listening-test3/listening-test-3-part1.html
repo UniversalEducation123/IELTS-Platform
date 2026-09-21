@@ -500,6 +500,17 @@
 
         </section>
 
+        <div class="part-navigation">
+
+            <button
+                type="button"
+                class="next-btn"
+                onclick="goToPart2()">
+                Continue to Part 2
+            </button>
+
+        </div>
+
     </form>
 
 </main>
@@ -761,59 +772,58 @@ function startTimer() {
 
     function updateQuestionProgress() {
 
-        for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 40; i++) {
 
-            const inputs =
-                document.querySelectorAll(
-                    `[name="q${i}"]`
-                );
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
 
-            const button =
-                document.querySelector(
-                    `.question-progress-button[data-question="${i}"]`
-                );
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
 
-            if (!button) {
-                continue;
-            }
+        if (!button) {
+            continue;
+        }
 
-            let attempted = false;
+        let attempted = false;
 
-            inputs.forEach(function(input) {
+        inputs.forEach(function(input) {
 
-                if (
-                    input.type === "radio" ||
-                    input.type === "checkbox"
-                ) {
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
 
-                    if (input.checked) {
-                        attempted = true;
-                    }
-
-                } else {
-
-                    if (input.value.trim() !== "") {
-                        attempted = true;
-                    }
-
+                if (input.checked) {
+                    attempted = true;
                 }
-
-            });
-
-            if (attempted) {
-
-                button.classList.add("answered");
 
             } else {
 
-                button.classList.remove("answered");
+                if (input.value.trim() !== "") {
+                    attempted = true;
+                }
 
             }
+
+        });
+
+        if (attempted) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
 
         }
 
     }
 
+}
 
     /* =========================================
        INPUT LISTENERS

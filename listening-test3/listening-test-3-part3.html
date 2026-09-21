@@ -493,8 +493,18 @@
 
 </section>
 
-</div>
+        <div class="part-navigation">
 
+            <button
+                type="button"
+                class="next-btn"
+                onclick="goToPart4()">
+                Continue to Part 4
+            </button>
+
+        </div>
+
+</main>
 
 <script>
 
@@ -690,73 +700,58 @@
 
     function updateQuestionProgress() {
 
-        for (
-            let i = 1;
-            i <= 30;
-            i++
-        ) {
+    for (let i = 1; i <= 40; i++) {
 
-            const inputs =
-                document.querySelectorAll(
-                    `[name="q${i}"]`
-                );
-
-            const button =
-                document.querySelector(
-                    `.question-progress-button[data-question="${i}"]`
-                );
-
-            if (!button) {
-                continue;
-            }
-
-
-            let attempted = false;
-
-
-            Array.from(inputs).forEach(
-                function(input) {
-
-                    if (
-                        input.type === "radio" &&
-                        input.checked
-                    ) {
-
-                        attempted = true;
-
-                    }
-
-                    if (
-                        input.type !== "radio" &&
-                        input.value.trim() !== ""
-                    ) {
-
-                        attempted = true;
-
-                    }
-
-                }
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
             );
 
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
 
-            if (attempted) {
+        if (!button) {
+            continue;
+        }
 
-                button.classList.add(
-                    "answered"
-                );
+        let attempted = false;
+
+        inputs.forEach(function(input) {
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                if (input.checked) {
+                    attempted = true;
+                }
 
             } else {
 
-                button.classList.remove(
-                    "answered"
-                );
+                if (input.value.trim() !== "") {
+                    attempted = true;
+                }
 
             }
+
+        });
+
+        if (attempted) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
 
         }
 
     }
 
+}
 
     /* =========================================
        AUTO SAVE WHEN TYPING / SELECTING

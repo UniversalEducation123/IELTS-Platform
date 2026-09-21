@@ -541,29 +541,16 @@
             </div>
 
 
-            <div class="navigation-buttons">
-
-                <button
-                    type="button"
-                    class="previous-btn"
-                    onclick="goToPart1()">
-
-                    ← Previous
-
-                </button>
-
+            <div class="part-navigation">
 
                 <button
                     type="button"
                     class="next-btn"
                     onclick="goToPart3()">
-
-                    Next →
-
+                    Continue to Part 3
                 </button>
 
             </div>
-
 
         </div>
 
@@ -797,7 +784,7 @@ function restoreAnswers() {
 
 function updateQuestionProgress() {
 
-    for (let i = 11; i <= 20; i++) {
+    for (let i = 1; i <= 40; i++) {
 
         const inputs =
             document.querySelectorAll(
@@ -813,9 +800,7 @@ function updateQuestionProgress() {
             continue;
         }
 
-
         let attempted = false;
-
 
         inputs.forEach(function(input) {
 
@@ -825,25 +810,18 @@ function updateQuestionProgress() {
             ) {
 
                 if (input.checked) {
-
                     attempted = true;
-
                 }
 
             } else {
 
-                if (
-                    input.value.trim() !== ""
-                ) {
-
+                if (input.value.trim() !== "") {
                     attempted = true;
-
                 }
 
             }
 
         });
-
 
         if (attempted) {
 
@@ -858,7 +836,6 @@ function updateQuestionProgress() {
     }
 
 }
-
 
 /* =========================================
    LIMIT Q11 TO THREE ANSWERS
