@@ -57,6 +57,11 @@
         sessionStorage.removeItem("listeningTest2_q" + i);
     }
 
+    // Listening Test 3
+    for (let i = 1; i <= 40; i++) {
+        sessionStorage.removeItem("listeningTest3_q" + i);
+    }
+
     // Reading Test 1
     for (let i = 1; i <= 40; i++) {
         sessionStorage.removeItem("readingTest1_q" + i);
@@ -75,9 +80,14 @@
     sessionStorage.removeItem("readingTimeLeft");
     sessionStorage.removeItem("readingTimerStarted");
 
+    // Clear Listening Test 3 timer
+    sessionStorage.removeItem("listeningTest3TimeLeft");
+    sessionStorage.removeItem("listeningTest3TimerStarted");
+
     // Clear Listening result guards
     sessionStorage.removeItem("listeningTest1ResultSaved");
     sessionStorage.removeItem("listeningTest2ResultSaved");
+    sessionStorage.removeItem("listeningTest3ResultSaved");
 
     // Clear Reading result/session data
     sessionStorage.removeItem("readingTest2ResultSaved");
