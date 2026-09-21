@@ -108,75 +108,16 @@
 
     <strong>Questions:</strong>
 
-    <button
-        type="button"
-        class="question-progress-button current"
-        data-question="1">
-        1
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="2">
-        2
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="3">
-        3
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="4">
-        4
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="5">
-        5
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="6">
-        6
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="7">
-        7
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="8">
-        8
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="9">
-        9
-    </button>
-
-    <button
-        type="button"
-        class="question-progress-button"
-        data-question="10">
-        10
-    </button>
+    <button type="button" class="question-progress-button" data-question="1">1</button>
+    <button type="button" class="question-progress-button" data-question="2">2</button>
+    <button type="button" class="question-progress-button" data-question="3">3</button>
+    <button type="button" class="question-progress-button" data-question="4">4</button>
+    <button type="button" class="question-progress-button" data-question="5">5</button>
+    <button type="button" class="question-progress-button" data-question="6">6</button>
+    <button type="button" class="question-progress-button" data-question="7">7</button>
+    <button type="button" class="question-progress-button" data-question="8">8</button>
+    <button type="button" class="question-progress-button" data-question="9">9</button>
+    <button type="button" class="question-progress-button" data-question="10">10</button>
 
 </div>
 
@@ -504,7 +445,7 @@
 
             <button
                 type="button"
-                class="next-btn"
+                class="primary-btn submit-section-btn"
                 onclick="goToPart2()">
                 Continue to Part 2
             </button>
@@ -892,17 +833,17 @@ function startTimer() {
 
 
     /* =========================================
-       SUBMIT
-    ========================================= */
+   NAVIGATION
+========================================= */
 
-    function submitTest() {
+function goToPart2() {
 
-        saveAnswers();
+    saveAnswers();
 
-        window.location.href =
-            "listening-test-3-final.html";
+    window.location.href =
+        "listening-test-3-part2.html";
 
-    }
+}
 
 
     /* =========================================

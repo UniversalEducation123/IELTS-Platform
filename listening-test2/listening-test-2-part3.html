@@ -433,7 +433,7 @@ function updateQuestionProgress() {
 
     for (let i = 21; i <= 30; i++) {
 
-        const input = document.querySelector(
+        const inputs = document.querySelectorAll(
             `[name="q${i}"]`
         );
 
@@ -441,9 +441,19 @@ function updateQuestionProgress() {
             `.question-progress-button[data-question="${i}"]`
         );
 
-        if (!input || !button) continue;
+        if (!button) continue;
 
-        if (input.value.trim() !== "") {
+        let answered = false;
+
+        inputs.forEach(function(input) {
+
+            if (input.value.trim() !== "") {
+                answered = true;
+            }
+
+        });
+
+        if (answered) {
             button.classList.add("answered");
         } else {
             button.classList.remove("answered");
