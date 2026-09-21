@@ -2704,10 +2704,6 @@ body.listening-page {
 ========================================= */
 
 .listening-part {
-    display: none;
-}
-
-.listening-part.active {
     display: block;
 }
 

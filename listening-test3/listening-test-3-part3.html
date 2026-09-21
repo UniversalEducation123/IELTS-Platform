@@ -13,258 +13,78 @@
         rel="stylesheet"
         href="../css/style.css">
 
-    <style>
-        body {
-            margin: 0;
-            background: #f5f7f8;
-        }
-
-        .listening-test-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .test-header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .test-header h1 {
-            margin: 0 0 10px;
-        }
-
-        .timer-box {
-            font-size: 20px;
-            font-weight: bold;
-            color: #b00020;
-        }
-
-        .question-progress {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            background: white;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .question-progress-button {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: #f5f5f5;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .question-progress-button.current {
-            background: #1f7a4d;
-            color: white;
-        }
-
-        .question-progress-button.answered {
-            background: #b8e6c8;
-            color: #155d32;
-        }
-
-        .question-progress-button.current.answered {
-            background: #1f7a4d;
-            color: white;
-        }
-
-        .part-title {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .part-title h2 {
-            margin-top: 0;
-            color: #1f7a4d;
-        }
-
-        .questions-box {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .question {
-            margin-bottom: 30px;
-        }
-
-        .question h3 {
-            margin-bottom: 12px;
-        }
-
-        .question-instruction {
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .answer-input {
-            width: 100%;
-            max-width: 500px;
-            padding: 10px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .option {
-            display: block;
-            margin: 10px 0;
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        .option input {
-            margin-right: 8px;
-        }
-
-        .diagram-question-box {
-            margin-top: 25px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background: #fafafa;
-        }
-
-        .diagram-question-box h2 {
-            margin-top: 0;
-            color: #1f7a4d;
-            text-align: center;
-        }
-
-        .test3-diagram-image {
-            display: block;
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            margin: 20px auto;
-            border-radius: 8px;
-        }
-
-        .diagram-answer-boxes {
-            margin-top: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .diagram-answer-boxes h3 {
-            margin-top: 0;
-        }
-
-        .diagram-answer-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .diagram-answer-row label {
-            min-width: 40px;
-            font-weight: bold;
-        }
-
-        .diagram-answer-row input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 25px;
-        }
-
-        .navigation-buttons button {
-            padding: 12px 22px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .previous-button {
-            background: #ddd;
-        }
-
-        .next-button,
-        .submit-button {
-            background: #1f7a4d;
-            color: white;
-        }
-
-        .submit-button {
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        @media (max-width: 700px) {
-            .listening-test-container {
-                padding: 10px;
-            }
-
-            .questions-box {
-                padding: 15px;
-            }
-
-            .diagram-answer-row {
-                align-items: flex-start;
-            }
-
-            .diagram-answer-row input {
-                min-width: 0;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="listening-test-container">
+<div class="listening-section-navigation">
 
-    <div class="test-header">
-        <h1>IELTS Academic Listening Test 3</h1>
+    <strong>Go to:</strong>
 
-        <div class="timer-box">
-            Time remaining:
-            <span id="timer">30:00</span>
-        </div>
+    <a href="listening-test-3-part1.html"
+       class="section-jump-button">
+        Part 1
+    </a>
+
+    <a href="listening-test-3-part2.html"
+       class="section-jump-button">
+        Part 2
+    </a>
+
+    <a href="listening-test-3-part3.html"
+       class="section-jump-button active-section">
+        Part 3
+    </a>
+
+    <a href="listening-test-3-part4.html"
+       class="section-jump-button">
+        Part 4
+    </a>
+
+</div>
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
     </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">--:--</strong>
+        </div>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+<section class="listening-header">
+
+    <div>
+        <h1>Part 3</h1>
+        <p>Questions 21–30</p>
+    </div>
+
+</section>
+
+<main class="listening-container">
 
 
     <!-- QUESTION PROGRESS -->
 
     <div class="question-progress">
+
+    <strong>Questions:</strong>
 
         <button
             type="button"
@@ -421,18 +241,9 @@
 
     <!-- PART 3 -->
 
-    <div class="part-title">
+   <section class="listening-card question-section">
 
-        <h2>Part 3</h2>
-
-        <p>
-            Questions 21–30
-        </p>
-
-    </div>
-
-
-    <div class="questions-box">
+    <div class="question-box">
 
         <div class="question">
 
@@ -676,36 +487,11 @@
         </div>
 
 
-        <!-- NAVIGATION -->
-
-        <div class="navigation-buttons">
-
-            <button
-                type="button"
-                class="previous-button"
-                onclick="goToPart2()">
-                ← Previous
-            </button>
 
 
-            <button
-                type="button"
-                class="next-button"
-                onclick="goToFinal()">
-                Finish Test →
-            </button>
+       </div>
 
-        </div>
-
-
-        <button
-            type="button"
-            class="submit-button"
-            onclick="goToFinal()">
-            Submit Listening Test 3
-        </button>
-
-    </div>
+</section>
 
 </div>
 
@@ -1003,30 +789,47 @@
     ========================================= */
 
     document
-        .querySelectorAll(
-            ".question-progress-button"
-        )
-        .forEach(function(button) {
+    .querySelectorAll(
+        ".question-progress-button"
+    )
+    .forEach(function(button) {
 
-            button.addEventListener(
-                "click",
-                function() {
+        button.addEventListener(
+            "click",
+            function() {
 
-                    const question =
-                        button.dataset.question;
+                const question =
+                    Number(button.dataset.question);
 
-                    if (
-                        Number(question) <= 20
-                    ) {
+                if (question >= 1 && question <= 10) {
 
-                        goToPart2();
+                    window.location.href =
+                        "listening-test-3-part1.html";
 
-                    }
+                } else if (
+                    question >= 11 &&
+                    question <= 20
+                ) {
+
+                    window.location.href =
+                        "listening-test-3-part2.html";
+
+                } else if (
+                    question >= 21 &&
+                    question <= 30
+                ) {
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
 
                 }
-            );
 
-        });
+            }
+        );
+
+    });
 
 
     /* =========================================
