@@ -471,7 +471,7 @@ if (timerStarted) {
 
 function saveAnswers() {
     document.querySelectorAll(
-        ".listening-question-table input"
+        ".inline-answer"
     ).forEach(function(input) {
         sessionStorage.setItem(
             "listeningTest2_" + input.name,
@@ -482,7 +482,7 @@ function saveAnswers() {
 
 function restoreAnswers() {
     document.querySelectorAll(
-        ".listening-question-table input"
+        ".inline-answer"
     ).forEach(function(input) {
         const savedAnswer = sessionStorage.getItem(
             "listeningTest2_" + input.name
@@ -527,7 +527,7 @@ function updateQuestionProgress() {
 }
 
 document.querySelectorAll(
-    ".listening-question-table input"
+    ".inline-answer"
 ).forEach(function(input) {
 
     input.addEventListener("input", function() {
