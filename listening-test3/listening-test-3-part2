@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Listening Test 3 - Part 2</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .listening-test-container {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .listening-test-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .listening-test-header h1 {
+            margin-bottom: 5px;
+        }
+
+        .listening-test-header p {
+            margin: 0;
+            color: #666;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #b00020;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+        }
+
+        .question-progress {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .question-progress-button {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .question-progress-button.answered {
+            background: #198754;
+            color: white;
+            border-color: #198754;
+        }
+
+        .question-progress-button.current {
+            outline: 3px solid #222;
+        }
+
+        .question-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+        }
+
+        .question {
+            margin-bottom: 28px;
+        }
+
+        .question p {
+            font-weight: 600;
+        }
+
+        .option {
+            display: block;
+            margin: 9px 0;
+            font-weight: normal;
+        }
+
+        .answer-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .navigation-buttons button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .previous-btn {
+            background: #555;
+            color: white;
+        }
+
+        .next-btn {
+            background: #198754;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
+    </a>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="listening-test-container">
+
+
+    <div class="listening-test-header">
+
+        <h1>
+            IELTS Academic Listening Test 3
+        </h1>
+
+        <p>
+            Part 2 of 4
+        </p>
+
+    </div>
+
+
+    <div
+        class="timer"
+        id="timer">
+
+        30:00
+
+    </div>
+
+
+    <!-- QUESTION PROGRESS -->
+
+    <div class="question-progress">
+
+        <button
+            class="question-progress-button"
+            data-question="1">
+            1
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="2">
+            2
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="3">
+            3
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="4">
+            4
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="5">
+            5
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="6">
+            6
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="7">
+            7
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="8">
+            8
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="9">
+            9
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="10">
+            10
+        </button>
+
+        <button
+            class="question-progress-button current"
+            data-question="11">
+            11
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="12">
+            12
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="13">
+            13
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="14">
+            14
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="15">
+            15
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="16">
+            16
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="17">
+            17
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="18">
+            18
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="19">
+            19
+        </button>
+
+        <button
+            class="question-progress-button"
+            data-question="20">
+            20
+        </button>
+
+    </div>
+
+
+    <form id="listeningForm">
+
+
+        <div class="question-box">
+
+
+            <h2>
+                Section 2
+            </h2>
+
+            <h3>
+                Questions 11–13
+            </h3>
+
+            <p>
+                Choose THREE letters, A–F.
+            </p>
+
+
+            <!-- Q11 -->
+
+            <div class="question">
+
+                <p>
+                    What action does the Barker Tiger Sanctuary
+                    take to help tigers?
+                </p>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="A">
+                    A. Fighting against poaching.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="B">
+                    B. Breeding tigers to re-introduce
+                    into the wild.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="C">
+                    C. Treating sick tigers in the wild.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="D">
+                    D. Making more people know about
+                    organisations that monitor and care
+                    for wild tigers.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="E">
+                    E. Supporting financially the purchase
+                    of land where tigers live.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="checkbox"
+                        name="q11"
+                        value="F">
+                    F. Putting pressure on governments
+                    to support tiger protection.
+                </label>
+
+            </div>
+
+
+            <!-- Q12 -->
+
+            <div class="question">
+
+                <p>
+                    Question 12: Choose one of the options
+                    A–F above.
+                </p>
+
+                <select
+                    name="q12"
+                    class="answer-input">
+
+                    <option value="">
+                        Select answer
+                    </option>
+
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Q13 -->
+
+            <div class="question">
+
+                <p>
+                    Question 13: Choose one of the options
+                    A–F above.
+                </p>
+
+                <select
+                    name="q13"
+                    class="answer-input">
+
+                    <option value="">
+                        Select answer
+                    </option>
+
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+
+                </select>
+
+            </div>
+
+
+            <h3>
+                Questions 14 and 15
+            </h3>
+
+            <p>
+                Choose the correct letter, A, B, or C.
+            </p>
+
+
+            <!-- Q14 -->
+
+            <div class="question">
+
+                <p>
+                    14. What threatens wild tigers in India
+                    the most today?
+                </p>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q14"
+                        value="A">
+                    A. Hunting
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q14"
+                        value="B">
+                    B. Human expansion
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q14"
+                        value="C">
+                    C. Poaching
+                </label>
+
+            </div>
+
+
+            <!-- Q15 -->
+
+            <div class="question">
+
+                <p>
+                    15. Genetic diversity in wild breeding
+                    tigers is attempted by
+                </p>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q15"
+                        value="A">
+                    A. creating land for tigers to move
+                    between different habitats.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q15"
+                        value="B">
+                    B. transporting tigers to different habitats.
+                </label>
+
+                <label class="option">
+                    <input
+                        type="radio"
+                        name="q15"
+                        value="C">
+                    C. introducing tigers from other countries
+                    to different habitats.
+                </label>
+
+            </div>
+
+
+            <h3>
+                Questions 16–20
+            </h3>
+
+            <p>
+                Answer the questions below.
+            </p>
+
+            <p>
+                Write NO MORE THAN THREE WORDS
+                from the listening for each answer.
+            </p>
+
+
+            <!-- Q16 -->
+
+            <div class="question">
+
+                <p>
+                    16. Where can people see pictures of
+                    the Barker Tiger Reserve before their visit?
+                </p>
+
+                <input
+                    type="text"
+                    name="q16"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </div>
+
+
+            <!-- Q17 -->
+
+            <div class="question">
+
+                <p>
+                    17. Apart from the tigers and elephants,
+                    what is the Barker Tiger Reserve
+                    particularly famous for?
+                </p>
+
+                <input
+                    type="text"
+                    name="q17"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </div>
+
+
+            <!-- Q18 -->
+
+            <div class="question">
+
+                <p>
+                    18. What is available for groups of people
+                    travelling on a budget?
+                </p>
+
+                <input
+                    type="text"
+                    name="q18"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </div>
+
+
+            <!-- Q19 -->
+
+            <div class="question">
+
+                <p>
+                    19. What is not permitted in
+                    Barker Tiger Reserve?
+                </p>
+
+                <input
+                    type="text"
+                    name="q19"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </div>
+
+
+            <!-- Q20 -->
+
+            <div class="question">
+
+                <p>
+                    20. What ensures that visitors to the
+                    Barker Tiger Reserve get to see wild tigers?
+                </p>
+
+                <input
+                    type="text"
+                    name="q20"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </div>
+
+
+            <div class="navigation-buttons">
+
+                <button
+                    type="button"
+                    class="previous-btn"
+                    onclick="goToPart1()">
+
+                    ← Previous
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="next-btn"
+                    onclick="goToPart3()">
+
+                    Next →
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+</main>
+
+
+<script>
+
+
+/* =========================================
+   ACCESS CHECK
+========================================= */
+
+const listeningAccessKey =
+    "access_listening-test-3";
+
+const listeningAccessGranted =
+    sessionStorage.getItem(listeningAccessKey);
+
+if (listeningAccessGranted !== "true") {
+
+    window.location.href =
+        "../test-access.html?test=listening-test-3";
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let timeLeft =
+    sessionStorage.getItem(
+        "listeningTest3TimeLeft"
+    );
+
+if (timeLeft === null) {
+
+    timeLeft = 30 * 60;
+
+} else {
+
+    timeLeft = Number(timeLeft);
+
+}
+
+
+let timerInterval = null;
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+    document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+}
+
+
+function startTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+    timerInterval =
+        setInterval(function() {
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                window.location.href =
+                    "listening-test-3-final.html";
+
+                return;
+
+            }
+
+            timeLeft--;
+
+            sessionStorage.setItem(
+                "listeningTest3TimeLeft",
+                timeLeft
+            );
+
+            updateTimer();
+
+        }, 1000);
+
+}
+
+
+const timerStarted =
+    sessionStorage.getItem(
+        "listeningTest3TimerStarted"
+    );
+
+if (timerStarted === "true") {
+
+    startTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+========================================= */
+
+function saveAnswers() {
+
+    for (let i = 11; i <= 20; i++) {
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+        if (
+            inputs.length === 0
+        ) {
+            continue;
+        }
+
+
+        if (
+            inputs[0].type === "checkbox"
+        ) {
+
+            const values = [];
+
+            inputs.forEach(function(input) {
+
+                if (input.checked) {
+
+                    values.push(input.value);
+
+                }
+
+            });
+
+            sessionStorage.setItem(
+                "listeningTest3_q" + i,
+                values.join(",")
+            );
+
+        } else {
+
+            sessionStorage.setItem(
+                "listeningTest3_q" + i,
+                inputs[0].value
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+========================================= */
+
+function restoreAnswers() {
+
+    for (let i = 11; i <= 20; i++) {
+
+        const saved =
+            sessionStorage.getItem(
+                "listeningTest3_q" + i
+            );
+
+        if (!saved) {
+            continue;
+        }
+
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+
+        if (
+            inputs.length > 0 &&
+            inputs[0].type === "checkbox"
+        ) {
+
+            const savedValues =
+                saved.split(",");
+
+            inputs.forEach(function(input) {
+
+                input.checked =
+                    savedValues.includes(
+                        input.value
+                    );
+
+            });
+
+        } else {
+
+            inputs.forEach(function(input) {
+
+                input.value = saved;
+
+            });
+
+        }
+
+    }
+
+    updateQuestionProgress();
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 11; i <= 20; i++) {
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
+
+        if (!button) {
+            continue;
+        }
+
+
+        let attempted = false;
+
+
+        inputs.forEach(function(input) {
+
+            if (
+                input.type === "radio" ||
+                input.type === "checkbox"
+            ) {
+
+                if (input.checked) {
+
+                    attempted = true;
+
+                }
+
+            } else {
+
+                if (
+                    input.value.trim() !== ""
+                ) {
+
+                    attempted = true;
+
+                }
+
+            }
+
+        });
+
+
+        if (attempted) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   LIMIT Q11 TO THREE ANSWERS
+========================================= */
+
+document
+    .querySelectorAll('[name="q11"]')
+    .forEach(function(input) {
+
+        input.addEventListener(
+            "change",
+            function() {
+
+                const checked =
+                    document.querySelectorAll(
+                        '[name="q11"]:checked'
+                    );
+
+                if (checked.length > 3) {
+
+                    input.checked = false;
+
+                    alert(
+                        "Please choose exactly THREE answers."
+                    );
+
+                }
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   INPUT LISTENERS
+========================================= */
+
+document
+    .getElementById("listeningForm")
+    .addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        }
+    );
+
+
+document
+    .getElementById("listeningForm")
+    .addEventListener(
+        "change",
+        function() {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        }
+    );
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function goToPart1() {
+
+    saveAnswers();
+
+    window.location.href =
+        "listening-test-3-part1.html";
+
+}
+
+
+function goToPart3() {
+
+    saveAnswers();
+
+    window.location.href =
+        "listening-test-3-part3.html";
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+restoreAnswers();
+
+updateTimer();
+
+</script>
+
+
+</body>
+
+</html>

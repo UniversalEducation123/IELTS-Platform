@@ -8,189 +8,76 @@
 
     <link rel="stylesheet" href="../css/style.css">
 
-    <style>
-        .listening-test-container {
-            width: 100%;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        .listening-test-header {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .listening-test-header h1 {
-            margin-bottom: 5px;
-        }
-
-        .listening-test-header p {
-            margin: 0;
-            color: #666;
-        }
-
-        .audio-box {
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .audio-box h2 {
-            margin-top: 0;
-        }
-
-        .audio-box audio {
-            width: 100%;
-            max-width: 700px;
-        }
-
-        .timer {
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 10px;
-            color: #b00020;
-        }
-
-        .question-progress {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 15px;
-        }
-
-        .question-progress-button {
-            width: 34px;
-            height: 34px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .question-progress-button.answered {
-            background: #198754;
-            color: white;
-            border-color: #198754;
-        }
-
-        .question-progress-button.current {
-            outline: 3px solid #222;
-        }
-
-        .listening-part {
-            display: none;
-        }
-
-        .listening-part.active {
-            display: block;
-        }
-
-        .question-box {
-            background: #ffffff;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.10);
-        }
-
-        .question-box h2 {
-            margin-top: 0;
-        }
-
-        .question {
-            margin-bottom: 22px;
-        }
-
-        .question p {
-            font-weight: 600;
-        }
-
-        .option {
-            display: block;
-            margin: 8px 0;
-            font-weight: normal;
-        }
-
-        .answer-input {
-            width: 100%;
-            max-width: 400px;
-            padding: 10px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .navigation-buttons button {
-            padding: 11px 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .next-btn {
-            background: #198754;
-            color: white;
-        }
-
-        .submit-btn {
-            background: #b00020;
-            color: white;
-        }
-    </style>
+    
 </head>
 
 <body>
 
-<header class="navbar">
+    <div class="listening-section-navigation">
 
-    <a href="../index.html" class="logo">
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+    <strong>Go to:</strong>
+
+    <a href="listening-test-3-part1.html"
+       class="section-jump-button active-section">
+        Part 1
     </a>
 
-    <nav>
+    <a href="listening-test-3-part2.html"
+       class="section-jump-button">
+        Part 2
+    </a>
+
+    <a href="listening-test-3-part3.html"
+       class="section-jump-button">
+        Part 3
+    </a>
+
+    <a href="listening-test-3-part4.html"
+       class="section-jump-button">
+        Part 4
+    </a>
+
+</div>
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">--:--</strong>
+        </div>
+
         <a href="../student-dashboard.html">
             Dashboard
         </a>
 
-        <a href="../login.html">
+        <a href="../index.html">
             Logout
         </a>
-    </nav>
+
+    </div>
 
 </header>
 
 
-<main class="listening-test-container">
+<main class="listening-container">
 
-    <div class="listening-test-header">
-
-        <h1>IELTS Academic Listening Test 3</h1>
-
-        <p>
-            Part 1 of 4
-        </p>
-
+    <section class="listening-header">
+    <div>
+        <h1>Part 1</h1>
+        <p>Questions 1–10</p>
     </div>
+</section>
 
 
     <!-- AUDIO -->
 
-    <div class="audio-box">
+    <section class="listening-card audio-section">
 
         <h2>Listening Audio</h2>
 
@@ -216,74 +103,86 @@
             The audio cannot be paused or rewound.
         </p>
 
-    </div>
+    </section>
 
 
     <!-- QUESTION PROGRESS -->
 
     <div class="question-progress">
 
-        <button
-            class="question-progress-button current"
-            data-question="1">
-            1
-        </button>
+    <strong>Questions:</strong>
 
-        <button
-            class="question-progress-button"
-            data-question="2">
-            2
-        </button>
+    <button
+        type="button"
+        class="question-progress-button current"
+        data-question="1">
+        1
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="3">
-            3
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="2">
+        2
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="4">
-            4
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="3">
+        3
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="5">
-            5
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="4">
+        4
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="6">
-            6
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="5">
+        5
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="7">
-            7
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="6">
+        6
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="8">
-            8
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="7">
+        7
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="9">
-            9
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="8">
+        8
+    </button>
 
-        <button
-            class="question-progress-button"
-            data-question="10">
-            10
-        </button>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="9">
+        9
+    </button>
 
-    </div>
+    <button
+        type="button"
+        class="question-progress-button"
+        data-question="10">
+        10
+    </button>
+
+</div>
 
 
     <form id="listeningForm">
@@ -483,7 +382,7 @@
                 </div>
 
 
-                <div class="navigation-buttons">
+                <div class="part-navigation">
 
                     <span></span>
 
@@ -724,57 +623,80 @@
     });
 
 
-    /* =========================================
-       TIMER
-    ========================================= */
+/* =========================================
+   CONTINUING 30-MINUTE TIMER
+========================================= */
 
-    let timeLeft = 30 * 60;
+let timeLeft = parseInt(
+    sessionStorage.getItem("listeningTest3TimeLeft")
+);
 
-    let timerInterval = null;
+if (isNaN(timeLeft) || timeLeft <= 0) {
+    timeLeft = 30 * 60;
+}
 
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
 
-    function startTimer() {
+    document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+}
 
-        if (timerInterval) {
+updateTimer();
+
+let timerInterval = null;
+
+function startTimer() {
+
+    if (sessionStorage.getItem(
+        "listeningTest3TimerStarted"
+    ) === "true") {
+        return;
+    }
+
+    sessionStorage.setItem(
+        "listeningTest3TimerStarted",
+        "true"
+    );
+
+    sessionStorage.setItem(
+        "listeningTest3TimeLeft",
+        timeLeft
+    );
+
+    timerInterval = setInterval(function() {
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            sessionStorage.setItem(
+                "listeningTest3TimeLeft",
+                "0"
+            );
+
+            saveAllAnswers();
+
+            window.location.href =
+                "listening-test-3-final.html";
+
             return;
         }
 
-        timerInterval =
-            setInterval(function () {
+        timeLeft--;
 
-                timeLeft--;
+        sessionStorage.setItem(
+            "listeningTest3TimeLeft",
+            timeLeft
+        );
 
-                updateTimer();
+        updateTimer();
 
-                if (timeLeft <= 0) {
-
-                    clearInterval(timerInterval);
-
-                    timerInterval = null;
-
-                    submitTest();
-
-                }
-
-            }, 1000);
-
-    }
-
-
-    function updateTimer() {
-
-        const minutes =
-            Math.floor(timeLeft / 60);
-
-        const seconds =
-            timeLeft % 60;
-
-        document.getElementById("timer").textContent =
-            String(minutes).padStart(2, "0") +
-            ":" +
-            String(seconds).padStart(2, "0");
-
-    }
+    }, 1000);
+}
 
 
     /* =========================================

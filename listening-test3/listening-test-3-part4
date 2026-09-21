@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Listening Test 3 - Part 4</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        body {
+            margin: 0;
+            background: #f5f7f8;
+        }
+
+        .listening-test-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .test-header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .test-header h1 {
+            margin: 0 0 10px;
+        }
+
+        .timer-box {
+            font-size: 20px;
+            font-weight: bold;
+            color: #b00020;
+        }
+
+        .question-progress {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-progress-button {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: #f5f5f5;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .question-progress-button.current {
+            background: #1f7a4d;
+            color: white;
+        }
+
+        .question-progress-button.answered {
+            background: #b8e6c8;
+            color: #155d32;
+        }
+
+        .question-progress-button.current.answered {
+            background: #1f7a4d;
+            color: white;
+        }
+
+        .part-title {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .part-title h2 {
+            margin-top: 0;
+            color: #1f7a4d;
+        }
+
+        .questions-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question h3 {
+            margin-bottom: 12px;
+        }
+
+        .question-instruction {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .question-line {
+            margin: 22px 0;
+            line-height: 1.8;
+        }
+
+        .answer-input {
+            width: 220px;
+            padding: 8px 10px;
+            margin: 0 5px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .navigation-buttons button {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .previous-button {
+            background: #ddd;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #1f7a4d;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 700px) {
+
+            .listening-test-container {
+                padding: 10px;
+            }
+
+            .questions-box {
+                padding: 15px;
+            }
+
+            .answer-input {
+                width: 100%;
+                max-width: 300px;
+                margin: 5px 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="listening-test-container">
+
+
+    <!-- HEADER -->
+
+    <div class="test-header">
+
+        <h1>
+            IELTS Academic Listening Test 3
+        </h1>
+
+        <div class="timer-box">
+
+            Time remaining:
+            <span id="timer">
+                30:00
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- QUESTION PROGRESS -->
+
+    <div class="question-progress">
+
+        <button class="question-progress-button"
+            data-question="1">1</button>
+
+        <button class="question-progress-button"
+            data-question="2">2</button>
+
+        <button class="question-progress-button"
+            data-question="3">3</button>
+
+        <button class="question-progress-button"
+            data-question="4">4</button>
+
+        <button class="question-progress-button"
+            data-question="5">5</button>
+
+        <button class="question-progress-button"
+            data-question="6">6</button>
+
+        <button class="question-progress-button"
+            data-question="7">7</button>
+
+        <button class="question-progress-button"
+            data-question="8">8</button>
+
+        <button class="question-progress-button"
+            data-question="9">9</button>
+
+        <button class="question-progress-button"
+            data-question="10">10</button>
+
+        <button class="question-progress-button"
+            data-question="11">11</button>
+
+        <button class="question-progress-button"
+            data-question="12">12</button>
+
+        <button class="question-progress-button"
+            data-question="13">13</button>
+
+        <button class="question-progress-button"
+            data-question="14">14</button>
+
+        <button class="question-progress-button"
+            data-question="15">15</button>
+
+        <button class="question-progress-button"
+            data-question="16">16</button>
+
+        <button class="question-progress-button"
+            data-question="17">17</button>
+
+        <button class="question-progress-button"
+            data-question="18">18</button>
+
+        <button class="question-progress-button"
+            data-question="19">19</button>
+
+        <button class="question-progress-button"
+            data-question="20">20</button>
+
+        <button class="question-progress-button"
+            data-question="21">21</button>
+
+        <button class="question-progress-button"
+            data-question="22">22</button>
+
+        <button class="question-progress-button"
+            data-question="23">23</button>
+
+        <button class="question-progress-button"
+            data-question="24">24</button>
+
+        <button class="question-progress-button"
+            data-question="25">25</button>
+
+        <button class="question-progress-button"
+            data-question="26">26</button>
+
+        <button class="question-progress-button"
+            data-question="27">27</button>
+
+        <button class="question-progress-button"
+            data-question="28">28</button>
+
+        <button class="question-progress-button"
+            data-question="29">29</button>
+
+        <button class="question-progress-button"
+            data-question="30">30</button>
+
+        <button class="question-progress-button current"
+            data-question="31">31</button>
+
+        <button class="question-progress-button"
+            data-question="32">32</button>
+
+        <button class="question-progress-button"
+            data-question="33">33</button>
+
+        <button class="question-progress-button"
+            data-question="34">34</button>
+
+        <button class="question-progress-button"
+            data-question="35">35</button>
+
+        <button class="question-progress-button"
+            data-question="36">36</button>
+
+        <button class="question-progress-button"
+            data-question="37">37</button>
+
+        <button class="question-progress-button"
+            data-question="38">38</button>
+
+        <button class="question-progress-button"
+            data-question="39">39</button>
+
+        <button class="question-progress-button"
+            data-question="40">40</button>
+
+    </div>
+
+
+    <!-- PART 4 TITLE -->
+
+    <div class="part-title">
+
+        <h2>
+            Part 4
+        </h2>
+
+        <p>
+            Questions 31–40
+        </p>
+
+    </div>
+
+
+    <!-- QUESTIONS -->
+
+    <div class="questions-box">
+
+        <div class="question">
+
+            <h3>
+                Questions 31–40
+            </h3>
+
+            <p class="question-instruction">
+                Complete the notes below.
+                Write NO MORE THAN TWO WORDS from the
+                listening for each answer.
+            </p>
+
+
+            <h3>
+                What is Addiction?
+            </h3>
+
+
+            <p class="question-line">
+
+                People can be addicted to many things;
+                not just drugs.
+
+            </p>
+
+
+            <p class="question-line">
+
+                <strong>Definition</strong> -
+                not having control over doing, taking or
+                using something, to the point where it
+                could be harmful.
+
+            </p>
+
+
+            <p class="question-line">
+
+                The pleasurable feeling that a drug creates
+                can lead to a strong
+
+                <input
+                    type="text"
+                    name="q31"
+                    class="answer-input"
+                    autocomplete="off">
+
+                to repeat taking the drug.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Other behaviours can lead to the same
+                pattern.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Addicts were initially viewed as being
+                immoral or weak. Treatment involved their
+
+                <input
+                    type="text"
+                    name="q32"
+                    class="answer-input"
+                    autocomplete="off">
+
+                or encouraging them to be stronger.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Now addiction is viewed as a chronic disease
+                that damages the brain, involving a variety
+                of changes and ending with a drive towards
+
+                <input
+                    type="text"
+                    name="q33"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </p>
+
+
+            <p class="question-line">
+
+                The brain registers all pleasures similarly
+                by releasing dopamine.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Dopamine works with glutamate to control
+                the brain's system of reward-related learning.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Addiction is related to how fast dopamine
+                is released, the release's intensity and
+
+                <input
+                    type="text"
+                    name="q34"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </p>
+
+
+            <p class="question-line">
+
+                This system aids human survival, as it affects
+                how the brain perceives pleasure, reward,
+                motivation and memory.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Repeated addictive substances or behaviour
+                alters how the operation of the brain's
+                nucleus accumbens and prefrontal cortex operate
+                (the latter governs
+
+                <input
+                    type="text"
+                    name="q35"
+                    class="answer-input"
+                    autocomplete="off">
+
+                and doing tasks).
+
+            </p>
+
+
+            <p class="question-line">
+
+                People then search for the pleasure to the
+                extent that addiction arrives and the behaviour
+                becomes a
+
+                <input
+                    type="text"
+                    name="q36"
+                    class="answer-input"
+                    autocomplete="off">
+
+            </p>
+
+
+            <h3>
+                Treatment for Drug and Alcohol Addictions
+            </h3>
+
+
+            <p class="question-line">
+
+                Treatment is determined by the type of addiction.
+
+            </p>
+
+
+            <p class="question-line">
+
+                It can be conducted in varied
+
+                <input
+                    type="text"
+                    name="q37"
+                    class="answer-input"
+                    autocomplete="off">
+
+                forms and varied periods of time.
+
+            </p>
+
+
+            <p class="question-line">
+
+                As these types of addiction are chronic,
+                relapses can occur and
+
+                <input
+                    type="text"
+                    name="q38"
+                    class="answer-input"
+                    autocomplete="off">
+
+                treatment is rarely enough.
+
+            </p>
+
+
+            <h3>
+                Treatment for Behavioural Addictions
+            </h3>
+
+
+            <p class="question-line">
+
+                Treatment with a therapist allows patients
+                to understand themselves better and create
+                healthy emotion regulation strategies.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Treatment can expose the
+
+                <input
+                    type="text"
+                    name="q39"
+                    class="answer-input"
+                    autocomplete="off">
+
+                connected to the addiction.
+
+            </p>
+
+
+            <p class="question-line">
+
+                Treatment also creates
+
+                <input
+                    type="text"
+                    name="q40"
+                    class="answer-input"
+                    autocomplete="off">
+
+                to the addiction that are beneficial
+                to the health.
+
+            </p>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="navigation-buttons">
+
+            <button
+                type="button"
+                class="previous-button"
+                onclick="goToPart3()">
+
+                ← Previous
+
+            </button>
+
+
+            <button
+                type="button"
+                class="submit-button"
+                onclick="goToFinal()">
+
+                Submit Listening Test 3
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   ACCESS PROTECTION
+========================================= */
+
+const listeningAccessKey =
+    "access_listening-test-3";
+
+const listeningAccessGranted =
+    sessionStorage.getItem(
+        listeningAccessKey
+    );
+
+if (
+    listeningAccessGranted !== "true"
+) {
+
+    window.location.href =
+        "../test-access.html?test=listening-test-3";
+
+}
+
+
+/* =========================================
+   CONTINUING TIMER
+========================================= */
+
+let timeLeft =
+    parseInt(
+        sessionStorage.getItem(
+            "listeningTest3TimeLeft"
+        )
+    );
+
+
+if (
+    isNaN(timeLeft) ||
+    timeLeft <= 0
+) {
+
+    timeLeft = 30 * 60;
+
+}
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+
+        String(minutes)
+            .padStart(2, "0")
+
+        + ":"
+
+        + String(seconds)
+            .padStart(2, "0");
+
+}
+
+
+updateTimer();
+
+
+const timerInterval =
+    setInterval(function() {
+
+
+        if (
+            timeLeft <= 0
+        ) {
+
+            clearInterval(
+                timerInterval
+            );
+
+            saveAllAnswers();
+
+            window.location.href =
+                "listening-test-3-final.html";
+
+            return;
+
+        }
+
+
+        timeLeft--;
+
+
+        sessionStorage.setItem(
+            "listeningTest3TimeLeft",
+            timeLeft
+        );
+
+
+        updateTimer();
+
+
+    }, 1000);
+
+
+/* =========================================
+   SAVE ANSWERS
+========================================= */
+
+function saveAnswer(input) {
+
+    if (
+        !input ||
+        !input.name
+    ) {
+        return;
+    }
+
+
+    sessionStorage.setItem(
+        "listeningTest3_" +
+        input.name,
+        input.value
+    );
+
+
+    updateQuestionProgress();
+
+}
+
+
+function saveAllAnswers() {
+
+    const inputs =
+        document.querySelectorAll(
+            "input[name]"
+        );
+
+
+    inputs.forEach(
+        function(input) {
+
+            saveAnswer(input);
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+========================================= */
+
+function restoreAnswers() {
+
+    const inputs =
+        document.querySelectorAll(
+            "input[name]"
+        );
+
+
+    inputs.forEach(
+        function(input) {
+
+            const saved =
+                sessionStorage.getItem(
+                    "listeningTest3_" +
+                    input.name
+                );
+
+
+            if (
+                saved !== null
+            ) {
+
+                input.value =
+                    saved;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+========================================= */
+
+function updateQuestionProgress() {
+
+    for (
+        let i = 1;
+        i <= 40;
+        i++
+    ) {
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        let attempted = false;
+
+
+        Array.from(inputs).forEach(
+            function(input) {
+
+                if (
+                    input.value.trim() !== ""
+                ) {
+
+                    attempted = true;
+
+                }
+
+            }
+        );
+
+
+        if (attempted) {
+
+            button.classList.add(
+                "answered"
+            );
+
+        } else {
+
+            button.classList.remove(
+                "answered"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   AUTO SAVE
+========================================= */
+
+document
+    .querySelectorAll(
+        "input[name]"
+    )
+    .forEach(
+        function(input) {
+
+
+            input.addEventListener(
+                "input",
+                function() {
+
+                    saveAnswer(
+                        input
+                    );
+
+                }
+            );
+
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    saveAnswer(
+                        input
+                    );
+
+                }
+            );
+
+
+        }
+    );
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function goToPart3() {
+
+    saveAllAnswers();
+
+    window.location.href =
+        "listening-test-3-part3.html";
+
+}
+
+
+function goToFinal() {
+
+    saveAllAnswers();
+
+    window.location.href =
+        "listening-test-3-final.html";
+
+}
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+</script>
+
+</body>
+
+</html>

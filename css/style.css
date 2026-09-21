@@ -2651,3 +2651,187 @@ body.listening-page {
     }
 
 }
+
+/* =========================================
+   LISTENING TEST 3
+   QUESTION PROGRESS
+========================================= */
+
+.question-progress {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.question-progress strong {
+    margin-right: 5px;
+    color: #333;
+    font-size: 14px;
+}
+
+.question-progress-button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid #777;
+    border-radius: 5px;
+    background: white;
+    color: #111;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.question-progress-button:hover {
+    background: #eeeeee;
+}
+
+.question-progress-button.answered {
+    background: #198754;
+    color: white;
+    border-color: #198754;
+}
+
+.question-progress-button.current {
+    outline: 3px solid #333;
+    outline-offset: 1px;
+}
+
+/* =========================================
+   LISTENING 3 QUESTION CARDS
+========================================= */
+
+.listening-part {
+    display: none;
+}
+
+.listening-part.active {
+    display: block;
+}
+
+.question-box {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.question-box h2 {
+    margin-top: 0;
+    color: #222;
+}
+
+.question {
+    margin-bottom: 22px;
+}
+
+.question:last-child {
+    margin-bottom: 0;
+}
+
+.question p {
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.option {
+    display: block;
+    margin: 8px 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.option input {
+    margin-right: 8px;
+}
+
+.answer-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.answer-input:focus {
+    outline: 2px solid #198754;
+    border-color: #198754;
+}
+
+/* =========================================
+   LISTENING 3 PART NAVIGATION
+========================================= */
+
+.part-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #dddddd;
+}
+
+.part-navigation button {
+    padding: 9px 16px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    background: white;
+    color: #111;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.part-navigation button:hover {
+    background: #eeeeee;
+}
+
+.part-navigation .next-btn {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+.part-navigation .next-btn:hover {
+    background: #222;
+}
+
+.part-navigation .submit-btn {
+    background: #b00000;
+    color: white;
+    border-color: #b00000;
+}
+
+.part-navigation .submit-btn:hover {
+    background: #8f0000;
+}
+
+/* =========================================
+   LISTENING 3 AUDIO CARD
+========================================= */
+
+.audio-section {
+    text-align: center;
+}
+
+.audio-section h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.audio-section audio {
+    width: 100%;
+    max-width: 700px;
+}
+
+.audio-section .timer {
+    margin-top: 10px;
+}
