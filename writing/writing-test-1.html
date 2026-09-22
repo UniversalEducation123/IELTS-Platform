@@ -81,9 +81,18 @@
 
 
 <body>
+    
+    <script>
+    const accessKey = "access_writing-test-1";
 
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
 
-
+    if (writingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-test-1";
+    }
+</script>
 
 <!-- ================================
      HEADER
@@ -251,19 +260,6 @@
 </main>
 
 <script>
-    /* =================================
-       ACCESS CHECK
-    ================================= */
-
-    const accessKey = "access_writing-test-1";
-
-    const writingAccessGranted =
-        sessionStorage.getItem(accessKey);
-
-    if (writingAccessGranted !== "true") {
-        window.location.href =
-            "../test-access.html?test=writing-test-1";
-    }
 
 
     /* =================================
