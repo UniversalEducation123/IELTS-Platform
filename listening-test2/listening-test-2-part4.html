@@ -363,72 +363,95 @@ if (timerStarted) {
 /* Highlight answered question-number buttons */
 
 function saveAnswers() {
+
     document.querySelectorAll(
-        ".inline-answer"
+        'input[name^="q"]'
     ).forEach(function(input) {
+
         sessionStorage.setItem(
             "listeningTest2_" + input.name,
             input.value
         );
+
     });
+
 }
+
 
 function restoreAnswers() {
+
     document.querySelectorAll(
-        ".inline-answer"
+        'input[name^="q"]'
     ).forEach(function(input) {
-        const savedAnswer = sessionStorage.getItem(
-            "listeningTest2_" + input.name
-        );
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "listeningTest2_" + input.name
+            );
 
         if (savedAnswer !== null) {
+
             input.value = savedAnswer;
+
         }
+
     });
+
 }
+
 
 function updateQuestionProgress() {
 
     for (let i = 31; i <= 40; i++) {
 
-        const inputs = document.querySelectorAll(
-            `[name="q${i}"]`
-        );
+        const input =
+            document.querySelector(
+                `[name="q${i}"]`
+            );
 
-        const button = document.querySelector(
-            `.question-progress-button[data-question="${i}"]`
-        );
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
 
-        if (!button) continue;
-
-        let answered = false;
-
-        inputs.forEach(function(input) {
-
-            if (input.value.trim() !== "") {
-                answered = true;
-            }
-
-        });
-
-        if (answered) {
-            button.classList.add("answered");
-        } else {
-            button.classList.remove("answered");
+        if (!button) {
+            continue;
         }
+
+        if (
+            input &&
+            input.value.trim() !== ""
+        ) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
     }
+
 }
 
-document.querySelectorAll(
-    ".inline-answer"
-).forEach(function(input) {
 
-    input.addEventListener("input", function() {
-        saveAnswers();
-        updateQuestionProgress();
+document
+    .querySelectorAll('input[name^="q"]')
+    .forEach(function(input) {
+
+        input.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+                updateQuestionProgress();
+
+            }
+        );
+
     });
 
-});
 
 restoreAnswers();
 updateQuestionProgress();

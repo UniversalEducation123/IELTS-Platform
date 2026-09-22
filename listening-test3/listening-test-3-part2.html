@@ -577,7 +577,19 @@ function restoreAnswers() {
 
 function updateQuestionProgress() {
 
-    for (let i = 1; i <= 40; i++) {
+    /* Questions 11–13 are one checkbox question.
+       Number of selected options determines highlights:
+       1 selected = 11
+       2 selected = 11, 12
+       3 selected = 11, 12, 13
+    */
+
+    const selectedQ11 =
+        document.querySelectorAll(
+            '[name="q11"]:checked'
+        ).length;
+
+    for (let i = 11; i <= 13; i++) {
 
         const button =
             document.querySelector(
@@ -588,35 +600,34 @@ function updateQuestionProgress() {
             continue;
         }
 
-        /* Questions 11–13:
-           1 selected = 11
-           2 selected = 11,12
-           3 selected = 11,12,13
-        */
+        const requiredSelections = i - 10;
 
-        if (i >= 11 && i <= 13) {
-
-            const selected =
-                document.querySelectorAll(
-                    'input[name="q11"]:checked'
-                ).length;
-
-            const position = i - 10;
-
-            if (selected >= position) {
-                button.classList.add("answered");
-            } else {
-                button.classList.remove("answered");
-            }
-
-            continue;
+        if (selectedQ11 >= requiredSelections) {
+            button.classList.add("answered");
+        } else {
+            button.classList.remove("answered");
         }
 
+    }
+
+
+    /* Questions 14–20 */
+
+    for (let i = 14; i <= 20; i++) {
 
         const inputs =
             document.querySelectorAll(
                 `[name="q${i}"]`
             );
+
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
+
+        if (!button) {
+            continue;
+        }
 
         let attempted = false;
 
@@ -648,6 +659,7 @@ function updateQuestionProgress() {
         }
 
     }
+
 }
 
 /* =========================================
