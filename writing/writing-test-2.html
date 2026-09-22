@@ -10,6 +10,7 @@
 <title>IELTS Writing Test 1 - Task 2</title>
 
 <link rel="stylesheet" href="../css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
     /* ================================
@@ -356,6 +357,14 @@
 
 <script>
 
+    const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
     /* =================================
        SHARED 60-MINUTE TIMER
     ================================= */
@@ -514,24 +523,72 @@
        FINISH TEST
     ================================= */
 
-    function finishWritingTest() {
+    async function finishWritingTest() {
 
-        sessionStorage.setItem(
-            "writingTest1Task2Answer",
-            answerBox.value
+    sessionStorage.setItem(
+        "writingTest1Task2Answer",
+        answerBox.value
+    );
+
+    sessionStorage.setItem(
+        "writingTest1Completed",
+        "true"
+    );
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const task1Answer =
+        sessionStorage.getItem(
+            "writingTest1Task1Answer"
+        ) || "";
+
+    const task2Answer =
+        sessionStorage.getItem(
+            "writingTest1Task2Answer"
+        ) || "";
+
+    if (!studentId) {
+        alert(
+            "Student information was not found. Please log in again."
         );
-
-        sessionStorage.setItem(
-            "writingTest1Completed",
-            "true"
-        );
-
-        clearInterval(timerInterval);
-
-        window.location.href =
-            "../student-dashboard.html";
+        return;
     }
 
+    const { data, error } =
+        await supabaseClient
+            .from("writing_submissions")
+            .insert([
+                {
+                    student_id: studentId,
+                    test_id: "writing-test-1",
+                    task1_answer: task1Answer,
+                    task2_answer: task2Answer,
+                    status: "submitted"
+                }
+            ])
+            .select()
+            .single();
+
+    if (error) {
+
+        console.error(
+            "Writing submission error:",
+            error
+        );
+
+        alert(
+            "There was a problem saving your test. Please try again."
+        );
+
+        return;
+    }
+
+    clearInterval(timerInterval);
+
+    window.location.href =
+        "writing-final.html";
+}
 </script>
 ```
 
