@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Writing Test 1 - Task 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* ================================
+           WRITING TASK 1
+        ================================= */
+
+        .writing-task-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .writing-question-panel,
+        .writing-answer-panel {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .writing-question-panel img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .writing-answer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-answer-panel textarea {
+            width: 100%;
+            min-height: 600px;
+            box-sizing: border-box;
+            resize: vertical;
+            padding: 16px;
+            font: inherit;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .writing-word-count {
+            margin-top: 10px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .writing-navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+
+            .writing-task-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .writing-answer-panel textarea {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<script>
+    /* =================================
+       ACCESS CHECK
+    ================================= */
+
+    const accessKey = "access_writing-test-1";
+
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
+
+    if (writingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-test-1";
+    }
+
+
+    /* =================================
+       SHARED 60-MINUTE TIMER
+    ================================= */
+
+    let timeLeft =
+        Number(
+            sessionStorage.getItem(
+                "writingTest1TimeLeft"
+            )
+        );
+
+    if (!timeLeft || timeLeft <= 0) {
+        timeLeft = 60 * 60;
+    }
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+    }
+
+
+    updateTimer();
+
+
+    const timerInterval =
+        setInterval(function () {
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                sessionStorage.setItem(
+                    "writingTest1TimeLeft",
+                    "0"
+                );
+
+                window.location.href =
+                    "writing-test-1-task-2.html";
+
+                return;
+            }
+
+            timeLeft--;
+
+            sessionStorage.setItem(
+                "writingTest1TimeLeft",
+                timeLeft
+            );
+
+            updateTimer();
+
+        }, 1000);
+
+
+    /* =================================
+       SAVE ANSWER
+    ================================= */
+
+    function saveTask1Answer() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        if (answer) {
+
+            sessionStorage.setItem(
+                "writingTest1Task1Answer",
+                answer.value
+            );
+        }
+    }
+
+
+    /* =================================
+       WORD COUNT
+    ================================= */
+
+    function updateWordCount() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        const count =
+            document.getElementById(
+                "task1WordCount"
+            );
+
+        if (!answer || !count) {
+            return;
+        }
+
+        const words =
+            answer.value
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        count.textContent =
+            "Word count: " + words.length;
+
+        saveTask1Answer();
+    }
+
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const answer =
+                document.getElementById(
+                    "task1Answer"
+                );
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "writingTest1Task1Answer"
+                );
+
+            if (
+                answer &&
+                savedAnswer !== null
+            ) {
+                answer.value = savedAnswer;
+            }
+
+            updateWordCount();
+
+            if (answer) {
+
+                answer.addEventListener(
+                    "input",
+                    updateWordCount
+                );
+            }
+        }
+    );
+
+
+    /* =================================
+       GO TO TASK 2
+    ================================= */
+
+    function goToTask2() {
+
+        saveTask1Answer();
+
+        window.location.href =
+            "writing-test-1-task-2.html";
+    }
+
+</script>
+
+
+<!-- ================================
+     HEADER
+================================= -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                60:00
+            </strong>
+
+        </div>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================================
+     PAGE HEADER
+================================= -->
+
+<section class="listening-header">
+
+    <div>
+
+        <h1>
+            Writing Task 1
+        </h1>
+
+        <p>
+            Writing Test 1
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     MAIN CONTENT
+================================= -->
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+        <div class="question-heading">
+
+            <h2>
+                Writing Task 1
+            </h2>
+
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+
+        </div>
+
+
+        <!-- TWO COLUMN LAYOUT -->
+
+        <div class="writing-task-layout">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================== -->
+
+            <div class="writing-question-panel">
+
+                <p>
+                    The line chart below shows the rates of
+                    deforestation in the Brazilian Amazon for
+                    the years 2008 to 2017 and the pie chart
+                    below shows the causes for deforestation
+                    in the Brazilian Amazon for the same years.
+                </p>
+
+                <p>
+                    Summarise the information by selecting
+                    and reporting the main features, and make
+                    comparisons where relevant.
+                </p>
+
+                <p>
+                    <strong>
+                        You should write at least 150 words.
+                    </strong>
+                </p>
+
+
+                <!-- YOUR EXISTING CHART -->
+
+                <img
+                    src="../assets/writing-test-1-task1-chart.png"
+                    alt="Brazilian Amazon deforestation charts"
+                >
+
+            </div>
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================== -->
+
+            <div class="writing-answer-panel">
+
+                <h3>
+                    Your Answer
+                </h3>
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Write your answer here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div
+                    id="task1WordCount"
+                    class="writing-word-count"
+                >
+                    Word count: 0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTINUE BUTTON
+        ========================== -->
+
+        <div class="writing-navigation">
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()"
+            >
+                Continue to Task 2
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
