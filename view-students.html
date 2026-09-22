@@ -242,14 +242,6 @@ function showTestResults(testName, clickedButton = null) {
                     <p>Username: ${escapeHTML(username)}</p>
                     <p>Student ID: ${result.student_id}</p>
 
-                    <p>
-                        <strong>Writing Test 1:</strong>
-                        ${
-                            writingSubmission
-                                ? `Submitted on ${new Date(writingSubmission.submitted_at).toLocaleString()}`
-                                : "Not submitted"
-                        }
-                    </p>
                 </div>
 
                 <button
@@ -300,17 +292,37 @@ function showTestResults(testName, clickedButton = null) {
                     </div>
 
                     <div class="score-item">
-                        <strong>Writing</strong>
-                        <span>
-                            ${
-                                writingScore !== null &&
-                                writingScore !== undefined
-                                    ? writingScore
-                                    : "Not submitted"
-                            }
-                        </span>
-                        <small>Writing Score</small>
-                    </div>
+    <strong>Writing</strong>
+
+    <span>
+        ${
+            writingSubmission
+                ? "Submitted"
+                : "Not submitted"
+        }
+    </span>
+
+    <small>
+        ${
+            writingSubmission
+                ? "Ready for review"
+                : "No submission"
+        }
+    </small>
+
+    ${
+        writingSubmission
+            ? `
+                <button
+                    type="button"
+                    class="review-writing-button"
+                    onclick="reviewWriting('${writingSubmission.id}')">
+                    Review Writing
+                </button>
+            `
+            : ""
+    }
+</div>
                 </div>
             </div>
         `;
@@ -319,6 +331,10 @@ function showTestResults(testName, clickedButton = null) {
     });
 }
 
+function reviewWriting(submissionId) {
+    window.location.href =
+        `faculty-writing-review.html?submission=${encodeURIComponent(submissionId)}`;
+}
 
 // Delete only the selected student's selected test result
 async function deleteTestResult(studentId, testName) {

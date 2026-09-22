@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Review Writing Submission</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #3b0f12;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .back-button {
+            background: white;
+            color: #3b0f12;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .student-info,
+        .answer-card,
+        .review-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .student-info h2 {
+            margin-top: 0;
+            color: #3b0f12;
+        }
+
+        .student-info p {
+            margin: 7px 0;
+        }
+
+        .answer-card h2,
+        .review-card h2 {
+            margin-top: 0;
+            color: #3b0f12;
+        }
+
+        .question-box {
+            background: #f5f7fb;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .answer-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            white-space: pre-wrap;
+            line-height: 1.7;
+            min-height: 150px;
+            background: #fff;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .form-group textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        .save-button {
+            background: #3b0f12;
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .save-button:hover {
+            background: #57171b;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        @media (max-width: 700px) {
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Writing Test Review</h1>
+
+    <button
+        type="button"
+        class="back-button"
+        onclick="goBack()">
+        ← Back to Students
+    </button>
+</header>
+
+<div class="container">
+
+    <div id="loadingMessage" class="loading">
+        Loading writing submission...
+    </div>
+
+    <div id="reviewContent" style="display:none;">
+
+        <div class="student-info">
+            <h2 id="studentName">Student</h2>
+
+            <p>
+                <strong>Student ID:</strong>
+                <span id="studentId"></span>
+            </p>
+
+            <p>
+                <strong>Submission Date:</strong>
+                <span id="submissionDate"></span>
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                <span id="submissionStatus"></span>
+            </p>
+        </div>
+
+
+        <!-- TASK 1 -->
+
+        <div class="answer-card">
+
+            <h2>Task 1</h2>
+
+            <div class="question-box">
+                Review the student's Task 1 response below.
+            </div>
+
+            <h3>Student's Answer</h3>
+
+            <div
+                id="task1Answer"
+                class="answer-box">
+            </div>
+
+        </div>
+
+
+        <!-- TASK 2 -->
+
+        <div class="answer-card">
+
+            <h2>Task 2</h2>
+
+            <div class="question-box">
+                Review the student's Task 2 response below.
+            </div>
+
+            <h3>Student's Answer</h3>
+
+            <div
+                id="task2Answer"
+                class="answer-box">
+            </div>
+
+        </div>
+
+
+        <!-- REVIEW -->
+
+        <div class="review-card">
+
+            <h2>Faculty Review</h2>
+
+            <div class="review-grid">
+
+                <div class="form-group">
+                    <label for="task1Score">
+                        Task 1 Score
+                    </label>
+
+                    <input
+                        type="number"
+                        id="task1Score"
+                        min="0"
+                        max="9"
+                        step="0.5"
+                        placeholder="e.g. 6.5">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="task2Score">
+                        Task 2 Score
+                    </label>
+
+                    <input
+                        type="number"
+                        id="task2Score"
+                        min="0"
+                        max="9"
+                        step="0.5"
+                        placeholder="e.g. 6.0">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="overallScore">
+                        Overall Score
+                    </label>
+
+                    <input
+                        type="number"
+                        id="overallScore"
+                        min="0"
+                        max="9"
+                        step="0.5"
+                        placeholder="e.g. 6.5">
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="facultyFeedback">
+                    Faculty Feedback
+                </label>
+
+                <textarea
+                    id="facultyFeedback"
+                    placeholder="Write feedback for the student..."></textarea>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="save-button"
+                onclick="saveReview()">
+                Save Score & Feedback
+            </button>
+
+            <div
+                id="message"
+                class="message">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://gehczgguwxqwfowmbedy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const submissionId =
+    params.get("submission");
+
+
+function goBack() {
+
+    window.location.href =
+        "view-students.html";
+
+}
+
+
+async function loadSubmission() {
+
+    if (!submissionId) {
+
+        document.getElementById("loadingMessage").textContent =
+            "No writing submission was selected.";
+
+        return;
+    }
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("writing_submissions")
+            .select("*")
+            .eq("id", submissionId)
+            .single();
+
+
+    if (error) {
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").textContent =
+            "Error loading submission: " + error.message;
+
+        return;
+    }
+
+
+    document.getElementById("loadingMessage").style.display =
+        "none";
+
+    document.getElementById("reviewContent").style.display =
+        "block";
+
+
+    document.getElementById("studentName").textContent =
+        data.student_name || "Unknown Student";
+
+    document.getElementById("studentId").textContent =
+        data.student_id || "N/A";
+
+
+    document.getElementById("submissionDate").textContent =
+        data.submitted_at
+            ? new Date(data.submitted_at).toLocaleString()
+            : "N/A";
+
+
+    document.getElementById("submissionStatus").textContent =
+        data.status || "Submitted";
+
+
+    document.getElementById("task1Answer").textContent =
+        data.task1_answer || "No Task 1 answer submitted.";
+
+
+    document.getElementById("task2Answer").textContent =
+        data.task2_answer || "No Task 2 answer submitted.";
+
+
+    if (data.task1_score !== null &&
+        data.task1_score !== undefined) {
+
+        document.getElementById("task1Score").value =
+            data.task1_score;
+    }
+
+
+    if (data.task2_score !== null &&
+        data.task2_score !== undefined) {
+
+        document.getElementById("task2Score").value =
+            data.task2_score;
+    }
+
+
+    if (data.overall_score !== null &&
+        data.overall_score !== undefined) {
+
+        document.getElementById("overallScore").value =
+            data.overall_score;
+    }
+
+
+    document.getElementById("facultyFeedback").value =
+        data.faculty_feedback || "";
+
+}
+
+
+async function saveReview() {
+
+    const task1Score =
+        document.getElementById("task1Score").value;
+
+    const task2Score =
+        document.getElementById("task2Score").value;
+
+    const overallScore =
+        document.getElementById("overallScore").value;
+
+    const facultyFeedback =
+        document.getElementById("facultyFeedback").value;
+
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent =
+        "Saving...";
+
+
+    const { error } =
+        await supabaseClient
+            .from("writing_submissions")
+            .update({
+                task1_score:
+                    task1Score === ""
+                        ? null
+                        : Number(task1Score),
+
+                task2_score:
+                    task2Score === ""
+                        ? null
+                        : Number(task2Score),
+
+                overall_score:
+                    overallScore === ""
+                        ? null
+                        : Number(overallScore),
+
+                faculty_feedback:
+                    facultyFeedback,
+
+                status:
+                    "reviewed",
+
+                checked_at:
+                    new Date().toISOString()
+            })
+            .eq("id", submissionId);
+
+
+    if (error) {
+
+        console.error(error);
+
+        message.textContent =
+            "Error saving review: " + error.message;
+
+        return;
+    }
+
+
+    message.textContent =
+        "Review saved successfully!";
+
+}
+
+
+loadSubmission();
+
+</script>
+
+</body>
+</html>
