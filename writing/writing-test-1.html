@@ -82,6 +82,174 @@
 
 <body>
 
+
+
+
+<!-- ================================
+     HEADER
+================================= -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                60:00
+            </strong>
+
+        </div>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================================
+     PAGE HEADER
+================================= -->
+
+<section class="listening-header">
+
+    <div>
+
+        <h1>
+            Writing Task 1
+        </h1>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     MAIN CONTENT
+================================= -->
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+        <div class="question-heading">
+
+            <h2>
+                Writing Task 1
+            </h2>
+
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+
+        </div>
+
+
+        <!-- TWO COLUMN LAYOUT -->
+
+        <div class="writing-task-layout">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================== -->
+
+            <div class="writing-question-panel">
+
+                <p>
+                    The line chart below shows the rates of
+                    deforestation in the Brazilian Amazon for
+                    the years 2008 to 2017 and the pie chart
+                    below shows the causes for deforestation
+                    in the Brazilian Amazon for the same years.
+                </p>
+
+                <p>
+                    Summarise the information by selecting
+                    and reporting the main features, and make
+                    comparisons where relevant.
+                </p>
+
+                <p>
+                    <strong>
+                        You should write at least 150 words.
+                    </strong>
+                </p>
+
+
+                <!-- YOUR EXISTING CHART -->
+
+                <img
+                    src="../assets/writing-test-1-task1-chart.png"
+                    alt="Brazilian Amazon deforestation charts"
+                >
+
+            </div>
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================== -->
+
+            <div class="writing-answer-panel">
+
+                <h3>
+                    Your Answer
+                </h3>
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Write your answer here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div
+                    id="task1WordCount"
+                    class="writing-word-count"
+                >
+                    Word count: 0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTINUE BUTTON
+        ========================== -->
+
+        <div class="writing-navigation">
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()"
+            >
+                Continue to Task 2
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
 <script>
     /* =================================
        ACCESS CHECK
@@ -258,180 +426,10 @@
         saveTask1Answer();
 
         window.location.href =
-            "writing-test-1-task-2.html";
+            "writing-test-2.html";
     }
 
 </script>
-
-
-<!-- ================================
-     HEADER
-================================= -->
-
-<header class="main-header">
-
-    <div class="logo">
-        IELTS Practice
-    </div>
-
-    <div class="header-right">
-
-        <div class="header-timer">
-
-            <span>
-                Time Remaining
-            </span>
-
-            <strong id="timer">
-                60:00
-            </strong>
-
-        </div>
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
-
-    </div>
-
-</header>
-
-
-<!-- ================================
-     PAGE HEADER
-================================= -->
-
-<section class="listening-header">
-
-    <div>
-
-        <h1>
-            Writing Task 1
-        </h1>
-
-        <p>
-            Writing Test 1
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ================================
-     MAIN CONTENT
-================================= -->
-
-<main class="listening-container">
-
-    <section class="listening-card question-section">
-
-        <div class="question-heading">
-
-            <h2>
-                Writing Task 1
-            </h2>
-
-            <p class="instruction">
-                You should spend about 20 minutes on this task.
-            </p>
-
-        </div>
-
-
-        <!-- TWO COLUMN LAYOUT -->
-
-        <div class="writing-task-layout">
-
-
-            <!-- =========================
-                 LEFT SIDE
-            ========================== -->
-
-            <div class="writing-question-panel">
-
-                <p>
-                    The line chart below shows the rates of
-                    deforestation in the Brazilian Amazon for
-                    the years 2008 to 2017 and the pie chart
-                    below shows the causes for deforestation
-                    in the Brazilian Amazon for the same years.
-                </p>
-
-                <p>
-                    Summarise the information by selecting
-                    and reporting the main features, and make
-                    comparisons where relevant.
-                </p>
-
-                <p>
-                    <strong>
-                        You should write at least 150 words.
-                    </strong>
-                </p>
-
-
-                <!-- YOUR EXISTING CHART -->
-
-                <img
-                    src="../assets/writing-test-1-task1-chart.png"
-                    alt="Brazilian Amazon deforestation charts"
-                >
-
-            </div>
-
-
-            <!-- =========================
-                 RIGHT SIDE
-            ========================== -->
-
-            <div class="writing-answer-panel">
-
-                <h3>
-                    Your Answer
-                </h3>
-
-                <textarea
-                    id="task1Answer"
-                    placeholder="Write your answer here..."
-                    spellcheck="true"
-                ></textarea>
-
-                <div
-                    id="task1WordCount"
-                    class="writing-word-count"
-                >
-                    Word count: 0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             CONTINUE BUTTON
-        ========================== -->
-
-        <div class="writing-navigation">
-
-            <button
-                type="button"
-                class="primary-btn"
-                onclick="goToTask2()"
-            >
-                Continue to Task 2
-            </button>
-
-        </div>
-
-    </section>
-
-</main>
 
 </body>
 </html>

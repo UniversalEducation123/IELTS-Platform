@@ -97,13 +97,31 @@
     </a>
 
 <!-- Reading Test 2 -->
+    <a
+        href="test-access.html?test=reading-test-2"
+        class="dashboard-card">
+        <div class="dashboard-icon">📖</div>
+        <h2>Reading Test 2</h2>
+        <p>Practice IELTS Academic Reading and check your score.</p>
+        <span>Start Reading →</span>
+    </a>
+
+<!-- Writing Test 1 -->
 <a
-    href="test-access.html?test=reading-test-2"
-    class="dashboard-card">
-    <div class="dashboard-icon">📖</div>
-    <h2>Reading Test 2</h2>
-    <p>Practice IELTS Academic Reading and check your score.</p>
-    <span>Start Reading →</span>
+    href="test-access.html?test=writing-test-1"
+    class="dashboard-card"
+    onclick="startFreshWritingTest()">
+
+    <div class="dashboard-icon">✍️</div>
+
+    <h2>Writing Test 1</h2>
+
+    <p>
+        Practice IELTS Academic Writing Task 1 and Task 2.
+    </p>
+
+    <span>Start Writing →</span>
+
 </a>
 
             </div>
@@ -157,6 +175,24 @@ function clearListeningProgress() {
         }
     }
 }
+
+
+/* =========================
+   WRITING TEST
+   ========================= */
+
+function startFreshWritingTest() {
+    sessionStorage.removeItem("writingTest1TimeLeft");
+    sessionStorage.removeItem("writingTest1Task1Answer");
+    sessionStorage.removeItem("writingTest1Task2Answer");
+    sessionStorage.removeItem("writingTest1Completed");
+
+    localStorage.removeItem("writingTest1TimeLeft");
+    localStorage.removeItem("writingTest1Task1Answer");
+    localStorage.removeItem("writingTest1Task2Answer");
+    localStorage.removeItem("writingTest1Completed");
+}
+
 
 function logout() {
     clearListeningProgress();
