@@ -80,217 +80,432 @@
 
     <script>
 
-        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+        const SUPABASE_URL =
+            "https://gehczgguwxqwfowmbedy.supabase.co";
+
+        const SUPABASE_ANON_KEY =
+            "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
 
         const db = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
         );
 
-    const testPages = {
-        "listening-test-1": {
-            page: "listening/listening-test-1.html",
-            title: "Listening Test 1"
-        },
 
-        "listening-test-2": {
-            page: "listening-test2/listening-test-2-part1.html",
-            title: "Listening Test 2"
-        },
+        const testPages = {
 
-        "listening-test-3": {
-        page: "listening-test3/listening-test-3-part1.html",
-        title: "Listening Test 3"
-        },
+            "listening-test-1": {
+                page: "listening/listening-test-1.html",
+                title: "Listening Test 1"
+            },
 
-        "reading-test-1": {
-            page: "reading/reading-test.html",
-            title: "Reading Test 1"
-        },
+            "listening-test-2": {
+                page: "listening-test2/listening-test-2-part1.html",
+                title: "Listening Test 2"
+            },
 
-        "reading-test-2": {
-            page: "reading-test2/reading-test-2-part1.html",
-            title: "Reading Test 2"
+            "listening-test-3": {
+                page: "listening-test3/listening-test-3-part1.html",
+                title: "Listening Test 3"
+            },
+
+            "reading-test-1": {
+                page: "reading/reading-test.html",
+                title: "Reading Test 1"
+            },
+
+            "reading-test-2": {
+                page: "reading-test2/reading-test-2-part1.html",
+                title: "Reading Test 2"
+            }
+
+        };
+
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const testId =
+            urlParams.get("test");
+
+        console.log("TEST ID:", testId);
+
+
+        const selectedTest =
+            testPages[testId];
+
+
+        const testTitle =
+            document.getElementById("testTitle");
+
+        const passwordInput =
+            document.getElementById("passwordInput");
+
+        const message =
+            document.getElementById("message");
+
+
+        if (!selectedTest) {
+
+            testTitle.textContent =
+                "Invalid Test";
+
+            passwordInput.style.display =
+                "none";
+
+            document.querySelector("button").style.display =
+                "none";
+
+            message.textContent =
+                "This test link is invalid.";
+
+        } else {
+
+            testTitle.textContent =
+                selectedTest.title;
+
+            checkTestAccessMode();
+
         }
-    };
-    const urlParams = new URLSearchParams(window.location.search);
-    const testId = urlParams.get("test");
-    console.log("TEST ID:", testId);
-    const selectedTest = testPages[testId];
-
-    const testTitle = document.getElementById("testTitle");
-    const passwordInput = document.getElementById("passwordInput");
-    const message = document.getElementById("message");
-
-    if (!selectedTest) {
-        testTitle.textContent = "Invalid Test";
-        passwordInput.style.display = "none";
-        document.querySelector("button").style.display = "none";
-        message.textContent = "This test link is invalid.";
-    } else {
-        testTitle.textContent = selectedTest.title;
-
-        checkTestAccessMode();
-    }
-
-    async function checkTestAccessMode() {
-
-    const { data: accessStatus, error } =
-        await db
-            .from("test_access_codes")
-            .select("enabled")
-            .eq("test_id", testId)
-            .maybeSingle();
-
-    if (error) {
-        console.error(
-            "Access mode error:",
-            error
-        );
-
-        message.textContent =
-            "Unable to check test access.";
-
-        return;
-    }
-
-    // OFF = direct access
-    if (!accessStatus || accessStatus.enabled !== true) {
-        window.location.href =
-            selectedTest.page;
-
-        return;
-    }
-
-    // ON = access code required
-}
-
-    async function hashPassword(password) {
-        const data = new TextEncoder().encode(password);
-
-        const hashBuffer = await crypto.subtle.digest(
-            "SHA-256",
-            data
-        );
-
-        return Array.from(new Uint8Array(hashBuffer))
-            .map(byte => byte.toString(16).padStart(2, "0"))
-            .join("");
-    }
 
 
-    async function checkPassword() {
-    if (!selectedTest) return;
+        /*
+        ==========================================================
+        CHECK WHETHER ACCESS CODE IS REQUIRED
+        ==========================================================
+        */
 
-    // Check whether this test is currently enabled
-    const { data: accessStatus, error: statusError } =
-        await db
-            .from("test_access_codes")
-            .select("enabled")
-            .eq("test_id", testId)
-            .maybeSingle();
+        async function checkTestAccessMode() {
 
-    if (statusError) {
-        console.error(
-            "Access status error:",
-            statusError
-        );
-
-        message.textContent =
-            "Unable to check test availability.";
-
-        return;
-    }
-
-    if (!accessStatus || accessStatus.enabled !== true) {
-        window.location.href =
-            selectedTest.page;
-
-        return;
-    }
-
-    const enteredPassword =
-        passwordInput.value.trim();
-
-    if (!enteredPassword) {
-        message.textContent =
-            "Please enter the password.";
-
-        return;
-    }
-
-    message.textContent =
-        "Checking password...";
-
-    try {
-        const passwordHash =
-            await hashPassword(
-                enteredPassword
+            console.log(
+                "Checking access mode for:",
+                testId
             );
 
-        console.log(
-            "ENTERED HASH:",
-            passwordHash
-        );
 
-        const { data, error } =
-            await db
-                .from("test_access_codes")
-                .select("*")
-                .eq("test_id", testId)
-                .eq("password_hash", passwordHash)
-                .maybeSingle();
+            const { data: accessStatus, error } =
+                await db
+                    .from("test_access_codes")
+                    .select("enabled")
+                    .eq("test_id", testId)
+                    .maybeSingle();
 
-        console.log(
-            "SUPABASE DATA:",
-            data
-        );
 
-        console.log(
-            "SUPABASE ERROR:",
-            error
-        );
+            console.log(
+                "ACCESS STATUS:",
+                accessStatus
+            );
 
-        if (error) {
-            console.error(
-                "Supabase error:",
+            console.log(
+                "ACCESS STATUS ERROR:",
                 error
             );
 
-            message.textContent =
-                "Unable to verify password.";
 
-            return;
+            if (error) {
+
+                console.error(
+                    "Access mode error:",
+                    error
+                );
+
+                message.textContent =
+                    "Unable to check test access.";
+
+                return;
+            }
+
+
+            if (!accessStatus) {
+
+                message.textContent =
+                    "Test access settings not found.";
+
+                return;
+            }
+
+
+            /*
+            enabled = FALSE
+            Access code is OFF
+            Student can enter directly
+            */
+
+            if (accessStatus.enabled === false) {
+
+                console.log(
+                    "Access code is OFF. Entering test directly."
+                );
+
+
+                /*
+                IMPORTANT:
+                Give the test page permission to open.
+                */
+
+                sessionStorage.setItem(
+                    "access_" + testId,
+                    "true"
+                );
+
+
+                window.location.href =
+                    selectedTest.page;
+
+                return;
+            }
+
+
+            /*
+            enabled = TRUE
+            Access code is ON
+            Password required
+            */
+
+            console.log(
+                "Access code is ON. Password required."
+            );
+
         }
 
-        if (!data) {
-            message.textContent =
-                "Incorrect password.";
 
-            return;
+        /*
+        ==========================================================
+        HASH PASSWORD
+        ==========================================================
+        */
+
+        async function hashPassword(password) {
+
+            const data =
+                new TextEncoder().encode(password);
+
+
+            const hashBuffer =
+                await crypto.subtle.digest(
+                    "SHA-256",
+                    data
+                );
+
+
+            return Array.from(
+                new Uint8Array(hashBuffer)
+            )
+            .map(
+                byte =>
+                    byte
+                        .toString(16)
+                        .padStart(2, "0")
+            )
+            .join("");
+
         }
 
-        sessionStorage.setItem(
-            "access_" + testId,
-            "true"
-        );
 
-        window.location.href =
-            selectedTest.page;
+        /*
+        ==========================================================
+        CHECK PASSWORD
+        ==========================================================
+        */
 
-    } catch (error) {
-        console.error(
-            "Password error:",
-            error
-        );
+        async function checkPassword() {
 
-        message.textContent =
-            "Something went wrong.";
-    }
-}
+            if (!selectedTest) return;
 
-</script>
+
+            /*
+            Check current access mode again.
+            */
+
+            const {
+                data: accessStatus,
+                error: statusError
+            } =
+                await db
+                    .from("test_access_codes")
+                    .select("enabled")
+                    .eq("test_id", testId)
+                    .maybeSingle();
+
+
+            if (statusError) {
+
+                console.error(
+                    "Access status error:",
+                    statusError
+                );
+
+                message.textContent =
+                    "Unable to check test availability.";
+
+                return;
+            }
+
+
+            /*
+            If access code is OFF,
+            allow direct access.
+            */
+
+            if (
+                accessStatus &&
+                accessStatus.enabled === false
+            ) {
+
+                sessionStorage.setItem(
+                    "access_" + testId,
+                    "true"
+                );
+
+
+                window.location.href =
+                    selectedTest.page;
+
+                return;
+            }
+
+
+            /*
+            If settings are missing,
+            stop.
+            */
+
+            if (!accessStatus) {
+
+                message.textContent =
+                    "Test access settings not found.";
+
+                return;
+            }
+
+
+            /*
+            Access code is ON.
+            */
+
+            if (accessStatus.enabled !== true) {
+
+                message.textContent =
+                    "Test access is unavailable.";
+
+                return;
+            }
+
+
+            const enteredPassword =
+                passwordInput.value.trim();
+
+
+            if (!enteredPassword) {
+
+                message.textContent =
+                    "Please enter the password.";
+
+                return;
+            }
+
+
+            message.textContent =
+                "Checking password...";
+
+
+            try {
+
+                const passwordHash =
+                    await hashPassword(
+                        enteredPassword
+                    );
+
+
+                console.log(
+                    "ENTERED HASH:",
+                    passwordHash
+                );
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await db
+                        .from("test_access_codes")
+                        .select("*")
+                        .eq(
+                            "test_id",
+                            testId
+                        )
+                        .eq(
+                            "password_hash",
+                            passwordHash
+                        )
+                        .maybeSingle();
+
+
+                console.log(
+                    "SUPABASE DATA:",
+                    data
+                );
+
+
+                console.log(
+                    "SUPABASE ERROR:",
+                    error
+                );
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase error:",
+                        error
+                    );
+
+                    message.textContent =
+                        "Unable to verify password.";
+
+                    return;
+                }
+
+
+                if (!data) {
+
+                    message.textContent =
+                        "Incorrect password.";
+
+                    return;
+                }
+
+
+                /*
+                Password is correct.
+                Give the test page permission.
+                */
+
+                sessionStorage.setItem(
+                    "access_" + testId,
+                    "true"
+                );
+
+
+                window.location.href =
+                    selectedTest.page;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Password error:",
+                    error
+                );
+
+                message.textContent =
+                    "Something went wrong.";
+
+            }
+
+        }
+
+    </script>
 
 </body>
 </html>
