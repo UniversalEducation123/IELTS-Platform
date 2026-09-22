@@ -2800,25 +2800,23 @@ body.listening-page {
     background: #f4faf5;
 }
 
-/* Student dashboard - view student button*/
-.dashboard-container {
-    position: relative;
-}
 
-.dashboard-page .dashboard-container .submitted-tests-button {
+/* View Submitted Tests button */
+.dashboard-container .submitted-tests-button {
     position: absolute !important;
     left: 0 !important;
     top: 70px !important;
 
     display: inline-block !important;
     background: #3b0f12 !important;
-    color: white !important;
+    color: #ffffff !important;
     text-decoration: none !important;
+
     padding: 10px 16px !important;
     border-radius: 6px !important;
     font-weight: bold !important;
 }
 
-.dashboard-page .dashboard-container .submitted-tests-button:hover {
+.dashboard-container .submitted-tests-button:hover {
     background: #57171b !important;
 }
