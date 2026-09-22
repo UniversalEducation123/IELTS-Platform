@@ -2724,3 +2724,48 @@ body.listening-page {
     }
 
 }
+
+/* =====================================================
+   LISTENING NOTES TOPIC HEADINGS
+===================================================== */
+
+.notes-topic-heading {
+    margin: 35px auto 22px;
+    padding: 12px 24px;
+
+    max-width: 650px;
+
+    text-align: center;
+
+    background: #edf6eb;
+    color: #526b4f;
+
+    border: 1px solid #c9ddc5;
+    border-radius: 10px;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+
+    box-sizing: border-box;
+}
+
+
+/* First topic heading */
+.question-box > .notes-topic-heading:first-of-type {
+    margin-top: 25px;
+}
+
+
+/* Space between individual questions */
+.question-line {
+    margin: 0 0 24px;
+    line-height: 1.9;
+}
+
+
+/* Slightly more breathing room after a topic section */
+.notes-topic-heading + .question-line {
+    margin-top: 8px;
+}

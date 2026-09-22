@@ -466,13 +466,17 @@ function updateQuestionProgress() {
         let inputs;
 
         if (i === 1) {
+
             inputs = document.querySelectorAll(
                 '[name="q1"], [name="q1_last"]'
             );
+
         } else {
+
             inputs = document.querySelectorAll(
                 `[name="q${i}"]`
             );
+
         }
 
         const button = document.querySelector(
@@ -481,28 +485,79 @@ function updateQuestionProgress() {
 
         if (!button) continue;
 
-        const attempted = Array.from(inputs).some(function(input) {
-            return input.value.trim() !== "";
-        });
 
-        if (attempted) {
-            button.classList.add("answered");
-        } else {
-            button.classList.remove("answered");
+        let answered = false;
+
+
+        /* Question 1:
+           BOTH first name AND last name are required
+        */
+
+        if (i === 1) {
+
+            const firstName =
+                document.querySelector('[name="q1"]');
+
+            const lastName =
+                document.querySelector('[name="q1_last"]');
+
+            answered =
+                firstName &&
+                lastName &&
+                firstName.value.trim() !== "" &&
+                lastName.value.trim() !== "";
+
         }
+
+
+        /* Questions 2–10:
+           One answer is enough
+        */
+
+        else {
+
+            answered = Array.from(inputs).some(
+                function(input) {
+
+                    return input.value.trim() !== "";
+
+                }
+            );
+
+        }
+
+
+        if (answered) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
     }
+
 }
+
 
 document.querySelectorAll(
     ".listening-question-table input"
 ).forEach(function(input) {
 
-    input.addEventListener("input", function() {
-        saveAnswers();
-        updateQuestionProgress();
-    });
+    input.addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        }
+    );
 
 });
+
 
 restoreAnswers();
 updateQuestionProgress();
