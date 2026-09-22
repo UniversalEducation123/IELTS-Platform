@@ -285,9 +285,10 @@ p {
 }
 
 .dashboard-options {
-    display: flex;
-    gap: 25px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
 }
 
 .dashboard-card {
