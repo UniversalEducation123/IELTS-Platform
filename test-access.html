@@ -130,7 +130,41 @@
         message.textContent = "This test link is invalid.";
     } else {
         testTitle.textContent = selectedTest.title;
+
+        checkTestAccessMode();
     }
+
+    async function checkTestAccessMode() {
+
+    const { data: accessStatus, error } =
+        await db
+            .from("test_access_codes")
+            .select("enabled")
+            .eq("test_id", testId)
+            .maybeSingle();
+
+    if (error) {
+        console.error(
+            "Access mode error:",
+            error
+        );
+
+        message.textContent =
+            "Unable to check test access.";
+
+        return;
+    }
+
+    // OFF = direct access
+    if (!accessStatus || accessStatus.enabled !== true) {
+        window.location.href =
+            selectedTest.page;
+
+        return;
+    }
+
+    // ON = access code required
+}
 
     async function hashPassword(password) {
         const data = new TextEncoder().encode(password);
@@ -145,52 +179,117 @@
             .join("");
     }
 
+
     async function checkPassword() {
-        if (!selectedTest) return;
+    if (!selectedTest) return;
 
-        const enteredPassword = passwordInput.value.trim();
+    // Check whether this test is currently enabled
+    const { data: accessStatus, error: statusError } =
+        await db
+            .from("test_access_codes")
+            .select("enabled")
+            .eq("test_id", testId)
+            .maybeSingle();
 
-        if (!enteredPassword) {
-            message.textContent = "Please enter the password.";
-            return;
-        }
+    if (statusError) {
+        console.error(
+            "Access status error:",
+            statusError
+        );
 
-        message.textContent = "Checking password...";
+        message.textContent =
+            "Unable to check test availability.";
 
-        try {
-            const passwordHash = await hashPassword(enteredPassword);
-            console.log("ENTERED HASH:", passwordHash);
+        return;
+    }
 
-            const { data, error } = await db
+    if (!accessStatus || accessStatus.enabled !== true) {
+        window.location.href =
+            selectedTest.page;
+
+        return;
+    }
+
+    const enteredPassword =
+        passwordInput.value.trim();
+
+    if (!enteredPassword) {
+        message.textContent =
+            "Please enter the password.";
+
+        return;
+    }
+
+    message.textContent =
+        "Checking password...";
+
+    try {
+        const passwordHash =
+            await hashPassword(
+                enteredPassword
+            );
+
+        console.log(
+            "ENTERED HASH:",
+            passwordHash
+        );
+
+        const { data, error } =
+            await db
                 .from("test_access_codes")
                 .select("*")
                 .eq("test_id", testId)
                 .eq("password_hash", passwordHash)
                 .maybeSingle();
 
-                console.log("SUPABASE DATA:", data);
-                console.log("SUPABASE ERROR:", error);
+        console.log(
+            "SUPABASE DATA:",
+            data
+        );
 
-            if (error) {
-                console.error("Supabase error:", error);
-                message.textContent = "Unable to verify password.";
-                return;
-            }
+        console.log(
+            "SUPABASE ERROR:",
+            error
+        );
 
-            if (!data) {
-                message.textContent = "Incorrect password.";
-                return;
-            }
+        if (error) {
+            console.error(
+                "Supabase error:",
+                error
+            );
 
-            sessionStorage.setItem("access_" + testId, "true");
+            message.textContent =
+                "Unable to verify password.";
 
-            window.location.href = selectedTest.page;
-
-        } catch (error) {
-            console.error("Password error:", error);
-            message.textContent = "Something went wrong.";
+            return;
         }
+
+        if (!data) {
+            message.textContent =
+                "Incorrect password.";
+
+            return;
+        }
+
+        sessionStorage.setItem(
+            "access_" + testId,
+            "true"
+        );
+
+        window.location.href =
+            selectedTest.page;
+
+    } catch (error) {
+        console.error(
+            "Password error:",
+            error
+        );
+
+        message.textContent =
+            "Something went wrong.";
     }
+}
+
 </script>
 
 </body>
