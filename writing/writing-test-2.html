@@ -538,6 +538,9 @@
     const studentId =
         sessionStorage.getItem("studentId");
 
+    const studentName =
+        sessionStorage.getItem("studentName") || "";
+
     const task1Answer =
         sessionStorage.getItem(
             "writingTest1Task1Answer"
@@ -561,6 +564,7 @@
             .insert([
                 {
                     student_id: studentId,
+                    student_name: studentName,
                     test_id: "writing-test-1",
                     task1_answer: task1Answer,
                     task2_answer: task2Answer,
