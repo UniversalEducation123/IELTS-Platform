@@ -8,132 +8,130 @@
     <link rel="stylesheet" href="../style.css">
 
     <style>
-        .writing-header {
-            background: #f5f7fb;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 24px 32px;
-        }
+            /* ================================
+            WRITING TASK 2
+            ================================= */
 
-        .writing-header h1 {
-            margin: 0 0 6px;
-        }
-
-        .writing-header p {
-            margin: 0;
-            color: #666;
-        }
-
-        .writing-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 24px;
-        }
-
-        .writing-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-        }
-
-        .instruction {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .task-question {
-            background: #f8fafc;
-            border-left: 4px solid #2563eb;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .writing-area {
-            width: 100%;
-            min-height: 430px;
-            resize: vertical;
-            box-sizing: border-box;
-            padding: 18px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 16px;
-            line-height: 1.7;
-            outline: none;
-        }
-
-        .writing-area:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .writing-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .word-count {
-            font-weight: 600;
-        }
-
-        .writing-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 28px;
-            gap: 12px;
-        }
-
-        .secondary-btn {
-            display: inline-block;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            background: #fff;
-            color: #333;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .secondary-btn:hover {
-            background: #f5f5f5;
-        }
-
-        .primary-btn {
-            border: none;
-            padding: 12px 22px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        @media (max-width: 700px) {
             .writing-container {
-                padding: 0 16px;
+                max-width: 1200px;
+                margin: 30px auto;
+                padding: 0 24px;
             }
 
             .writing-card {
+                background: #ffffff;
+                border: 1px solid #ddd;
+                border-radius: 10px;
                 padding: 20px;
             }
 
+            .instruction {
+                color: #555;
+                line-height: 1.6;
+                margin-bottom: 24px;
+            }
+
+            .task-question {
+                background: #ffffff;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 24px;
+                font-size: 18px;
+                line-height: 1.7;
+            }
+
+            .task-question p {
+                margin: 0 0 12px;
+            }
+
+            .task-question p:last-child {
+                margin-bottom: 0;
+            }
+
+            .writing-area {
+                width: 100%;
+                min-height: 600px;
+                box-sizing: border-box;
+                resize: vertical;
+                padding: 16px;
+                font: inherit;
+                font-size: 16px;
+                line-height: 1.6;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                outline: none;
+            }
+
+            .writing-area:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            }
+
+            .writing-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 10px;
+                color: #666;
+                font-size: 14px;
+            }
+
+            .word-count {
+                font-weight: 600;
+            }
+
             .writing-actions {
-                flex-direction: column;
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 24px;
             }
 
             .secondary-btn,
             .primary-btn {
-                width: 100%;
-                text-align: center;
+                padding: 12px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 15px;
             }
-        }
+
+            .secondary-btn {
+                border: 1px solid #d1d5db;
+                background: #ffffff;
+                color: #333;
+            }
+
+            .secondary-btn:hover {
+                background: #f5f5f5;
+            }
+
+            .primary-btn {
+                border: none;
+            }
+
+            @media (max-width: 900px) {
+
+                .writing-container {
+                    padding: 0 16px;
+                }
+
+                .writing-card {
+                    padding: 20px;
+                }
+
+                .writing-area {
+                    min-height: 400px;
+                }
+
+                .writing-actions {
+                    flex-direction: column;
+                }
+
+                .secondary-btn,
+                .primary-btn {
+                    width: 100%;
+                }
+            }
     </style>
 </head>
 
