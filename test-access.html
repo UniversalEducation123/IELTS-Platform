@@ -435,15 +435,15 @@
                     await db
                         .from("test_access_codes")
                         .select("*")
-                        .eq(
-                            "test_id",
-                            testId
-                        )
-                        .eq(
-                            "password_hash",
-                            passwordHash
-                        )
+                        .eq("test_id", testId)
                         .maybeSingle();
+
+                console.log("TEST ROW:", data);
+
+                if (data) {
+                    console.log("STORED HASH:", data.password_hash);
+                    console.log("ENTERED HASH:", passwordHash);
+                }
 
 
                 console.log(
@@ -473,7 +473,13 @@
 
 
                 if (!data) {
+                    message.textContent =
+                        "Incorrect password.";
 
+                    return;
+                }
+
+                if (data.password_hash !== passwordHash) {
                     message.textContent =
                         "Incorrect password.";
 
