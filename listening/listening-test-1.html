@@ -12,10 +12,13 @@
 
     <script>
         const accessKey = "access_listening-test-1";
-        const listeningAccessGranted = sessionStorage.getItem(accessKey);
+
+        const listeningAccessGranted =
+            sessionStorage.getItem(accessKey);
 
         if (listeningAccessGranted !== "true") {
-            window.location.href = "../test-access.html?test=listening-test-1";
+            window.location.href =
+                "../test-access.html?test=listening-test-1";
         }
     </script>
 
