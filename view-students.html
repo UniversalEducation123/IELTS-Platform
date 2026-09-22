@@ -95,6 +95,7 @@
 
 let allStudents = [];
 let allResults = [];
+let allWritingSubmissions = [];
 let selectedTest = "Test 1";
 
 
@@ -130,6 +131,21 @@ async function loadStudentsAndResults() {
             "Error loading test results: " + resultsError.message;
         return;
     }
+
+    const { data: writingSubmissions, error: writingError } =
+        await supabaseClient
+            .from("writing_submissions")
+            .select("*")
+            .eq("test_id", "writing-test-1")
+            .order("submitted_at", { ascending: false });
+
+    if (writingError) {
+        loadingMessage.textContent =
+            "Error loading writing submissions: " + writingError.message;
+        return;
+    }
+
+allWritingSubmissions = writingSubmissions || [];
 
     allStudents = students || [];
     allResults = results || [];
@@ -188,6 +204,11 @@ function showTestResults(testName, clickedButton = null) {
             student => Number(student.id) === Number(result.student_id)
         );
 
+        const writingSubmission = allWritingSubmissions.find(
+            submission =>
+                String(submission.student_id) === String(result.student_id)
+        );
+
         const studentName =
             result.student_name ||
             (student ? student.full_name : "Unknown Student");
@@ -220,6 +241,15 @@ function showTestResults(testName, clickedButton = null) {
                     <h2>${escapeHTML(studentName)}</h2>
                     <p>Username: ${escapeHTML(username)}</p>
                     <p>Student ID: ${result.student_id}</p>
+
+                    <p>
+                        <strong>Writing Test 1:</strong>
+                        ${
+                            writingSubmission
+                                ? `Submitted on ${new Date(writingSubmission.submitted_at).toLocaleString()}`
+                                : "Not submitted"
+                        }
+                    </p>
                 </div>
 
                 <button
