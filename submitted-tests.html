@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Submitted Tests</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #3b0f12;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .back-button {
+            background: white;
+            color: #3b0f12;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .student-heading {
+            margin-bottom: 25px;
+        }
+
+        .student-heading h2 {
+            margin-bottom: 5px;
+            color: #3b0f12;
+        }
+
+        .student-heading p {
+            color: #666;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .test-card h2 {
+            margin-top: 0;
+            color: #3b0f12;
+        }
+
+        .test-date {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .score-item {
+            background: #f5f7fb;
+            border-radius: 8px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .score-item strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #3b0f12;
+        }
+
+        .score-item span {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .score-item small {
+            display: block;
+            margin-top: 6px;
+            color: #666;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            background: #f5f7fb;
+        }
+
+        .no-tests {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        @media (max-width: 700px) {
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>Submitted Tests</h1>
+
+    <button
+        type="button"
+        class="back-button"
+        onclick="goBack()">
+        ← Back to Dashboard
+    </button>
+
+</header>
+
+
+<div class="container">
+
+    <div class="student-heading">
+
+        <h2 id="studentName">
+            Student
+        </h2>
+
+        <p>
+            Your submitted tests and results
+        </p>
+
+    </div>
+
+
+    <div
+        id="loadingMessage"
+        class="loading">
+
+        Loading your submitted tests...
+
+    </div>
+
+
+    <div
+        id="testsContainer"
+        style="display:none;">
+
+    </div>
+
+</div>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://gehczgguwxqwfowmbedy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+function goBack() {
+
+    window.location.href =
+        "student-dashboard.html";
+
+}
+
+
+async function loadSubmittedTests() {
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const studentName =
+        sessionStorage.getItem("studentName") ||
+        "Student";
+
+
+    if (!studentId) {
+
+        window.location.href =
+            "student-login.html";
+
+        return;
+    }
+
+
+    document.getElementById("studentName").textContent =
+        studentName;
+
+
+    const { data, error } =
+        await supabaseClient
+            .from("test_results")
+            .select("*")
+            .eq("student_id", Number(studentId))
+            .eq("is_submitted", true)
+            .order("test_date", {
+                ascending: false
+            });
+
+
+    if (error) {
+
+        console.error(error);
+
+        document.getElementById("loadingMessage").textContent =
+            "Error loading your submitted tests: " +
+            error.message;
+
+        return;
+    }
+
+
+    const { data: writingSubmissions, error: writingError } =
+        await supabaseClient
+            .from("writing_submissions")
+            .select("*")
+            .eq("student_id", String(studentId))
+            .order("submitted_at", {
+                ascending: false
+            });
+
+
+    if (writingError) {
+
+        console.error(writingError);
+
+        document.getElementById("loadingMessage").textContent =
+            "Error loading writing submissions: " +
+            writingError.message;
+
+        return;
+    }
+
+
+    document.getElementById("loadingMessage").style.display =
+        "none";
+
+    const testsContainer =
+        document.getElementById("testsContainer");
+
+    testsContainer.style.display =
+        "block";
+
+
+    if ((!data || data.length === 0) &&
+        (!writingSubmissions || writingSubmissions.length === 0)) {
+
+        testsContainer.innerHTML = `
+            <div class="no-tests">
+                You have not submitted any tests yet.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    testsContainer.innerHTML = "";
+
+
+    if (data && data.length > 0) {
+
+        data.forEach(result => {
+
+            const writingSubmission =
+                writingSubmissions.find(
+                    submission =>
+                        submission.test_id ===
+                        "writing-" +
+                        result.test_name.toLowerCase().replace(/\s+/g, "-")
+                );
+
+
+            const writingScore =
+                writingSubmission &&
+                writingSubmission.overall_score !== null
+                    ? writingSubmission.overall_score
+                    : "Awaiting review";
+
+
+            const statusText =
+                writingSubmission
+                    ? (
+                        writingSubmission.status === "reviewed"
+                            ? "Writing reviewed"
+                            : "Writing submitted"
+                    )
+                    : "Writing not submitted";
+
+
+            testsContainer.innerHTML += `
+
+                <div class="test-card">
+
+                    <h2>
+                        ${escapeHTML(result.test_name || "Test")}
+                    </h2>
+
+                    <p class="test-date">
+                        Test Date:
+                        ${
+                            result.test_date
+                                ? new Date(
+                                    result.test_date + "T00:00:00"
+                                ).toLocaleDateString()
+                                : "Not available"
+                        }
+                    </p>
+
+
+                    <div class="score-grid">
+
+                        <div class="score-item">
+
+                            <strong>
+                                Listening
+                            </strong>
+
+                            <span>
+                                ${
+                                    result.listening_score !== null &&
+                                    result.listening_score !== undefined
+                                        ? getListeningBand(
+                                            result.listening_score
+                                        )
+                                        : "Not submitted"
+                                }
+                            </span>
+
+                            <small>
+                                ${
+                                    result.listening_score !== null &&
+                                    result.listening_score !== undefined
+                                        ? result.listening_score +
+                                          " / 40"
+                                        : ""
+                                }
+                            </small>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <strong>
+                                Reading
+                            </strong>
+
+                            <span>
+                                ${
+                                    result.reading_score !== null &&
+                                    result.reading_score !== undefined
+                                        ? getReadingBand(
+                                            result.reading_score
+                                        )
+                                        : "Not submitted"
+                                }
+                            </span>
+
+                            <small>
+                                ${
+                                    result.reading_score !== null &&
+                                    result.reading_score !== undefined
+                                        ? result.reading_score +
+                                          " / 40"
+                                        : ""
+                                }
+                            </small>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <strong>
+                                Writing
+                            </strong>
+
+                            <span>
+                                ${writingScore}
+                            </span>
+
+                            <small>
+                                ${statusText}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    if (writingSubmissions &&
+        writingSubmissions.length > 0 &&
+        (!data || data.length === 0)) {
+
+        writingSubmissions.forEach(submission => {
+
+            testsContainer.innerHTML += `
+
+                <div class="test-card">
+
+                    <h2>
+                        Writing Test 1
+                    </h2>
+
+                    <p class="test-date">
+                        Submitted:
+                        ${
+                            submission.submitted_at
+                                ? new Date(
+                                    submission.submitted_at
+                                ).toLocaleString()
+                                : "Not available"
+                        }
+                    </p>
+
+
+                    <div class="score-grid">
+
+                        <div class="score-item">
+
+                            <strong>
+                                Task 1
+                            </strong>
+
+                            <span>
+                                ${
+                                    submission.task1_score !== null
+                                        ? submission.task1_score
+                                        : "Awaiting review"
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <strong>
+                                Task 2
+                            </strong>
+
+                            <span>
+                                ${
+                                    submission.task2_score !== null
+                                        ? submission.task2_score
+                                        : "Awaiting review"
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <strong>
+                                Overall
+                            </strong>
+
+                            <span>
+                                ${
+                                    submission.overall_score !== null
+                                        ? submission.overall_score
+                                        : "Awaiting review"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+
+                        ${
+                            submission.status === "reviewed"
+                                ? "Faculty has reviewed your writing."
+                                : "Your writing has been submitted and is awaiting faculty review."
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+}
+
+
+function getListeningBand(score) {
+
+    if (score >= 39) return "9.0";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8.0";
+    if (score >= 32) return "7.5";
+    if (score >= 30) return "7.0";
+    if (score >= 26) return "6.5";
+    if (score >= 23) return "6.0";
+    if (score >= 18) return "5.5";
+    if (score >= 16) return "5.0";
+    if (score >= 13) return "4.5";
+    if (score >= 11) return "4.0";
+
+    return "Below 4.0";
+}
+
+
+function getReadingBand(score) {
+
+    if (score >= 39) return "9.0";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8.0";
+    if (score >= 33) return "7.5";
+    if (score >= 30) return "7.0";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6.0";
+    if (score >= 19) return "5.5";
+    if (score >= 15) return "5.0";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4.0";
+
+    return "Below 4.0";
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+loadSubmittedTests();
+
+</script>
+
+</body>
+</html>

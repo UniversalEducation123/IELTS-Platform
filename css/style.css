@@ -2799,3 +2799,26 @@ body.listening-page {
     border-bottom-color: #789b78;
     background: #f4faf5;
 }
+
+/* Student dashboard - view student button*/
+.dashboard-container {
+    position: relative;
+}
+
+.submitted-tests-button {
+    position: absolute;
+    left: 0;
+    top: 70px;
+
+    display: inline-block;
+    background: #3b0f12;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.submitted-tests-button:hover {
+    background: #57171b;
+}
