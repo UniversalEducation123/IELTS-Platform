@@ -1,55 +1,90 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Writing Test 1 - Task 2</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+```
+<title>IELTS Writing Test 1 - Task 2</title>
 
-    <style>
+<link rel="stylesheet" href="../css/style.css">
+
+<style>
     /* ================================
        WRITING TASK 2
     ================================= */
 
-    .writing-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 0 24px;
-    }
-
-    .writing-card {
+    .writing-task2-card {
         background: #ffffff;
         border: 1px solid #ddd;
         border-radius: 10px;
         padding: 20px;
     }
 
-    .instruction {
+    /* Task heading */
+
+    .writing-task2-heading {
+        margin-bottom: 24px;
+    }
+
+    .writing-task2-heading h2 {
+        margin: 0 0 10px;
+        font-size: 26px;
+        line-height: 1.3;
+    }
+
+    .writing-task2-heading .task-label {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 15px;
+        font-weight: 700;
         color: #555;
-        line-height: 1.6;
-        margin-bottom: 24px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
     }
 
-    .task-question {
-        background: #ffffff;
+    /* Instructions */
+
+    .writing-task2-instruction {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #333;
+        margin: 0 0 18px;
+    }
+
+    .writing-task2-instruction strong {
+        font-weight: 700;
+        color: #222;
+    }
+
+    /* Question */
+
+    .writing-task2-question {
+        background: #f8f9fb;
         border: 1px solid #ddd;
         border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 24px;
-        font-size: 18px;
+        padding: 22px;
+        margin: 24px 0;
+        font-size: 20px;
+        font-weight: 600;
         line-height: 1.7;
+        color: #222;
     }
 
-    .task-question p {
+    /* Answer section */
+
+    .writing-task2-answer {
+        margin-top: 24px;
+    }
+
+    .writing-task2-answer h3 {
         margin: 0 0 12px;
+        font-size: 20px;
     }
 
-    .task-question p:last-child {
-        margin-bottom: 0;
-    }
-
-    .writing-area {
+    .writing-task2-answer textarea {
         width: 100%;
         min-height: 600px;
         box-sizing: border-box;
@@ -63,271 +98,447 @@
         outline: none;
     }
 
-    .writing-area:focus {
+    .writing-task2-answer textarea:focus {
         border-color: #2563eb;
         box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     }
 
-    .writing-meta {
+    /* Word count */
+
+    .writing-task2-meta {
+        margin-top: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 10px;
-        color: #666;
         font-size: 14px;
+        color: #666;
     }
 
-    .word-count {
+    .writing-task2-word-count {
         font-weight: 600;
     }
 
-    .writing-actions {
+    /* Navigation */
+
+    .writing-task2-navigation {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         margin-top: 24px;
     }
 
-    .secondary-btn,
-    .primary-btn {
+    .writing-task2-navigation .secondary-btn,
+    .writing-task2-navigation .primary-btn {
         padding: 12px 20px;
         border-radius: 8px;
         cursor: pointer;
         font-size: 15px;
     }
 
-    .secondary-btn {
+    .writing-task2-navigation .secondary-btn {
         border: 1px solid #d1d5db;
         background: #ffffff;
         color: #333;
+        text-decoration: none;
     }
 
-    .secondary-btn:hover {
+    .writing-task2-navigation .secondary-btn:hover {
         background: #f5f5f5;
     }
 
-    .primary-btn {
+    .writing-task2-navigation .primary-btn {
         border: none;
     }
 
-    @media (max-width: 900px) {
-        .writing-container {
-            padding: 0 16px;
-        }
+    /* Mobile */
 
-        .writing-card {
+    @media (max-width: 900px) {
+
+        .writing-task2-card {
             padding: 20px;
         }
 
-        .writing-area {
+        .writing-task2-question {
+            font-size: 18px;
+        }
+
+        .writing-task2-answer textarea {
             min-height: 400px;
         }
 
-        .writing-actions {
+        .writing-task2-navigation {
             flex-direction: column;
+            gap: 12px;
         }
 
-        .secondary-btn,
-        .primary-btn {
+        .writing-task2-navigation .secondary-btn,
+        .writing-task2-navigation .primary-btn {
             width: 100%;
+            box-sizing: border-box;
+            text-align: center;
         }
     }
 </style>
+```
 
 </head>
 
 <body>
 
-    <!-- Access protection -->
-    <script>
-        const accessKey = "access_writing-test-1";
-        const writingAccessGranted = sessionStorage.getItem(accessKey);
+```
+<!-- ================================
+     ACCESS PROTECTION
+================================= -->
 
-        if (writingAccessGranted !== "true") {
-            window.location.href = "../test-access.html?test=writing-test-1";
-        }
-    </script>
+<script>
+    const accessKey = "access_writing-test-1";
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="logo">IELTS Practice</div>
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
 
-        <div class="header-right">
-            <div class="header-timer">
-                <span>Time Remaining</span>
-                <strong id="timer">--:--</strong>
-            </div>
+    if (writingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-test-1";
+    }
+</script>
 
-            <a href="../student-dashboard.html">Dashboard</a>
-            <a href="../index.html">Logout</a>
+
+<!-- ================================
+     HEADER
+================================= -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                --:--
+            </strong>
+
         </div>
-    </header>
 
-    <!-- Task header -->
-    <section class="writing-header">
-        <div>
-            <h1>Writing Test 1 - Task 2</h1>
-            <p>Essay Writing</p>
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================================
+     PAGE HEADER
+================================= -->
+
+<section class="listening-header">
+    <div></div>
+</section>
+
+
+<!-- ================================
+     MAIN CONTENT
+================================= -->
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+
+        <!-- TASK HEADING -->
+
+        <div class="writing-task2-heading">
+
+            <span class="task-label">
+                IELTS Writing Test 1
+            </span>
+
+            <h2>
+                Writing Task 2
+            </h2>
+
+            <p class="writing-task2-instruction">
+                <strong>You should spend about 40 minutes on this task.</strong>
+            </p>
+
         </div>
-    </section>
 
-    <!-- Main content -->
-    <main class="writing-container">
 
-        <section class="writing-card">
+        <!-- QUESTION -->
 
-            <p class="instruction">
-                You should spend about 40 minutes on this task.
-            </p>
+        <div class="writing-task2-question">
 
-            <div class="task-question">
-                Too many young people and too many old people do not exercise enough.
-                What is causing this? What can be done to change this?
-            </div>
+            Too many young people and too many old people do not exercise enough.
+            What is causing this? What can be done to change this?
 
-            <p class="instruction">
-                Give reasons for your answer and include any relevant examples
-                from your own knowledge or experience.
-            </p>
+        </div>
 
-            <p class="instruction">
-                Write at least 250 words.
-            </p>
+
+        <!-- INSTRUCTIONS -->
+
+        <p class="writing-task2-instruction">
+            Give reasons for your answer and include any relevant examples
+            from your own knowledge or experience.
+        </p>
+
+        <p class="writing-task2-instruction">
+            <strong>You should write at least 250 words.</strong>
+        </p>
+
+
+        <!-- ANSWER -->
+
+        <div class="writing-task2-answer">
+
+            <h3>
+                Your Answer
+            </h3>
 
             <textarea
                 id="answer"
-                class="writing-area"
                 placeholder="Write your answer here..."
+                spellcheck="true"
             ></textarea>
 
-            <div class="writing-meta">
-                <span>Minimum: 250 words</span>
-                <span class="word-count">
-                    Words: <strong id="wordCount">0</strong>
+            <div class="writing-task2-meta">
+
+                <span>
+                    Minimum: 250 words
                 </span>
+
+                <span class="writing-task2-word-count">
+                    Words:
+                    <strong id="wordCount">0</strong>
+                </span>
+
             </div>
 
-            <div class="writing-actions">
-                <a
-                    href="writing-test-1.html"
-                    class="secondary-btn"
-                >
-                    ← Back to Task 1
-                </a>
+        </div>
 
-                <button
-                    type="button"
-                    class="primary-btn"
-                    onclick="finishWritingTest()"
-                >
-                    Finish Writing Test
-                </button>
-            </div>
 
-        </section>
+        <!-- NAVIGATION -->
 
-    </main>
+        <div class="writing-task2-navigation">
 
-    <script>
-        /* =========================
-           SHARED 60-MINUTE TIMER
-           ========================= */
+            <a
+                href="writing-test-1.html"
+                class="secondary-btn"
+            >
+                ← Back to Task 1
+            </a>
 
-        const timerElement = document.getElementById("timer");
-        const timeKey = "writingTest1TimeLeft";
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="finishWritingTest()"
+            >
+                Finish Writing Test
+            </button>
 
-        let timeLeft = parseInt(sessionStorage.getItem(timeKey), 10);
+        </div>
 
-        if (isNaN(timeLeft) || timeLeft <= 0) {
-            timeLeft = 60 * 60;
-            sessionStorage.setItem(timeKey, timeLeft);
-        }
+    </section>
 
-        function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
+</main>
 
-            timerElement.textContent =
-                String(minutes).padStart(2, "0") +
-                ":" +
-                String(seconds).padStart(2, "0");
 
-            sessionStorage.setItem(timeKey, timeLeft);
+<!-- ================================
+     JAVASCRIPT
+================================= -->
+
+<script>
+
+    /* =================================
+       SHARED 60-MINUTE TIMER
+    ================================= */
+
+    const timerElement =
+        document.getElementById("timer");
+
+    const timeKey =
+        "writingTest1TimeLeft";
+
+    let timeLeft =
+        Number(
+            sessionStorage.getItem(timeKey)
+        );
+
+    /*
+     * Only start a new 60-minute timer if
+     * this is the first page of the writing test.
+     */
+
+    if (!Number.isFinite(timeLeft) || timeLeft <= 0) {
+
+        timeLeft = 60 * 60;
+
+        sessionStorage.setItem(
+            timeKey,
+            timeLeft
+        );
+    }
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
+        sessionStorage.setItem(
+            timeKey,
+            timeLeft
+        );
+    }
+
+
+    updateTimer();
+
+
+    const timerInterval =
+        setInterval(function () {
 
             if (timeLeft <= 0) {
+
                 clearInterval(timerInterval);
 
-                alert("Your Writing test time is over.");
+                sessionStorage.setItem(
+                    timeKey,
+                    "0"
+                );
+
+                alert(
+                    "Your Writing test time is over."
+                );
 
                 finishWritingTest();
-            }
 
-            timeLeft--;
-        }
-
-        updateTimer();
-
-        const timerInterval = setInterval(updateTimer, 1000);
-
-
-        /* =========================
-           WORD COUNT
-           ========================= */
-
-        const answerBox = document.getElementById("answer");
-        const wordCountElement = document.getElementById("wordCount");
-
-        const savedAnswer =
-            sessionStorage.getItem("writingTest1Task2Answer");
-
-        if (savedAnswer) {
-            answerBox.value = savedAnswer;
-        }
-
-        function updateWordCount() {
-            const text = answerBox.value.trim();
-
-            if (!text) {
-                wordCountElement.textContent = "0";
                 return;
             }
 
-            const words = text.split(/\s+/).filter(Boolean);
+            timeLeft--;
 
-            wordCountElement.textContent = words.length;
+            sessionStorage.setItem(
+                timeKey,
+                timeLeft
+            );
+
+            updateTimer();
+
+        }, 1000);
+
+
+    /* =================================
+       LOAD SAVED ANSWER
+    ================================= */
+
+    const answerBox =
+        document.getElementById("answer");
+
+    const wordCountElement =
+        document.getElementById("wordCount");
+
+    const savedAnswer =
+        sessionStorage.getItem(
+            "writingTest1Task2Answer"
+        );
+
+    if (savedAnswer !== null) {
+
+        answerBox.value =
+            savedAnswer;
+    }
+
+
+    /* =================================
+       WORD COUNT
+    ================================= */
+
+    function updateWordCount() {
+
+        const text =
+            answerBox.value.trim();
+
+        if (!text) {
+
+            wordCountElement.textContent =
+                "0";
+
+            return;
         }
 
-        answerBox.addEventListener("input", function () {
+        const words =
+            text
+                .split(/\s+/)
+                .filter(Boolean);
+
+        wordCountElement.textContent =
+            words.length;
+    }
+
+
+    answerBox.addEventListener(
+        "input",
+        function () {
+
             sessionStorage.setItem(
                 "writingTest1Task2Answer",
                 answerBox.value
             );
 
             updateWordCount();
-        });
 
-        updateWordCount();
-
-
-        /* =========================
-           FINISH TEST
-           ========================= */
-
-        function finishWritingTest() {
-            sessionStorage.setItem(
-                "writingTest1Task2Answer",
-                answerBox.value
-            );
-
-            sessionStorage.setItem(
-                "writingTest1Completed",
-                "true"
-            );
-
-            clearInterval(timerInterval);
-
-            window.location.href = "../student-dashboard.html";
         }
-    </script>
+    );
+
+
+    updateWordCount();
+
+
+    /* =================================
+       FINISH TEST
+    ================================= */
+
+    function finishWritingTest() {
+
+        sessionStorage.setItem(
+            "writingTest1Task2Answer",
+            answerBox.value
+        );
+
+        sessionStorage.setItem(
+            "writingTest1Completed",
+            "true"
+        );
+
+        clearInterval(timerInterval);
+
+        window.location.href =
+            "../student-dashboard.html";
+    }
+
+</script>
+```
 
 </body>
+
 </html>
