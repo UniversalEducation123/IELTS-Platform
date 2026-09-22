@@ -265,7 +265,8 @@
                         min="0"
                         max="9"
                         step="0.5"
-                        placeholder="e.g. 6.5">
+                        placeholder="e.g. 6.5"
+                        oninput="calculateOverallScore()">
                 </div>
 
 
@@ -280,7 +281,8 @@
                         min="0"
                         max="9"
                         step="0.5"
-                        placeholder="e.g. 6.0">
+                        placeholder="e.g. 6.0"
+                        oninput="calculateOverallScore()">
                 </div>
 
 
@@ -295,7 +297,8 @@
                         min="0"
                         max="9"
                         step="0.5"
-                        placeholder="e.g. 6.5">
+                        placeholder="Calculated automatically"
+                        readonly>
                 </div>
 
             </div>
@@ -452,6 +455,28 @@ async function loadSubmission() {
     document.getElementById("facultyFeedback").value =
         data.faculty_feedback || "";
 
+}
+
+function calculateOverallScore() {
+    const task1Score =
+        Number(document.getElementById("task1Score").value);
+
+    const task2Score =
+        Number(document.getElementById("task2Score").value);
+
+    if (!task1Score || !task2Score) {
+        document.getElementById("overallScore").value = "";
+        return;
+    }
+
+    const average =
+        (task1Score + task2Score) / 2;
+
+    const overall =
+        Math.round(average * 2) / 2;
+
+    document.getElementById("overallScore").value =
+        overall;
 }
 
 
