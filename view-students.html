@@ -292,37 +292,43 @@ function showTestResults(testName, clickedButton = null) {
                     </div>
 
                     <div class="score-item">
-    <strong>Writing</strong>
+                        <strong>Writing</strong>
 
-    <span>
-        ${
-            writingSubmission
-                ? "Submitted"
-                : "Not submitted"
-        }
-    </span>
+                        <span>
+                            ${
+                                writingSubmission
+                                    ? "Submitted"
+                                    : "Not submitted"
+                            }
+                        </span>
 
-    <small>
-        ${
-            writingSubmission
-                ? "Ready for review"
-                : "No submission"
-        }
-    </small>
+                        <small>
+                            ${
+                                writingSubmission
+                                    ? (
+                                        writingSubmission.status === "reviewed"
+                                            ? "Review submitted"
+                                            : "Ready for review"
+                                    )
+                                    : "No submission"
+                            }
+                        </small>
 
-    ${
-        writingSubmission
-            ? `
-                <button
-                    type="button"
-                    class="review-writing-button"
-                    onclick="reviewWriting('${writingSubmission.id}')">
-                    Review Writing
-                </button>
-            `
-            : ""
-    }
-</div>
+                        ${
+                            writingSubmission &&
+                            writingSubmission.status !== "reviewed"
+                                ? `
+                                    <button
+                                        type="button"
+                                        class="review-writing-button"
+                                        onclick="reviewWriting('${writingSubmission.id}')">
+                                        Review Writing
+                                    </button>
+                                `
+                                : ""
+                        }
+                    </div>
+                    
                 </div>
             </div>
         `;
