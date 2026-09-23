@@ -2825,3 +2825,66 @@ body.listening-page {
 .dashboard-container .submitted-tests-button:hover {
     background: #57171b !important;
 }
+
+/* =================================
+   FINAL HEADER STYLE
+================================= */
+
+.main-header {
+    width: 100% !important;
+    height: 64px !important;
+    padding: 0 18px !important;
+    margin: 0 !important;
+
+    background: #ffffff !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    box-sizing: border-box !important;
+
+    border: none !important;
+    border-bottom: 1px solid #ddd !important;
+
+    border-radius: 0 !important;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08) !important;
+}
+
+.main-header .logo {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-size: 20px !important;
+    font-weight: 700 !important;
+
+    color: #222 !important;
+}
+
+.main-header .header-right {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 20px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.main-header .header-right a {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #222 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+    text-decoration: none !important;
+}
+
+.main-header .header-right a:hover {
+    color: #222 !important;
+    text-decoration: underline !important;
+}
