@@ -887,57 +887,26 @@ function restoreAnswers() {
 
 function updateQuestionProgress() {
 
-    for (let i = 1; i <= 11; i++) {
+    for (let i = 1; i <= 40; i++) {
 
         const button =
             document.querySelector(
                 `.reading-question-progress button[data-question="${i}"]`
             );
 
-
         if (!button) {
             continue;
         }
 
-
-        const inputs =
-            document.querySelectorAll(
-                `[name="q${i}"]`
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest2_q${i}`
             );
 
-
-        let answered = false;
-
-
-        inputs.forEach(function(input) {
-
-            if (
-                (
-                    input.type === "radio"
-                    || input.type === "checkbox"
-                )
-                && input.checked
-            ) {
-
-                answered = true;
-
-            }
-
-
-            if (
-                input.type !== "radio"
-                && input.type !== "checkbox"
-                && input.value.trim() !== ""
-            ) {
-
-                answered = true;
-
-            }
-
-        });
-
-
-        if (answered) {
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
 
             button.classList.add("answered");
 

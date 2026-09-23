@@ -1059,61 +1059,38 @@
 
     function updateQuestionProgress() {
 
-        for (let i = 24; i <= 40; i++) {
+    for (let i = 1; i <= 40; i++) {
 
-            const inputs =
-                document.querySelectorAll(
-                    `[name="q${i}"]`
-                );
-
-            const button = document.querySelector(
+        const button =
+            document.querySelector(
                 `.reading-question-progress button[data-question="${i}"]`
             );
 
+        if (!button) {
+            continue;
+        }
 
-            if (!button) {
-                continue;
-            }
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest2_q${i}`
+            );
 
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
 
-            let attempted = false;
+            button.classList.add("answered");
 
+        } else {
 
-            inputs.forEach(function(input) {
-
-                if (
-                    input.type === "radio" ||
-                    input.type === "checkbox"
-                ) {
-
-                    if (input.checked) {
-                        attempted = true;
-                    }
-
-                } else {
-
-                    if (input.value.trim() !== "") {
-                        attempted = true;
-                    }
-
-                }
-
-            });
-
-
-            if (attempted) {
-
-                button.classList.add("answered");
-
-            } else {
-
-                button.classList.remove("answered");
-
-            }
+            button.classList.remove("answered");
 
         }
 
     }
+
+}
 
 
 
