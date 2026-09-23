@@ -843,20 +843,6 @@
         score
     ) {
 
-        if (
-            sessionStorage.getItem(
-                "readingTest2ResultSaved"
-            ) === "true"
-        ) {
-
-            console.log(
-                "Reading Test 2 result already saved."
-            );
-
-            return;
-
-        }
-
 
         const studentId =
             sessionStorage.getItem(
@@ -902,12 +888,6 @@
             return;
 
         }
-
-
-        sessionStorage.setItem(
-            "readingTest2ResultSaved",
-            "true"
-        );
 
 
         console.log(
