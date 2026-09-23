@@ -840,6 +840,27 @@ function saveAnswers() {
 
 }
 
+function resetCompletedReadingTest2() {
+    if (
+        sessionStorage.getItem("readingTest2Submitted") === "true"
+    ) {
+        for (let i = 1; i <= 40; i++) {
+            sessionStorage.removeItem(
+                "readingTest2_q" + i
+            );
+        }
+
+        sessionStorage.removeItem("readingTest2TimeLeft");
+        sessionStorage.removeItem("readingTest2TimerStarted");
+
+        sessionStorage.removeItem("readingTest2Submitted");
+    }
+}
+
+resetCompletedReadingTest2();
+
+restoreAnswers();
+updateQuestionProgress();
 
 /* =========================================
    RESTORE ANSWERS

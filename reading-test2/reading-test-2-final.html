@@ -891,6 +891,8 @@
             correctCount
         );
 
+        markReadingTest2AsSubmitted();
+
     }
 
 
@@ -970,6 +972,13 @@
 
         }
     );
+
+    function markReadingTest2AsSubmitted() {
+    sessionStorage.setItem(
+        "readingTest2Submitted",
+        "true"
+    );
+}
 
 </script>
 
