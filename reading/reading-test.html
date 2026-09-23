@@ -1207,6 +1207,14 @@ function getAnswer(questionNumber) {
         return textInput.value;
     }
 
+    const selectInput = document.querySelector(
+        `select[name="q${questionNumber}"]`
+    );
+
+    if (selectInput) {
+        return selectInput.value;
+    }
+
     return "";
 }
 
