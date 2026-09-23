@@ -112,6 +112,42 @@
             color: #666;
         }
 
+        .faculty-review {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #ddd;
+            text-align: left !important;
+            width: 100%;
+        }
+
+        .faculty-review-title {
+            display: block;
+            margin-bottom: 8px;
+            text-align: left !important;
+        }
+
+        .faculty-review p {
+            margin: 6px 0;
+            text-align: left !important;
+            width: 100%;
+        }
+
+        .faculty-feedback-label {
+            margin: 10px 0 4px !important;
+            font-weight: bold;
+            text-align: left !important;
+        }
+
+        .faculty-feedback-text {
+            margin: 0 !important;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            text-align: left !important;
+            width: 100%;
+            overflow-wrap: anywhere;
+            display: block;
+        }
+
         .status {
             margin-top: 20px;
             padding: 12px 15px;
@@ -443,20 +479,13 @@ async function loadSubmittedTests() {
                                 writingSubmission &&
                                 writingSubmission.status === "reviewed"
                                     ? `
-                                        <div style="
-                                            margin-top: 15px;
-                                            padding-top: 12px;
-                                            border-top: 1px solid #ddd;
-                                            text-align: left;
-                                        ">
+                                        <div class="faculty-review">
 
-                                            <strong style="
-                                                margin-bottom: 8px;
-                                            ">
+                                            <strong class="faculty-review-title">
                                                 Faculty Review
                                             </strong>
 
-                                            <p style="margin: 6px 0;">
+                                            <p>
                                                 <b>Task 1:</b>
                                                 ${
                                                     writingSubmission.task1_score !== null
@@ -465,7 +494,7 @@ async function loadSubmittedTests() {
                                                 }
                                             </p>
 
-                                            <p style="margin: 6px 0;">
+                                            <p>
                                                 <b>Task 2:</b>
                                                 ${
                                                     writingSubmission.task2_score !== null
@@ -474,15 +503,11 @@ async function loadSubmittedTests() {
                                                 }
                                             </p>
 
-                                            <p style="margin: 10px 0 4px;">
-                                                <b>Faculty Feedback:</b>
+                                            <p class="faculty-feedback-label">
+                                                Faculty Feedback:
                                             </p>
 
-                                            <p style="
-                                                margin: 0;
-                                                line-height: 1.5;
-                                                white-space: pre-wrap;
-                                            ">
+                                            <p class="faculty-feedback-text">
                                                 ${
                                                     writingSubmission.faculty_feedback
                                                         ? escapeHTML(
