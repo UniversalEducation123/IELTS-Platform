@@ -136,7 +136,6 @@ async function loadStudentsAndResults() {
         await supabaseClient
             .from("writing_submissions")
             .select("*")
-            .eq("test_id", "writing-test-1")
             .order("submitted_at", { ascending: false });
 
     if (writingError) {
@@ -158,15 +157,23 @@ allWritingSubmissions = writingSubmissions || [];
 
 // Show results according to selected test
 function showTestResults(testName, clickedButton = null) {
+
     selectedTest = testName;
+
+    /* =================================
+       UPDATE ACTIVE FILTER BUTTON
+    ================================= */
 
     document.querySelectorAll(".test-filter-button").forEach(button => {
         button.classList.remove("active");
     });
 
     if (clickedButton) {
+
         clickedButton.classList.add("active");
+
     } else {
+
         const firstButton = document.querySelector(
             `.test-filter-button[onclick*="'${testName}'"]`
         );
@@ -174,167 +181,520 @@ function showTestResults(testName, clickedButton = null) {
         if (firstButton) {
             firstButton.classList.add("active");
         }
+
     }
 
-    const studentList = document.getElementById("studentList");
+
+    const studentList =
+        document.getElementById("studentList");
+
+
+    /* =================================
+       FILTER RESULTS
+    ================================= */
 
     let filteredResults;
 
     if (testName === "ALL") {
+
         filteredResults = allResults;
+
     } else {
-        filteredResults = allResults.filter(result =>
-            result.test_name === testName
-        );
+
+        filteredResults =
+            allResults.filter(result =>
+                result.test_name === testName
+            );
+
     }
 
-    if (filteredResults.length === 0) {
+
+    /* =================================
+       GROUP BY STUDENT + TEST
+       
+       This combines separate Listening
+       and Reading rows into ONE card.
+    ================================= */
+
+    const groupedResults = {};
+
+    filteredResults.forEach(result => {
+
+        const studentId =
+            String(result.student_id);
+
+        const currentTest =
+            result.test_name || "Unnamed Test";
+
+        const groupKey =
+            studentId + "_" + currentTest;
+
+
+        if (!groupedResults[groupKey]) {
+
+            groupedResults[groupKey] = {
+
+                student_id:
+                    result.student_id,
+
+                student_name:
+                    result.student_name,
+
+                test_name:
+                    currentTest,
+
+                test_date:
+                    result.test_date || null,
+
+                listening_score:
+                    null,
+
+                reading_score:
+                    null,
+
+                writing_score:
+                    null
+
+            };
+
+        }
+
+
+        const grouped =
+            groupedResults[groupKey];
+
+
+        /* =========================
+           KEEP THE TEST DATE
+        ========================= */
+
+        if (
+            !grouped.test_date &&
+            result.test_date
+        ) {
+
+            grouped.test_date =
+                result.test_date;
+
+        }
+
+
+        /* =========================
+           COMBINE LISTENING
+        ========================= */
+
+        if (
+            result.listening_score !== null &&
+            result.listening_score !== undefined
+        ) {
+
+            grouped.listening_score =
+                result.listening_score;
+
+        }
+
+
+        /* =========================
+           COMBINE READING
+        ========================= */
+
+        if (
+            result.reading_score !== null &&
+            result.reading_score !== undefined
+        ) {
+
+            grouped.reading_score =
+                result.reading_score;
+
+        }
+
+
+        /* =========================
+           KEEP WRITING SCORE
+        ========================= */
+
+        if (
+            result.writing_score !== null &&
+            result.writing_score !== undefined
+        ) {
+
+            grouped.writing_score =
+                result.writing_score;
+
+        }
+
+    });
+
+
+    const groupedResultList =
+        Object.values(groupedResults);
+
+
+    /* =================================
+       NO RESULTS
+    ================================= */
+
+    if (groupedResultList.length === 0) {
+
         studentList.innerHTML = `
+
             <div class="no-students-message">
-                No results found for ${testName === "ALL" ? "any test" : testName}.
+
+                No results found for
+                ${
+                    testName === "ALL"
+                        ? "any test"
+                        : testName
+                }.
+
             </div>
+
         `;
+
         return;
+
     }
+
 
     studentList.innerHTML = "";
 
-    filteredResults.forEach(result => {
-        const student = allStudents.find(
-            student => Number(student.id) === Number(result.student_id)
-        );
 
-        const writingSubmission = allWritingSubmissions.find(
-            submission =>
-                String(submission.student_id) === String(result.student_id)
-        );
+    /* =================================
+       CREATE ONE CARD PER TEST
+    ================================= */
+
+    groupedResultList.forEach(result => {
+
+
+        /* =============================
+           FIND STUDENT
+        ============================= */
+
+        const student =
+            allStudents.find(
+                student =>
+                    Number(student.id) ===
+                    Number(result.student_id)
+            );
+
+
+        /* =============================
+           MATCH CORRECT WRITING TEST
+        ============================= */
+
+        const writingTestId =
+            "writing-" +
+            String(result.test_name || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "-");
+
+
+        const writingSubmission =
+            allWritingSubmissions.find(
+                submission =>
+
+                    String(submission.student_id) ===
+                        String(result.student_id)
+
+                    &&
+
+                    String(submission.test_id) ===
+                        writingTestId
+            );
+
+
+        /* =============================
+           STUDENT DETAILS
+        ============================= */
 
         const studentName =
             result.student_name ||
-            (student ? student.full_name : "Unknown Student");
+            (
+                student
+                    ? student.full_name
+                    : "Unknown Student"
+            );
+
 
         const username =
             student && student.username
                 ? student.username
                 : "N/A";
 
-        const listeningScore = result.listening_score;
-        const readingScore = result.reading_score;
-        const writingScore = result.writing_score;
+
+        /* =============================
+           SCORES
+        ============================= */
+
+        const listeningScore =
+            result.listening_score;
+
+        const readingScore =
+            result.reading_score;
+
+        const writingScore =
+            result.writing_score;
+
+
+        /* =============================
+           BANDS
+        ============================= */
 
         const listeningBand =
-            listeningScore !== null && listeningScore !== undefined
+            listeningScore !== null &&
+            listeningScore !== undefined
+
                 ? getListeningBand(listeningScore)
+
                 : "Not submitted";
+
 
         const readingBand =
-            readingScore !== null && readingScore !== undefined
+            readingScore !== null &&
+            readingScore !== undefined
+
                 ? getReadingBand(readingScore)
+
                 : "Not submitted";
 
-        const studentCard = document.createElement("div");
-        studentCard.className = "student-card";
+
+        /* =============================
+           CREATE CARD
+        ============================= */
+
+        const studentCard =
+            document.createElement("div");
+
+
+        studentCard.className =
+            "student-card";
+
 
         studentCard.innerHTML = `
+
             <div class="student-card-header">
+
                 <div>
-                    <h2>${escapeHTML(studentName)}</h2>
-                    <p>Username: ${escapeHTML(username)}</p>
-                    <p>Student ID: ${result.student_id}</p>
+
+                    <h2>
+                        ${escapeHTML(studentName)}
+                    </h2>
+
+                    <p>
+                        Username:
+                        ${escapeHTML(username)}
+                    </p>
+
+                    <p>
+                        Student ID:
+                        ${result.student_id}
+                    </p>
 
                 </div>
+
 
                 <button
                     type="button"
                     class="delete-test-button"
-                    onclick="deleteTestResult(${result.student_id}, '${escapeHTML(result.test_name)}')">
+                    onclick="
+                        deleteTestResult(
+                            ${result.student_id},
+                            '${escapeHTML(result.test_name)}'
+                        )
+                    "
+                >
                     Delete This Test
                 </button>
+
             </div>
 
+
             <div class="test-result-card">
-                <h3>${escapeHTML(result.test_name || "Unnamed Test")}</h3>
-                
+
+                <h3>
+                    ${escapeHTML(
+                        result.test_name ||
+                        "Unnamed Test"
+                    )}
+                </h3>
+
+
                 <p class="test-date">
-    Test Date:
-    ${
-        result.test_date
-            ? new Date(result.test_date + "T00:00:00").toLocaleDateString()
-            : "Not available"
-    }
-</p>
+
+                    Test Date:
+
+                    ${
+                        result.test_date
+
+                            ? new Date(
+                                result.test_date +
+                                "T00:00:00"
+                            ).toLocaleDateString()
+
+                            : "Not available"
+                    }
+
+                </p>
+
 
                 <div class="score-grid">
+
+
+                    <!-- =====================
+                         LISTENING
+                    ====================== -->
+
                     <div class="score-item">
-                        <strong>Listening</strong>
+
+                        <strong>
+                            Listening
+                        </strong>
+
+
                         <span>
+
                             ${
                                 listeningScore !== null &&
                                 listeningScore !== undefined
+
                                     ? listeningScore + " / 40"
+
                                     : "Not submitted"
                             }
+
                         </span>
-                        <small>Band: ${listeningBand}</small>
+
+
+                        <small>
+
+                            Band:
+                            ${listeningBand}
+
+                        </small>
+
                     </div>
 
+
+                    <!-- =====================
+                         READING
+                    ====================== -->
+
                     <div class="score-item">
-                        <strong>Reading</strong>
+
+                        <strong>
+                            Reading
+                        </strong>
+
+
                         <span>
+
                             ${
                                 readingScore !== null &&
                                 readingScore !== undefined
+
                                     ? readingScore + " / 40"
+
                                     : "Not submitted"
                             }
+
                         </span>
-                        <small>Band: ${readingBand}</small>
+
+
+                        <small>
+
+                            Band:
+                            ${readingBand}
+
+                        </small>
+
                     </div>
 
+
+                    <!-- =====================
+                         WRITING
+                    ====================== -->
+
                     <div class="score-item">
-                        <strong>Writing</strong>
+
+                        <strong>
+                            Writing
+                        </strong>
+
 
                         <span>
+
                             ${
                                 writingSubmission
                                     ? "Submitted"
                                     : "Not submitted"
                             }
+
                         </span>
 
+
                         <small>
+
                             ${
                                 writingSubmission
+
                                     ? (
-                                        writingSubmission.status === "reviewed"
+                                        writingSubmission.status ===
+                                        "reviewed"
+
                                             ? "Review submitted"
+
                                             : "Ready for review"
-                                    )
+                                      )
+
                                     : "No submission"
                             }
+
                         </small>
+
 
                         ${
                             writingSubmission &&
-                            writingSubmission.status !== "reviewed"
+                            writingSubmission.status !==
+                                "reviewed"
+
                                 ? `
+
                                     <button
                                         type="button"
                                         class="review-writing-button"
-                                        onclick="reviewWriting('${writingSubmission.id}')">
+                                        onclick="
+                                            reviewWriting(
+                                                '${writingSubmission.id}'
+                                            )
+                                        "
+                                    >
                                         Review Writing
                                     </button>
+
                                 `
+
                                 : ""
                         }
+
+
                     </div>
-                    
+
+
                 </div>
+
+
             </div>
+
         `;
 
-        studentList.appendChild(studentCard);
+
+        studentList.appendChild(
+            studentCard
+        );
+
     });
+
 }
 
 function reviewWriting(submissionId) {
