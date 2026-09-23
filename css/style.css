@@ -2802,6 +2802,11 @@ body.listening-page {
 
 
 /* View Submitted Tests button */
+
+.dashboard-container {
+    position: relative !important;
+}
+
 .dashboard-container .submitted-tests-button {
     position: absolute !important;
     left: 0 !important;
