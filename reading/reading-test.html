@@ -1501,7 +1501,8 @@ async function saveReadingScore(score) {
             .update({
                 student_name: studentName,
                 test_date: testDate,
-                reading_score: score
+                reading_score: score,
+                is_submitted: true
             })
             .eq("id", existingResult.id);
 
@@ -1515,7 +1516,8 @@ async function saveReadingScore(score) {
                 student_name: studentName,
                 test_name: "Test 1",
                 test_date: testDate,
-                reading_score: score
+                reading_score: score,
+                is_submitted: true
             });
 
         saveError = error;
