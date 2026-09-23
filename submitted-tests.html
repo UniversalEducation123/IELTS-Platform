@@ -379,202 +379,360 @@ async function loadSubmittedTests() {
                     : "Writing not submitted";
 
 
-            testsContainer.innerHTML += `
+            testsContainer.innerHTML = "";
 
-                <div class="test-card">
 
-                    <h2>
-                        ${escapeHTML(result.test_name || "Test")}
-                    </h2>
+/* =================================
+   GROUP RESULTS BY TEST
+================================= */
 
-                    <p class="test-date">
-                        Test Date:
+const groupedTests = {};
+
+if (data && data.length > 0) {
+
+    data.forEach(result => {
+
+        const testName =
+            result.test_name || "Test";
+
+        const testKey =
+            testName.trim().toLowerCase();
+
+
+        /* Create test group if it doesn't exist */
+
+        if (!groupedTests[testKey]) {
+
+            groupedTests[testKey] = {
+                test_name: testName,
+                test_date: result.test_date || null,
+                listening_score: null,
+                reading_score: null
+            };
+
+        }
+
+
+        const test =
+            groupedTests[testKey];
+
+
+        /* Keep the available test date */
+
+        if (!test.test_date && result.test_date) {
+
+            test.test_date =
+                result.test_date;
+
+        }
+
+
+        /* Combine Listening scores */
+
+        if (
+            result.listening_score !== null &&
+            result.listening_score !== undefined
+        ) {
+
+            test.listening_score =
+                result.listening_score;
+
+        }
+
+
+        /* Combine Reading scores */
+
+        if (
+            result.reading_score !== null &&
+            result.reading_score !== undefined
+        ) {
+
+            test.reading_score =
+                result.reading_score;
+
+        }
+
+    });
+
+}
+
+
+/* =================================
+   DISPLAY ONE CARD PER TEST
+================================= */
+
+Object.values(groupedTests).forEach(result => {
+
+
+    /* =================================
+       FIND WRITING SUBMISSION
+    ================================= */
+
+    const writingTestId =
+        "writing-" +
+        result.test_name
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+
+
+    const writingSubmission =
+        writingSubmissions &&
+        writingSubmissions.find(
+            submission =>
+                submission.test_id ===
+                writingTestId
+        );
+
+
+    /* =================================
+       WRITING SCORE
+    ================================= */
+
+    const writingScore =
+        writingSubmission &&
+        writingSubmission.overall_score !== null &&
+        writingSubmission.overall_score !== undefined
+            ? writingSubmission.overall_score
+            : "Awaiting review";
+
+
+    /* =================================
+       WRITING STATUS
+    ================================= */
+
+    const statusText =
+        writingSubmission
+            ? (
+                writingSubmission.status === "reviewed"
+                    ? "Writing reviewed"
+                    : "Writing submitted"
+            )
+            : "Writing not submitted";
+
+
+    /* =================================
+       LISTENING
+    ================================= */
+
+    const listeningSubmitted =
+        result.listening_score !== null &&
+        result.listening_score !== undefined;
+
+
+    const listeningBand =
+        listeningSubmitted
+            ? getListeningBand(
+                result.listening_score
+            )
+            : "Not submitted";
+
+
+    /* =================================
+       READING
+    ================================= */
+
+    const readingSubmitted =
+        result.reading_score !== null &&
+        result.reading_score !== undefined;
+
+
+    const readingBand =
+        readingSubmitted
+            ? getReadingBand(
+                result.reading_score
+            )
+            : "Not submitted";
+
+
+    /* =================================
+       CREATE TEST CARD
+    ================================= */
+
+    testsContainer.innerHTML += `
+
+        <div class="test-card">
+
+            <h2>
+                ${escapeHTML(
+                    result.test_name || "Test"
+                )}
+            </h2>
+
+
+            <p class="test-date">
+
+                Test Date:
+
+                ${
+                    result.test_date
+                        ? new Date(
+                            result.test_date +
+                            "T00:00:00"
+                        ).toLocaleDateString()
+                        : "Not available"
+                }
+
+            </p>
+
+
+            <div class="score-grid">
+
+
+                <!-- =========================
+                     LISTENING
+                ========================== -->
+
+                <div class="score-item">
+
+                    <strong>
+                        Listening
+                    </strong>
+
+                    <span>
+                        ${listeningBand}
+                    </span>
+
+                    <small>
                         ${
-                            result.test_date
-                                ? new Date(
-                                    result.test_date + "T00:00:00"
-                                ).toLocaleDateString()
-                                : "Not available"
+                            listeningSubmitted
+                                ? result.listening_score +
+                                  " / 40"
+                                : ""
                         }
-                    </p>
+                    </small>
+
+                </div>
 
 
-                    <div class="score-grid">
+                <!-- =========================
+                     READING
+                ========================== -->
 
-                        <div class="score-item">
+                <div class="score-item">
 
-                            <strong>
-                                Listening
-                            </strong>
+                    <strong>
+                        Reading
+                    </strong>
 
-                            <span>
-                                ${
-                                    result.listening_score !== null &&
-                                    result.listening_score !== undefined
-                                        ? getListeningBand(
-                                            result.listening_score
-                                        )
-                                        : "Not submitted"
-                                }
-                            </span>
+                    <span>
+                        ${readingBand}
+                    </span>
 
-                            <small>
-                                ${
-                                    result.listening_score !== null &&
-                                    result.listening_score !== undefined
-                                        ? result.listening_score +
-                                          " / 40"
-                                        : ""
-                                }
-                            </small>
+                    <small>
+                        ${
+                            readingSubmitted
+                                ? result.reading_score +
+                                  " / 40"
+                                : ""
+                        }
+                    </small>
 
-                        </div>
+                </div>
 
 
-                        <div class="score-item">
+                <!-- =========================
+                     WRITING
+                ========================== -->
 
-                            <strong>
-                                Reading
-                            </strong>
+                <div class="score-item">
 
-                            <span>
-                                ${
-                                    result.reading_score !== null &&
-                                    result.reading_score !== undefined
-                                        ? getReadingBand(
-                                            result.reading_score
-                                        )
-                                        : "Not submitted"
-                                }
-                            </span>
+                    <strong>
+                        Writing
+                    </strong>
 
-                            <small>
-                                ${
-                                    result.reading_score !== null &&
-                                    result.reading_score !== undefined
-                                        ? result.reading_score +
-                                          " / 40"
-                                        : ""
-                                }
-                            </small>
+                    <span>
+                        ${writingScore}
+                    </span>
 
-                        </div>
+                    <small>
+                        ${statusText}
+                    </small>
 
 
-                        <div class="score-item">
+                    ${
+                        writingSubmission &&
+                        writingSubmission.status === "reviewed"
 
-                                <strong>
-                                    Writing
-                                </strong>
+                            ? `
 
-                                <span>
-                                    ${writingScore}
-                                </span>
+                                <div
+                                    class="faculty-review"
+                                >
 
-                                <small>
-                                    ${statusText}
-                                </small>
+                                    <strong
+                                        class="faculty-review-title"
+                                    >
+                                        Faculty Review
+                                    </strong>
 
-                                ${
-                                    writingSubmission &&
-                                    writingSubmission.status === "reviewed"
-                                        ? `
-                                            <div
-                                                class="faculty-review"
-                                                style="
-                                                    margin-top: 15px;
-                                                    padding-top: 12px;
-                                                    border-top: 1px solid #ddd;
-                                                    text-align: left !important;
-                                                    width: 100%;
-                                                "
-                                            >
 
-                                                <strong
-                                                    class="faculty-review-title"
-                                                    style="
-                                                        display: block;
-                                                        margin-bottom: 8px;
-                                                        text-align: left !important;
-                                                    "
-                                                >
-                                                    Faculty Review
-                                                </strong>
+                                    <p>
 
-                                                <p
-                                                    style="
-                                                        margin: 6px 0;
-                                                        text-align: left !important;
-                                                    "
-                                                >
-                                                    <b>Task 1:</b>
-                                                    ${
-                                                        writingSubmission.task1_score !== null
-                                                            ? writingSubmission.task1_score
-                                                            : "Not scored"
-                                                    }
-                                                </p>
+                                        <b>Task 1:</b>
 
-                                                <p
-                                                    style="
-                                                        margin: 6px 0;
-                                                        text-align: left !important;
-                                                    "
-                                                >
-                                                    <b>Task 2:</b>
-                                                    ${
-                                                        writingSubmission.task2_score !== null
-                                                            ? writingSubmission.task2_score
-                                                            : "Not scored"
-                                                    }
-                                                </p>
+                                        ${
+                                            writingSubmission.task1_score !== null &&
+                                            writingSubmission.task1_score !== undefined
+                                                ? writingSubmission.task1_score
+                                                : "Not scored"
+                                        }
 
-                                                <p
-                                                    style="
-                                                        margin: 10px 0 4px;
-                                                        text-align: left !important;
-                                                    "
-                                                >
-                                                    <b>Faculty Feedback:</b>
-                                                </p>
+                                    </p>
 
-                                                <p
-                                                    style="
-                                                        margin: 0;
-                                                        line-height: 1.5;
-                                                        white-space: pre-wrap;
-                                                        text-align: left !important;
-                                                        width: 100%;
-                                                        overflow-wrap: break-word;
-                                                        word-break: normal;
-                                                    "
-                                                >
-                                                    ${
-                                                        writingSubmission.faculty_feedback
-                                                            ? escapeHTML(
-                                                                writingSubmission.faculty_feedback
-                                                            )
-                                                            : "No feedback provided."
-                                                    }
-                                                </p>
 
-                                            </div>
-                                        `
-                                        : ""
-                                }
+                                    <p>
 
-                            </div>
+                                        <b>Task 2:</b>
 
-                            </div>
+                                        ${
+                                            writingSubmission.task2_score !== null &&
+                                            writingSubmission.task2_score !== undefined
+                                                ? writingSubmission.task2_score
+                                                : "Not scored"
+                                        }
 
-                            </div>
+                                    </p>
 
-            `;
 
-        });
+                                    <p
+                                        class="faculty-feedback-label"
+                                    >
+                                        <b>
+                                            Faculty Feedback:
+                                        </b>
+                                    </p>
 
-    }
 
+                                    <p
+                                        class="faculty-feedback-text"
+                                    >
+
+                                        ${
+                                            writingSubmission.faculty_feedback
+                                                ? escapeHTML(
+                                                    writingSubmission.faculty_feedback
+                                                )
+                                                : "No feedback provided."
+                                        }
+
+                                    </p>
+
+                                </div>
+
+                            `
+
+                            : ""
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+});
 
     if (writingSubmissions &&
         writingSubmissions.length > 0 &&
@@ -678,21 +836,26 @@ async function loadSubmittedTests() {
 }
 
 
-function getListeningBand(score) {
+function getReadingBand(score) {
 
     if (score >= 39) return "9.0";
     if (score >= 37) return "8.5";
     if (score >= 35) return "8.0";
-    if (score >= 32) return "7.5";
+    if (score >= 33) return "7.5";
     if (score >= 30) return "7.0";
-    if (score >= 26) return "6.5";
+    if (score >= 27) return "6.5";
     if (score >= 23) return "6.0";
-    if (score >= 18) return "5.5";
-    if (score >= 16) return "5.0";
+    if (score >= 19) return "5.5";
+    if (score >= 15) return "5.0";
     if (score >= 13) return "4.5";
-    if (score >= 11) return "4.0";
+    if (score >= 10) return "4.0";
+    if (score >= 8) return "3.5";
+    if (score >= 6) return "3.0";
+    if (score >= 4) return "2.5";
+    if (score >= 2) return "2.0";
+    if (score >= 1) return "2.0";
 
-    return "Below 4.0";
+    return "0.0";
 }
 
 

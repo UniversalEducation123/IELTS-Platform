@@ -152,10 +152,6 @@
             background: #963f5e;
         }
 
-        /* =================================
-        LISTENING TEST 1 RESULT HEADER
-        ================================= */
-
         .result-header {
             width: 100%;
             height: 64px;
@@ -278,7 +274,6 @@
 
     </div>
 
-
     <!-- Supabase Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -288,18 +283,14 @@
            SUPABASE CONNECTION
         =============================== */
 
-        const SUPABASE_URL =
-            "https://gehczgguwxqwfowmbedy.supabase.co";
-
-        const SUPABASE_ANON_KEY =
-            "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+        const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
         const supabaseClient =
             window.supabase.createClient(
                 SUPABASE_URL,
                 SUPABASE_ANON_KEY
             );
-
 
         /* ===============================
            ANSWER NORMALIZATION
@@ -326,18 +317,7 @@
         }
 
 
-        /*
-         * Check a pair without depending on order.
-         *
-         * Example:
-         * Student: B, E
-         * Correct: B, E
-         * Result: 2
-         *
-         * Student: E, B
-         * Correct: B, E
-         * Result: 2
-         */
+        /* Check a pair without depending on order. */
 
         function scorePair(studentAnswers, correctAnswers) {
 
