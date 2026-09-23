@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Writing Test 2 - Task 2</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        .writing-task2-card {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+
+        .writing-task2-heading {
+            margin-bottom: 24px;
+        }
+
+
+        .writing-task2-heading h2 {
+            margin: 0 0 10px;
+            font-size: 26px;
+            line-height: 1.3;
+        }
+
+
+        .writing-task2-instruction {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0 0 18px;
+        }
+
+
+        .writing-task2-question {
+            background: #f8f9fb;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 22px;
+            margin: 24px 0;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.7;
+            color: #222;
+        }
+
+
+        .writing-task2-answer {
+            margin-top: 24px;
+        }
+
+
+        .writing-task2-answer h3 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+
+        .writing-task2-answer textarea {
+            width: 100%;
+            min-height: 600px;
+            box-sizing: border-box;
+            resize: vertical;
+            padding: 16px;
+            font: inherit;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+
+        .writing-task2-answer textarea:focus {
+            border-color: #2563eb;
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+
+        .writing-task2-meta {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+
+        .writing-task2-word-count {
+            font-weight: 600;
+        }
+
+
+        .writing-task2-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+
+
+        .writing-task2-navigation .secondary-btn,
+        .writing-task2-navigation .primary-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+
+        .writing-task2-navigation .secondary-btn {
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #333;
+            text-decoration: none;
+        }
+
+
+        .writing-task2-navigation .secondary-btn:hover {
+            background: #f5f5f5;
+        }
+
+
+        .writing-task2-navigation .primary-btn {
+            border: none;
+        }
+
+
+        @media (max-width: 900px) {
+
+            .writing-task2-card {
+                padding: 20px;
+            }
+
+            .writing-task2-question {
+                font-size: 18px;
+            }
+
+            .writing-task2-answer textarea {
+                min-height: 400px;
+            }
+
+            .writing-task2-navigation {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .writing-task2-navigation .secondary-btn,
+            .writing-task2-navigation .primary-btn {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<script>
+
+    /* =================================
+       ACCESS PROTECTION
+    ================================= */
+
+    const accessKey =
+        "access_writing-test-2";
+
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
+
+    if (writingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=writing-test-2";
+
+    }
+
+
+    /* =================================
+       SUPABASE
+    ================================= */
+
+    const SUPABASE_URL =
+        "https://gehczgguwxqwfowmbedy.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+    /* =================================
+       SHARED 60-MINUTE TIMER
+    ================================= */
+
+    const timerElement =
+        document.getElementById("timer");
+
+    const timeKey =
+        "writingTest2TimeLeft";
+
+    let timeLeft =
+        Number(
+            sessionStorage.getItem(timeKey)
+        );
+
+    if (!Number.isFinite(timeLeft)) {
+
+        timeLeft = 60 * 60;
+
+        sessionStorage.setItem(
+            timeKey,
+            timeLeft
+        );
+
+    }
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0");
+
+    }
+
+
+    updateTimer();
+
+
+    const timerInterval =
+        setInterval(function () {
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                sessionStorage.setItem(
+                    timeKey,
+                    "0"
+                );
+
+                finishWritingTest();
+
+                return;
+
+            }
+
+
+            timeLeft--;
+
+
+            sessionStorage.setItem(
+                timeKey,
+                timeLeft
+            );
+
+
+            updateTimer();
+
+        }, 1000);
+
+
+    /* =================================
+       ANSWER BOX
+    ================================= */
+
+    const answerBox =
+        document.getElementById("answer");
+
+    const wordCountElement =
+        document.getElementById("wordCount");
+
+
+    const savedAnswer =
+        sessionStorage.getItem(
+            "writingTest2Task2Answer"
+        );
+
+
+    if (savedAnswer !== null) {
+
+        answerBox.value =
+            savedAnswer;
+
+    }
+
+
+    /* =================================
+       WORD COUNT
+    ================================= */
+
+    function updateWordCount() {
+
+        const text =
+            answerBox.value.trim();
+
+
+        if (!text) {
+
+            wordCountElement.textContent =
+                "0";
+
+            return;
+
+        }
+
+
+        const words =
+            text
+                .split(/\s+/)
+                .filter(Boolean);
+
+
+        wordCountElement.textContent =
+            words.length;
+
+    }
+
+
+    answerBox.addEventListener(
+        "input",
+        function () {
+
+            sessionStorage.setItem(
+                "writingTest2Task2Answer",
+                answerBox.value
+            );
+
+            updateWordCount();
+
+        }
+    );
+
+
+    updateWordCount();
+
+
+    /* =================================
+       FINISH WRITING TEST
+    ================================= */
+
+    async function finishWritingTest() {
+
+        sessionStorage.setItem(
+            "writingTest2Task2Answer",
+            answerBox.value
+        );
+
+
+        const studentId =
+            sessionStorage.getItem(
+                "studentId"
+            );
+
+
+        const studentName =
+            sessionStorage.getItem(
+                "studentName"
+            );
+
+
+        const task1Answer =
+            sessionStorage.getItem(
+                "writingTest2Task1Answer"
+            ) || "";
+
+
+        const task2Answer =
+            sessionStorage.getItem(
+                "writingTest2Task2Answer"
+            ) || "";
+
+
+        if (!studentId) {
+
+            alert(
+                "Student information was not found. Please log in again."
+            );
+
+            return;
+
+        }
+
+
+        const { data, error } =
+            await supabaseClient
+
+                .from("writing_submissions")
+
+                .insert([
+                    {
+                        student_id:
+                            studentId,
+
+                        student_name:
+                            studentName,
+
+                        test_id:
+                            "writing-test-2",
+
+                        task1_answer:
+                            task1Answer,
+
+                        task2_answer:
+                            task2Answer,
+
+                        status:
+                            "submitted"
+                    }
+                ])
+
+                .select()
+
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "Writing Test 2 submission error:",
+                error
+            );
+
+
+            alert(
+                "There was a problem saving your test. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        clearInterval(
+            timerInterval
+        );
+
+
+        window.location.href =
+            "writing-test-2-final.html";
+
+    }
+
+</script>
+
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                --:--
+            </strong>
+
+        </div>
+
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<section class="listening-header">
+
+    <div>
+
+        <h1>
+            Writing Task 2
+        </h1>
+
+        <p>
+            Writing Test 2
+        </p>
+
+    </div>
+
+</section>
+
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+
+        <div class="writing-task2-heading">
+
+            <h2>
+                Writing Task 2
+            </h2>
+
+            <p class="instruction">
+                You should spend about 40 minutes on this task.
+            </p>
+
+        </div>
+
+
+        <div class="writing-task2-question">
+
+            Some people feel that with the rise of
+            artificial intelligence, computers and robots
+            will take over the roles of teachers.
+
+            <br><br>
+
+            To what extent do you agree or disagree
+            with this statement?
+
+        </div>
+
+
+        <p class="writing-task2-instruction">
+
+            Give reasons for your answer and include
+            any relevant examples from your knowledge
+            or experience.
+
+        </p>
+
+
+        <p class="writing-task2-instruction">
+
+            <strong>
+                You should write at least 250 words.
+            </strong>
+
+        </p>
+
+
+        <div class="writing-task2-answer">
+
+            <h3>
+                Your Answer
+            </h3>
+
+
+            <textarea
+                id="answer"
+                placeholder="Write your answer here..."
+                spellcheck="true"
+            ></textarea>
+
+
+            <div class="writing-task2-meta">
+
+                <span>
+                    Minimum: 250 words
+                </span>
+
+
+                <span class="writing-task2-word-count">
+
+                    Words:
+                    <strong id="wordCount">
+                        0
+                    </strong>
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="writing-task2-navigation">
+
+            <a
+                href="writing-test-2-task-1.html"
+                class="secondary-btn"
+            >
+                ← Back to Task 1
+            </a>
+
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="finishWritingTest()"
+            >
+                Finish Writing Test
+            </button>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+</body>
+
+</html>

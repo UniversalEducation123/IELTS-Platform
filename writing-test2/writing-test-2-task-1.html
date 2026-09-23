@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Writing Test 2 - Task 1</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .writing-task-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .writing-question-panel img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .writing-answer-panel textarea {
+            width: 100%;
+            min-height: 650px;
+            box-sizing: border-box;
+            resize: vertical;
+            padding: 16px;
+            font: inherit;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .writing-answer-panel textarea:focus {
+            border-color: #3b0f12;
+            box-shadow:
+                0 0 0 3px rgba(59, 15, 18, 0.1);
+        }
+
+        .writing-word-count {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .writing-navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+
+            .writing-task-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .writing-answer-panel textarea {
+                min-height: 450px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<script>
+
+    /* =========================================
+       ACCESS CHECK
+    ========================================= */
+
+    const accessKey =
+        "access_writing-test-2";
+
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
+
+    if (writingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=writing-test-2";
+
+    }
+
+
+    /* =========================================
+       SHARED 60-MINUTE WRITING TIMER
+    ========================================= */
+
+    let savedTime =
+        sessionStorage.getItem(
+            "writingTest2TimeLeft"
+        );
+
+    let timeLeft =
+        savedTime !== null
+            ? Number(savedTime)
+            : 60 * 60;
+
+    let timerInterval = null;
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        const timer =
+            document.getElementById("timer");
+
+        if (timer) {
+
+            timer.textContent =
+                String(minutes).padStart(2, "0") +
+                ":" +
+                String(seconds).padStart(2, "0");
+
+        }
+
+    }
+
+
+    function startTimer() {
+
+        if (timerInterval) {
+            return;
+        }
+
+        sessionStorage.setItem(
+            "writingTest2TimerStarted",
+            "true"
+        );
+
+        timerInterval =
+            setInterval(function () {
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timerInterval);
+
+                    sessionStorage.setItem(
+                        "writingTest2TimeLeft",
+                        "0"
+                    );
+
+                    saveTask1Answer();
+
+                    window.location.href =
+                        "writing-test-2-task-2.html";
+
+                    return;
+
+                }
+
+                timeLeft--;
+
+                sessionStorage.setItem(
+                    "writingTest2TimeLeft",
+                    timeLeft
+                );
+
+                updateTimer();
+
+            }, 1000);
+
+    }
+
+
+    updateTimer();
+    startTimer();
+
+
+    /* =========================================
+       SAVE TASK 1 ANSWER
+    ========================================= */
+
+    function saveTask1Answer() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        if (answer) {
+
+            sessionStorage.setItem(
+                "writingTest2Task1Answer",
+                answer.value
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       WORD COUNT
+    ========================================= */
+
+    function updateWordCount() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        const count =
+            document.getElementById(
+                "task1WordCount"
+            );
+
+        if (!answer || !count) {
+            return;
+        }
+
+        const words =
+            answer.value
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        count.textContent =
+            "Word count: " + words.length;
+
+        saveTask1Answer();
+
+    }
+
+
+    /* =========================================
+       LOAD SAVED ANSWER
+    ========================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const answer =
+                document.getElementById(
+                    "task1Answer"
+                );
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "writingTest2Task1Answer"
+                );
+
+            if (
+                answer &&
+                savedAnswer !== null
+            ) {
+
+                answer.value =
+                    savedAnswer;
+
+            }
+
+            updateWordCount();
+
+            if (answer) {
+
+                answer.addEventListener(
+                    "input",
+                    updateWordCount
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       CONTINUE TO TASK 2
+    ========================================= */
+
+    function goToTask2() {
+
+        saveTask1Answer();
+
+        window.location.href =
+            "writing-test-2-task-2.html";
+
+    }
+
+</script>
+
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                60:00
+            </strong>
+
+        </div>
+
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<section class="listening-header">
+
+    <div>
+
+        <h1>
+            Writing Task 1
+        </h1>
+
+        <p>
+            Writing Test 2
+        </p>
+
+    </div>
+
+</section>
+
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+
+        <div class="question-heading">
+
+            <h2>
+                Writing Task 1
+            </h2>
+
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+
+        </div>
+
+
+        <div class="writing-task-layout">
+
+
+            <!-- LEFT: QUESTION AND IMAGE -->
+
+            <div class="writing-question-panel">
+
+                <p>
+                    The pie charts below show the revenue
+                    sources for U.S. highways for last year
+                    and U.S. highway expenditure by type for
+                    last year.
+                </p>
+
+
+                <p>
+                    Summarise the information by selecting
+                    and reporting the main features, and
+                    make comparisons where relevant.
+                </p>
+
+
+                <p>
+                    <strong>
+                        You should write at least 150 words.
+                    </strong>
+                </p>
+
+
+                <img
+                    src="../assets/writing-test-2-task1-graph.png"
+                    alt="Pie charts showing revenue sources for U.S. highways and U.S. highway expenditure by type for last year">
+
+            </div>
+
+
+            <!-- RIGHT: STUDENT ANSWER -->
+
+            <div class="writing-answer-panel">
+
+                <h3>
+                    Your Answer
+                </h3>
+
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Write your answer here..."
+                    spellcheck="true"></textarea>
+
+
+                <div
+                    id="task1WordCount"
+                    class="writing-word-count">
+
+                    Word count: 0
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="writing-navigation">
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()">
+
+                Continue to Task 2
+
+            </button>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+</body>
+
+</html>

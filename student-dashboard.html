@@ -116,7 +116,25 @@
         <span>Start Reading →</span>
     </a>
 
+<!-- Writing Test 2 -->
+<a
+    href="test-access.html?test=writing-test-2"
+    class="dashboard-card"
+    onclick="startFreshWritingTest()">
 
+    <div class="dashboard-icon">✍️</div>
+
+    <h2>Writing Test 2</h2>
+
+    <p>
+        Practice IELTS Academic Writing Task 1 and Task 2.
+    </p>
+
+    <span>Start Writing →</span>
+
+</a>
+
+     
 <!-- Listening Test 3 -->
 <a
     href="test-access.html?test=listening-test-3"
@@ -201,6 +219,18 @@ function startFreshWritingTest() {
     localStorage.removeItem("writingTest1Task1Answer");
     localStorage.removeItem("writingTest1Task2Answer");
     localStorage.removeItem("writingTest1Completed");
+
+    // Writing Test 2
+    sessionStorage.removeItem("writingTest2TimeLeft");
+    sessionStorage.removeItem("writingTest2Task1Answer");
+    sessionStorage.removeItem("writingTest2Task2Answer");
+    sessionStorage.removeItem("writingTest2Completed");
+
+    localStorage.removeItem("writingTest2TimeLeft");
+    localStorage.removeItem("writingTest2Task1Answer");
+    localStorage.removeItem("writingTest2Task2Answer");
+    localStorage.removeItem("writingTest2Completed");
+    
 }
 
 
