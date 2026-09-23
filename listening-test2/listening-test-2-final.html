@@ -385,6 +385,26 @@
                     ) || "";
             }
 
+            /* ===============================
+            QUESTION 1
+            FIRST NAME + LAST NAME
+            =============================== */
+
+            const firstName =
+                sessionStorage.getItem(
+                    "listeningTest2_q1"
+                ) || "";
+
+            const lastName =
+                sessionStorage.getItem(
+                    "listeningTest2_q1_last"
+                ) || "";
+
+            answers.q1 =
+                (firstName + " " + lastName)
+                    .trim()
+                    .replace(/\s+/g, " ");
+
             return answers;
         }
 
