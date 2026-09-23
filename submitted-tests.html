@@ -439,6 +439,64 @@ async function loadSubmittedTests() {
                                 ${statusText}
                             </small>
 
+                            ${
+                                writingSubmission &&
+                                writingSubmission.status === "reviewed"
+                                    ? `
+                                        <div style="
+                                            margin-top: 15px;
+                                            padding-top: 12px;
+                                            border-top: 1px solid #ddd;
+                                            text-align: left;
+                                        ">
+
+                                            <strong style="
+                                                margin-bottom: 8px;
+                                            ">
+                                                Faculty Review
+                                            </strong>
+
+                                            <p style="margin: 6px 0;">
+                                                <b>Task 1:</b>
+                                                ${
+                                                    writingSubmission.task1_score !== null
+                                                        ? writingSubmission.task1_score
+                                                        : "Not scored"
+                                                }
+                                            </p>
+
+                                            <p style="margin: 6px 0;">
+                                                <b>Task 2:</b>
+                                                ${
+                                                    writingSubmission.task2_score !== null
+                                                        ? writingSubmission.task2_score
+                                                        : "Not scored"
+                                                }
+                                            </p>
+
+                                            <p style="margin: 10px 0 4px;">
+                                                <b>Faculty Feedback:</b>
+                                            </p>
+
+                                            <p style="
+                                                margin: 0;
+                                                line-height: 1.5;
+                                                white-space: pre-wrap;
+                                            ">
+                                                ${
+                                                    writingSubmission.faculty_feedback
+                                                        ? escapeHTML(
+                                                            writingSubmission.faculty_feedback
+                                                        )
+                                                        : "No feedback provided."
+                                                }
+                                            </p>
+
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
                         </div>
 
                     </div>
