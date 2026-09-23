@@ -463,70 +463,111 @@ async function loadSubmittedTests() {
 
                         <div class="score-item">
 
-                            <strong>
-                                Writing
-                            </strong>
+                                <strong>
+                                    Writing
+                                </strong>
 
-                            <span>
-                                ${writingScore}
-                            </span>
+                                <span>
+                                    ${writingScore}
+                                </span>
 
-                            <small>
-                                ${statusText}
-                            </small>
+                                <small>
+                                    ${statusText}
+                                </small>
 
-                            ${
-                                writingSubmission &&
-                                writingSubmission.status === "reviewed"
-                                    ? `
-                                        <div class="faculty-review">
+                                ${
+                                    writingSubmission &&
+                                    writingSubmission.status === "reviewed"
+                                        ? `
+                                            <div
+                                                class="faculty-review"
+                                                style="
+                                                    margin-top: 15px;
+                                                    padding-top: 12px;
+                                                    border-top: 1px solid #ddd;
+                                                    text-align: left !important;
+                                                    width: 100%;
+                                                "
+                                            >
 
-                                            <strong class="faculty-review-title">
-                                                Faculty Review
-                                            </strong>
+                                                <strong
+                                                    class="faculty-review-title"
+                                                    style="
+                                                        display: block;
+                                                        margin-bottom: 8px;
+                                                        text-align: left !important;
+                                                    "
+                                                >
+                                                    Faculty Review
+                                                </strong>
 
-                                            <p>
-                                                <b>Task 1:</b>
-                                                ${
-                                                    writingSubmission.task1_score !== null
-                                                        ? writingSubmission.task1_score
-                                                        : "Not scored"
-                                                }
-                                            </p>
+                                                <p
+                                                    style="
+                                                        margin: 6px 0;
+                                                        text-align: left !important;
+                                                    "
+                                                >
+                                                    <b>Task 1:</b>
+                                                    ${
+                                                        writingSubmission.task1_score !== null
+                                                            ? writingSubmission.task1_score
+                                                            : "Not scored"
+                                                    }
+                                                </p>
 
-                                            <p>
-                                                <b>Task 2:</b>
-                                                ${
-                                                    writingSubmission.task2_score !== null
-                                                        ? writingSubmission.task2_score
-                                                        : "Not scored"
-                                                }
-                                            </p>
+                                                <p
+                                                    style="
+                                                        margin: 6px 0;
+                                                        text-align: left !important;
+                                                    "
+                                                >
+                                                    <b>Task 2:</b>
+                                                    ${
+                                                        writingSubmission.task2_score !== null
+                                                            ? writingSubmission.task2_score
+                                                            : "Not scored"
+                                                    }
+                                                </p>
 
-                                            <p class="faculty-feedback-label">
-                                                Faculty Feedback:
-                                            </p>
+                                                <p
+                                                    style="
+                                                        margin: 10px 0 4px;
+                                                        text-align: left !important;
+                                                    "
+                                                >
+                                                    <b>Faculty Feedback:</b>
+                                                </p>
 
-                                            <p class="faculty-feedback-text">
-                                                ${
-                                                    writingSubmission.faculty_feedback
-                                                        ? escapeHTML(
-                                                            writingSubmission.faculty_feedback
-                                                        )
-                                                        : "No feedback provided."
-                                                }
-                                            </p>
+                                                <p
+                                                    style="
+                                                        margin: 0;
+                                                        line-height: 1.5;
+                                                        white-space: pre-wrap;
+                                                        text-align: left !important;
+                                                        width: 100%;
+                                                        overflow-wrap: break-word;
+                                                        word-break: normal;
+                                                    "
+                                                >
+                                                    ${
+                                                        writingSubmission.faculty_feedback
+                                                            ? escapeHTML(
+                                                                writingSubmission.faculty_feedback
+                                                            )
+                                                            : "No feedback provided."
+                                                    }
+                                                </p>
 
-                                        </div>
-                                    `
-                                    : ""
-                            }
+                                            </div>
+                                        `
+                                        : ""
+                                }
 
-                        </div>
+                            </div>
 
-                    </div>
+                            </div>
 
-                </div>
+                            </div>
 
             `;
 
