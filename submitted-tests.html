@@ -141,10 +141,11 @@
         .faculty-feedback-text {
             margin: 0 !important;
             line-height: 1.5;
-            white-space: pre-wrap;
+            white-space: normal;
             text-align: left !important;
             width: 100%;
-            overflow-wrap: anywhere;
+            overflow-wrap: break-word;
+            word-break: normal;
             display: block;
         }
 
@@ -670,19 +671,11 @@ Object.values(groupedTests).forEach(result => {
                                     </p>
 
 
-                                    <p
-                                        class="faculty-feedback-text"
-                                    >
-
-                                        ${
-                                            writingSubmission.faculty_feedback
-                                                ? escapeHTML(
-                                                    writingSubmission.faculty_feedback
-                                                )
-                                                : "No feedback provided."
-                                        }
-
-                                    </p>
+                                   <p class="faculty-feedback-text">${
+                                        writingSubmission.faculty_feedback
+                                            ? escapeHTML(writingSubmission.faculty_feedback)
+                                            : "No feedback provided."
+                                    }</p>
 
                                 </div>
 
