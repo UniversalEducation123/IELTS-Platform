@@ -62,43 +62,57 @@
             border-radius: 5px;
         }
 
-        .note-box .inline-blank {
-            width: 120px;
-            border: none;
-            border-bottom: 2px solid #444;
-            background: transparent;
-            border-radius: 0;
+        /* Summary completion blanks */
+        .note-box input.inline-blank {
+            -webkit-appearance: none;
+            appearance: none;
+
+            width: 120px !important;
+            max-width: 120px !important;
+
+            border: none !important;
+            border-bottom: 2px solid #444 !important;
+            border-radius: 0 !important;
+
+            background: transparent !important;
+            box-shadow: none !important;
+            outline: none;
+
             padding: 2px 0;
             margin: 0 6px;
-            font-size: 15px;
-            outline: none;
-            box-shadow: none;
             display: inline-block;
             vertical-align: baseline;
         }
 
-        .note-box .inline-blank:focus {
-            border-bottom: 2px solid #9c4f6b;
+        .note-box input.inline-blank:focus {
+            border-bottom-color: #9c4f6b !important;
         }
 
-        .summary-box .inline-blank {
-            width: 120px;
-            border: none;
-            border-bottom: 2px solid #444;
-            background: transparent;
-            border-radius: 0;
+        .summary-box input.inline-blank {
+            -webkit-appearance: none;
+            appearance: none;
+
+            width: 120px !important;
+            max-width: 120px !important;
+
+            border: none !important;
+            border-bottom: 2px solid #444 !important;
+            border-radius: 0 !important;
+
+            background: transparent !important;
+            box-shadow: none !important;
+            outline: none;
+
             padding: 2px 0;
             margin: 0 6px;
-            font-size: 15px;
-            outline: none;
-            box-shadow: none;
             display: inline-block;
             vertical-align: baseline;
         }
 
-        .summary-box .inline-blank:focus {
-            border-bottom: 2px solid #9c4f6b;
+        .summary-box input.inline-blank:focus {
+            border-bottom-color: #9c4f6b !important;
         }
+
         @media (max-width: 700px) {
             .note-box input,
             .summary-box input {
