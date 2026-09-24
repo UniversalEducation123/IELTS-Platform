@@ -484,12 +484,20 @@ if (timerStarted === "true") {
 
 function saveAnswers() {
 
+    /* =================================
+       QUESTIONS 11–13
+       Three selections from one
+       checkbox question
+    ================================= */
+
     const selected = [];
 
     document
         .querySelectorAll('[name="q11"]:checked')
         .forEach(function(input) {
+
             selected.push(input.value);
+
         });
 
 
@@ -509,19 +517,53 @@ function saveAnswers() {
     );
 
 
+    /* =================================
+       QUESTIONS 14–20
+    ================================= */
+
     for (let i = 14; i <= 20; i++) {
 
-        const input =
-            document.querySelector(`[name="q${i}"]`);
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
 
-        if (!input) {
+        if (!inputs.length) {
             continue;
         }
 
-        sessionStorage.setItem(
-            "listeningTest3_q" + i,
-            input.value
-        );
+
+        /* Radio / checkbox questions */
+
+        if (
+            inputs[0].type === "radio" ||
+            inputs[0].type === "checkbox"
+        ) {
+
+            const checked =
+                document.querySelector(
+                    `[name="q${i}"]:checked`
+                );
+
+            sessionStorage.setItem(
+                "listeningTest3_q" + i,
+                checked
+                    ? checked.value
+                    : ""
+            );
+
+        }
+
+        /* Text-answer questions */
+
+        else {
+
+            sessionStorage.setItem(
+                "listeningTest3_q" + i,
+                inputs[0].value
+            );
+
+        }
 
     }
 
@@ -532,6 +574,10 @@ function saveAnswers() {
 ========================================= */
 
 function restoreAnswers() {
+
+    /* =================================
+       QUESTIONS 11–13
+    ================================= */
 
     const selected = [
         sessionStorage.getItem("listeningTest3_q11"),
@@ -550,6 +596,10 @@ function restoreAnswers() {
         });
 
 
+    /* =================================
+       QUESTIONS 14–20
+    ================================= */
+
     for (let i = 14; i <= 20; i++) {
 
         const saved =
@@ -557,14 +607,47 @@ function restoreAnswers() {
                 "listeningTest3_q" + i
             );
 
-        const input =
-            document.querySelector(`[name="q${i}"]`);
+        if (!saved) {
+            continue;
+        }
 
-        if (saved && input) {
-            input.value = saved;
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+        if (!inputs.length) {
+            continue;
+        }
+
+
+        /* Radio / checkbox */
+
+        if (
+            inputs[0].type === "radio" ||
+            inputs[0].type === "checkbox"
+        ) {
+
+            inputs.forEach(function(input) {
+
+                input.checked =
+                    input.value === saved;
+
+            });
+
+        }
+
+        /* Text input */
+
+        else {
+
+            inputs[0].value = saved;
+
         }
 
     }
+
 
     updateQuestionProgress();
 
