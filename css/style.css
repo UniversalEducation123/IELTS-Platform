@@ -2086,10 +2086,10 @@ body.listening-page {
     height: 30px;
     margin: 0 4px;
     padding: 2px;
-    border: 1px solid #777;
+    border: 1px solid #e3aabd;
     border-radius: 2px;
-    background: white;
-    color: #222;
+    background: #f9dce5;
+    color: #a94f6e;
     font-size: 14px;
     font-weight: bold;
     vertical-align: middle;
