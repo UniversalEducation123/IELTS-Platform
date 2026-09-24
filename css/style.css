@@ -1159,8 +1159,8 @@ body.listening-page {
     justify-content: center;
     align-items: center;
 
-    width: 22px;
-    height: 22px;
+    width: 27px;
+    height: 25px;
     margin: 0 5px;
 
     background: #f9dce5;
@@ -1168,7 +1168,7 @@ body.listening-page {
     border-radius: 6px;
 
     color: #a94f6e;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
 }
 
@@ -2083,7 +2083,7 @@ body.listening-page {
 
 .summary-select {
     width: 48px;
-    height: 30px;
+    height: 28px;
     margin: 0 4px;
     padding: 2px;
     border: 1px solid #e3aabd;
