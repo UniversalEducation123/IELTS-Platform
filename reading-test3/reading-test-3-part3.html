@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 3</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+
+        .note-box,
+        .summary-box {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 20px 0;
+            line-height: 1.7;
+        }
+
+
+        .note-box input,
+        .summary-box input {
+            display: inline-block;
+            width: 190px;
+            margin: 0 5px;
+        }
+
+
+        .instruction-box {
+            background: #f5fff9;
+            border-left: 4px solid #65b891;
+            padding: 12px 15px;
+            margin: 15px 0 25px;
+            border-radius: 5px;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .note-box input,
+            .summary-box input {
+                width: 150px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     ACCESS CHECK
+     ========================================= -->
+
+<script>
+
+    const readingAccessKey =
+        "access_reading-test-3";
+
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-test-3";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+
+
+<!-- =========================================
+     HEADER
+     ========================================= -->
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
+    </a>
+
+
+    <h3>
+        IELTS Academic Reading Test
+    </h3>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     QUESTION PROGRESS
+     ========================================= -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+<!-- =========================================
+     MAIN
+     ========================================= -->
+
+<main class="reading-wrapper">
+
+
+    <!-- TIMER -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+
+            60:00
+
+        </div>
+
+    </div>
+
+
+    <!-- PART BUTTONS -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+
+            Part 1
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+
+            Part 2
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+
+            Part 3
+
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+
+                Submit Reading Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         FORM
+         ========================================= -->
+
+    <form
+        id="readingForm"
+        autocomplete="off">
+
+
+        <section
+            id="part3"
+            class="reading-part active">
+
+
+            <div class="reading-split-layout">
+
+
+                <!-- =================================
+                     PASSAGE
+                     ================================= -->
+
+                <section class="passage-panel">
+
+                    <h2>
+                        Passage 3: The Psychology of Wealth
+                    </h2>
+
+
+                    <p>
+                        What stops people from succeeding financially and having
+                        on-going prosperity in their life? The answer is generally
+                        focused around the belief that financial success is not a
+                        possibility. There are many people who have unconscious
+                        barriers that prevent them from having the wealth and
+                        abundance that they deserve.
+                    </p>
+
+
+                    <p>
+                        At a conscious level, most people think they are doing
+                        everything possible to achieve their goals. However, there
+                        still might be some unwitting part of them that does not
+                        believe they can obtain success. The more that unconscious
+                        part is avoided, the more a person will be blocked in their
+                        everyday life. Another problem is that, instead of focusing
+                        on all the possible ways to get rich, many people have an
+                        obsession about what they do not have. An interesting pattern
+                        develops in which they can become angry or resentful over
+                        their situation and this in turn can limit these people in
+                        their lives more and more.
+                    </p>
+
+
+                    <p>
+                        Individuals would find it so much easier to get ahead in
+                        life with a peaceful state of mind, rather than an angry
+                        or resentful one.
+                    </p>
+
+
+                    <p>
+                        A first step in understanding the unconscious patterning
+                        of a person’s financial situation is to explore the deeper
+                        nature of how they represent money. For example, a person
+                        with money issues may have had parents who lived in poverty,
+                        and they subsequently formed a ‘Depression Era’ mentality.
+                        An unconscious belief can develop that he or she will always
+                        have to struggle financially, because that is what their
+                        parents did.
+                    </p>
+
+
+                    <p>
+                        Alternatively, the person might have had a parent tell them
+                        over and over again that they will never be successful,
+                        and eventually they begin to believe it.
+                    </p>
+
+
+                    <p>
+                        It is very common for children to unconsciously form limiting
+                        beliefs around money at an early age. In the field of Neuro
+                        Linguistic Programming (NLP), these types of limiting beliefs
+                        are referred to as ‘imprints.’ An imprint is basically a
+                        memory that is formed at an early age, and can serve as a
+                        root for both the limiting and empowering beliefs that people
+                        form as children.
+                    </p>
+
+
+                    <p>
+                        Some of the beliefs that people may develop at early ages
+                        are not always healthy, and are created as a result of a
+                        traumatic or confusing experience that they have forgotten.
+                        How we unconsciously and consciously view the world in
+                        terms of money is often based on such beliefs.
+                    </p>
+
+
+                    <p>
+                        A primary and fundamental psychological difference between
+                        those who do well financially and those who do not revolves
+                        around beliefs. For example, many people do not even view
+                        financial success as an option. They do not have the capability
+                        to open themselves up to all of the possibilities that are
+                        available for achieving prosperity and they will nearly always
+                        get stuck in a monthly routine, so that they are unwilling to
+                        take risks or try something different, because they are afraid
+                        that they will end up being even worse off than before.
+                    </p>
+
+
+                    <p>
+                        Another issue can be that people become over-absorbed with
+                        the idea of making money and this can be extremely unhealthy.
+                        Money does not determine who you are; it’s simply a resource.
+                        There is a term called ‘affluenza,’ which has been defined as
+                        "a painful, contagious, socially transmitted condition of
+                        overload, debt, anxiety and waste resulting from the dogged
+                        pursuit of more.”
+                    </p>
+
+
+                    <p>
+                        Affluenza is an unsustainable and seriously unhealthy
+                        addiction to personal and societal economic growth. It is
+                        most acute in those who inherit wealth and seem to have no
+                        purpose or direction.
+                    </p>
+
+
+                    <p>
+                        For those with wealth or for those who desire it more than
+                        anything, abandoning the urge for more can often be the key
+                        to being more successful, and certainly happier.
+                    </p>
+
+
+                    <p>
+                        Once people stop equating their self-worth with money,
+                        then the doors of possibility can swing open for them,
+                        because they are willing to try more things. Once they start
+                        feeling better about themselves, they become less fearful
+                        and can be open to trying something completely different.
+                    </p>
+
+
+                    <p>
+                        So, can money make people happy? Research shows that it
+                        does up to a point, after which there are diminishing returns,
+                        so that the extremely wealthy are no happier than the
+                        comfortably well off.
+                    </p>
+
+
+                    <p>
+                        Rich nations are generally happier than poor ones, but the
+                        relationship is far from consistent; other factors like
+                        political stability, freedom and security also play a part.
+                        Research likewise shows that the money-happiness connection
+                        seems to be stronger for people paid hourly than those on a
+                        salary.
+                    </p>
+
+
+                    <p>
+                        This is presumably because salaried people can more easily
+                        compensate with career satisfaction. Money can also impair
+                        the ability to enjoy the simple things in life, which rather
+                        offsets the happiness that wealth brings.
+                    </p>
+
+
+                    <p>
+                        Money can also impair people’s satisfaction in their play
+                        and humanitarian works. When someone has done something
+                        out of the goodness of their heart, they can be insulted
+                        by offers of payment.
+                    </p>
+
+
+                    <p>
+                        Cognitive dissonance experiments show that paying people
+                        derisory amounts of money for their work results in them
+                        enjoying it less and doing it less well than if they had no
+                        pay at all.
+                    </p>
+
+
+                    <p>
+                        The capacity for monetary reward to undermine a person’s
+                        intrinsic pleasure in work performance has been demonstrated
+                        neurologically.
+                    </p>
+
+
+                    <p>
+                        In conclusion, people need to realise that their own attitudes
+                        to wealth can affect their chances of acquiring both money
+                        and happiness.
+                    </p>
+
+
+                    <p>
+                        As a person begins to embrace self worth and open himself
+                        or herself up to the idea of what is possible, he or she will
+                        attract wealth and prosperity into their life.
+                    </p>
+
+
+                    <p>
+                        The outer world is truly a reflection of people’s inner worlds.
+                        If someone feels good inside, generally it will show on the
+                        outside and they will draw positive experiences into their life.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- =================================
+                         QUESTIONS 27-29
+                         ================================= -->
+
+                    <h2>
+                        Questions 27–29
+                    </h2>
+
+
+                    <div class="instruction-box">
+
+                        <strong>
+                            Complete the notes below.
+                        </strong>
+
+                        <br>
+
+                        Write
+                        <strong>
+                            NO MORE THAN TWO WORDS
+                        </strong>
+                        for each answer.
+
+                    </div>
+
+
+                    <div class="note-box">
+
+                        <p>
+                            Some people unwittingly reject the prospect of
+                            becoming rich; these
+
+                            <input
+                                type="text"
+                                name="q27"
+                                autocomplete="off">
+
+                            stop them from financial success.
+                        </p>
+
+
+                        <p>
+                            Most people believe they do the best they can,
+                            but sometimes they don’t really believe in their
+                            potential.
+                        </p>
+
+
+                        <p>
+                            If people do not face up to this lack of self-belief,
+                            they’ll encounter more and more obstacles.
+                        </p>
+
+
+                        <p>
+                            People can also have an
+
+                            <input
+                                type="text"
+                                name="q28"
+                                autocomplete="off">
+
+                            about their lack of possessions.
+                        </p>
+
+
+                        <p>
+                            Anger is a result, which hinders their progress as well.
+                        </p>
+
+
+                        <p>
+                            People whose parents were poor may feel they will
+                            also be poor.
+                        </p>
+
+
+                        <p>
+                            A
+
+                            <input
+                                type="text"
+                                name="q29"
+                                autocomplete="off">
+
+                            who is always negative about a child’s prospects
+                            may also be eventually believed.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 30-34
+                         ================================= -->
+
+                    <h2>
+                        Questions 30–34
+                    </h2>
+
+
+                    <div class="instruction-box">
+
+                        Do the following statements agree with the views
+                        of the writer of the text?
+
+                        <br><br>
+
+                        <strong>
+                            YES
+                        </strong>
+                        if the statement agrees with the writer’s views
+
+                        <br>
+
+                        <strong>
+                            NO
+                        </strong>
+                        if the statement doesn’t agree with the writer’s views
+
+                        <br>
+
+                        <strong>
+                            NOT GIVEN
+                        </strong>
+                        if it is impossible to say what the writer thinks
+                        about this.
+
+                    </div>
+
+
+                    <!-- Q30 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>30.</strong>
+                            A person can develop unhelpful imprints about
+                            money when a child.
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q30"
+                                value="YES">
+
+                            YES
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q30"
+                                value="NO">
+
+                            NO
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q30"
+                                value="NOT GIVEN">
+
+                            NOT GIVEN
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q31 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>31.</strong>
+                            Although important, belief is not a key part
+                            of whether someone can become financially successful.
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q31"
+                                value="YES">
+
+                            YES
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q31"
+                                value="NO">
+
+                            NO
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q31"
+                                value="NOT GIVEN">
+
+                            NOT GIVEN
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q32 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>32.</strong>
+                            Those people stuck in a monthly routine are
+                            the most likely to try something different.
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q32"
+                                value="YES">
+
+                            YES
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q32"
+                                value="NO">
+
+                            NO
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q32"
+                                value="NOT GIVEN">
+
+                            NOT GIVEN
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q33 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>33.</strong>
+                            The problem of ‘affluenza’ has been in the
+                            media a lot recently.
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q33"
+                                value="YES">
+
+                            YES
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q33"
+                                value="NO">
+
+                            NO
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q33"
+                                value="NOT GIVEN">
+
+                            NOT GIVEN
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q34 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>34.</strong>
+                            ‘Affluenza’ is more common in people who have
+                            not had to work for their money.
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q34"
+                                value="YES">
+
+                            YES
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q34"
+                                value="NO">
+
+                            NO
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q34"
+                                value="NOT GIVEN">
+
+                            NOT GIVEN
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 35-40
+                         ================================= -->
+
+                    <h2>
+                        Questions 35–40
+                    </h2>
+
+
+                    <div class="instruction-box">
+
+                        <strong>
+                            Complete the summary below.
+                        </strong>
+
+                        <br>
+
+                        Write
+                        <strong>
+                            NO MORE THAN THREE WORDS
+                        </strong>
+                        from the text for each answer.
+
+                    </div>
+
+
+                    <div class="summary-box">
+
+                        <h3>
+                            Money and Happiness
+                        </h3>
+
+
+                        <p>
+
+                            <input
+                                type="text"
+                                name="q35"
+                                autocomplete="off">
+
+                            mean people are not happier with wealth
+                            beyond a certain amount.
+
+                        </p>
+
+
+                        <p>
+
+                            Rich countries are happier than poor ones,
+                            but this is simplistic, due to other relevant
+
+                            <input
+                                type="text"
+                                name="q36"
+                                autocomplete="off">
+
+                            .
+
+                        </p>
+
+
+                        <p>
+
+                            Salaried workers have been shown to be happier
+                            than wage-paid workers, maybe due to
+
+                            <input
+                                type="text"
+                                name="q37"
+                                autocomplete="off">
+
+                            .
+
+                        </p>
+
+
+                        <p>
+
+                            Rich people also sometimes do not enjoy life’s
+
+                            <input
+                                type="text"
+                                name="q38"
+                                autocomplete="off">
+
+                            .
+
+                        </p>
+
+
+                        <p>
+
+                            Money can also relate to how people approach
+                            doing things and
+
+                            <input
+                                type="text"
+                                name="q39"
+                                autocomplete="off">
+
+                            have proved this.
+
+                        </p>
+
+
+                        <p>
+
+                            The complex relationship between a
+
+                            <input
+                                type="text"
+                                name="q40"
+                                autocomplete="off">
+
+                            and enjoyment of work has also been proved.
+
+                        </p>
+
+
+                        <p>
+                            Changing their attitudes to wealth can make
+                            some people happier and allow them to acquire
+                            money more easily.
+                        </p>
+
+                    </div>
+
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem(
+        "readingTest3TimeLeft"
+    );
+
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem(
+        "readingTest3TimerStarted"
+    ) === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+
+}
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+
+    timerInterval =
+        setInterval(function () {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            sessionStorage.setItem(
+                "readingTest3TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                timerInterval = null;
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimeLeft"
+                );
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimerStarted"
+                );
+
+
+                alert(
+                    "Time is up!"
+                );
+
+            }
+
+        }, 1000);
+
+}
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+
+    timerStarted = true;
+
+
+    sessionStorage.setItem(
+        "readingTest3TimerStarted",
+        "true"
+    );
+
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   START / CONTINUE TIMER
+   ========================================= */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                if (element.checked) {
+
+                    sessionStorage.setItem(
+                        "readingTest3_" + questionName,
+                        element.value
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            sessionStorage.setItem(
+                "readingTest3_" + questionName,
+                element.value
+            );
+
+        });
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "readingTest3_" + questionName
+                );
+
+
+            if (savedAnswer === null) {
+                return;
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                element.checked =
+                    element.value === savedAnswer;
+
+                return;
+
+            }
+
+
+            element.value =
+                savedAnswer;
+
+        });
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (
+        let i = 1;
+        i <= 40;
+        i++
+    ) {
+
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest3_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add(
+                "answered"
+            );
+
+        } else {
+
+            button.classList.remove(
+                "answered"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document
+    .querySelectorAll(
+        "#readingForm input, #readingForm select"
+    )
+    .forEach(function(element) {
+
+
+        element.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+
+        element.addEventListener(
+            "change",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   INITIAL RESTORE
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-3-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-3-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-3-part3.html";
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+
+    window.location.href =
+        "reading-test-3-final.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

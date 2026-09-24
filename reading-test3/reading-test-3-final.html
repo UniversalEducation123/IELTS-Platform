@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Reading Test 3 Result</title>
+
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: #f7f4f5;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .result-card {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 45px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #9c4f6b;
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            color: #9c4f6b;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eeeeee;
+           font-size: 18px;
+        }
+
+        .result-line span {
+            font-weight: bold;
+            color: #9c4f6b;
+        }
+
+        .band-line {
+            margin-top: 12px;
+            padding-top: 22px;
+            border-top: 2px solid #d9ead9;
+            border-bottom: none;
+            font-size: 21px;
+        }
+
+        .band-line span {
+            font-size: 26px;
+            color: #628b62;
+        }
+
+        .answer-review-section {
+            margin-top: 35px;
+        }
+
+        .answer-review-item {
+            margin-bottom: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            background: #fafafa;
+        }
+
+        .answer-review-item.correct {
+            border-left-color: #65a765;
+            background: #f1faf1;
+        }
+
+        .answer-review-item.wrong {
+            border-left-color: #c96b6b;
+            background: #fff3f3;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .review-status {
+            font-weight: bold;
+        }
+
+        .correct .review-status {
+            color: #4d914d;
+        }
+
+        .wrong .review-status {
+            color: #bd4f4f;
+        }
+
+        .answer-review-item p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .answer-review-item strong {
+            color: #333;
+        }
+
+        .home-button {
+            display: block;
+            width: fit-content;
+            margin: 35px auto 0;
+            padding: 13px 28px;
+            background: #b85c78;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .home-button:hover {
+            background: #963f5e;
+        }
+
+         .result-header {
+            width: 100%;
+            height: 64px;
+            padding: 0 18px;
+            box-sizing: border-box;
+
+            background: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        .result-header-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .result-header-links a {
+            color: #222;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .result-header-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        @media (max-width: 600px) {
+            .result-card {
+                padding: 30px 18px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
+
+            .result-line {
+                font-size: 16px;
+            }
+
+            .review-header {
+                flex-direction: column;
+                gap: 4px;
+            }          
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header class="result-header">
+
+        <div class="result-logo">
+            IELTS Practice
+        </div>
+
+        <div class="result-header-links">
+
+            <a href="../student-dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="../index.html">
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+<div class="result-card">
+
+
+    <h1>
+        Reading Test 3 Result
+    </h1>
+
+
+    <div class="result-line">
+
+        <strong>
+            Correct Answers:
+        </strong>
+
+        <span id="correctAnswers">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="result-line">
+
+        <strong>
+            Wrong Answers:
+        </strong>
+
+        <span id="wrongAnswers">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="result-line">
+
+        <strong>
+            Total Score:
+        </strong>
+
+        <span id="totalScore">
+            0 / 40
+        </span>
+
+    </div>
+
+
+    <div class="result-line band-line">
+
+        <strong>
+            IELTS Band:
+        </strong>
+
+        <span id="bandScore">
+            2.0
+        </span>
+
+    </div>
+
+
+    <div class="answer-review-section">
+
+        <h2>
+            Answer Review
+        </h2>
+
+        <div id="answerReview"></div>
+
+    </div>
+
+
+    <a
+        href="../submitted-tests.html"
+        class="home-button">
+
+        View Submitted Tests
+
+    </a>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+    /* =====================================
+       SUPABASE CONNECTION
+    ===================================== */
+
+    const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+    /* =====================================
+       ANSWER NORMALIZATION
+    ===================================== */
+
+    function normalizeAnswer(answer) {
+
+        return String(answer || "")
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]/g, "");
+
+    }
+
+
+    function isCorrect(
+        studentAnswer,
+        acceptedAnswers
+    ) {
+
+        const student =
+            normalizeAnswer(studentAnswer);
+
+
+        if (!student) {
+
+            return false;
+
+        }
+
+
+        return acceptedAnswers.some(
+            function(answer) {
+
+                return (
+                    student ===
+                    normalizeAnswer(answer)
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================
+       BAND SCORE
+    ===================================== */
+
+    function calculateBand(correctCount) {
+
+        if (correctCount >= 39) return "9.0";
+
+        if (correctCount >= 37) return "8.5";
+
+        if (correctCount >= 35) return "8.0";
+
+        if (correctCount >= 32) return "7.5";
+
+        if (correctCount >= 30) return "7.0";
+
+        if (correctCount >= 26) return "6.5";
+
+        if (correctCount >= 23) return "6.0";
+
+        if (correctCount >= 18) return "5.5";
+
+        if (correctCount >= 16) return "5.0";
+
+        if (correctCount >= 13) return "4.5";
+
+        if (correctCount >= 10) return "4.0";
+
+        if (correctCount >= 8) return "3.5";
+
+        if (correctCount >= 6) return "3.0";
+
+        if (correctCount >= 4) return "2.5";
+
+        return "2.0";
+
+    }
+
+
+    /* =====================================
+       READING TEST 3 ANSWER KEY
+    ===================================== */
+
+    const answerKey = {
+
+        q1: ["IX"],
+        q2: ["III"],
+        q3: ["VI"],
+        q4: ["I"],
+        q5: ["VIII"],
+        q6: ["X"],
+        q7: ["IV"],
+
+        q8: ["A"],
+        q9: ["C"],
+        q10: ["E"],
+        q11: ["G"],
+
+        q12: ["brick"],
+        q13: [
+            "brightly coloured uniforms",
+            "brightly colored uniforms",
+            "coloured uniforms",
+            "colored uniforms"
+        ],
+
+        q14: ["AH"],
+        q15: ["AW"],
+        q16: ["GP"],
+        q17: ["JP"],
+        q18: ["TM"],
+        q19: ["AB"],
+        q20: ["SF"],
+
+        q21: ["50", "50%"],
+        q22: ["2", "2%", "2 percent"],
+        q23: ["50%", "50", "50 percent"],
+
+        q24: ["A"],
+        q25: ["C"],
+        q26: ["A"],
+
+        q27: [
+            "unconscious barriers",
+            "barriers"
+        ],
+
+        q28: ["obsession"],
+        q29: ["parent"],
+
+        q30: ["YES"],
+        q31: ["NO"],
+        q32: ["NO"],
+        q33: ["NOT GIVEN"],
+        q34: ["YES"],
+
+        q35: [
+            "diminishing returns",
+            "Diminishing Returns"
+        ],
+
+        q36: ["factors"],
+
+        q37: [
+            "career satisfaction"
+        ],
+
+        q38: [
+            "simple things"
+        ],
+
+        q39: [
+            "cognitive dissonance experiments",
+            "dissonance experiments"
+        ],
+
+        q40: [
+            "monetary reward",
+            "reward"
+        ]
+
+    };
+
+
+    /* =====================================
+       READ SAVED ANSWERS
+    ===================================== */
+
+   function readTest3Answers() {
+        const answers = {};
+
+        for (let i = 1; i <= 40; i++) {
+            answers["q" + i] =
+                sessionStorage.getItem("readingTest3_q" + i) || "";
+        }
+
+        return answers;
+    }
+
+
+    /* =====================================
+       ANSWER REVIEW
+    ===================================== */
+
+    function addReviewItem(
+        questionNumber,
+        studentAnswer,
+        correctAnswer,
+        correct
+    ) {
+
+        const answerReview =
+            document.getElementById(
+                "answerReview"
+            );
+
+
+        if (!answerReview) {
+
+            return;
+
+        }
+
+
+        const reviewItem =
+            document.createElement("div");
+
+
+        reviewItem.className =
+            correct
+                ? "answer-review-item correct"
+                : "answer-review-item wrong";
+
+
+
+        const header =
+            document.createElement("div");
+
+
+        header.className =
+            "review-header";
+
+
+        const question =
+            document.createElement("strong");
+
+
+        question.textContent =
+            "Question " + questionNumber;
+
+
+        const status =
+            document.createElement("span");
+
+
+        status.className =
+            "review-status";
+
+
+        status.textContent =
+            correct
+                ? "✓ Correct"
+                : "✗ Wrong";
+
+
+        header.appendChild(question);
+
+        header.appendChild(status);
+
+
+        reviewItem.appendChild(header);
+
+
+
+        const studentLine =
+            document.createElement("p");
+
+
+        const studentLabel =
+            document.createElement("strong");
+
+
+        studentLabel.textContent =
+            "Your answer: ";
+
+
+        studentLine.appendChild(
+            studentLabel
+        );
+
+
+        studentLine.appendChild(
+            document.createTextNode(
+                studentAnswer || "Not answered"
+            )
+        );
+
+
+        reviewItem.appendChild(
+            studentLine
+        );
+
+
+
+        const correctLine =
+            document.createElement("p");
+
+
+        const correctLabel =
+            document.createElement("strong");
+
+
+        correctLabel.textContent =
+            "Correct answer: ";
+
+
+        correctLine.appendChild(
+            correctLabel
+        );
+
+
+        correctLine.appendChild(
+            document.createTextNode(
+                correctAnswer
+            )
+        );
+
+
+        reviewItem.appendChild(
+            correctLine
+        );
+
+
+        answerReview.appendChild(
+            reviewItem
+        );
+
+    }
+
+
+
+    /* =====================================
+       MAIN SCORE CALCULATION
+    ===================================== */
+
+    async function calculateReadingScore() {
+
+        const answers =
+            readTest3Answers();
+
+
+        let correctCount = 0;
+
+
+        for (let i = 1; i <= 40; i++) {
+
+            const key =
+                "q" + i;
+
+
+            const student =
+                answers[key] || "";
+
+
+            const accepted =
+                answerKey[key] || [];
+
+
+            const correct =
+                isCorrect(
+                    student,
+                    accepted
+                );
+
+
+            if (correct) {
+
+                correctCount++;
+
+            }
+
+
+            addReviewItem(
+                i,
+                student,
+                accepted.join(" / "),
+                correct
+            );
+
+        }
+
+
+
+        /* =================================
+           DISPLAY FINAL SCORE
+        ================================= */
+
+        const wrongCount =
+            40 - correctCount;
+
+
+        document.getElementById(
+            "correctAnswers"
+        ).textContent =
+            correctCount;
+
+
+        document.getElementById(
+            "wrongAnswers"
+        ).textContent =
+            wrongCount;
+
+
+        document.getElementById(
+            "totalScore"
+        ).textContent =
+            correctCount + " / 40";
+
+
+        document.getElementById(
+            "bandScore"
+        ).textContent =
+            calculateBand(correctCount);
+
+
+
+        console.log(
+            "FINAL READING TEST 3 SCORE:",
+            correctCount + " / 40"
+        );
+
+
+
+        /* =================================
+           SAVE RESULT TO SUPABASE
+        ================================= */
+
+        await saveResultToSupabase(
+            correctCount
+        );
+
+        markReadingTest3AsSubmitted();
+
+    }
+
+
+
+    /* =====================================
+       SAVE RESULT TO SUPABASE
+    ===================================== */
+
+    async function saveResultToSupabase(
+        score
+    ) {
+
+
+        const studentId =
+            sessionStorage.getItem(
+                "studentId"
+            );
+
+
+        const studentName =
+            sessionStorage.getItem(
+                "studentName"
+            );
+
+
+        const resultData = {
+            student_id: studentId ? Number(studentId) : null,
+            student_name: studentName,
+            test_name: "Test 3",
+            test_date: new Date().toISOString().split("T")[0],
+            reading_score: score,
+            is_submitted: true
+        }
+
+
+        console.log(
+            "Data being sent to Supabase:",
+            resultData
+        );
+
+
+        const { error } =
+            await supabaseClient
+                .from("test_results")
+                .insert(resultData);
+
+
+        if (error) {
+
+            console.error(
+                "Error saving Reading Test 3 result:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Reading Test 3 result saved successfully."
+        );
+
+    }
+
+
+
+    /* =====================================
+       START CALCULATION
+    ===================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            calculateReadingScore();
+
+        }
+    );
+
+    function markReadingTest3AsSubmitted() {
+    sessionStorage.setItem(
+        "readingTest3Submitted",
+        "true"
+    );
+}
+
+</script>
+
+
+</body>
+</html>

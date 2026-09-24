@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 3</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .question select {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"],
+        .question label input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .heading-options {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+
+        .heading-options p {
+            margin: 8px 0;
+        }
+
+        .effect-answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .effect-answer-row strong {
+            min-width: 35px;
+        }
+
+        .effect-answer-row select {
+            width: 100px;
+            max-width: 100px;
+        }
+
+        .question-note {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 700px) {
+
+            .effect-answer-row {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     ACCESS CHECK
+     ========================================= -->
+
+<script>
+
+    const readingAccessKey =
+        "access_reading-test-3";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-test-3";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+
+
+<!-- =========================================
+     HEADER
+     ========================================= -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+    <img src="../assets/logo.png" alt="Universal Education Logo">
+
+    </a>
+
+
+    <h3> IELTS Academic Reading Test </h3>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- =========================================
+     QUESTION PROGRESS
+     ========================================= -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+<main class="reading-wrapper">
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+            60:00
+        </div>
+
+    </div>
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+            Part 1
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+            Part 2
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+            Part 3
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+
+                Submit Reading Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <form
+        id="readingForm"
+        autocomplete="off">
+
+
+        <!-- =========================================
+             PART 1
+             ========================================= -->
+
+        <section
+            id="part1"
+            class="reading-part active">
+
+
+            <div class="reading-split-layout">
+
+                <section class="passage-panel">
+
+                    <h2>
+                        Passage 1: The Great Fire of London
+                    </h2>
+
+
+                    <h3>
+                        Paragraph A
+                    </h3>
+
+                    <p>
+                        The Great Fire of London swept through London in September
+                        1666, devastating many buildings, including 13,200 houses and
+                        87 parish churches. The Royal Exchange, the Guildhall and
+                        St. Paul’s Cathedral, all built during the Middle Ages, were
+                        also all totally destroyed. Although the verified death toll
+                        was only six people, it is unknown how many people died in
+                        the Great Fire of London, because many more died through
+                        indirect causes. The financial losses caused by the fire were
+                        estimated to be £10 million, at a time when London’s annual
+                        income was only £12,000. Many people were financially ruined
+                        and debtors’ prisons became over-crowded.
+                    </p>
+
+
+                    <h3>
+                        Paragraph B
+                    </h3>
+
+                    <p>
+                        The Great Fire of London started on Sunday, 2 September 1666
+                        in a baker’s shop in Pudding Lane, belonging to Thomas Farynor.
+                        Although he claimed to have extinguished the fire, three hours
+                        later, at 1 a.m., his house was a blazing inferno. It is not
+                        certain how the fire actually began, but it is likely that it
+                        may have been caused by a spark from Farynor’s oven falling
+                        onto a pile of fuel nearby. In 1979, archaeologists excavated
+                        the remains of a burnt out shop on Pudding Lane that was very
+                        close to the bakery where the fire started. In the cellar,
+                        they found the charred remnants of 20 barrels of pitch.
+                        Pitch burns very easily and would have helped to spread the fire.
+                    </p>
+
+
+                    <h3>
+                        Paragraph C
+                    </h3>
+
+                    <p>
+                        The fire spread quickly down Pudding Lane and carried on down
+                        Fish Hill and towards the Thames. The fire continued to spread
+                        rapidly, helped by a strong wind from the east. When it reached
+                        the Thames, it hit warehouses that were stocked with combustible
+                        products, such as oil and rope. Fortunately, the fire could not
+                        spread south of the river, because a previous blaze in 1633
+                        had already wrecked a section of London Bridge. As the fire
+                        was spreading so quickly, most Londoners concentrated on
+                        escaping rather than fighting the fire.
+                    </p>
+
+
+                    <h3>
+                        Paragraph D
+                    </h3>
+
+                    <p>
+                        In the 17th century, people were not as aware of the dangers
+                        of fire as they are today. Buildings were made of timber
+                        covered in pitch and tightly packed together. The design of
+                        buildings meant flames could easily spread from building to
+                        building. Following a long, dry summer, the city was suffering
+                        a drought; water was scarce and the wooden houses had dried
+                        out, making them easier to burn.
+                    </p>
+
+
+                    <h3>
+                        Paragraph E
+                    </h3>
+
+                    <p>
+                        Samuel Pepys, a diarist of the period and Clerk to the Royal
+                        Navy, observed the fire and recommended to the King that
+                        buildings should be pulled down, as it could be the only way
+                        to stop the fire. The Mayor made the order to pull down
+                        burning houses using fire hooks, but the fire continued to
+                        spread. Pepys then spoke to the Admiral of the Navy and they
+                        agreed that they should blow up houses in the path of the fire.
+                        The hope was that by doing this, they would create a space to
+                        stop the fire spreading from house to house. The Navy carried
+                        out the request and by the next morning, the fire had been
+                        successfully stopped.
+                    </p>
+
+
+                    <h3>
+                        Paragraph F
+                    </h3>
+
+                    <p>
+                        London had to be almost totally reconstructed and many people
+                        went to the fields outside London. They stayed there for many
+                        days, sheltering in tents and shacks and some people were forced
+                        to live in this way for months and even years. Throughout 1667,
+                        people cleared rubble and surveyed the burnt area. Much time
+                        was spent planning new street layouts and drawing up new
+                        building regulations. Public buildings were paid for with money
+                        from a new coal tax, but by the end of the year only 150 new
+                        houses had been built. The new regulations were designed to
+                        prevent such a disaster happening again. Houses now had to be
+                        faced in brick instead of wood. Some streets were widened and
+                        two new streets were created. Pavements and new sewers were
+                        laid, and London’s quaysides were improved. Initially, however,
+                        only temporary buildings were erected that were ill-equipped,
+                        and this enabled the plague, which was common in London at
+                        that time, to spread easily. Many people died from this and the
+                        harsh winter that followed the fire.
+                    </p>
+
+
+                    <h3>
+                        Paragraph G
+                    </h3>
+
+                    <p>
+                        In 1666, there was no organised fire brigade. Fire fighting
+                        was very basic with little skill or knowledge involved. Leather
+                        buckets, axes and water squirts were used to fight the fire,
+                        but they had little effect. As a result of the Great Fire of
+                        London, early fire brigades were formed by insurance companies.
+                        Building insurance was very profitable and many more insurance
+                        companies were set up, establishing their own fire brigades.
+                        These brigades were sent to insured properties if a fire occurred
+                        to minimise damage and cost. Firemarks were used to identify
+                        and advertise different insurance companies. They were placed
+                        on the outside of an insured building and brigades would use
+                        them to determine whether a building was insured by them.
+                        If a building was on fire, several brigades would attend.
+                        If they did not see their specific firemark attached to the
+                        building, they would leave the property to burn. Some old
+                        firemarks can still be seen on London buildings today. Also,
+                        fire fighters wore brightly coloured uniforms to distinguish
+                        themselves from rival insurance brigades. Although this was
+                        a step in the right direction, fire fighters received little
+                        training and the equipment used remained very basic.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- =================================
+                         QUESTIONS 1-7
+                         ================================= -->
+
+                    <h2>
+                        Questions 1–7
+                    </h2>
+
+
+                    <p>
+                        The text on the previous pages has 7 paragraphs
+                        (A–G).
+                    </p>
+
+
+                    <p>
+                        Choose the correct heading for each paragraph from
+                        the list of headings below.
+                    </p>
+
+
+                    <p>
+                        Write the correct number
+                        <strong>(i–x)</strong>
+                        in boxes 1–7.
+                    </p>
+
+
+                    <div class="heading-options">
+
+                        <p>
+                            <strong>i</strong>
+                            Vulnerable Buildings
+                        </p>
+
+                        <p>
+                            <strong>ii</strong>
+                            The Effect on Trade
+                        </p>
+
+                        <p>
+                            <strong>iii</strong>
+                            How it Started
+                        </p>
+
+                        <p>
+                            <strong>iv</strong>
+                            A Positive from the Ashes
+                        </p>
+
+                        <p>
+                            <strong>v</strong>
+                            Food Shortages
+                        </p>
+
+                        <p>
+                            <strong>vi</strong>
+                            The Movement of the Fire
+                        </p>
+
+                        <p>
+                            <strong>vii</strong>
+                            The Effects of the Smoke
+                        </p>
+
+                        <p>
+                            <strong>viii</strong>
+                            Extinguishing the Fire
+                        </p>
+
+                        <p>
+                            <strong>ix</strong>
+                            The Costs
+                        </p>
+
+                        <p>
+                            <strong>x</strong>
+                            A New London
+                        </p>
+
+                    </div>
+
+
+                    <!-- Q1 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>1.</strong>
+                            Paragraph A
+                        </p>
+
+                        <select
+                            name="q1"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q2 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>2.</strong>
+                            Paragraph B
+                        </p>
+
+                        <select
+                            name="q2"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q3 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>3.</strong>
+                            Paragraph C
+                        </p>
+
+                        <select
+                            name="q3"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q4 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>4.</strong>
+                            Paragraph D
+                        </p>
+
+                        <select
+                            name="q4"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q5 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>5.</strong>
+                            Paragraph E
+                        </p>
+
+                        <select
+                            name="q5"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q6 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>6.</strong>
+                            Paragraph F
+                        </p>
+
+                        <select
+                            name="q6"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q7 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>7.</strong>
+                            Paragraph G
+                        </p>
+
+                        <select
+                            name="q7"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select heading
+                            </option>
+
+                            <option value="i">i</option>
+                            <option value="ii">ii</option>
+                            <option value="iii">iii</option>
+                            <option value="iv">iv</option>
+                            <option value="v">v</option>
+                            <option value="vi">vi</option>
+                            <option value="vii">vii</option>
+                            <option value="viii">viii</option>
+                            <option value="ix">ix</option>
+                            <option value="x">x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 8-11
+                         ================================= -->
+
+                    <h2>
+                        Questions 8–11
+                    </h2>
+
+
+                    <p>
+                        Choose <strong>FOUR</strong> letters,
+                        A–G.
+                    </p>
+
+
+                    <p>
+                        What FOUR of the following were effects of
+                        the Great Fire of London?
+                    </p>
+
+
+                    <p class="question-note">
+                        Write the correct letter, A–G, in any order
+                        in boxes 8–11.
+                    </p>
+
+
+                    <div class="heading-options">
+
+                        <p>
+                            <strong>A.</strong>
+                            Officially, only six people died.
+                        </p>
+
+                        <p>
+                            <strong>B.</strong>
+                            The French economy benefitted from the
+                            destruction of businesses in London.
+                        </p>
+
+                        <p>
+                            <strong>C.</strong>
+                            Some people had to live rough in fields
+                            for years following the fire.
+                        </p>
+
+                        <p>
+                            <strong>D.</strong>
+                            The English royal family were forced to
+                            live outside London for 18 months.
+                        </p>
+
+                        <p>
+                            <strong>E.</strong>
+                            Disease spread more easily.
+                        </p>
+
+                        <p>
+                            <strong>F.</strong>
+                            An enquiry was completed by the government
+                            into why the damage was so bad.
+                        </p>
+
+                        <p>
+                            <strong>G.</strong>
+                            Fire fighting services were launched.
+                        </p>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <div class="effect-answer-row">
+
+                            <strong>8.</strong>
+
+                            <select
+                                name="q8"
+                                autocomplete="off">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="effect-answer-row">
+
+                            <strong>9.</strong>
+
+                            <select
+                                name="q9"
+                                autocomplete="off">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="effect-answer-row">
+
+                            <strong>10.</strong>
+
+                            <select
+                                name="q10"
+                                autocomplete="off">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="effect-answer-row">
+
+                            <strong>11.</strong>
+
+                            <select
+                                name="q11"
+                                autocomplete="off">
+
+                                <option value="">
+                                    Select
+                                </option>
+
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="G">G</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 12-13
+                         ================================= -->
+
+                    <h2>
+                        Questions 12–13
+                    </h2>
+
+
+                    <p>
+                        Complete the sentences below.
+                    </p>
+
+
+                    <p>
+                        Write <strong>NO MORE THAN THREE WORDS</strong>
+                        from the text for each answer.
+                    </p>
+
+
+                    <!-- Q12 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>12.</strong>
+                            One measure to prevent further fires was to
+                            ensure that London houses would have
+                            __________ facades in the future.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q12"
+                            aria-label="Question 12"
+                            autocomplete="off">
+
+                    </div>
+
+
+                    <!-- Q13 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>13.</strong>
+                            People could differentiate the fire brigades
+                            from different insurance companies by their
+                            __________.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q13"
+                            aria-label="Question 13"
+                            autocomplete="off">
+
+                    </div>
+
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   READING TEST 3 TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem(
+        "readingTest3TimeLeft"
+    );
+
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem(
+        "readingTest3TimerStarted"
+    ) === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+
+}
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+
+    timerInterval =
+        setInterval(function () {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            sessionStorage.setItem(
+                "readingTest3TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                timerInterval = null;
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimeLeft"
+                );
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimerStarted"
+                );
+
+
+                alert(
+                    "Time is up!"
+                );
+
+            }
+
+        }, 1000);
+
+}
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+
+    timerStarted = true;
+
+
+    sessionStorage.setItem(
+        "readingTest3TimerStarted",
+        "true"
+    );
+
+
+    updateTimer();
+
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   RESET COMPLETED TEST
+   ========================================= */
+
+function resetCompletedReadingTest3() {
+
+    if (
+        sessionStorage.getItem(
+            "readingTest3Submitted"
+        ) === "true"
+    ) {
+
+        for (
+            let i = 1;
+            i <= 40;
+            i++
+        ) {
+
+            sessionStorage.removeItem(
+                "readingTest3_q" + i
+            );
+
+        }
+
+
+        sessionStorage.removeItem(
+            "readingTest3TimeLeft"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest3TimerStarted"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest3Submitted"
+        );
+
+    }
+
+}
+
+
+resetCompletedReadingTest3();
+
+
+/* =========================================
+   START TIMER
+   ========================================= */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            if (
+                element.tagName === "SELECT"
+            ) {
+
+                sessionStorage.setItem(
+                    "readingTest3_" + questionName,
+                    element.value
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                if (element.checked) {
+
+                    sessionStorage.setItem(
+                        "readingTest3_" + questionName,
+                        element.value
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            sessionStorage.setItem(
+                "readingTest3_" + questionName,
+                element.value
+            );
+
+        });
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "readingTest3_" + questionName
+                );
+
+
+            if (savedAnswer === null) {
+                return;
+            }
+
+
+            if (
+                element.tagName === "SELECT"
+            ) {
+
+                element.value =
+                    savedAnswer;
+
+
+                return;
+
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                element.checked =
+                    element.value === savedAnswer;
+
+
+                return;
+
+            }
+
+
+            element.value =
+                savedAnswer;
+
+        });
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (
+        let i = 1;
+        i <= 40;
+        i++
+    ) {
+
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest3_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add(
+                "answered"
+            );
+
+        } else {
+
+            button.classList.remove(
+                "answered"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document
+    .querySelectorAll(
+        "#readingForm input, #readingForm select"
+    )
+    .forEach(function(element) {
+
+
+        element.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+
+        element.addEventListener(
+            "change",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   INITIAL RESTORE
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-3-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-3-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-3-part3.html";
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT TEST
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+
+    window.location.href =
+        "reading-test-3-final.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

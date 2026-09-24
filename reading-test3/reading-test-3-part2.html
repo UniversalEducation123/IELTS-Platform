@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 3</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <style>
+
+        .reading-diagram {
+            width: 100%;
+            max-width: 650px;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+
+        .diagram-answers {
+            margin-top: 20px;
+        }
+
+
+        .diagram-answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+
+        .diagram-answer-row strong {
+            min-width: 35px;
+        }
+
+
+        .diagram-answer-row input {
+            width: 260px;
+            padding: 9px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+
+        .people-list {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+
+
+        .people-list p {
+            margin: 8px 0;
+        }
+
+
+        .question select {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+
+        .diagram-answer-row input {
+            box-sizing: border-box;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .diagram-answer-row {
+                flex-wrap: wrap;
+            }
+
+            .diagram-answer-row input {
+                width: 100%;
+                max-width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     ACCESS CHECK
+     ========================================= -->
+
+<script>
+
+    const readingAccessKey =
+        "access_reading-test-3";
+
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-test-3";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+
+
+<!-- =========================================
+     HEADER
+     ========================================= -->
+
+<header class="navbar">
+
+    <a
+        href="../index.html"
+        class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
+    </a>
+
+
+    <h3>
+        IELTS Academic Reading Test
+    </h3>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     QUESTION PROGRESS
+     ========================================= -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+<!-- =========================================
+     MAIN
+     ========================================= -->
+
+<main class="reading-wrapper">
+
+
+    <!-- TIMER -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+
+            60:00
+
+        </div>
+
+    </div>
+
+
+    <!-- PART BUTTONS -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+
+            Part 1
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+
+            Part 2
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+
+            Part 3
+
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+
+                Submit Reading Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         READING FORM
+         ========================================= -->
+
+    <form
+        id="readingForm"
+        autocomplete="off">
+
+
+        <section
+            id="part2"
+            class="reading-part active">
+
+
+            <div class="reading-split-layout">
+
+
+                <!-- =================================
+                     LEFT SIDE: PASSAGE
+                     ================================= -->
+
+                <section class="passage-panel">
+
+                    <h2>
+                        Passage 2: A New Threat in Yellowstone
+                    </h2>
+
+
+                    <p>
+                        It has long been known that Yellowstone National Park lies
+                        over an enormous supervolcano. The term ‘supervolcano’ implies
+                        a volcanic centre that has had an eruption of magnitude 8 on
+                        the Volcano Explosivity Index (VEI), meaning the measured
+                        deposits for that eruption are greater than 1,000 cubic
+                        kilometres. This sounds worrying and Professor George Peters
+                        details the possible results if something were to happen.
+                        "A major eruption would obliterate the surroundings within
+                        a radius of hundreds of kilometres, and cover the rest of
+                        the United States and Canada with multiple inches of ash.
+                        This would shut down agriculture and cause global climate
+                        cooling for as long as a decade.” To calm everyone down,
+                        geologist, Tony Masters, explains there is little to fear today.
+                        "All VEI 8 eruptions, including the last at Yellowstone,
+                        occurred tens of thousands to millions of years ago. Another
+                        eruption could occur, but it is very unlikely to happen in
+                        the next million years or so.”
+                    </p>
+
+
+                    <p>
+                        Yellowstone is no stranger to controversy. There was a
+                        previous media accusation that US Geological Survey (USGS)
+                        geologists had not done their work properly and that the
+                        identification of Yellowstone as a supervolcano was not done
+                        until scientists looked at photographs of Yellowstone from
+                        space. The Yellowstone scientists denied this. Spokesman Alice
+                        Wheeler clarifies their position. "The scientist who first
+                        identified the three Yellowstone calderas was from the USGS
+                        and he told the world about the great eruptions that formed
+                        them. He traced out the caldera boundaries through old
+                        fashioned field work, walking around with a hammer and hand
+                        lens and looking carefully at the rocks and their distributions.”
+                    </p>
+
+
+                    <p>
+                        The National Aeronautics and Space Administration (NASA) also
+                        agreed. Stan Forsyth, their spokesman, explains. "Several
+                        authors have written that these large calderas in Yellowstone
+                        were discovered from space, but we suspect that the rumour
+                        probably got started because initial field work that identified
+                        them was partly funded by NASA.”
+                    </p>
+
+
+                    <p>
+                        A new problem in Yellowstone is that the supervolcano has now
+                        been discovered to be larger than originally thought and this
+                        has made people feel more nervous. Seismologists at the
+                        University of Utah have worked with several other institutions
+                        to create an image of the Yellowstone magma reservoir using
+                        a technique called seismic tomography. Masters student, Julia
+                        Grey, explains the results. "By looking closely at data from
+                        thousands of earthquakes, we have discovered that there are
+                        two magma reservoirs, one shallow and one deep, and that they
+                        are much larger than originally believed. The shallow one was
+                        previously known about to us, but the deeper one is a new finding.”
+                    </p>
+
+
+                    <p>
+                        To create an image of this second magma reservoir beneath
+                        Yellowstone, the research teams reviewed data from thousands
+                        of earthquakes. Seismic waves travel slower through hot,
+                        partially molten rock and faster in cold, solid rock. The
+                        researchers made a map of the locations where seismic waves
+                        travel more slowly, which provided a sub-surface image of the
+                        hot or partially molten bodies in the crust beneath Yellowstone.
+                    </p>
+
+
+                    <p>
+                        The deeper magma storage region extends from 20 to 50
+                        kilometres depth, contains about 2 per cent melt, and is about
+                        4.5 times larger than the shallow magma body. The shallower
+                        magma storage region is about 90 kilometres long, extends from
+                        5 to 17 kilometres depth, and is 2.5 times larger than a prior,
+                        less accurate, study indicated. This magma reservoir contains
+                        between about 5 to 15 per cent molten rock. Although this is
+                        the crustal magma storage region that has fuelled Yellowstone’s
+                        past volcanic activity, magma typically does not erupt unless
+                        it has greater than 50 per cent melt.
+                    </p>
+
+
+                    <p>
+                        The US and world media were quick to dramatise the finding and
+                        exaggerate the threat that these findings represent. Yellowstone
+                        park scientist, Amy Brent, has calming words. "These findings
+                        do not increase the assessment of volcanic hazard for Yellowstone.
+                        The inferred magma storage region is no larger than we already
+                        knew. The research simply makes a better image of the magmatic
+                        system. Simply, we have more key information about how the
+                        Yellowstone volcano works.”
+                    </p>
+
+
+                    <p>
+                        Many independent reports back up Brent’s comments and have
+                        shown that the Yellowstone area has been on a long cycle of
+                        periodic eruptions. Eruptions are extremely infrequent in
+                        supervolcanos, and eventually the cycle ends in their deaths.
+                        US government geologist, Andrea Haller, explains the state of
+                        the Yellowstone supervolcano. "By investigating the patterns
+                        of behaviour in two previously completed caldera cycles, we
+                        can suggest that the current activity of Yellowstone is on
+                        the dying cycle.”
+                    </p>
+
+
+                    <p>
+                        This is based on comparisons with other supervolcanos.
+                        Scientists know the behaviour of the past and they know at
+                        what comparative stage Yellowstone is right now. It is believed
+                        that Yellowstone is currently on a third and dying cycle. This
+                        can be concluded by the fact that dying volcanos produce less
+                        fresh molten material from the Earth’s crust.
+                    </p>
+
+
+                    <p>
+                        Haller continues. "We’ve observed a lot of material in the
+                        magma chambers that represent recycled volcanic rocks, which
+                        were once buried inside of calderas and are now getting reused.
+                        Yellowstone has erupted enough of this material already to
+                        suggest that the future melting potential of the crust is
+                        getting exhausted.”
+                    </p>
+
+
+                    <p>
+                        Whatever the truth about Yellowstone, it seems that during
+                        the lives of most people, the geological status of Yellowstone
+                        can still prove hazardous. The park has often been closed due
+                        to volcanic activity in the past and this is likely to happen
+                        again before the volcano becomes harmless.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     RIGHT SIDE: QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- =================================
+                         QUESTIONS 14-20
+                         ================================= -->
+
+                    <h2>
+                        Questions 14–20
+                    </h2>
+
+
+                    <p>
+                        Look at the following statements
+                        (Questions 14–20) and the list of people below.
+                    </p>
+
+
+                    <p>
+                        Match each statement with the correct person's initials.
+                    </p>
+
+
+                    <p>
+                        Write the correct initials in boxes 14–20.
+                    </p>
+
+
+                    <div class="people-list">
+
+                        <p>
+                            <strong>GP</strong> George Peters
+                        </p>
+
+                        <p>
+                            <strong>TM</strong> Tony Masters
+                        </p>
+
+                        <p>
+                            <strong>AW</strong> Alice Wheeler
+                        </p>
+
+                        <p>
+                            <strong>SF</strong> Stan Forsyth
+                        </p>
+
+                        <p>
+                            <strong>JG</strong> Julia Grey
+                        </p>
+
+                        <p>
+                            <strong>AB</strong> Amy Brent
+                        </p>
+
+                        <p>
+                            <strong>AH</strong> Andrea Haller
+                        </p>
+
+                    </div>
+
+
+                    <!-- Q14 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>14.</strong>
+                            The Yellowstone volcano is on its dying
+                            supervolcano cycle.
+                        </p>
+
+                        <select
+                            name="q14"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q15 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>15.</strong>
+                            The Yellowstone supervolcano was first identified
+                            by traditional geology work.
+                        </p>
+
+                        <select
+                            name="q15"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q16 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>16.</strong>
+                            A major Yellowstone eruption would cause
+                            Canadian farming to cease.
+                        </p>
+
+                        <select
+                            name="q16"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q17 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>17.</strong>
+                            The Yellowstone magma chambers are larger
+                            than previously thought.
+                        </p>
+
+                        <select
+                            name="q17"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q18 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>18.</strong>
+                            A major Yellowstone eruption last occurred
+                            thousands of years ago.
+                        </p>
+
+                        <select
+                            name="q18"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q19 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>19.</strong>
+                            Scientists now know better about the functioning
+                            of the Yellowstone volcano.
+                        </p>
+
+                        <select
+                            name="q19"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Q20 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>20.</strong>
+                            NASA has provided money in the past to help
+                            research on the Yellowstone supervolcano.
+                        </p>
+
+                        <select
+                            name="q20"
+                            autocomplete="off">
+
+                            <option value="">
+                                Select initials
+                            </option>
+
+                            <option value="GP">GP</option>
+                            <option value="TM">TM</option>
+                            <option value="AW">AW</option>
+                            <option value="SF">SF</option>
+                            <option value="JG">JG</option>
+                            <option value="AB">AB</option>
+                            <option value="AH">AH</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 21-23
+                         ================================= -->
+
+                    <h2>
+                        Questions 21–23
+                    </h2>
+
+
+                    <p>
+                        Label the diagram below.
+                    </p>
+
+
+                    <p>
+                        Write
+                        <strong>
+                            NO MORE THAN THREE WORDS AND/OR A NUMBER
+                        </strong>
+                        from the text for each answer.
+                    </p>
+
+
+                    <img
+                        src="../assets/reading-test3-image.png"
+                        alt="The Yellowstone Supervolcano diagram"
+                        class="reading-diagram">
+
+
+                    <div class="diagram-answers">
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>21.</strong>
+
+                            <input
+                                type="text"
+                                name="q21"
+                                aria-label="Question 21"
+                                autocomplete="off">
+
+                        </div>
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>22.</strong>
+
+                            <input
+                                type="text"
+                                name="q22"
+                                aria-label="Question 22"
+                                autocomplete="off">
+
+                        </div>
+
+
+                        <div class="diagram-answer-row">
+
+                            <strong>23.</strong>
+
+                            <input
+                                type="text"
+                                name="q23"
+                                aria-label="Question 23"
+                                autocomplete="off">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================
+                         QUESTIONS 24-26
+                         ================================= -->
+
+                    <h2>
+                        Questions 24–26
+                    </h2>
+
+
+                    <p>
+                        Choose the correct letter,
+                        <strong>A, B, C or D.</strong>
+                    </p>
+
+
+                    <!-- Q24 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>24.</strong>
+                            Images of the magma chambers can be made,
+                            because
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q24"
+                                value="A">
+
+                            A. of the different speeds that seismic waves
+                            travel through different states of rock.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q24"
+                                value="B">
+
+                            B. seismic waves cannot penetrate any sections
+                            of magma.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q24"
+                                value="C">
+
+                            C. seismic waves only detect colder rock.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q24"
+                                value="D">
+
+                            D. seismic waves travel very fast.
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q25 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>25.</strong>
+                            The death of the Yellowstone supervolcano
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q25"
+                                value="A">
+
+                            A. will occur in the next few years.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q25"
+                                value="B">
+
+                            B. cannot ever be predicted.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q25"
+                                value="C">
+
+                            C. can be probably predicted due to the lack
+                            of fresh molten rock.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q25"
+                                value="D">
+
+                            D. will follow the next major eruption.
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- Q26 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>26.</strong>
+                            The Yellowstone National Park
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q26"
+                                value="A">
+
+                            A. will probably have to be closed at certain
+                            times of danger.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q26"
+                                value="B">
+
+                            B. will probably never open again due to
+                            the dangers.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q26"
+                                value="C">
+
+                            C. will never need to be closed in the
+                            lifetimes of people today.
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q26"
+                                value="D">
+
+                            D. will stop wild animals entering it
+                            if possible.
+
+                        </label>
+
+                    </div>
+
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   READING TEST 3 TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem(
+        "readingTest3TimeLeft"
+    );
+
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem(
+        "readingTest3TimerStarted"
+    ) === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+
+}
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+
+    timerInterval =
+        setInterval(function () {
+
+            timeLeft--;
+
+
+            updateTimer();
+
+
+            sessionStorage.setItem(
+                "readingTest3TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(
+                    timerInterval
+                );
+
+                timerInterval = null;
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimeLeft"
+                );
+
+
+                sessionStorage.removeItem(
+                    "readingTest3TimerStarted"
+                );
+
+
+                alert(
+                    "Time is up!"
+                );
+
+            }
+
+        }, 1000);
+
+}
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+
+    timerStarted = true;
+
+
+    sessionStorage.setItem(
+        "readingTest3TimerStarted",
+        "true"
+    );
+
+
+    updateTimer();
+
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   START / CONTINUE TIMER
+   ========================================= */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            if (
+                element.tagName === "SELECT"
+            ) {
+
+                sessionStorage.setItem(
+                    "readingTest3_" + questionName,
+                    element.value
+                );
+
+                return;
+
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                if (element.checked) {
+
+                    sessionStorage.setItem(
+                        "readingTest3_" + questionName,
+                        element.value
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            sessionStorage.setItem(
+                "readingTest3_" + questionName,
+                element.value
+            );
+
+        });
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document
+        .querySelectorAll(
+            "#readingForm input, #readingForm select"
+        )
+        .forEach(function(element) {
+
+
+            const questionName =
+                element.name;
+
+
+            if (!questionName) {
+                return;
+            }
+
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "readingTest3_" + questionName
+                );
+
+
+            if (savedAnswer === null) {
+                return;
+            }
+
+
+            if (
+                element.tagName === "SELECT"
+            ) {
+
+                element.value =
+                    savedAnswer;
+
+                return;
+
+            }
+
+
+            if (
+                element.type === "radio"
+                || element.type === "checkbox"
+            ) {
+
+                element.checked =
+                    element.value === savedAnswer;
+
+                return;
+
+            }
+
+
+            element.value =
+                savedAnswer;
+
+        });
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (
+        let i = 1;
+        i <= 40;
+        i++
+    ) {
+
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest3_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add(
+                "answered"
+            );
+
+        } else {
+
+            button.classList.remove(
+                "answered"
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document
+    .querySelectorAll(
+        "#readingForm input, #readingForm select"
+    )
+    .forEach(function(element) {
+
+
+        element.addEventListener(
+            "input",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+
+        element.addEventListener(
+            "change",
+            function() {
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+
+/* =========================================
+   INITIAL RESTORE
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-3-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-3-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-3-part3.html";
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT TEST
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+
+    window.location.href =
+        "reading-test-3-final.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
