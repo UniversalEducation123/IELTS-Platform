@@ -425,10 +425,10 @@
         q6: ["X"],
         q7: ["IV"],
 
-        q8: ["A"],
-        q9: ["C"],
-        q10: ["E"],
-        q11: ["G"],
+        q8: ["A", "C", "E", "G"],
+        q9: ["A", "C", "E", "G"],
+        q10: ["A", "C", "E", "G"],
+        q11: ["A", "C", "E", "G"],
 
         q12: ["brick"],
         q13: [
@@ -441,7 +441,7 @@
         q14: ["AH"],
         q15: ["AW"],
         q16: ["GP"],
-        q17: ["JP"],
+        q17: ["JG"],
         q18: ["TM"],
         q19: ["AB"],
         q20: ["SF"],
@@ -657,105 +657,65 @@
        MAIN SCORE CALCULATION
     ===================================== */
 
-    async function calculateReadingScore() {
+ async function calculateReadingScore() {
 
-        const answers =
-            readTest3Answers();
+    const answers = readTest3Answers();
 
+    let correctCount = 0;
 
-        let correctCount = 0;
+    // Prevent duplicate letters in Q8–11
+    const usedLetters = [];
 
+    for (let i = 1; i <= 40; i++) {
 
-        for (let i = 1; i <= 40; i++) {
+        const key = "q" + i;
+        const student = (answers[key] || "").trim();
+        const accepted = answerKey[key] || [];
 
-            const key =
-                "q" + i;
+        let correct = false;
 
+        // Special marking for Questions 8–11
+        if (i >= 8 && i <= 11) {
 
-            const student =
-                answers[key] || "";
+            const letter = student.toUpperCase();
 
-
-            const accepted =
-                answerKey[key] || [];
-
-
-            const correct =
-                isCorrect(
-                    student,
-                    accepted
-                );
-
-
-            if (correct) {
-
-                correctCount++;
-
+            if (
+                accepted.includes(letter) &&
+                !usedLetters.includes(letter)
+            ) {
+                correct = true;
+                usedLetters.push(letter);
             }
 
+        } else {
 
-            addReviewItem(
-                i,
-                student,
-                accepted.join(" / "),
-                correct
-            );
+            correct = isCorrect(student, accepted);
 
         }
 
+        if (correct) {
+            correctCount++;
+        }
 
-
-        /* =================================
-           DISPLAY FINAL SCORE
-        ================================= */
-
-        const wrongCount =
-            40 - correctCount;
-
-
-        document.getElementById(
-            "correctAnswers"
-        ).textContent =
-            correctCount;
-
-
-        document.getElementById(
-            "wrongAnswers"
-        ).textContent =
-            wrongCount;
-
-
-        document.getElementById(
-            "totalScore"
-        ).textContent =
-            correctCount + " / 40";
-
-
-        document.getElementById(
-            "bandScore"
-        ).textContent =
-            calculateBand(correctCount);
-
-
-
-        console.log(
-            "FINAL READING TEST 3 SCORE:",
-            correctCount + " / 40"
+        addReviewItem(
+            i,
+            student,
+            accepted.join(" / "),
+            correct
         );
-
-
-
-        /* =================================
-           SAVE RESULT TO SUPABASE
-        ================================= */
-
-        await saveResultToSupabase(
-            correctCount
-        );
-
-        markReadingTest3AsSubmitted();
-
     }
+
+    const wrongCount = 40 - correctCount;
+
+    document.getElementById("correctAnswers").textContent = correctCount;
+    document.getElementById("wrongAnswers").textContent = wrongCount;
+    document.getElementById("totalScore").textContent = correctCount + " / 40";
+    document.getElementById("bandScore").textContent = calculateBand(correctCount);
+
+    await saveResultToSupabase(correctCount);
+
+    sessionStorage.setItem("readingTest3Submitted", "true");
+}
 
 
 
