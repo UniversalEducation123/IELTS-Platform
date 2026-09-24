@@ -88,16 +88,18 @@
 <body>
     
     <script>
-    const accessKey = "access_writing-test-1";
+        const accessKey = "access_writing-test-1";
 
-    const writingAccessGranted =
-        sessionStorage.getItem(accessKey);
+        const writingAccessGranted =
+            sessionStorage.getItem(accessKey);
 
-    if (writingAccessGranted !== "true") {
-        window.location.href =
-            "../test-access.html?test=writing-test-1";
-    }
-</script>
+        if (writingAccessGranted !== "true") {
+            window.location.href =
+                "../test-access.html?test=writing-test-1";
+        }
+    </script>
+
+    <script src="../js/exam-inputs.js"></script>
 
 <!-- ================================
      HEADER
