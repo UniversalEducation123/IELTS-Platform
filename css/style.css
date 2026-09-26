@@ -188,6 +188,8 @@ p {
     display:flex;
     justify-content:center;
     align-items:center;
+    position:relative;
+
 }
 
 .hero-image img{
@@ -200,27 +202,66 @@ p {
 .hero-blob{
     width:520px;
     height:520px;
-    border-radius:42% 58% 55% 45% / 45% 42% 58% 55%;
-    background:rgba(215, 190, 230, 0.18);
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
-    position:relative;
+
+    border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
+    background:rgba(225,190,235,.22);
+
+    animation: blobFloat 10s ease-in-out infinite;
 }
 
+/* Inner soft layer */
 .hero-blob::before{
     content:"";
     position:absolute;
-    inset:28px;
+    inset:22px;
+
     border-radius:inherit;
-    background:rgba(180, 215, 195, 0.15);
+    background:rgba(193,220,203,.22);
+
+    animation: blobFloat 10s ease-in-out infinite reverse;
 }
 
+/* Illustration */
 .hero-blob img{
-    width:88%;
+    width:86%;
+    height:auto;
     position:relative;
-    z-index:1;
-    filter:drop-shadow(0 18px 28px rgba(60,50,70,.12));
+    z-index:2;
+
+    filter:drop-shadow(0 18px 30px rgba(70,60,80,.12));
+}
+
+/* Morphing animation */
+@keyframes blobFloat{
+
+    0%{
+        border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
+        transform:translateY(0px) rotate(0deg);
+    }
+
+    25%{
+        border-radius:46% 54% 62% 38% / 60% 42% 58% 40%;
+        transform:translateY(-8px) rotate(1deg);
+    }
+
+    50%{
+        border-radius:63% 37% 44% 56% / 41% 61% 39% 59%;
+        transform:translateY(0px) rotate(-1deg);
+    }
+
+    75%{
+        border-radius:40% 60% 48% 52% / 55% 38% 62% 45%;
+        transform:translateY(8px) rotate(.5deg);
+    }
+
+    100%{
+        border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
+        transform:translateY(0px) rotate(0deg);
+    }
 }
 
 /* =====================================
