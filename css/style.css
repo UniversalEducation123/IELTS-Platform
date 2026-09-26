@@ -1147,12 +1147,12 @@ body.listening-page{
 
     background:linear-gradient(
         135deg,
-        #6B5360 0%,
-        #7A6D86 55%,
-        #75877C 100%
+        #685761 0%,
+        #756C7B 55%,
+        #738177 100%
     );
 
-    box-shadow:0 14px 30px rgba(93,62,80,.12);
+    box-shadow:0 12px 24px rgba(93,62,80,.10);
 
     position:relative;
     overflow:hidden;
@@ -1166,7 +1166,7 @@ body.listening-page{
     right:-70px;
     top:-70px;
     border-radius:50%;
-    background:rgba(255,255,255,.06);
+    background:rgba(255,255,255,.04);
 }
 
 .listening-header::after{
@@ -1177,7 +1177,7 @@ body.listening-page{
     left:-40px;
     bottom:-50px;
     border-radius:50%;
-    background:rgba(255,255,255,.04);
+    background:rgba(255,255,255,.03);
 }
 
 .listening-header > *{
