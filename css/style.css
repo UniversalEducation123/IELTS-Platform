@@ -1145,14 +1145,20 @@ body.listening-page{
 
     border-radius:26px;
 
+    /* Semi-transparent gradient */
     background:linear-gradient(
         135deg,
-        #685761 0%,
-        #756C7B 55%,
-        #738177 100%
+        rgba(106,89,99,.72),
+        rgba(116,107,121,.68),
+        rgba(116,130,121,.70)
     );
 
-    box-shadow:0 12px 24px rgba(93,62,80,.10);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    box-shadow:0 10px 24px rgba(70,55,65,.08);
 
     position:relative;
     overflow:hidden;
@@ -1161,23 +1167,19 @@ body.listening-page{
 .listening-header::before{
     content:"";
     position:absolute;
-    width:220px;
-    height:220px;
-    right:-70px;
-    top:-70px;
-    border-radius:50%;
-    background:rgba(255,255,255,.04);
+    inset:0;
+
+    background:linear-gradient(
+        180deg,
+        rgba(255,255,255,.10),
+        rgba(255,255,255,.02)
+    );
+
+    pointer-events:none;
 }
 
 .listening-header::after{
-    content:"";
-    position:absolute;
-    width:140px;
-    height:140px;
-    left:-40px;
-    bottom:-50px;
-    border-radius:50%;
-    background:rgba(255,255,255,.03);
+    display:none;
 }
 
 .listening-header > *{
@@ -1631,7 +1633,7 @@ body.listening-page{
     background: linear-gradient(
         135deg,
         #7B6878 0%,
-        #6E5E70 100%
+        #9a899c 100%
     );
 }
 
@@ -3145,25 +3147,37 @@ body.listening-page{
 
 .audio-play-btn{
     padding:10px 18px;
-
     border:none;
     border-radius:999px;
 
     background:linear-gradient(
         135deg,
-        #A86583,
-        #8E7AB5
+        #8A7282,
+        #927F9E
     );
 
-    color:#FFFFFF;
+    color:#ffffff;
+    font-size:14px;
     font-weight:600;
-
     cursor:pointer;
-    transition:.25s ease;
+
+    transition:all .25s ease;
+    box-shadow:0 4px 10px rgba(93,62,80,.10);
 }
 
 .audio-play-btn:hover{
+    background:linear-gradient(
+        135deg,
+        #7C6675,
+        #867391
+    );
+
     transform:translateY(-1px);
+    box-shadow:0 6px 14px rgba(93,62,80,.14);
+}
+
+.audio-play-btn:active{
+    transform:translateY(0);
 }
 
 .audio-progress-container{
