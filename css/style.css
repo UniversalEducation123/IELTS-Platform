@@ -1625,8 +1625,8 @@ body.listening-page{
 .table-header{
     background:linear-gradient(
         135deg,
-        #5D3E50 0%,
-        #9076a0 60%,
+        #5D3E50 60%,
+        #9076a0 0%,
         #6F8F7A 100%
     );
 }
