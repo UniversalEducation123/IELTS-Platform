@@ -9,177 +9,282 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        * {
-            box-sizing: border-box;
+        * *{
+    box-sizing:border-box;
         }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #222;
+        body{
+            margin:0;
+            font-family:Arial,sans-serif;
+            color:#3f4b45;
+
+            background:
+                radial-gradient(circle at 12% 18%, rgba(216,139,168,.18), transparent 28%),
+                radial-gradient(circle at 86% 14%, rgba(199,163,230,.16), transparent 24%),
+                radial-gradient(circle at 84% 82%, rgba(140,183,155,.18), transparent 30%),
+                linear-gradient(135deg,#fff8fa,#f6fbf7,#fbf8ff);
         }
 
-        header {
-            background: #3b0f12;
-            color: white;
-            padding: 18px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* ---------- Header ---------- */
+
+        header{
+            position:sticky;
+            top:0;
+            z-index:100;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:18px 8%;
+
+            background:rgba(255,255,255,.78);
+            backdrop-filter:blur(18px);
+
+            border-bottom:1px solid rgba(255,255,255,.7);
+            box-shadow:0 8px 24px rgba(112,64,82,.06);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 22px;
+        header h1{
+            margin:0;
+            font-size:24px;
+            color:#704052;
         }
 
-        .back-button {
-            background: white;
-            color: #3b0f12;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
+        .back-button{
+            background:linear-gradient(
+                135deg,
+                rgba(216,139,168,.15),
+                rgba(199,163,230,.15)
+            );
+
+            color:#8f5c96;
+            border:1px solid rgba(199,163,230,.35);
+
+            padding:10px 18px;
+            border-radius:999px;
+
+            font-weight:600;
+            cursor:pointer;
+            transition:.25s ease;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 20px;
+        .back-button:hover{
+            transform:translateY(-2px);
         }
 
-        .student-heading {
-            margin-bottom: 25px;
+        /* ---------- Layout ---------- */
+
+        .container{
+            max-width:1050px;
+            margin:40px auto;
+            padding:0 20px;
         }
 
-        .student-heading h2 {
-            margin-bottom: 5px;
-            color: #3b0f12;
+        .student-heading{
+            margin-bottom:30px;
         }
 
-        .student-heading p {
-            color: #666;
+        .student-heading h2{
+            margin:0 0 6px;
+            color:#704052;
+            font-size:34px;
         }
 
-        .test-card {
-            background: white;
-            border-radius: 10px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        .student-heading p{
+            margin:0;
+            color:#6d8075;
+            font-size:16px;
         }
 
-        .test-card h2 {
-            margin-top: 0;
-            color: #3b0f12;
+        /* ---------- Test Cards ---------- */
+
+        .test-card{
+            position:relative;
+            overflow:hidden;
+
+            background:rgba(255,255,255,.75);
+            backdrop-filter:blur(14px);
+
+            border:1px solid rgba(255,255,255,.85);
+            border-radius:24px;
+
+            padding:28px;
+            margin-bottom:24px;
+
+            box-shadow:0 14px 35px rgba(90,70,80,.08);
         }
 
-        .test-date {
-            color: #666;
-            margin-bottom: 20px;
+        .test-card::before{
+            content:"";
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:5px;
+
+            background:linear-gradient(
+                90deg,
+                #d88ba8,
+                #c7a3e6,
+                #8cb79b
+            );
         }
 
-        .score-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+        .test-card h2{
+            margin:0;
+            color:#7d4b64;
+            font-size:24px;
         }
 
-        .score-item {
-            background: #f5f7fb;
-            border-radius: 8px;
-            padding: 18px;
-            text-align: center;
+        .test-date{
+            margin:8px 0 24px;
+            color:#7b8a82;
+            font-size:14px;
         }
 
-        .score-item strong {
-            display: block;
-            margin-bottom: 8px;
-            color: #3b0f12;
+        /* ---------- Score Grid ---------- */
+
+        .score-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
         }
 
-        .score-item span {
-            display: block;
-            font-size: 22px;
-            font-weight: bold;
+        .score-item{
+            background:linear-gradient(
+                180deg,
+                rgba(255,255,255,.9),
+                rgba(248,245,251,.95)
+            );
+
+            border:1px solid rgba(236,226,238,.9);
+            border-radius:18px;
+
+            padding:22px 18px;
+            text-align:center;
         }
 
-        .score-item small {
-            display: block;
-            margin-top: 6px;
-            color: #666;
+        .score-item strong{
+            display:block;
+            margin-bottom:10px;
+
+            color:#8f5c96;
+            font-size:14px;
+            letter-spacing:.5px;
         }
 
-        .faculty-review {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #ddd;
-            text-align: left !important;
-            width: 100%;
+        .score-item span{
+            display:block;
+            font-size:30px;
+            font-weight:700;
+            color:#704052;
         }
 
-        .faculty-review-title {
-            display: block;
-            margin-bottom: 8px;
-            text-align: left !important;
+        .score-item small{
+            display:block;
+            margin-top:8px;
+            color:#718071;
+            font-size:13px;
         }
 
-        .faculty-review p {
-            margin: 6px 0;
-            text-align: left !important;
-            width: 100%;
+        /* ---------- Faculty Review ---------- */
+
+        .faculty-review{
+            margin-top:18px;
+            padding-top:18px;
+            border-top:1px solid #ece6ee;
+            text-align:left;
         }
 
-        .faculty-feedback-label {
-            margin: 10px 0 4px !important;
-            font-weight: bold;
-            text-align: left !important;
+        .faculty-review-title{
+            display:block;
+            margin-bottom:12px;
+            color:#8f5c96;
+            font-size:16px;
         }
 
-        .faculty-feedback-text {
-            margin: 0 !important;
-            line-height: 1.5;
-            white-space: normal;
-            text-align: left !important;
-            width: 100%;
-            overflow-wrap: break-word;
-            word-break: normal;
-            display: block;
+        .faculty-review p{
+            margin:8px 0;
+            line-height:1.6;
+            color:#55645d;
         }
 
-        .status {
-            margin-top: 20px;
-            padding: 12px 15px;
-            border-radius: 6px;
-            background: #f5f7fb;
+        .faculty-feedback-label{
+            margin-top:14px !important;
+            color:#704052;
         }
 
-        .no-tests {
-            background: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 10px;
+        .faculty-feedback-text{
+            margin-top:4px !important;
+
+            white-space:pre-wrap;
+            overflow-wrap:break-word;
+            word-break:normal;
+
+            line-height:1.7;
+            color:#65786e;
         }
 
-        .loading {
-            text-align: center;
-            padding: 50px;
+        /* ---------- Status ---------- */
+
+        .status{
+            margin-top:18px;
+            padding:14px 16px;
+
+            border-radius:14px;
+
+            background:linear-gradient(
+                135deg,
+                rgba(140,183,155,.12),
+                rgba(199,163,230,.08)
+            );
+
+            color:#5f7468;
+            font-size:14px;
         }
 
-        @media (max-width: 700px) {
-            .score-grid {
-                grid-template-columns: 1fr;
+        /* ---------- Empty & Loading ---------- */
+
+        .no-tests,
+        .loading{
+            background:rgba(255,255,255,.72);
+            backdrop-filter:blur(12px);
+
+            border-radius:20px;
+            padding:45px;
+
+            text-align:center;
+
+            box-shadow:0 10px 25px rgba(90,70,80,.06);
+
+            color:#718071;
+        }
+
+        /* ---------- Mobile ---------- */
+
+        @media (max-width:700px){
+
+            header{
+                padding:16px 20px;
             }
 
-            header {
-                padding: 15px;
+            header h1{
+                font-size:20px;
             }
 
-            header h1 {
-                font-size: 18px;
+            .student-heading h2{
+                font-size:28px;
             }
+
+            .score-grid{
+                grid-template-columns:1fr;
+            }
+
+            .test-card{
+                padding:22px;
+            }
+
         }
     </style>
 </head>
