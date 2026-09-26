@@ -455,6 +455,10 @@ p{
    LOGIN CARDS
 ===================================== */
 
+/* =====================================
+   LOGIN CARDS
+===================================== */
+
 .login-options{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -478,7 +482,7 @@ a.login-card{
     text-decoration:none;
     color:#5F5B55;
 
-    min-height:280px;
+    height:320px;              /* Both cards are identical height */
 
     transition:all .28s ease;
 }
@@ -489,17 +493,27 @@ a.login-card:hover{
     box-shadow:0 16px 30px rgba(76,74,70,.08);
 }
 
-/* Reserve identical space for both descriptions */
-.login-card p{
-    min-height:78px;
-    margin:16px 0 24px;
-    line-height:1.7;
+.login-card h2{
+    margin:0 0 14px;
     text-align:center;
+    color:#4C4A46;
 }
 
-/* Push Continue to the bottom */
+.login-card p{
+    margin:0;
+    text-align:center;
+    line-height:1.7;
+    color:#6B6A63;
+
+    flex:1;                    /* Takes remaining space */
+    display:flex;
+    align-items:center;         /* Centers the description vertically */
+}
+
 .login-card span{
-    margin-top:auto;
+    margin-top:auto;            /* Always stays at the bottom */
+    font-weight:600;
+    color:#8B9A6E;
 }
 
 /* Top accent */
