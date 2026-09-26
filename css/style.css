@@ -204,63 +204,77 @@ p {
     height:520px;
     position:relative;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
 
+    overflow:hidden;              /* important */
     border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
-    background:rgba(225,190,235,.22);
 
-    animation: blobFloat 10s ease-in-out infinite;
+    animation: blobMorph 12s ease-in-out infinite;
 }
 
-/* Inner soft layer */
 .hero-blob::before{
     content:"";
     position:absolute;
+    inset:0;
+    background:rgba(228,205,236,.55);
+    z-index:0;
+}
+
+.hero-blob::after{
+    content:"";
+    position:absolute;
     inset:22px;
-
+    background:rgba(197,220,203,.45);
     border-radius:inherit;
-    background:rgba(193,220,203,.22);
-
-    animation: blobFloat 10s ease-in-out infinite reverse;
+    z-index:1;
+    animation: blobMorphReverse 12s ease-in-out infinite;
 }
 
 /* Illustration */
 .hero-blob img{
-    width:86%;
+    width:92%;
     height:auto;
+    object-fit:contain;
     position:relative;
     z-index:2;
-
-    filter:drop-shadow(0 18px 30px rgba(70,60,80,.12));
+    border-radius:inherit;
 }
 
 /* Morphing animation */
-@keyframes blobFloat{
-
+@keyframes blobMorph{
     0%{
         border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
-        transform:translateY(0px) rotate(0deg);
     }
-
     25%{
-        border-radius:46% 54% 62% 38% / 60% 42% 58% 40%;
-        transform:translateY(-8px) rotate(1deg);
+        border-radius:42% 58% 60% 40% / 58% 40% 60% 42%;
     }
-
     50%{
-        border-radius:63% 37% 44% 56% / 41% 61% 39% 59%;
-        transform:translateY(0px) rotate(-1deg);
+        border-radius:63% 37% 44% 56% / 35% 65% 39% 61%;
     }
-
     75%{
-        border-radius:40% 60% 48% 52% / 55% 38% 62% 45%;
-        transform:translateY(8px) rotate(.5deg);
+        border-radius:47% 53% 38% 62% / 55% 38% 62% 45%;
     }
-
     100%{
         border-radius:58% 42% 46% 54% / 43% 58% 42% 57%;
-        transform:translateY(0px) rotate(0deg);
+    }
+}
+
+@keyframes blobMorphReverse{
+    0%{
+        border-radius:43% 57% 52% 48% / 61% 39% 58% 42%;
+    }
+    25%{
+        border-radius:61% 39% 45% 55% / 37% 63% 41% 59%;
+    }
+    50%{
+        border-radius:38% 62% 58% 42% / 55% 45% 60% 40%;
+    }
+    75%{
+        border-radius:55% 45% 41% 59% / 46% 54% 44% 56%;
+    }
+    100%{
+        border-radius:43% 57% 52% 48% / 61% 39% 58% 42%;
     }
 }
 
