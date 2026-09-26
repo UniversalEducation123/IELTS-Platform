@@ -336,6 +336,7 @@ p {
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:24px;
+    align-items:stretch;
 }
 
 .login-card{
@@ -352,6 +353,7 @@ p {
     align-items:center;
 
     min-height:340px;
+    height: 100%;
 
     box-shadow:0 8px 25px rgba(100,70,80,.05);
     transition:all .3s ease;
@@ -390,6 +392,7 @@ p {
 .login-illustration{
     width:130px;
     height:130px;
+    background:#ffeef4;
 
     display:flex;
     justify-content:center;
