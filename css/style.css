@@ -339,41 +339,50 @@ p {
     align-items:stretch;
 }
 
-.login-card{
+a.login-card,
+a.login-card:link,
+a.login-card:visited{
     position:relative;
-    background:#fff;
-    border:1px solid transparent;      /* keeps both cards identical */
+    background:#ffffff;
+    border:none;
+    outline:none;
     border-radius:22px;
+    box-sizing:border-box;
+
     text-decoration:none;
     color:#4f5e52;
 
     padding:34px 28px;
+    min-height:340px;
 
     display:flex;
     flex-direction:column;
     align-items:center;
 
-    min-height:340px;
-
     box-shadow:0 8px 25px rgba(100,70,80,.05);
     transition:all .3s ease;
     overflow:hidden;
-    box-sizing:border-box;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
-.login-card:hover{
+a.login-card:hover{
     transform:translateY(-6px);
     box-shadow:0 16px 35px rgba(100,70,80,.12);
 }
 
+
 /* Remove browser focus border */
-.login-card:focus{
-    outline:none;
+a.login-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 35px rgba(100,70,80,.12);
 }
 
-.login-card:focus-visible{
+a.login-card:focus,
+a.login-card:focus-visible,
+a.login-card:active{
     outline:none;
-    border-color:#d8c9cf;   /* subtle matching border instead of blue */
+    border:none;
 }
 
 /* Top colour strip */
