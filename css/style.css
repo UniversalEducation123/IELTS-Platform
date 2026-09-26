@@ -310,7 +310,9 @@ p {
     box-shadow:0 18px 40px rgba(70,50,60,.08);
 }
 
-/* Heading */
+/* =====================================
+   HEADING
+===================================== */
 
 .login-container h1{
     font-size:44px;
@@ -326,7 +328,9 @@ p {
     max-width:500px;
 }
 
-/* Cards */
+/* =====================================
+   LOGIN CARDS
+===================================== */
 
 .login-options{
     display:grid;
@@ -336,25 +340,33 @@ p {
 
 .login-card{
     position:relative;
-    background:#fff;
-    padding:38px 28px;
-    border-radius:20px;
+    background:#ffffff;
+    border-radius:22px;
     text-decoration:none;
     color:#4f5e52;
+
+    padding:34px 28px;
 
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
 
-    min-height:330px;   /* forces equal card height */
+    min-height:340px;
 
     box-shadow:0 8px 25px rgba(100,70,80,.05);
-    transition:.3s ease;
+    transition:all .3s ease;
     overflow:hidden;
 }
 
-.login-card::before{
+.login-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 35px rgba(100,70,80,.12);
+}
+
+/* Top colour strip */
+
+.student-card::before,
+.faculty-card::before{
     content:"";
     position:absolute;
     top:0;
@@ -371,27 +383,29 @@ p {
     background:#87b48f;
 }
 
-.login-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 16px 35px rgba(100,70,80,.12);
-}
-
-/* Card Illustrations */
+/* =====================================
+   ILLUSTRATIONS
+===================================== */
 
 .login-illustration{
-    height: 150px;          /* same space for both cards */
+    width:130px;
+    height:130px;
+
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+
     margin-bottom:18px;
+    flex-shrink:0;
 }
 
 .login-illustration img{
-    max-width:120px;
-    max-height:120px;
+    max-width:100%;
+    max-height:100%;
     width:auto;
     height:auto;
     object-fit:contain;
+    display:block;
     transition:transform .3s ease;
 }
 
@@ -399,30 +413,44 @@ p {
     transform:scale(1.05);
 }
 
-/* Text */
+/* =====================================
+   TEXT
+===================================== */
 
 .login-card h2{
+    margin:0 0 12px;
     color:#a94f6e;
-    font-size:23px;
-    margin-bottom:12px;
+    font-size:24px;
+    font-weight:700;
 }
 
 .login-card p{
+    margin:0;
     color:#718071;
     line-height:1.6;
+    text-align:center;
     font-size:15px;
-    margin-bottom:24px;
+    max-width:240px;
 }
 
 .login-card span{
+    margin-top:auto;
+    padding-top:24px;
+
     font-weight:600;
     color:#6b8f72;
     font-size:14px;
 }
 
-/* Mobile */
+/* =====================================
+   MOBILE
+===================================== */
 
 @media (max-width:768px){
+
+    .login-page{
+        padding:40px 20px;
+    }
 
     .login-container{
         padding:35px 24px;
@@ -436,11 +464,14 @@ p {
         grid-template-columns:1fr;
     }
 
-    .login-illustration img{
+    .login-card{
+        min-height:300px;
+    }
+
+    .login-illustration{
         width:110px;
         height:110px;
     }
-
 }
 
 
