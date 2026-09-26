@@ -341,7 +341,8 @@ p {
 
 .login-card{
     position:relative;
-    background:#ffffff;
+    background:#fff;
+    border:1px solid transparent;      /* keeps both cards identical */
     border-radius:22px;
     text-decoration:none;
     color:#4f5e52;
@@ -353,16 +354,26 @@ p {
     align-items:center;
 
     min-height:340px;
-    height: 100%;
 
     box-shadow:0 8px 25px rgba(100,70,80,.05);
     transition:all .3s ease;
     overflow:hidden;
+    box-sizing:border-box;
 }
 
 .login-card:hover{
     transform:translateY(-6px);
     box-shadow:0 16px 35px rgba(100,70,80,.12);
+}
+
+/* Remove browser focus border */
+.login-card:focus{
+    outline:none;
+}
+
+.login-card:focus-visible{
+    outline:none;
+    border-color:#d8c9cf;   /* subtle matching border instead of blue */
 }
 
 /* Top colour strip */
