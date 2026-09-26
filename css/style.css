@@ -474,13 +474,11 @@ a.login-card{
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:space-between;
 
     text-decoration:none;
     color:#5F5B55;
 
-    height:100%;
-    min-height:260px;
+    min-height:280px;
 
     transition:all .28s ease;
 }
@@ -491,7 +489,20 @@ a.login-card:hover{
     box-shadow:0 16px 30px rgba(76,74,70,.08);
 }
 
-/* subtle top accent */
+/* Reserve identical space for both descriptions */
+.login-card p{
+    min-height:78px;
+    margin:16px 0 24px;
+    line-height:1.7;
+    text-align:center;
+}
+
+/* Push Continue to the bottom */
+.login-card span{
+    margin-top:auto;
+}
+
+/* Top accent */
 
 .student-card::before,
 .faculty-card::before{
@@ -504,13 +515,8 @@ a.login-card:hover{
     border-radius:22px 22px 0 0;
 }
 
-.student-card::before{
-    background:#8B9A6E;
-}
-
-.faculty-card::before{
-    background:#A29A8A;
-}
+.student-card::before{ background:#8B9A6E; }
+.faculty-card::before{ background:#A29A8A; }
 
 /* =====================================
    BADGE
@@ -1322,6 +1328,48 @@ body.listening-page{
 
 .audio-section .timer{
     margin-top:10px;
+}
+
+/* =====================================
+   CUSTOM PLAY BUTTON
+===================================== */
+
+.audio-play-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    min-width:92px;
+    padding:10px 18px;
+
+    border:1px solid #D8D1C5;
+    border-radius:999px;
+
+    background:#FAF7F2;
+    color:#5F5B55;
+
+    font-size:14px;
+    font-weight:600;
+    font-family:Arial,sans-serif;
+
+    cursor:pointer;
+    transition:all .25s ease;
+}
+
+.audio-play-btn:hover{
+    background:#F1EDE6;
+    border-color:#8B9A6E;
+    color:#596548;
+}
+
+.audio-play-btn:active{
+    transform:scale(.98);
+}
+
+.audio-play-btn:focus{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(139,154,110,.18);
 }
 
 

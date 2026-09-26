@@ -13,302 +13,263 @@
 
     <style>
 
-        body {
-            margin: 0;
-            padding: 40px 20px;
-            background: #f7f4f5;
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
-
-
-        .result-card {
-
-            max-width: 850px;
-            margin: 0 auto;
-
-            background: white;
-
-            padding: 45px;
-
-            border-radius: 18px;
-
-            box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.08);
-
-        }
-
-
-        h1 {
-
-            text-align: center;
-
-            color: #9c4f6b;
-
-            margin-bottom: 35px;
-
-        }
-
-
-        h2 {
-
-            color: #9c4f6b;
-
-        }
-
-
-        .result-line {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 14px 0;
-
-            border-bottom: 1px solid #eeeeee;
-
-            font-size: 18px;
-
-        }
-
-
-        .result-line span {
-
-            font-weight: bold;
-
-            color: #9c4f6b;
-
-        }
-
-
-        .band-line {
-
-            margin-top: 12px;
-
-            padding-top: 22px;
-
-            border-top: 2px solid #d9ead9;
-
-            border-bottom: none;
-
-            font-size: 21px;
-
-        }
-
-
-        .band-line span {
-
-            font-size: 26px;
-
-            color: #628b62;
-
-        }
-
-
-        .answer-review-section {
-
-            margin-top: 35px;
-
-        }
-
-
-        .answer-review-item {
-
-            margin-bottom: 14px;
-
-            padding: 16px;
-
-            border-radius: 12px;
-
-            border-left: 5px solid;
-
-            background: #fafafa;
-
-        }
-
-
-        .answer-review-item.correct {
-
-            border-left-color: #65a765;
-
-            background: #f1faf1;
-
-        }
-
-
-        .answer-review-item.wrong {
-
-            border-left-color: #c96b6b;
-
-            background: #fff3f3;
-
-        }
-
-
-        .review-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .review-status {
-
-            font-weight: bold;
-
-        }
-
-
-        .correct .review-status {
-
-            color: #4d914d;
-
-        }
-
-
-        .wrong .review-status {
-
-            color: #bd4f4f;
-
-        }
-
-
-        .answer-review-item p {
-
-            margin: 6px 0;
-
-            color: #555;
-
-        }
-
-
-        .answer-review-item strong {
-
-            color: #333;
-
-        }
-
-
-        .home-button {
-
-            display: block;
-
-            width: fit-content;
-
-            margin: 35px auto 0;
-
-            padding: 13px 28px;
-
-            background: #b85c78;
-
-            color: white;
-
-            text-decoration: none;
-
-            border-radius: 25px;
-
-            font-size: 16px;
-
-            transition: 0.3s;
-
-        }
-
-
-        .home-button:hover {
-
-            background: #963f5e;
-
-        }
-
-         .result-header {
-            width: 100%;
-            height: 64px;
-            padding: 0 18px;
-            box-sizing: border-box;
-
-            background: #ffffff;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-        }
-
-        .result-logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: #222;
-        }
-
-        .result-header-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .result-header-links a {
-            color: #222;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .result-header-links a:hover {
-            text-decoration: underline;
-        }
-
-
-        @media (max-width: 600px) {
-
-            .result-card {
-
-                padding: 30px 18px;
-
-            }
-
-
-            h1 {
-
-                font-size: 27px;
-
-            }
-
-
-            h2 {
-
-                font-size: 21px;
-
-            }
-
-
-            .result-line {
-
-                font-size: 16px;
-
-            }
-
-
-            .review-header {
-
-                flex-direction: column;
-
-                gap: 4px;
-
-            }
-
-            
-
-        }
+       *{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:30px 15px;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(139,154,110,.10),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba(234,226,214,.45),
+            transparent 35%),
+        #F7F2EB;
+
+    color:#5F5B55;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.result-header{
+    width:100%;
+    max-width:900px;
+    height:64px;
+    margin:0 auto 24px;
+    padding:0 22px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(16px);
+
+    border:1px solid #E8E1D6;
+    border-radius:16px;
+
+    box-shadow:0 8px 22px rgba(76,74,70,.05);
+}
+
+.result-logo{
+    font-size:20px;
+    font-weight:700;
+    color:#5F5B55;
+}
+
+.result-header-links{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.result-header-links a{
+    color:#6B6A63;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.result-header-links a:hover{
+    color:#8B9A6E;
+}
+
+/* =====================================
+   RESULT CARD
+===================================== */
+
+.result-card{
+    max-width:850px;
+    margin:0 auto;
+    padding:42px;
+
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(14px);
+
+    border:1px solid #ECE4D8;
+    border-radius:24px;
+
+    box-shadow:0 14px 34px rgba(76,74,70,.06);
+}
+
+h1{
+    margin:0 0 34px;
+    text-align:center;
+    color:#5F5B55;
+    font-size:32px;
+}
+
+h2{
+    color:#5F5B55;
+    font-size:23px;
+    margin:36px 0 20px;
+}
+
+/* =====================================
+   SCORE
+===================================== */
+
+.result-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 0;
+    border-bottom:1px solid #ECE4D8;
+
+    font-size:18px;
+}
+
+.result-line span{
+    font-weight:700;
+    color:#72805A;
+}
+
+.band-line{
+    margin-top:12px;
+    padding-top:22px;
+
+    border-top:2px solid #DCE4D2;
+    border-bottom:none;
+
+    font-size:21px;
+}
+
+.band-line span{
+    font-size:26px;
+    color:#72805A;
+}
+
+/* =====================================
+   ANSWER REVIEW
+===================================== */
+
+.answer-review-section{
+    margin-top:34px;
+}
+
+.answer-review-item{
+    margin-bottom:14px;
+    padding:16px 18px;
+
+    border-left:5px solid;
+    border-radius:14px;
+}
+
+.answer-review-item.correct{
+    background:#F4F7F1;
+    border-left-color:#8B9A6E;
+}
+
+.answer-review-item.wrong{
+    background:#FAF4F1;
+    border-left-color:#B59A86;
+}
+
+.review-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+}
+
+.review-status{
+    font-weight:700;
+}
+
+.correct .review-status{
+    color:#72805A;
+}
+
+.wrong .review-status{
+    color:#9A7E6A;
+}
+
+.answer-review-item p{
+    margin:6px 0;
+    color:#6B6A63;
+    line-height:1.6;
+}
+
+.answer-review-item strong{
+    color:#5F5B55;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.home-button{
+    display:block;
+    width:fit-content;
+
+    margin:34px auto 0;
+    padding:13px 28px;
+
+    background:#8B9A6E;
+    color:#FFFFFF;
+
+    text-decoration:none;
+    font-size:15px;
+    font-weight:600;
+
+    border-radius:999px;
+    transition:.25s;
+}
+
+.home-button:hover{
+    background:#77885C;
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(139,154,110,.18);
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width:600px){
+
+    body{
+        padding:18px 12px;
+    }
+
+    .result-header{
+        height:auto;
+        padding:16px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .result-card{
+        padding:28px 20px;
+    }
+
+    h1{
+        font-size:27px;
+    }
+
+    h2{
+        font-size:21px;
+    }
+
+    .result-line{
+        font-size:16px;
+    }
+
+    .review-header{
+        flex-direction:column;
+        gap:4px;
+    }
+}
 
     </style>
 

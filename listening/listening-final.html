@@ -6,276 +6,265 @@
     <title>Listening Test Result</title>
 
     <style>
-*{
+    *{
     box-sizing:border-box;
-}
+        }
 
-body{
-    margin:0;
-    min-height:100vh;
-    padding:30px 16px;
-    font-family:Arial,sans-serif;
+        body{
+            margin:0;
+            min-height:100vh;
+            padding:30px 16px;
+            font-family:Arial,sans-serif;
+            color:#4C4A46;
 
-    background:
-        radial-gradient(circle at top left,
-            rgba(168,101,131,.10),
-            transparent 35%),
-        radial-gradient(circle at bottom right,
-            rgba(111,143,122,.10),
-            transparent 35%),
-        radial-gradient(circle at top right,
-            rgba(142,122,181,.08),
-            transparent 30%),
-        #F9F8FA;
+            background:
+                radial-gradient(circle at top left,
+                    rgba(139,154,110,.12), transparent 35%),
+                radial-gradient(circle at bottom right,
+                    rgba(234,226,214,.55), transparent 35%),
+                #F7F2EB;
+        }
 
-    color:#4F5E52;
-}
+        /* =====================================
+        HEADER
+        ===================================== */
 
-/* =====================================
-   HEADER
-===================================== */
+        .result-header{
+            width:100%;
+            max-width:980px;
+            height:68px;
+            margin:0 auto 22px;
+            padding:0 24px;
 
-.result-header{
-    width:100%;
-    height:68px;
-    padding:0 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+            background:rgba(255,255,255,.72);
+            backdrop-filter:blur(16px);
 
-    background:rgba(255,255,255,.78);
-    backdrop-filter:blur(16px);
+            border:1px solid rgba(224,216,203,.9);
+            border-radius:18px;
 
-    border:1px solid rgba(255,255,255,.85);
-    border-radius:18px;
+            box-shadow:0 8px 22px rgba(76,74,70,.05);
+        }
 
-    box-shadow:0 8px 22px rgba(93,62,80,.05);
+        .result-logo{
+            font-size:20px;
+            font-weight:700;
+            color:#4C4A46;
+        }
 
-    margin:0 auto 22px;
-    max-width:980px;
-}
+        .result-header-links{
+            display:flex;
+            gap:22px;
+        }
 
-.result-logo{
-    font-size:20px;
-    font-weight:700;
-    color:#5D3E50;
-}
+        .result-header-links a{
+            color:#6B6A66;
+            text-decoration:none;
+            font-size:14px;
+            font-weight:600;
+            transition:.2s ease;
+        }
 
-.result-header-links{
-    display:flex;
-    gap:22px;
-}
+        .result-header-links a:hover{
+            color:#8B9A6E;
+        }
 
-.result-header-links a{
-    color:#64746B;
-    text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-}
+        /* =====================================
+        MAIN CARD
+        ===================================== */
 
-.result-header-links a:hover{
-    color:#8E7AB5;
-}
+        .result-card{
+            width:100%;
+            max-width:760px;
+            margin:auto;
 
-/* =====================================
-   MAIN CARD
-===================================== */
+            padding:38px 32px;
 
-.result-card{
-    width:100%;
-    max-width:760px;
-    margin:auto;
+            background:rgba(255,255,255,.82);
+            backdrop-filter:blur(14px);
 
-    padding:38px 32px;
+            border:1px solid rgba(231,225,214,.9);
+            border-radius:24px;
 
-    background:rgba(255,255,255,.82);
-    backdrop-filter:blur(14px);
+            box-shadow:0 14px 34px rgba(76,74,70,.06);
+        }
 
-    border:1px solid rgba(255,255,255,.9);
-    border-radius:24px;
+        h1{
+            margin:0 0 32px;
+            text-align:center;
+            color:#4C4A46;
+            font-size:32px;
+        }
 
-    box-shadow:0 14px 34px rgba(93,62,80,.06);
-}
+        h2{
+            margin:40px 0 22px;
+            color:#4C4A46;
+            font-size:24px;
+        }
 
-h1{
-    margin:0 0 32px;
-    text-align:center;
+        /* =====================================
+        SCORE LINES
+        ===================================== */
 
-    color:#5D3E50;
-    font-size:32px;
-}
+        .result-line{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
 
-h2{
-    margin:40px 0 22px;
-    color:#5D3E50;
-    font-size:24px;
-}
+            padding:16px 4px;
+            border-bottom:1px solid #E7DFD3;
 
-/* =====================================
-   SCORE LINES
-===================================== */
+            font-size:17px;
+            color:#5F5B55;
+        }
 
-.result-line{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+        .result-line span{
+            font-weight:700;
+            color:#6F7B57;
+        }
 
-    padding:16px 4px;
+        .band-line{
+            margin-top:12px;
+            padding-top:22px;
 
-    border-bottom:1px solid #ECE4EA;
+            border-top:1px solid #DDD5C8;
+            border-bottom:none;
 
-    font-size:17px;
-    color:#5F6D64;
-}
+            font-size:20px;
+        }
 
-.result-line span{
-    font-weight:700;
-    color:#8A4F67;
-}
+        .band-line span{
+            font-size:28px;
+            color:#8B9A6E;
+        }
 
-.band-line{
-    margin-top:12px;
-    padding-top:22px;
+        /* =====================================
+        ANSWER REVIEW
+        ===================================== */
 
-    border-top:1px solid #E6ECE7;
-    border-bottom:none;
+        .answer-review-section{
+            margin-top:34px;
+        }
 
-    font-size:20px;
-}
+        .answer-review-item{
+            margin-bottom:14px;
+            padding:16px 18px;
 
-.band-line span{
-    font-size:28px;
-    color:#6F8F7A;
-}
+            border-left:4px solid;
+            border-radius:14px;
+        }
 
-/* =====================================
-   ANSWER REVIEW
-===================================== */
+        .answer-review-item.correct{
+            background:#F4F6F1;
+            border-left-color:#8B9A6E;
+        }
 
-.answer-review-section{
-    margin-top:34px;
-}
+        .answer-review-item.wrong{
+            background:#FBF8F4;
+            border-left-color:#B09A7D;
+        }
 
-.answer-review-item{
-    margin-bottom:14px;
-    padding:16px 18px;
+        .review-header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+            margin-bottom:8px;
+        }
 
-    border-left:4px solid;
-    border-radius:14px;
-}
+        .review-status{
+            font-weight:700;
+            font-size:14px;
+        }
 
-.answer-review-item.correct{
-    background:#F3F8F4;
-    border-left-color:#7C9A83;
-}
+        .correct .review-status{
+            color:#6F7B57;
+        }
 
-.answer-review-item.wrong{
-    background:#FCF5F7;
-    border-left-color:#B27B92;
-}
+        .wrong .review-status{
+            color:#9B8568;
+        }
 
-.review-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    margin-bottom:8px;
-}
+        .answer-review-item p{
+            margin:6px 0;
+            color:#5F5B55;
+            line-height:1.6;
+        }
 
-.review-status{
-    font-weight:700;
-    font-size:14px;
-}
+        .answer-review-item strong{
+            color:#4C4A46;
+        }
 
-.correct .review-status{
-    color:#6F8F7A;
-}
+        /* =====================================
+        BUTTON
+        ===================================== */
 
-.wrong .review-status{
-    color:#A86583;
-}
+        .home-button{
+            display:block;
+            width:fit-content;
 
-.answer-review-item p{
-    margin:6px 0;
-    color:#5F6D64;
-    line-height:1.6;
-}
+            margin:34px auto 0;
+            padding:13px 28px;
 
-.answer-review-item strong{
-    color:#5D3E50;
-}
+            border-radius:999px;
+            border:1px solid #8B9A6E;
 
-/* =====================================
-   BUTTON
-===================================== */
+            background:#8B9A6E;
+            color:#FFFFFF;
 
-.home-button{
-    display:block;
-    width:fit-content;
+            text-decoration:none;
+            font-weight:600;
+            transition:.25s ease;
+        }
 
-    margin:34px auto 0;
-    padding:13px 28px;
+        .home-button:hover{
+            background:#78855F;
+            transform:translateY(-2px);
+            box-shadow:0 10px 22px rgba(139,154,110,.18);
+        }
 
-    border-radius:999px;
+        /* =====================================
+        MOBILE
+        ===================================== */
 
-    background:linear-gradient(
-        135deg,
-        #A86583,
-        #8E7AB5
-    );
+        @media (max-width:600px){
 
-    color:#FFFFFF;
-    text-decoration:none;
-    font-weight:600;
+            body{
+                padding:18px 12px;
+            }
 
-    transition:.25s ease;
-}
+            .result-header{
+                height:auto;
+                padding:16px;
+                flex-direction:column;
+                gap:12px;
+            }
 
-.home-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 22px rgba(168,101,131,.18);
-}
+            .result-card{
+                padding:26px 20px;
+            }
 
-/* =====================================
-   MOBILE
-===================================== */
+            h1{
+                font-size:28px;
+            }
 
-@media (max-width:600px){
+            h2{
+                font-size:21px;
+            }
 
-    body{
-        padding:18px 12px;
-    }
+            .result-line{
+                font-size:16px;
+            }
 
-    .result-header{
-        height:auto;
-        padding:16px;
-        flex-direction:column;
-        gap:12px;
-    }
+            .review-header{
+                flex-direction:column;
+                align-items:flex-start;
+            }
 
-    .result-card{
-        padding:26px 20px;
-    }
-
-    h1{
-        font-size:28px;
-    }
-
-    h2{
-        font-size:21px;
-    }
-
-    .result-line{
-        font-size:16px;
-    }
-
-    .review-header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-}
+        }
     </style>
 </head>
 
