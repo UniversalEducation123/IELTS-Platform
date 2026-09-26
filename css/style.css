@@ -342,8 +342,14 @@ p {
     text-decoration:none;
     color:#4f5e52;
 
-    box-shadow:0 8px 25px rgba(100,70,80,.05);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
 
+    min-height:330px;   /* forces equal card height */
+
+    box-shadow:0 8px 25px rgba(100,70,80,.05);
     transition:.3s ease;
     overflow:hidden;
 }
@@ -373,16 +379,18 @@ p {
 /* Card Illustrations */
 
 .login-illustration{
-    width:100%;
+    height: 150px;          /* same space for both cards */
     display:flex;
-    justify-content:center;
     align-items:center;
-    margin-bottom:20px;
+    justify-content:center;
+    margin-bottom:18px;
 }
 
 .login-illustration img{
-    width:140px;
-    height:140px;
+    max-width:120px;
+    max-height:120px;
+    width:auto;
+    height:auto;
     object-fit:contain;
     transition:transform .3s ease;
 }
