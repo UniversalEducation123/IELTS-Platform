@@ -6,213 +6,276 @@
     <title>Listening Test Result</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+*{
+    box-sizing:border-box;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            padding: 30px 15px;
-            font-family: Arial, sans-serif;
-            background:
-                radial-gradient(
-                    circle at top left,
-                    rgba(244, 190, 207, 0.55),
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    rgba(190, 214, 190, 0.55),
-                    transparent 35%
-                ),
-                linear-gradient(
-                    135deg,
-                    #fff8fa,
-                    #f5faf5,
-                    #fffaf2
-                );
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    padding:30px 16px;
+    font-family:Arial,sans-serif;
 
-        .result-card {
-            width: 100%;
-            max-width: 750px;
-            margin: auto;
-            padding: 40px 30px;
-            background: white;
-            border-radius: 22px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
-        }
+    background:
+        radial-gradient(circle at top left,
+            rgba(168,101,131,.10),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba(111,143,122,.10),
+            transparent 35%),
+        radial-gradient(circle at top right,
+            rgba(142,122,181,.08),
+            transparent 30%),
+        #F9F8FA;
 
-        h1 {
-            margin: 0 0 30px;
-            text-align: center;
-            color: #9c4f6b;
-            font-size: 32px;
-        }
+    color:#4F5E52;
+}
 
-        h2 {
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #9c4f6b;
-            font-size: 24px;
-        }
+/* =====================================
+   HEADER
+===================================== */
 
-        .result-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 5px;
-            border-bottom: 1px solid #eeeeee;
-            color: #444;
-            font-size: 18px;
-        }
+.result-header{
+    width:100%;
+    height:68px;
+    padding:0 24px;
 
-        .result-line span {
-            font-weight: bold;
-            color: #9c4f6b;
-        }
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-        .band-line {
-            margin-top: 12px;
-            padding-top: 22px;
-            border-top: 2px solid #d9ead9;
-            font-size: 21px;
-        }
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(16px);
 
-        .band-line span {
-            font-size: 26px;
-            color: #628b62;
-        }
+    border:1px solid rgba(255,255,255,.85);
+    border-radius:18px;
 
-        .answer-review-section {
-            margin-top: 35px;
-        }
+    box-shadow:0 8px 22px rgba(93,62,80,.05);
 
-        .answer-review-item {
-            margin-bottom: 14px;
-            padding: 16px;
-            border-radius: 12px;
-            border-left: 5px solid;
-            background: #fafafa;
-        }
+    margin:0 auto 22px;
+    max-width:980px;
+}
 
-        .answer-review-item.correct {
-            border-left-color: #65a765;
-            background: #f1faf1;
-        }
+.result-logo{
+    font-size:20px;
+    font-weight:700;
+    color:#5D3E50;
+}
 
-        .answer-review-item.wrong {
-            border-left-color: #c96b6b;
-            background: #fff3f3;
-        }
+.result-header-links{
+    display:flex;
+    gap:22px;
+}
 
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
+.result-header-links a{
+    color:#64746B;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
 
-        .review-status {
-            font-weight: bold;
-        }
+.result-header-links a:hover{
+    color:#8E7AB5;
+}
 
-        .correct .review-status {
-            color: #4d914d;
-        }
+/* =====================================
+   MAIN CARD
+===================================== */
 
-        .wrong .review-status {
-            color: #bd4f4f;
-        }
+.result-card{
+    width:100%;
+    max-width:760px;
+    margin:auto;
 
-        .answer-review-item p {
-            margin: 6px 0;
-            color: #555;
-        }
+    padding:38px 32px;
 
-        .answer-review-item strong {
-            color: #333;
-        }
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(14px);
 
-        .home-button {
-            display: block;
-            width: fit-content;
-            margin: 35px auto 0;
-            padding: 13px 28px;
-            background: #b85c78;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: 16px;
-            transition: 0.3s;
-        }
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:24px;
 
-        .home-button:hover {
-            background: #963f5e;
-        }
+    box-shadow:0 14px 34px rgba(93,62,80,.06);
+}
 
-        .result-header {
-            width: 100%;
-            height: 64px;
-            padding: 0 18px;
-            box-sizing: border-box;
+h1{
+    margin:0 0 32px;
+    text-align:center;
 
-            background: #ffffff;
+    color:#5D3E50;
+    font-size:32px;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+h2{
+    margin:40px 0 22px;
+    color:#5D3E50;
+    font-size:24px;
+}
 
-            border-bottom: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-        }
+/* =====================================
+   SCORE LINES
+===================================== */
 
-        .result-logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: #222;
-        }
+.result-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 
-        .result-header-links {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+    padding:16px 4px;
 
-        .result-header-links a {
-            color: #222;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
+    border-bottom:1px solid #ECE4EA;
 
-        .result-header-links a:hover {
-            text-decoration: underline;
-        }
+    font-size:17px;
+    color:#5F6D64;
+}
 
-        @media (max-width: 600px) {
-            .result-card {
-                padding: 30px 18px;
-            }
+.result-line span{
+    font-weight:700;
+    color:#8A4F67;
+}
 
-            h1 {
-                font-size: 27px;
-            }
+.band-line{
+    margin-top:12px;
+    padding-top:22px;
 
-            h2 {
-                font-size: 21px;
-            }
+    border-top:1px solid #E6ECE7;
+    border-bottom:none;
 
-            .result-line {
-                font-size: 16px;
-            }
+    font-size:20px;
+}
 
-            .review-header {
-                flex-direction: column;
-                gap: 4px;
-            }
-        }
+.band-line span{
+    font-size:28px;
+    color:#6F8F7A;
+}
+
+/* =====================================
+   ANSWER REVIEW
+===================================== */
+
+.answer-review-section{
+    margin-top:34px;
+}
+
+.answer-review-item{
+    margin-bottom:14px;
+    padding:16px 18px;
+
+    border-left:4px solid;
+    border-radius:14px;
+}
+
+.answer-review-item.correct{
+    background:#F3F8F4;
+    border-left-color:#7C9A83;
+}
+
+.answer-review-item.wrong{
+    background:#FCF5F7;
+    border-left-color:#B27B92;
+}
+
+.review-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:8px;
+}
+
+.review-status{
+    font-weight:700;
+    font-size:14px;
+}
+
+.correct .review-status{
+    color:#6F8F7A;
+}
+
+.wrong .review-status{
+    color:#A86583;
+}
+
+.answer-review-item p{
+    margin:6px 0;
+    color:#5F6D64;
+    line-height:1.6;
+}
+
+.answer-review-item strong{
+    color:#5D3E50;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.home-button{
+    display:block;
+    width:fit-content;
+
+    margin:34px auto 0;
+    padding:13px 28px;
+
+    border-radius:999px;
+
+    background:linear-gradient(
+        135deg,
+        #A86583,
+        #8E7AB5
+    );
+
+    color:#FFFFFF;
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.25s ease;
+}
+
+.home-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(168,101,131,.18);
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width:600px){
+
+    body{
+        padding:18px 12px;
+    }
+
+    .result-header{
+        height:auto;
+        padding:16px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .result-card{
+        padding:26px 20px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    h2{
+        font-size:21px;
+    }
+
+    .result-line{
+        font-size:16px;
+    }
+
+    .review-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
     </style>
 </head>
 
