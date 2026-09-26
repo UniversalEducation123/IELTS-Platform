@@ -19,26 +19,22 @@
     <style>
 
         .writing-final-card {
-            max-width: 700px;
-            margin: 80px auto;
-            padding: 45px 35px;
             background: #ffffff;
             border: 1px solid #ddd;
-            border-radius: 12px;
+            border-radius: 10px;
+            padding: 50px 30px;
             text-align: center;
-            box-sizing: border-box;
-            padding-top: 70px;
         }
 
-
         .writing-final-card h1 {
-            margin-bottom: 20px;
-            color: #3b0f12;
+            margin: 0 0 16px;
+            font-size: 30px;
         }
 
 
         .writing-final-card p {
-            font-size: 17px;
+            margin: 0 0 30px;
+            font-size: 18px;
             line-height: 1.6;
             color: #555;
         }
@@ -56,16 +52,30 @@
             display: inline-block;
             margin-top: 25px;
             padding: 13px 25px;
-            background: #3b0f12;
+            background: #212521;
             color: #ffffff;
             text-decoration: none;
             border-radius: 7px;
             font-weight: 600;
         }
 
-
         .writing-final-button:hover {
             opacity: 0.9;
+        }
+
+        @media (max-width: 900px) {
+            .writing-final-container {
+                padding: 0 16px;
+                margin: 40px auto;
+            }
+
+            .writing-final-card {
+                padding: 40px 20px;
+            }
+
+            .writing-final-card h1 {
+                font-size: 26px;
+            }
         }
 
     </style>
