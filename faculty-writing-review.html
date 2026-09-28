@@ -20,21 +20,14 @@ body{
     color:#5F6558;
 }
 
-
-/* =====================================
-   HEADER
-===================================== */
-
 header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:18px 8%;
 
     background:rgba(247,242,235,.92);
     backdrop-filter:blur(12px);
-
     border-bottom:1px solid #E3DCD1;
 }
 
@@ -46,13 +39,11 @@ header h1{
 
 .back-button{
     padding:10px 18px;
-
     background:#FFFFFF;
     color:#4C4A46;
 
     border:1px solid #E3DCD1;
     border-radius:999px;
-
     font-weight:600;
     cursor:pointer;
     transition:.2s ease;
@@ -62,33 +53,21 @@ header h1{
     background:#EAE2D6;
 }
 
-
-/* =====================================
-   LAYOUT
-===================================== */
-
 .container{
     max-width:1000px;
     margin:36px auto;
     padding:0 20px;
 }
 
-
-/* =====================================
-   CARDS
-===================================== */
-
 .student-info,
 .answer-card,
 .review-card{
     background:#FFFFFF;
-
     border:1px solid #E3DCD1;
     border-radius:18px;
 
     padding:24px;
     margin-bottom:22px;
-
     box-shadow:0 8px 22px rgba(76,74,70,.05);
 }
 
@@ -105,17 +84,11 @@ header h1{
     color:#66635E;
 }
 
-
-/* =====================================
-   QUESTION DISPLAY
-===================================== */
-
 .question-box{
     background:#F4EFE7;
 
     border:1px solid #E3DCD1;
     border-radius:14px;
-
     padding:18px;
     margin-bottom:18px;
 
@@ -125,7 +98,6 @@ header h1{
 
 .answer-box{
     background:#FFFFFF;
-
     border:1px solid #DDD4C8;
     border-radius:12px;
 
@@ -138,22 +110,12 @@ header h1{
     color:#5F6558;
 }
 
-
-/* =====================================
-   REVIEW GRID
-===================================== */
-
 .review-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:18px;
     margin-bottom:22px;
 }
-
-
-/* =====================================
-   FORM
-===================================== */
 
 .form-group{
     margin-bottom:20px;
@@ -173,7 +135,6 @@ header h1{
     padding:12px 14px;
 
     background:#FCFAF7;
-
     border:1px solid #D8CFC3;
     border-radius:10px;
 
@@ -197,14 +158,8 @@ header h1{
     resize:vertical;
 }
 
-
-/* =====================================
-   SAVE BUTTON
-===================================== */
-
 .save-button{
     padding:13px 24px;
-
     background:#8B9A6E;
     color:#FFFFFF;
 
@@ -213,7 +168,6 @@ header h1{
 
     font-size:15px;
     font-weight:700;
-
     cursor:pointer;
     transition:.2s ease;
 }
@@ -221,7 +175,6 @@ header h1{
 .save-button:hover{
     background:#78875D;
 }
-
 
 .message{
     margin-top:15px;
@@ -234,11 +187,6 @@ header h1{
     padding:50px;
     color:#7A7E74;
 }
-
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:700px){
 
@@ -321,10 +269,19 @@ header h1{
 
             <h3>Student's Answer</h3>
 
-            <div
-                id="task1Answer"
-                class="answer-box">
-            </div>
+            <row justify=end>
+            <button
+                id="downloadOriginalBtn"
+                color=secondary
+                size=sm
+                onClick={downloadOriginalPDF}
+            >
+                <icon name=download size=sm/>
+                Download Original PDF
+            </button>
+            </row>
+
+            <div id="task1Answer" class="answer-box"></div>
 
         </div>
 
@@ -419,6 +376,18 @@ header h1{
 
             </div>
 
+            <div class="form-group">
+
+                <label for="checkedPdf">
+                    Upload Checked PDF
+                </label>
+
+                <input
+                    type="file"
+                    id="checkedPdf"
+                    accept="application/pdf">
+
+            </div>
 
             <button
                 type="button"
@@ -460,6 +429,8 @@ const params =
 const submissionId =
     params.get("submission");
 
+let currentSubmission = null;
+
 
 function goBack() {
 
@@ -486,6 +457,8 @@ async function loadSubmission() {
             .select("*")
             .eq("id", submissionId)
             .single();
+            
+        currentSubmission = data;
 
 
     if (error) {
@@ -582,6 +555,24 @@ function calculateOverallScore() {
         overall;
 }
 
+async function downloadOriginalPDF() {
+
+    const { data, error } = await supabaseClient
+        .storage
+        .from("writing-pdfs")
+        .createSignedUrl(
+            currentSubmission.original_pdf,
+            300
+        );
+
+    if (error) {
+        alert("PDF not found.");
+        return;
+    }
+
+    window.open(data.signedUrl, "_blank");
+
+}
 
 async function saveReview() {
 
@@ -600,6 +591,32 @@ async function saveReview() {
 
     const message =
         document.getElementById("message");
+
+    const checkedPdf =
+        document.getElementById("checkedPdf").files[0];
+
+    let checkedPdfPath = currentSubmission.checked_pdf || null;
+
+    if (checkedPdf) {
+
+        checkedPdfPath =
+            `${currentSubmission.student_id}/writing-test-1-reviewed.pdf`;
+
+        const { error: uploadError } = await supabaseClient
+            .storage
+            .from("checked-writing-pdfs")
+            .upload(checkedPdfPath, checkedPdf, {
+                upsert: true
+            });
+
+        if (uploadError) {
+
+            message.textContent =
+                "PDF upload failed.";
+
+            return;
+        }
+    }
 
 
     message.textContent =
@@ -627,6 +644,9 @@ async function saveReview() {
 
                 faculty_feedback:
                     facultyFeedback,
+
+                checked_pdf: 
+                    checkedPdfPath,
 
                 status:
                     "reviewed",

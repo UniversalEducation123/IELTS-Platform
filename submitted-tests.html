@@ -20,11 +20,6 @@ body{
     background:#F7F2EB;
 }
 
-
-/* =====================================
-   HEADER
-===================================== */
-
 header{
     position:sticky;
     top:0;
@@ -38,7 +33,6 @@ header{
 
     background:rgba(247,242,235,.92);
     backdrop-filter:blur(14px);
-
     border-bottom:1px solid #E3DCD1;
 }
 
@@ -50,7 +44,6 @@ header h1{
 
 .back-button{
     padding:10px 18px;
-
     background:#FFFFFF;
     color:#4C4A46;
 
@@ -66,11 +59,6 @@ header h1{
     background:#EAE2D6;
     transform:translateY(-1px);
 }
-
-
-/* =====================================
-   LAYOUT
-===================================== */
 
 .container{
     max-width:1050px;
@@ -94,14 +82,8 @@ header h1{
     font-size:16px;
 }
 
-
-/* =====================================
-   TEST CARDS
-===================================== */
-
 .test-card{
     background:#FFFFFF;
-
     border:1px solid #E3DCD1;
     border-radius:18px;
 
@@ -136,11 +118,6 @@ header h1{
     font-size:14px;
 }
 
-
-/* =====================================
-   SCORE GRID
-===================================== */
-
 .score-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -149,7 +126,6 @@ header h1{
 
 .score-item{
     background:#F4EFE7;
-
     border:1px solid #E3DCD1;
     border-radius:14px;
 
@@ -183,11 +159,6 @@ header h1{
     font-size:12px;
 }
 
-
-/* =====================================
-   FACULTY REVIEW
-===================================== */
-
 .faculty-review{
     margin-top:22px;
     padding-top:20px;
@@ -219,7 +190,6 @@ header h1{
 
 .faculty-feedback-text{
     margin-top:4px !important;
-
     white-space:pre-wrap;
     overflow-wrap:break-word;
 
@@ -227,15 +197,9 @@ header h1{
     line-height:1.8;
 }
 
-
-/* =====================================
-   STATUS
-===================================== */
-
 .status{
     margin-top:18px;
     padding:14px 16px;
-
     background:#EEF3E8;
 
     border:1px solid #D8E2CC;
@@ -245,15 +209,9 @@ header h1{
     font-size:14px;
 }
 
-
-/* =====================================
-   EMPTY & LOADING
-===================================== */
-
 .no-tests,
 .loading{
     background:#FFFFFF;
-
     border:1px solid #E3DCD1;
     border-radius:18px;
 
@@ -261,14 +219,26 @@ header h1{
     text-align:center;
 
     color:#7A7E74;
-
     box-shadow:0 8px 20px rgba(76,74,70,.04);
 }
 
+.review-pdf-btn{
+    display:inline-block;
+    margin-top:14px;
+    padding:10px 16px;
 
-/* =====================================
-   MOBILE
-===================================== */
+    background:#8B9A6E;
+    color:#fff;
+
+    border-radius:8px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+}
+
+.review-pdf-btn:hover{
+    background:#78875D;
+}
 
 @media (max-width:700px){
 
@@ -371,6 +341,21 @@ function goBack() {
 
 }
 
+async function viewReviewedPDF(pdfPath){
+
+    const { data, error } = await supabaseClient
+        .storage
+        .from("checked-writing-pdfs")
+        .createSignedUrl(pdfPath, 300);
+
+    if(error){
+        alert("Reviewed PDF not found.");
+        return;
+    }
+
+    window.open(data.signedUrl, "_blank");
+
+}
 
 async function loadSubmittedTests() {
 
@@ -787,11 +772,25 @@ Object.values(groupedTests).forEach(result => {
                                     </p>
 
 
-                                   <p class="faculty-feedback-text">${
-                                        writingSubmission.faculty_feedback
-                                            ? escapeHTML(writingSubmission.faculty_feedback)
-                                            : "No feedback provided."
-                                    }</p>
+                                   <p class="faculty-feedback-text">
+                                        ${
+                                            writingSubmission.faculty_feedback
+                                                ? escapeHTML(writingSubmission.faculty_feedback)
+                                                : "No feedback provided."
+                                        }
+                                    </p>
+
+                                    ${
+                                        writingSubmission.checked_pdf
+                                            ? `
+                                                <a href="#"
+                                                class="review-pdf-btn"
+                                                onclick="viewReviewedPDF('${writingSubmission.checked_pdf}'); return false;">
+                                                📄 View Reviewed PDF
+                                                </a>
+                                            `
+                                            : ""
+                                    }
 
                                 </div>
 
