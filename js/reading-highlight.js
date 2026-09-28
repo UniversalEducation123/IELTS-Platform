@@ -5,6 +5,8 @@
 const pageKey =
     "readingHighlights_" + window.location.pathname;
 
+    
+
 let highlightMode = false;
 
 /* ---------- Toolbar ---------- */
@@ -102,6 +104,9 @@ body.highlight-mode .questions-panel{
     padding:0;
     border-radius:2px;
 }
+    ::highlight(reading-highlight){
+    background:#FDE68A;
+}
 
 @media (max-width:700px){
 
@@ -121,6 +126,8 @@ document.head.appendChild(style);
 
 /* ---------- Save ---------- */
 
+let savedRanges = {};
+
 function saveHighlights() {
 
     const activePart = document.querySelector(".reading-part.active");
@@ -128,21 +135,24 @@ function saveHighlights() {
 
     const partId = activePart.id;
 
-    const passage = activePart.querySelector(".passage-panel");
-    const questions = activePart.querySelector(".questions-panel");
+    const ranges = [];
 
-    const allHighlights = JSON.parse(
-        sessionStorage.getItem(pageKey) || "{}"
-    );
+    readingHighlight.forEach(range => {
 
-    allHighlights[partId] = {
-        passage: passage ? passage.innerHTML : "",
-        questions: questions ? questions.innerHTML : ""
-    };
+        ranges.push({
+            startPath: getNodePath(range.startContainer, activePart),
+            startOffset: range.startOffset,
+            endPath: getNodePath(range.endContainer, activePart),
+            endOffset: range.endOffset
+        });
+
+    });
+
+    savedRanges[partId] = ranges;
 
     sessionStorage.setItem(
         pageKey,
-        JSON.stringify(allHighlights)
+        JSON.stringify(savedRanges)
     );
 }
 
@@ -155,22 +165,63 @@ function restoreHighlights() {
 
     const partId = activePart.id;
 
-    const allHighlights = JSON.parse(
+    savedRanges = JSON.parse(
         sessionStorage.getItem(pageKey) || "{}"
     );
 
-    if (!allHighlights[partId]) return;
+    readingHighlight.clear();
 
-    const passage = activePart.querySelector(".passage-panel");
-    const questions = activePart.querySelector(".questions-panel");
+    if (!savedRanges[partId]) return;
 
-    if (passage) {
-        passage.innerHTML = allHighlights[partId].passage;
+    savedRanges[partId].forEach(item => {
+
+        const start = getNodeFromPath(item.startPath, activePart);
+        const end = getNodeFromPath(item.endPath, activePart);
+
+        if (!start || !end) return;
+
+        const range = new Range();
+
+        range.setStart(start, item.startOffset);
+        range.setEnd(end, item.endOffset);
+
+        readingHighlight.add(range);
+
+    });
+
+}
+
+function getNodePath(node, root){
+
+    const path = [];
+
+    while(node && node !== root){
+
+        const parent = node.parentNode;
+        if(!parent) break;
+
+        path.unshift(
+            Array.prototype.indexOf.call(parent.childNodes, node)
+        );
+
+        node = parent;
     }
 
-    if (questions) {
-        questions.innerHTML = allHighlights[partId].questions;
+    return path;
+}
+
+function getNodeFromPath(path, root){
+
+    let node = root;
+
+    for(const index of path){
+
+        node = node.childNodes[index];
+
+        if(!node) return null;
     }
+
+    return node;
 }
 
 /* Restore after the page loads */
@@ -197,9 +248,15 @@ highlightBtn.addEventListener("click", function () {
 
 });
 
-/* ---------- Highlight ---------- */
+/* ---------- Highlight (CSS Highlight API) ---------- */
 
-document.addEventListener("mouseup", function () {
+const readingHighlight = new Highlight();
+
+if (CSS.highlights) {
+    CSS.highlights.set("reading-highlight", readingHighlight);
+}
+
+document.addEventListener("mouseup", () => {
 
     if (!highlightMode) return;
 
@@ -220,18 +277,11 @@ document.addEventListener("mouseup", function () {
         return;
     }
 
-    const mark = document.createElement("mark");
-    mark.className = "reading-highlight";
-
-    try {
-        const contents = range.extractContents();
-        mark.appendChild(contents);
-        range.insertNode(mark);
-
-        saveHighlights();
-    } catch (e) {}
+    readingHighlight.add(range.cloneRange());
 
     selection.removeAllRanges();
+
+    saveHighlights();
 
 });
 
@@ -266,35 +316,15 @@ clearBtn.addEventListener("click", () => {
     const activePart = document.querySelector(".reading-part.active");
     if (!activePart) return;
 
-    const confirmed = confirm(
-        "Remove all highlights from this part?"
-    );
+    if (!confirm("Remove all highlights from this part?")) return;
 
-    if (!confirmed) return;
+    readingHighlight.clear();
 
-    activePart.querySelectorAll(".reading-highlight").forEach(mark => {
-
-        const parent = mark.parentNode;
-
-        while (mark.firstChild) {
-            parent.insertBefore(mark.firstChild, mark);
-        }
-
-        parent.removeChild(mark);
-
-    });
-
-    activePart.normalize();
-
-    const allHighlights = JSON.parse(
-        sessionStorage.getItem(pageKey) || "{}"
-    );
-
-    delete allHighlights[activePart.id];
+    savedRanges[activePart.id] = [];
 
     sessionStorage.setItem(
         pageKey,
-        JSON.stringify(allHighlights)
-    );  
+        JSON.stringify(savedRanges)
+    );
 
 });
