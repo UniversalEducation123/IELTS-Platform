@@ -23,7 +23,19 @@ document.body.appendChild(highlightBtn);
 
 const clearBtn = document.createElement("button");
 clearBtn.id = "readingClearHighlights";
-clearBtn.innerHTML = "🧽";
+clearBtn.innerHTML = `
+<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M7 16L15 8L20 13L12 21H7L3 17L11 9" 
+        fill="none"
+        stroke="#5F5B55"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+  <path d="M7 21H18" 
+        stroke="#5F5B55"
+        stroke-width="2"
+        stroke-linecap="round"/>
+</svg>`;
 document.body.appendChild(clearBtn);
 
 /* ---------- Styles ---------- */
@@ -153,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ---------- Toggle ---------- */
 
-highlightBtn.addEventListener("click", () => {
+highlightBtn.addEventListener("click", function () {
 
     highlightMode = !highlightMode;
 
@@ -166,15 +178,6 @@ highlightBtn.addEventListener("click", () => {
         "active",
         highlightMode
     );
-
-    highlightBtn.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-        <g transform="rotate(-35 12 12)">
-            <rect x="8" y="2" width="8" height="13" rx="2" fill="#F3D36A"/>
-            <rect x="8" y="15" width="8" height="5" fill="#C89B00"/>
-            <polygon points="8,20 16,20 12,23" fill="#8B6B00"/>
-        </g>
-        </svg>`;
 
 });
 
