@@ -87,6 +87,18 @@
 
 <body>
 
+    <script>
+    const accessKey = "access_writing-test-3";
+
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
+
+    if (writingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-test-3";
+    }
+</script>
+
     <script src="../js/exam-inputs.js"></script>
 
 <!-- ================================
@@ -249,24 +261,6 @@
 </main>
 
 <script>
-
-    /* =========================================
-       ACCESS CHECK
-    ========================================= */
-
-    const accessKey =
-        "access_writing-test-3";
-
-    const writingAccessGranted =
-        sessionStorage.getItem(accessKey);
-
-    if (writingAccessGranted !== "true") {
-
-        window.location.href =
-            "../test-access.html?test=writing-test-3";
-
-    }
-
 
     /* =========================================
        SHARED 60-MINUTE WRITING TIMER

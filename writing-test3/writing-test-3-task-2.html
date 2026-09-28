@@ -178,6 +178,16 @@
 
 <body>
 
+    <script>
+        const accessKey = "access_writing-test-3";
+
+        if (sessionStorage.getItem(accessKey) !== "true") {
+            window.location.href =
+                "../test-access.html?test=writing-test-3";
+        }
+    </script>
+
+
     <script src="../js/exam-inputs.js"></script>
 
 <header class="main-header">
@@ -335,23 +345,6 @@
 </main>
 
 <script>
-
-    /* =================================
-       ACCESS PROTECTION
-    ================================= */
-
-    const accessKey =
-        "access_writing-test-3";
-
-    const writingAccessGranted =
-        sessionStorage.getItem(accessKey);
-
-    if (writingAccessGranted !== "true") {
-
-        window.location.href =
-            "../test-access.html?test=writing-test-3";
-
-    }
 
 
     /* =================================
