@@ -43,6 +43,9 @@ document.body.appendChild(clearBtn);
 const style = document.createElement("style");
 
 style.textContent = `
+body.highlight-mode{
+    cursor: crosshair;
+}
 #readingHighlightToggle,
 #readingClearHighlights{
     position:fixed;
@@ -193,29 +196,31 @@ document.addEventListener("mouseup", () => {
     const range = selection.getRangeAt(0);
 
     const activePart = document.querySelector(".reading-part.active");
+    if (!activePart) return;
 
-    const passage = activePart?.querySelector(".passage-panel");
-    const questions = activePart?.querySelector(".questions-panel");
+    const passage = activePart.querySelector(".passage-panel");
+    const questions = activePart.querySelector(".questions-panel");
 
-    const insidePassage =
-        passage && passage.contains(range.commonAncestorContainer);
+    const container = range.commonAncestorContainer;
 
-    const insideQuestions =
-        questions && questions.contains(range.commonAncestorContainer);
+    const insidePassage = passage && passage.contains(container);
+    const insideQuestions = questions && questions.contains(container);
 
     if (!insidePassage && !insideQuestions) {
         selection.removeAllRanges();
         return;
     }
 
-    try {
-        const span = document.createElement("span");
-        span.className = "reading-highlight";
-        range.surroundContents(span);
-        saveHighlights();
-    } catch (e) {}
+    const mark = document.createElement("span");
+    mark.className = "reading-highlight";
+
+    const content = range.extractContents();
+    mark.appendChild(content);
+    range.insertNode(mark);
 
     selection.removeAllRanges();
+
+    saveHighlights();
 
 });
 
