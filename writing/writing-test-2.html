@@ -703,10 +703,8 @@ function saveBeforeBack() {
         });
 
     if (uploadError) {
-        console.error("PDF upload failed:", uploadError);
-
-        alert("Unable to save the Writing PDF.");
-
+        console.error(uploadError);
+        alert(uploadError.message);
         return;
     }
 
