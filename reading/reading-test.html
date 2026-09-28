@@ -1211,7 +1211,8 @@ q22: "prosperity",
 };
 
 function showPart(partNumber) {
-    document.querySelectorAll(".reading-part").forEach(function(part) {
+
+    document.querySelectorAll(".reading-part").forEach(function(part){
         part.classList.remove("active");
     });
 
@@ -1219,6 +1220,9 @@ function showPart(partNumber) {
 
     if (selectedPart) {
         selectedPart.classList.add("active");
+
+        restoreHighlights();
+
         window.scrollTo({
             top: 0,
             behavior: "smooth"

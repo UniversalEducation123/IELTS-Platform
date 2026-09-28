@@ -120,33 +120,55 @@ document.head.appendChild(style);
 
 /* ---------- Save ---------- */
 
-function saveHighlights(){
+function saveHighlights() {
 
-    const passage =
-        document.querySelector(".passage-panel");
+    const activePart = document.querySelector(".reading-part.active");
+    if (!activePart) return;
 
-    if (!passage) return;
+    const partId = activePart.id;
+
+    const passage = activePart.querySelector(".passage-panel");
+    const questions = activePart.querySelector(".questions-panel");
+
+    const allHighlights = JSON.parse(
+        sessionStorage.getItem(pageKey) || "{}"
+    );
+
+    allHighlights[partId] = {
+        passage: passage ? passage.innerHTML : "",
+        questions: questions ? questions.innerHTML : ""
+    };
 
     sessionStorage.setItem(
         pageKey,
-        passage.innerHTML
+        JSON.stringify(allHighlights)
     );
 }
 
 /* ---------- Restore ---------- */
 
-function restoreHighlights(){
+function restoreHighlights() {
 
-    const saved =
-        sessionStorage.getItem(pageKey);
+    const activePart = document.querySelector(".reading-part.active");
+    if (!activePart) return;
 
-    if (!saved) return;
+    const partId = activePart.id;
 
-    const passage =
-        document.querySelector(".passage-panel");
+    const allHighlights = JSON.parse(
+        sessionStorage.getItem(pageKey) || "{}"
+    );
+
+    if (!allHighlights[partId]) return;
+
+    const passage = activePart.querySelector(".passage-panel");
+    const questions = activePart.querySelector(".questions-panel");
 
     if (passage) {
-        passage.innerHTML = saved;
+        passage.innerHTML = allHighlights[partId].passage;
+    }
+
+    if (questions) {
+        questions.innerHTML = allHighlights[partId].questions;
     }
 }
 
@@ -186,24 +208,32 @@ document.addEventListener("mouseup", () => {
     if (!highlightMode) return;
 
     const selection = window.getSelection();
-
     if (!selection || selection.isCollapsed) return;
 
     const range = selection.getRangeAt(0);
 
-    const passage = document.querySelector(".passage-panel");
+    const activePart = document.querySelector(".reading-part.active");
 
-    if (!passage || !passage.contains(range.commonAncestorContainer)) {
+    const passage = activePart?.querySelector(".passage-panel");
+    const questions = activePart?.querySelector(".questions-panel");
+
+    const insidePassage =
+        passage && passage.contains(range.commonAncestorContainer);
+
+    const insideQuestions =
+        questions && questions.contains(range.commonAncestorContainer);
+
+    if (!insidePassage && !insideQuestions) {
         selection.removeAllRanges();
         return;
     }
 
-    try{
+    try {
         const span = document.createElement("span");
         span.className = "reading-highlight";
         range.surroundContents(span);
         saveHighlights();
-    }catch(e){}
+    } catch (e) {}
 
     selection.removeAllRanges();
 
@@ -237,17 +267,16 @@ document.addEventListener("click", (e) => {
 
 clearBtn.addEventListener("click", () => {
 
-    const passage = document.querySelector(".passage-panel");
-
-    if (!passage) return;
+    const activePart = document.querySelector(".reading-part.active");
+    if (!activePart) return;
 
     const confirmed = confirm(
-        "Remove all highlights from this passage?"
+        "Remove all highlights from this part?"
     );
 
     if (!confirmed) return;
 
-    passage.querySelectorAll(".reading-highlight").forEach(mark => {
+    activePart.querySelectorAll(".reading-highlight").forEach(mark => {
 
         const parent = mark.parentNode;
 
@@ -259,8 +288,17 @@ clearBtn.addEventListener("click", () => {
 
     });
 
-    passage.normalize();
+    activePart.normalize();
 
-    sessionStorage.removeItem(pageKey);
+    const allHighlights = JSON.parse(
+        sessionStorage.getItem(pageKey) || "{}"
+    );
+
+    delete allHighlights[activePart.id];
+
+    sessionStorage.setItem(
+        pageKey,
+        JSON.stringify(allHighlights)
+    );
 
 });
