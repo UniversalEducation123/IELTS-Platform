@@ -43,12 +43,15 @@ document.body.appendChild(clearBtn);
 const style = document.createElement("style");
 
 style.textContent = `
-body.highlight-mode,
-body.highlight-mode *{
-    cursor: text !important;
-    user-select: text;
+body.highlight-mode{
+    cursor:text;
 }
-    
+
+body.highlight-mode .passage-panel,
+body.highlight-mode .questions-panel{
+    cursor:text;
+}
+
 #readingHighlightToggle,
 #readingClearHighlights{
     position:fixed;
@@ -91,6 +94,13 @@ body.highlight-mode *{
 #readingHighlightToggle:hover,
 #readingClearHighlights:hover{
     transform:scale(1.08);
+}
+
+.reading-highlight{
+    background:#FDE68A !important;
+    color:inherit;
+    padding:0;
+    border-radius:2px;
 }
 
 @media (max-width:700px){
@@ -189,8 +199,6 @@ highlightBtn.addEventListener("click", function () {
 
 /* ---------- Highlight ---------- */
 
-/* ---------- Highlight ---------- */
-
 document.addEventListener("mouseup", function () {
 
     if (!highlightMode) return;
@@ -198,26 +206,32 @@ document.addEventListener("mouseup", function () {
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) return;
 
+    const range = selection.getRangeAt(0);
+
     const activePart = document.querySelector(".reading-part.active");
     if (!activePart) return;
 
-    const range = selection.getRangeAt(0);
-
-    const inside =
+    const allowed =
         activePart.querySelector(".passage-panel")?.contains(range.commonAncestorContainer) ||
         activePart.querySelector(".questions-panel")?.contains(range.commonAncestorContainer);
 
-    if (!inside) {
+    if (!allowed) {
         selection.removeAllRanges();
         return;
     }
 
-    document.execCommand("styleWithCSS", false, true);
-    document.execCommand("hiliteColor", false, "#FDE68A");
+    const mark = document.createElement("mark");
+    mark.className = "reading-highlight";
+
+    try {
+        const contents = range.extractContents();
+        mark.appendChild(contents);
+        range.insertNode(mark);
+
+        saveHighlights();
+    } catch (e) {}
 
     selection.removeAllRanges();
-
-    saveHighlights();
 
 });
 
