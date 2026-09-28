@@ -11,12 +11,12 @@ let highlightMode = false;
 
 const highlightBtn = document.createElement("button");
 highlightBtn.id = "readingHighlightToggle";
-highlightBtn.innerHTML = "🖍 Highlight";
+highlightBtn.innerHTML = "✏️";
 document.body.appendChild(highlightBtn);
 
 const clearBtn = document.createElement("button");
 clearBtn.id = "readingClearHighlights";
-clearBtn.innerHTML = "🧽 Clear";
+clearBtn.innerHTML = "🧽";
 document.body.appendChild(clearBtn);
 
 /* ---------- Styles ---------- */
@@ -24,97 +24,63 @@ document.body.appendChild(clearBtn);
 const style = document.createElement("style");
 
 style.textContent = `
-#readingHighlightToggle{
+#readingHighlightToggle,
+#readingClearHighlights{
     position:fixed;
-    top:92px;
-    right:24px;
+    right:22px;
     z-index:9999;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+    border-radius:50%;
 
     display:flex;
     align-items:center;
-    gap:8px;
+    justify-content:center;
 
-    padding:11px 18px;
-
-    border:none;
-    border-radius:999px;
-
-    background:rgba(139,154,110,.96);
-    color:#fff;
-
-    font-size:14px;
-    font-weight:600;
-
+    font-size:22px;
     cursor:pointer;
 
-    box-shadow:0 10px 24px rgba(76,74,70,.16);
-    transition:.25s;
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+    transition:.2s;
 }
 
-#readingHighlightToggle:hover{
-    transform:translateY(-2px);
+#readingHighlightToggle{
+    bottom:24px;
+    background:#8B9A6E;
+    color:#fff;
 }
 
 #readingHighlightToggle.active{
     background:#F3D36A;
-    color:#5A4700;
-}
-
-body.highlight-mode{
-    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(-35 16 16)'%3E%3Crect x='12' y='2' width='8' height='18' rx='2' fill='%238B9A6E'/%3E%3Crect x='12' y='18' width='8' height='8' fill='%23F3D36A'/%3E%3Cpolygon points='12,26 20,26 16,31' fill='%23C89B00'/%3E%3C/g%3E%3C/svg%3E") 4 28, text;
-}
-
-.reading-highlight{
-    background:#FDE68A;
-    border-radius:3px;
-    padding:1px 0;
-}
-
-@media (max-width:700px){
-    #readingHighlightToggle{
-        top:auto;
-        bottom:18px;
-        right:18px;
-    }
 }
 
 #readingClearHighlights{
-    position:fixed;
-    top:92px;
-    right:178px;
-    z-index:9999;
-
-    padding:11px 16px;
-
-    border:none;
-    border-radius:999px;
-
-    background:#FFFFFF;
-    color:#5F5B55;
-
-    font-size:14px;
-    font-weight:600;
-
-    cursor:pointer;
-
-    border:1px solid #D8D3C8;
-    box-shadow:0 10px 24px rgba(76,74,70,.10);
-
-    transition:.25s;
+    bottom:88px;
+    background:#fff;
+    border:1px solid #DDD;
 }
 
+#readingHighlightToggle:hover,
 #readingClearHighlights:hover{
-    background:#F6F3EE;
+    transform:scale(1.08);
 }
 
 @media (max-width:700px){
-    #readingClearHighlights{
+
+    #readingHighlightToggle{
+        right:18px;
         bottom:18px;
-        top:auto;
-        right:160px;
     }
-}
-`;
+
+    #readingClearHighlights{
+        right:18px;
+        bottom:82px;
+    }
+
+}`;
 
 document.head.appendChild(style);
 
@@ -194,10 +160,7 @@ highlightBtn.addEventListener("click", () => {
         highlightMode
     );
 
-    highlightBtn.innerHTML =
-        highlightMode
-            ? "🖍 Highlighting"
-            : "🖍 Highlight";
+    highlightBtn.innerHTML = "✏️";
 
 });
 
@@ -299,6 +262,6 @@ clearBtn.addEventListener("click", () => {
     sessionStorage.setItem(
         pageKey,
         JSON.stringify(allHighlights)
-    );
+    );  
 
 });
