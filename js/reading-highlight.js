@@ -43,9 +43,12 @@ document.body.appendChild(clearBtn);
 const style = document.createElement("style");
 
 style.textContent = `
-body.highlight-mode{
-    cursor: crosshair;
+body.highlight-mode,
+body.highlight-mode *{
+    cursor: text !important;
+    user-select: text;
 }
+    
 #readingHighlightToggle,
 #readingClearHighlights{
     position:fixed;
@@ -186,37 +189,31 @@ highlightBtn.addEventListener("click", function () {
 
 /* ---------- Highlight ---------- */
 
-document.addEventListener("mouseup", () => {
+/* ---------- Highlight ---------- */
+
+document.addEventListener("mouseup", function () {
 
     if (!highlightMode) return;
 
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) return;
 
-    const range = selection.getRangeAt(0);
-
     const activePart = document.querySelector(".reading-part.active");
     if (!activePart) return;
 
-    const passage = activePart.querySelector(".passage-panel");
-    const questions = activePart.querySelector(".questions-panel");
+    const range = selection.getRangeAt(0);
 
-    const container = range.commonAncestorContainer;
+    const inside =
+        activePart.querySelector(".passage-panel")?.contains(range.commonAncestorContainer) ||
+        activePart.querySelector(".questions-panel")?.contains(range.commonAncestorContainer);
 
-    const insidePassage = passage && passage.contains(container);
-    const insideQuestions = questions && questions.contains(container);
-
-    if (!insidePassage && !insideQuestions) {
+    if (!inside) {
         selection.removeAllRanges();
         return;
     }
 
-    const mark = document.createElement("span");
-    mark.className = "reading-highlight";
-
-    const content = range.extractContents();
-    mark.appendChild(content);
-    range.insertNode(mark);
+    document.execCommand("styleWithCSS", false, true);
+    document.execCommand("hiliteColor", false, "#FDE68A");
 
     selection.removeAllRanges();
 
