@@ -11,7 +11,14 @@ let highlightMode = false;
 
 const highlightBtn = document.createElement("button");
 highlightBtn.id = "readingHighlightToggle";
-highlightBtn.innerHTML = "✏️";
+highlightBtn.innerHTML = `
+<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+  <g transform="rotate(-35 12 12)">
+    <rect x="8" y="2" width="8" height="13" rx="2" fill="#F3D36A"/>
+    <rect x="8" y="15" width="8" height="5" fill="#C89B00"/>
+    <polygon points="8,20 16,20 12,23" fill="#8B6B00"/>
+  </g>
+</svg>`;
 document.body.appendChild(highlightBtn);
 
 const clearBtn = document.createElement("button");
@@ -160,7 +167,14 @@ highlightBtn.addEventListener("click", () => {
         highlightMode
     );
 
-    highlightBtn.innerHTML = "✏️";
+    highlightBtn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <g transform="rotate(-35 12 12)">
+            <rect x="8" y="2" width="8" height="13" rx="2" fill="#F3D36A"/>
+            <rect x="8" y="15" width="8" height="5" fill="#C89B00"/>
+            <polygon points="8,20 16,20 12,23" fill="#8B6B00"/>
+        </g>
+        </svg>`;
 
 });
 
