@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Writing Test 3 - Task 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        /* ================================
+           WRITING TASK 1
+        ================================= */
+
+        .writing-task-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .writing-question-panel,
+        .writing-answer-panel {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .writing-question-panel img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+
+        .writing-answer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-answer-panel textarea {
+            width: 100%;
+            min-height: 600px;
+            box-sizing: border-box;
+            resize: vertical;
+            padding: 16px;
+            font: inherit;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .writing-word-count {
+            margin-top: 10px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .writing-navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .writing-question-panel p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+
+            .writing-task-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .writing-answer-panel textarea {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <script src="../js/exam-inputs.js"></script>
+
+<!-- ================================
+     HEADER
+================================= -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                60:00
+            </strong>
+
+        </div>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================================
+     PAGE HEADER
+================================= -->
+
+<section class="listening-header">
+
+    <div>
+
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     MAIN CONTENT
+================================= -->
+
+<main class="listening-container">
+
+    <section class="listening-card question-section">
+
+        <div class="question-heading">
+
+            <h2>
+                Writing Task 1
+            </h2>
+
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+
+        </div>
+
+
+        <!-- TWO COLUMN LAYOUT -->
+
+        <div class="writing-task-layout">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================== -->
+
+            <div class="writing-question-panel">
+
+                <p>
+                    The two maps below show thw town of Barmouth before and after 
+                    proposed new changes to stop cars entering the old town.
+                </p>
+
+                <p>
+                    Summarise the information by selecting
+                    and reporting the main features, and make
+                    comparisons where relevant.
+                </p>
+
+                <p>
+                    <strong>
+                        You should write at least 150 words.
+                    </strong>
+                </p>
+
+
+                <!-- YOUR EXISTING CHART -->
+
+                <img
+                    src="../assets/writing-test-3-task1-map.png"
+                    alt="Barmouth Town Map"
+                >
+
+            </div>
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================== -->
+
+            <div class="writing-answer-panel">
+
+                <h3>
+                    Your Answer
+                </h3>
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Write your answer here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div
+                    id="task1WordCount"
+                    class="writing-word-count"
+                >
+                    Word count: 0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTINUE BUTTON
+        ========================== -->
+
+        <div class="writing-navigation">
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()"
+            >
+                Continue to Task 2
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+
+    /* =========================================
+       ACCESS CHECK
+    ========================================= */
+
+    const accessKey =
+        "access_writing-test-3";
+
+    const writingAccessGranted =
+        sessionStorage.getItem(accessKey);
+
+    if (writingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=writing-test-3";
+
+    }
+
+
+    /* =========================================
+       SHARED 60-MINUTE WRITING TIMER
+    ========================================= */
+
+    let savedTime =
+        sessionStorage.getItem(
+            "writingTest3TimeLeft"
+        );
+
+    let timeLeft =
+        savedTime !== null
+            ? Number(savedTime)
+            : 60 * 60;
+
+    let timerInterval = null;
+
+
+    function updateTimer() {
+
+        const minutes =
+            Math.floor(timeLeft / 60);
+
+        const seconds =
+            timeLeft % 60;
+
+        const timer =
+            document.getElementById("timer");
+
+        if (timer) {
+
+            timer.textContent =
+                String(minutes).padStart(2, "0") +
+                ":" +
+                String(seconds).padStart(2, "0");
+
+        }
+
+    }
+
+
+    function startTimer() {
+
+        if (timerInterval) {
+            return;
+        }
+
+        sessionStorage.setItem(
+            "writingTest3TimerStarted",
+            "true"
+        );
+
+        timerInterval =
+            setInterval(function () {
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timerInterval);
+
+                    sessionStorage.setItem(
+                        "writingTest3TimeLeft",
+                        "0"
+                    );
+
+                    saveTask1Answer();
+
+                    window.location.href =
+                        "writing-test-3-task-2.html";
+
+                    return;
+
+                }
+
+                timeLeft--;
+
+                sessionStorage.setItem(
+                    "writingTest3TimeLeft",
+                    timeLeft
+                );
+
+                updateTimer();
+
+            }, 1000);
+
+    }
+
+
+    updateTimer();
+    startTimer();
+
+
+    /* =========================================
+       SAVE TASK 1 ANSWER
+    ========================================= */
+
+    function saveTask1Answer() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        if (answer) {
+
+            sessionStorage.setItem(
+                "writingTest3Task1Answer",
+                answer.value
+            );
+
+        }
+
+    }
+
+
+    /* =========================================
+       WORD COUNT
+    ========================================= */
+
+    function updateWordCount() {
+
+        const answer =
+            document.getElementById(
+                "task1Answer"
+            );
+
+        const count =
+            document.getElementById(
+                "task1WordCount"
+            );
+
+        if (!answer || !count) {
+            return;
+        }
+
+        const words =
+            answer.value
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+
+        count.textContent =
+            "Word count: " + words.length;
+
+        saveTask1Answer();
+
+    }
+
+
+    /* =========================================
+       LOAD SAVED ANSWER
+    ========================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const answer =
+                document.getElementById(
+                    "task1Answer"
+                );
+
+            const savedAnswer =
+                sessionStorage.getItem(
+                    "writingTest3Task1Answer"
+                );
+
+            if (
+                answer &&
+                savedAnswer !== null
+            ) {
+
+                answer.value =
+                    savedAnswer;
+
+            }
+
+            updateWordCount();
+
+            if (answer) {
+
+                answer.addEventListener(
+                    "input",
+                    updateWordCount
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       CONTINUE TO TASK 2
+    ========================================= */
+
+    function goToTask2() {
+
+        saveTask1Answer();
+
+        window.location.href =
+            "writing-test-3-task-2.html";
+
+    }
+
+</script>
+
+</body>
+</html>
