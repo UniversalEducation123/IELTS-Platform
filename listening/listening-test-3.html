@@ -13,52 +13,6 @@
 
     <script src="../js/exam-inputs.js"></script>
 
-    <div class="listening-section-navigation">
-        <strong>Go to:</strong>
-
-        <a href="listening-test-1.html"
-           class="section-jump-button">
-            Part 1
-        </a>
-
-        <a href="listening-test-2.html"
-           class="section-jump-button">
-            Part 2
-        </a>
-
-        <a href="listening-test-3.html"
-           class="section-jump-button active-section">
-            Part 3
-        </a>
-
-        <a href="listening-test-4.html"
-           class="section-jump-button">
-            Part 4
-        </a>
-    </div>
-
-    <header class="main-header">
-        <div class="logo">IELTS Practice</div>
-
-        <div class="header-right">
-            <div class="header-timer">
-                <span>Time Remaining</span>
-                <strong id="timer">--:--</strong>
-            </div>
-
-            <a href="../student-dashboard.html">Dashboard</a>
-            <a href="../index.html">Logout</a>
-        </div>
-    </header>
-
-    <section class="listening-header">
-        <div>
-            <h1>Part 3</h1>
-            <p>Questions 21–30</p>
-        </div>
-    </section>
-
-
 <main class="listening-container">
 
 
@@ -451,385 +405,149 @@
         Continue to Part 4
     </button>
 
-
-
 </main>
 
-<audio id="listeningAudio" style="display:none" preload="auto">
-    <source src="../assets/listening-test-1.mp3" type="audio/mpeg">
-</audio>
-
 <script>
+/* =====================================================
+   PART 3 LOGIC (IFRAME VERSION)
+===================================================== */
 
-    /* =================================
-   RESUME CONTINUOUS AUDIO
-================================= */
-
-const audio = document.getElementById("listeningAudio");
-
-const savedAudioTime = Number(
-    sessionStorage.getItem("listeningAudioTime") || 0
-);
-
-const shouldResume =
-    sessionStorage.getItem("listeningAudioPlaying") === "true";
-
-audio.addEventListener("loadedmetadata", function () {
-
-    audio.currentTime = savedAudioTime;
-
-    if (shouldResume) {
-        audio.play().catch(() => {});
-    }
-
-});
-
-audio.addEventListener("timeupdate", function () {
-    sessionStorage.setItem(
-        "listeningAudioTime",
-        audio.currentTime
-    );
-});
-
-audio.addEventListener("pause", function () {
-    if (!audio.ended) {
-        audio.play();
-    }
-});
-
-/*
- * SHARED LISTENING TIMER - PART 3
- */
-
-let savedTime = sessionStorage.getItem("listeningTimeLeft");
-
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
-
-let timerStarted =
-    sessionStorage.getItem("listeningTimerStarted") === "true";
-
-let timerInterval;
-
-const timerElement = document.getElementById("timer");
-
-
-/*
- * UPDATE TIMER
- */
-
-function updateTimer() {
-    if (!timerElement) return;
-
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    timerElement.textContent =
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-}
-
-
-/*
- * SAVE PART 3 ANSWERS
- */
+/* Save Part 3 answers */
 
 function savePart3Answers() {
     const answers = {};
 
-    /*
-     * Questions 21–22
-     */
-
     const pair21_22 = Array.from(
-        document.querySelectorAll(
-            'input[name="q21_22"]:checked'
-        )
-    ).map(function (input) {
-        return input.value.trim();
-    });
+        document.querySelectorAll('input[name="q21_22"]:checked')
+    ).map(input => input.value.trim());
 
     answers.q21 = pair21_22[0] || "";
     answers.q22 = pair21_22[1] || "";
 
-
-    /*
-     * Questions 23–24
-     */
-
     const pair23_24 = Array.from(
-        document.querySelectorAll(
-            'input[name="q23_24"]:checked'
-        )
-    ).map(function (input) {
-        return input.value.trim();
-    });
+        document.querySelectorAll('input[name="q23_24"]:checked')
+    ).map(input => input.value.trim());
 
     answers.q23 = pair23_24[0] || "";
     answers.q24 = pair23_24[1] || "";
 
-
-    /*
-     * Questions 25–26
-     */
-
     const pair25_26 = Array.from(
-        document.querySelectorAll(
-            'input[name="q25_26"]:checked'
-        )
-    ).map(function (input) {
-        return input.value.trim();
-    });
+        document.querySelectorAll('input[name="q25_26"]:checked')
+    ).map(input => input.value.trim());
 
     answers.q25 = pair25_26[0] || "";
     answers.q26 = pair25_26[1] || "";
 
-
-    /*
-     * Questions 27–30
-     */
-
     for (let i = 27; i <= 30; i++) {
-        let input = document.querySelector(
-            `[name="q${i}"]`
-        );
-
-        if (!input) {
-            input = document.getElementById(`q${i}`);
-        }
-
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        }
+        const input = document.querySelector(`[name="q${i}"]`);
+        answers[`q${i}`] = input ? input.value.trim() : "";
     }
-
-
-    /*
-     * Save Part 3 answers
-     */
 
     sessionStorage.setItem(
         "listeningPart3Answers",
         JSON.stringify(answers)
     );
-
-    console.log(
-        "PART 3 FINAL SAVED DATA:",
-        sessionStorage.getItem("listeningPart3Answers")
-    );
 }
 
-/*
- * AUTOMATIC SUBMIT WHEN TIME ENDS
- */
+/* Limit checkbox groups to TWO answers */
 
-function autoSubmitListeningTest() {
-    savePart3Answers();
+const checkboxGroups = ["q21_22","q23_24","q25_26"];
 
-    if (audio) {
-        audio.pause();
-    }
+checkboxGroups.forEach(groupName => {
 
-    sessionStorage.setItem(
-        "listeningAutoSubmitted",
-        "true"
-    );
+    document.querySelectorAll(`input[name="${groupName}"]`)
+    .forEach(checkbox => {
 
-    sessionStorage.removeItem("listeningTimeLeft");
-    sessionStorage.removeItem("listeningTimerStarted");
-
-    window.location.href =
-        "listening-final.html?autoSubmit=true";
-}
-
-
-/*
- * RUN SHARED TIMER
- */
-
-function runSharedTimer() {
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function() {
-
-        timeLeft--;
-
-        sessionStorage.setItem(
-            "listeningTimeLeft",
-            timeLeft
-        );
-
-        updateTimer();
-
-        if (timeLeft <= 0) {
-
-            clearInterval(timerInterval);
-            timerInterval = null;
-
-            autoSubmitListeningTest();
-        }
-
-    }, 1000);
-}
-
-
-/*
- * CONTINUE TIMER FROM PREVIOUS PART
- */
-
-if (timerStarted) {
-    updateTimer();
-    runSharedTimer();
-} else {
-    if (timerElement) {
-        timerElement.textContent = "--:--";
-    }
-}
-
-
-/*
- * LIMIT CHECKBOX GROUPS TO TWO ANSWERS
- */
-
-const checkboxGroups = [
-    "q21_22",
-    "q23_24",
-    "q25_26"
-];
-
-checkboxGroups.forEach(function(groupName) {
-
-    const checkboxes = document.querySelectorAll(
-        `input[name="${groupName}"]`
-    );
-
-    checkboxes.forEach(function(checkbox) {
-
-        checkbox.addEventListener("change", function() {
+        checkbox.addEventListener("change", function(){
 
             const selected = document.querySelectorAll(
                 `input[name="${groupName}"]:checked`
             );
 
-            if (selected.length > 2) {
-
+            if(selected.length > 2){
                 checkbox.checked = false;
-
-                alert(
-                    "You can select a maximum of TWO answers."
-                );
+                alert("You can select a maximum of TWO answers.");
             }
 
             updateQuestionProgress();
+
         });
 
     });
 
 });
 
+/* Uppercase Questions 27–30 */
 
-/*
- * MAKE TEXT ANSWERS UPPERCASE
- */
+document.querySelectorAll('input[type="text"]').forEach(input=>{
 
-document.querySelectorAll(
-    'input[type="text"]'
-).forEach(function(input) {
-
-    input.addEventListener("input", function() {
+    input.addEventListener("input", function(){
 
         input.value = input.value
             .toUpperCase()
-            .replace(/[^A-Z]/g, "")
-            .slice(0, 1);
+            .replace(/[^A-F]/g,"")
+            .slice(0,1);
 
         updateQuestionProgress();
+
     });
 
 });
 
+/* Continue to Part 4 */
 
-/*
- * SAVE PART 3 ANSWERS AND CONTINUE
- */
+const submitButton = document.getElementById("submitPart3Btn");
 
-const submitButton = document.getElementById(
-    "submitPart3Btn"
-);
+if(submitButton){
 
-if (submitButton) {
-
-    submitButton.addEventListener("click", function() {
+    submitButton.onclick = function(){
 
         savePart3Answers();
+        saveListeningAnswers();
 
-        console.log(
-            "PART 3 FINAL SAVED DATA:",
-            sessionStorage.getItem("listeningPart3Answers")
+        parent.loadPart(
+            4,
+            parent.document.querySelectorAll(".section-jump-button")[3]
         );
 
-        window.location.href =
-            "listening-test-4.html";
+    };
 
-    });
-
-} else {
-    console.error("Part 3 submit button not found.");
 }
 
+/* Question progress */
 
-/*
- * QUESTION PROGRESS
- */
+function updateQuestionProgress(){
 
-function updateQuestionProgress() {
+    updateCheckboxGroup("q21_22",21,22);
+    updateCheckboxGroup("q23_24",23,24);
+    updateCheckboxGroup("q25_26",25,26);
 
-    updateCheckboxGroup("q21_22", 21, 22);
-    updateCheckboxGroup("q23_24", 23, 24);
-    updateCheckboxGroup("q25_26", 25, 26);
-
-    for (let i = 27; i <= 30; i++) {
+    for(let i=27;i<=30;i++){
         updateTextQuestion(i);
     }
+
 }
 
+function updateCheckboxGroup(groupName,q1,q2){
 
-function updateCheckboxGroup(
-    groupName,
-    firstQuestion,
-    secondQuestion
-) {
-
-    const selected = document.querySelectorAll(
+    const count = document.querySelectorAll(
         `input[name="${groupName}"]:checked`
     ).length;
 
-    const firstButton = document.querySelector(
-        `.question-progress-button[data-question="${firstQuestion}"]`
+    const b1 = document.querySelector(
+        `.question-progress-button[data-question="${q1}"]`
     );
 
-    const secondButton = document.querySelector(
-        `.question-progress-button[data-question="${secondQuestion}"]`
+    const b2 = document.querySelector(
+        `.question-progress-button[data-question="${q2}"]`
     );
 
-    if (firstButton) {
-        firstButton.classList.toggle(
-            "answered",
-            selected >= 1
-        );
-    }
+    if(b1) b1.classList.toggle("answered",count>=1);
+    if(b2) b2.classList.toggle("answered",count>=2);
 
-    if (secondButton) {
-        secondButton.classList.toggle(
-            "answered",
-            selected >= 2
-        );
-    }
 }
 
-
-function updateTextQuestion(questionNumber) {
+function updateTextQuestion(questionNumber){
 
     const input = document.querySelector(
         `[name="q${questionNumber}"]`
@@ -839,68 +557,46 @@ function updateTextQuestion(questionNumber) {
         `.question-progress-button[data-question="${questionNumber}"]`
     );
 
-    if (!input || !button) return;
+    if(!input || !button) return;
 
     button.classList.toggle(
         "answered",
         input.value.trim() !== ""
     );
+
 }
 
+/* Jump to question */
 
-/*
- * JUMP TO QUESTION
- */
-
-function goToQuestion(questionNumber) {
+function goToQuestion(questionNumber){
 
     let input;
 
-    if (
-        questionNumber === 21 ||
-        questionNumber === 22
-    ) {
-        input = document.querySelector(
-            'input[name="q21_22"]'
-        );
-
-    } else if (
-        questionNumber === 23 ||
-        questionNumber === 24
-    ) {
-        input = document.querySelector(
-            'input[name="q23_24"]'
-        );
-
-    } else if (
-        questionNumber === 25 ||
-        questionNumber === 26
-    ) {
-        input = document.querySelector(
-            'input[name="q25_26"]'
-        );
-
-    } else {
-        input = document.querySelector(
-            `[name="q${questionNumber}"]`
-        );
+    if(questionNumber===21 || questionNumber===22){
+        input = document.querySelector('input[name="q21_22"]');
+    }
+    else if(questionNumber===23 || questionNumber===24){
+        input = document.querySelector('input[name="q23_24"]');
+    }
+    else if(questionNumber===25 || questionNumber===26){
+        input = document.querySelector('input[name="q25_26"]');
+    }
+    else{
+        input = document.querySelector(`[name="q${questionNumber}"]`);
     }
 
-    if (input) {
-
+    if(input){
         input.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+            behavior:"smooth",
+            block:"center"
         });
-
         input.focus();
     }
+
 }
 
 updateQuestionProgress();
-
 </script>
-
 
 <script>
 /*
@@ -984,6 +680,8 @@ function restoreListeningAnswers() {
     document.querySelectorAll(
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
     ).forEach(function(input) {
+
+        if (!input.name) return;
 
         const savedValue = answers[input.name];
 

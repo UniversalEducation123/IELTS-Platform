@@ -10,95 +10,9 @@
 </head>
 <body>
 
-    <script>
-        const accessKey = "access_listening-test-1";
-
-        const listeningAccessGranted =
-            sessionStorage.getItem(accessKey);
-
-        if (listeningAccessGranted !== "true") {
-            window.location.href =
-                "../test-access.html?test=listening-test-1";
-        }
-    </script>
-
     <script src="../js/exam-inputs.js"></script>
 
-    <div class="listening-section-navigation">
-        <strong>Go to:</strong>
-
-        <a href="listening-test-1.html"
-           class="section-jump-button active-section">
-            Part 1
-        </a>
-
-        <a href="listening-test-2.html"
-           class="section-jump-button">
-            Part 2
-        </a>
-
-        <a href="listening-test-3.html"
-           class="section-jump-button">
-            Part 3
-        </a>
-
-        <a href="listening-test-4.html"
-           class="section-jump-button">
-            Part 4
-        </a>
-    </div>
-
-    <header class="main-header">
-        <div class="logo">IELTS Practice</div>
-
-        <div class="header-right">
-            <div class="header-timer">
-                <span>Time Remaining</span>
-                <strong id="timer">--:--</strong>
-            </div>
-
-            <a href="../student-dashboard.html">Dashboard</a>
-            <a href="../index.html">Logout</a>
-        </div>
-    </header>
-
-    <section class="listening-header">
-        <div>
-            <h1>Part 1</h1>
-            <p>Questions 1–10</p>
-        </div>
-    </section>
-
     <main class="listening-container">
-
-    <section class="listening-card audio-section">
-
-    <h2>Part 1: Listen and answer questions 1–10</h2>
-
-    <div class="audio-player-container">
-
-        <div class="audio-status" id="audioStatus">
-            Press Play to begin the listening test
-        </div>
-
-        <div class="custom-audio-player">
-    <button type="button" id="playPauseBtn" class="audio-play-btn">
-        ▶ Play
-    </button>
-
-    <div class="audio-progress-container">
-        <div id="audioProgress" class="audio-progress"></div>
-    </div>
-
-    <span id="audioTime" class="audio-time">0:00</span>
-</div>
-
-<audio id="listeningAudio" preload="auto">
-    <source src="../assets/listening-test-1.mp3" type="audio/mpeg">
-</audio>
-    </div> 
-
-            </section>
 
     <section class="listening-card question-section">
 
@@ -283,9 +197,11 @@
             onclick="goToQuestion(10)">10</button>
 </div>
 
-            <button type="button" class="primary-btn submit-section-btn" id="submitListeningBtn">
-                Continue to Part 2
-            </button>
+            <button type="button"
+                class="primary-btn submit-section-btn"
+                id="submitListeningBtn">
+            Continue to Part 2
+        </button>
 
 
             </section>
@@ -293,270 +209,90 @@
 </main>
 
    <script>
-
-  /*
- * SHARED LISTENING TIMER
- */
-
-let savedTime = sessionStorage.getItem("listeningTimeLeft");
-
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
-
-let timerStarted =
-    sessionStorage.getItem("listeningTimerStarted") === "true";
-
-let timerInterval;
-let localTimerRunning = false;
-
-const timerElement = document.getElementById("timer");
-const audio = document.getElementById("listeningAudio");
-const audioStatus = document.getElementById("audioStatus");
-
-function updateTimer() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    if (timerElement) {
-        timerElement.textContent =
-            String(minutes).padStart(2, "0") + ":" +
-            String(seconds).padStart(2, "0");
-    }
-}
-
-function runSharedTimer() {
-    // Prevent multiple timers from running
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function () {
-        timeLeft--;
-        updateTimer();
-
-        sessionStorage.setItem("listeningTimeLeft", timeLeft);
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-
-            sessionStorage.removeItem("listeningTimeLeft");
-            sessionStorage.removeItem("listeningTimerStarted");
-
-            autoSubmitListeningTest();
-        }
-    }, 1000);
-}
+/* =====================================================
+   PART 1 LOGIC (IFRAME VERSION)
+===================================================== */
 
 function savePart1Answers() {
     const answers = {};
 
     for (let i = 1; i <= 10; i++) {
-        let input = document.querySelector(`[name="q${i}"]`);
-
-        if (!input) {
-            input = document.getElementById(`q${i}`);
-        }
-
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        } else {
-            answers[`q${i}`] = "";
-        }
+        const input = document.querySelector(`[name="q${i}"]`);
+        answers[`q${i}`] = input ? input.value.trim() : "";
     }
 
     sessionStorage.setItem(
         "listeningPart1Answers",
         JSON.stringify(answers)
     );
-
-    console.log(
-        "PART 1 SAVED:",
-        sessionStorage.getItem("listeningPart1Answers")
-    );
 }
 
-function autoSubmitListeningTest() {
-    // Save current Part 1 answers before closing
-    saveCurrentPart1Answers();
-
-    // Stop audio
-    if (audio) {
-        audio.pause();
-    }
-
-    // Mark test as automatically submitted
-    sessionStorage.setItem("listeningAutoSubmitted", "true");
-
-    // Go to final score page
-    window.location.href = "listening-final.html?autoSubmit=true";
-}
-
-function startTimer() {
-    if (timerStarted) return;
-
-    timerStarted = true;
-    localTimerRunning = true;
-
-    sessionStorage.setItem("listeningTimerStarted", "true");
-
-    if (audioStatus) {
-        audioStatus.textContent =
-            "Listening test in progress. Audio cannot be paused.";
-    }
-
-    runSharedTimer();
-}
-
-/*
- * Continue timer if it was already started
- */
-if (sessionStorage.getItem("listeningTimerStarted") === "true") {
-    timerStarted = true;
-    localTimerRunning = true;
-    runSharedTimer();
-}
-
-if (audio) {
-    audio.addEventListener("play", startTimer);
-
-    audio.addEventListener("pause", function () {
-        if (localTimerRunning && timeLeft > 0) {
-            audio.play();
-        }
-    });
-}
-
-if (timerStarted) {
-    updateTimer();
-} else if (timerElement) {
-    timerElement.textContent = "--:--";
-}
-
+/* Continue to Part 2 */
 const submitButton = document.getElementById("submitListeningBtn");
 
 if (submitButton) {
     submitButton.onclick = function () {
-        savePart1Answers();
 
-        console.log(
-            "PART 1 SAVED:",
-            sessionStorage.getItem("listeningPart1Answers")
+        savePart1Answers();
+        saveListeningAnswers();
+
+        parent.loadPart(
+            2,
+            parent.document.querySelectorAll(".section-jump-button")[1]
         );
 
-        window.location.href = "listening-test-2.html";
     };
 }
 
-/*
- * PREVENT AUDIO FORWARD/BACKWARD SEEKING
- */
-
-if (audio) {
-
-    let allowedAudioTime = 0;
-    let correctingAudio = false;
-
-    audio.addEventListener("timeupdate", function () {
-        if (!correctingAudio) {
-            allowedAudioTime = audio.currentTime;
-        }
-    });
-
-    audio.addEventListener("seeking", function () {
-
-        if (correctingAudio) return;
-
-        correctingAudio = true;
-        audio.currentTime = allowedAudioTime;
-
-        setTimeout(function () {
-            correctingAudio = false;
-        }, 50);
-    });
-
-    audio.addEventListener("loadedmetadata", function () {
-        allowedAudioTime = 0;
-        audio.currentTime = 0;
-    });
-
-    /* =================================
-    SAVE AUDIO POSITION
-    ================================= */
-
-    audio.addEventListener("timeupdate", function () {
-        sessionStorage.setItem(
-            "listeningAudioTime",
-            audio.currentTime
+/* Question progress */
+function updateQuestionProgress() {
+    for (let i = 1; i <= 10; i++) {
+        const input = document.querySelector(`[name="q${i}"]`);
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
         );
-    });
 
-    audio.addEventListener("play", function () {
-        sessionStorage.setItem(
-            "listeningAudioPlaying",
-            "true"
+        if (!input || !button) continue;
+
+        button.classList.toggle(
+            "answered",
+            input.value.trim() !== ""
         );
-    });
-
-    audio.addEventListener("ended", function () {
-        sessionStorage.removeItem("listeningAudioPlaying");
-        sessionStorage.removeItem("listeningAudioTime");
-    });
-
+    }
 }
 
-    function updateQuestionProgress() {
-        for (let i = 1; i <= 10; i++) {
-            const input = document.querySelector(`[name="q${i}"]`);
+document.querySelectorAll(
+    ".listening-answer, input[data-question]"
+).forEach(input => {
+    input.addEventListener("input", updateQuestionProgress);
+});
 
-            const button = document.querySelector(
-                `.question-progress-button[data-question="${i}"]`
-            );
+function goToQuestion(questionNumber) {
+    const input = document.querySelector(
+        `[name="q${questionNumber}"]`
+    );
 
-            if (!input || !button) continue;
+    if (input) {
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
 
-            if (input.value.trim() !== "") {
-                button.classList.add("answered");
-            } else {
-                button.classList.remove("answered");
-            }
-        }
+        input.focus();
     }
+}
 
-    document.querySelectorAll(
-        ".listening-answer, input[data-question]"
-    ).forEach(input => {
-        input.addEventListener("input", updateQuestionProgress);
-    });
-
-    function goToQuestion(questionNumber) {
-        const input = document.querySelector(
-            `[name="q${questionNumber}"]`
-        );
-
-        if (input) {
-            input.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-            input.focus();
-        }
-    }
-
-    updateQuestionProgress();
-
+updateQuestionProgress();
 </script>
 
 <script>
 /* =====================================================
-   SAVE AND RESTORE LISTENING ANSWERS
-   Keeps answers when switching between Parts 1–4
+   SAVE & RESTORE ANSWERS
 ===================================================== */
 
-/* Create a separate storage key for each Listening page */
-const answerStorageKey = "listeningAnswers_" + window.location.pathname;
+const answerStorageKey =
+    "listeningAnswers_" + window.location.pathname;
 
-/* Save all current answers */
 function saveListeningAnswers() {
     const answers = {};
 
@@ -564,19 +300,18 @@ function saveListeningAnswers() {
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
     ).forEach(function(input) {
 
-        /* Save text inputs */
+        if (!input.name) return;
+
         if (input.type === "text") {
             answers[input.name] = input.value;
         }
 
-        /* Save selected radio buttons */
         else if (input.type === "radio") {
             if (input.checked) {
                 answers[input.name] = input.value;
             }
         }
 
-        /* Save selected checkboxes */
         else if (input.type === "checkbox") {
             if (!answers[input.name]) {
                 answers[input.name] = [];
@@ -587,10 +322,10 @@ function saveListeningAnswers() {
             }
         }
 
-        /* Save dropdown selections */
         else if (input.tagName === "SELECT") {
             answers[input.name] = input.value;
         }
+
     });
 
     sessionStorage.setItem(
@@ -599,9 +334,10 @@ function saveListeningAnswers() {
     );
 }
 
-/* Restore saved answers */
 function restoreListeningAnswers() {
-    const savedAnswers = sessionStorage.getItem(answerStorageKey);
+
+    const savedAnswers =
+        sessionStorage.getItem(answerStorageKey);
 
     if (!savedAnswers) return;
 
@@ -611,98 +347,46 @@ function restoreListeningAnswers() {
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
     ).forEach(function(input) {
 
+        if (!input.name) return;
+
         const savedValue = answers[input.name];
 
         if (savedValue === undefined) return;
 
-        /* Restore text inputs */
         if (input.type === "text") {
             input.value = savedValue;
         }
 
-        /* Restore radio buttons */
         else if (input.type === "radio") {
-            input.checked = input.value === savedValue;
+            input.checked =
+                input.value === savedValue;
         }
 
-        /* Restore checkboxes */
         else if (input.type === "checkbox") {
             input.checked =
                 Array.isArray(savedValue) &&
                 savedValue.includes(input.value);
         }
 
-        /* Restore dropdowns */
         else if (input.tagName === "SELECT") {
             input.value = savedValue;
         }
+
     });
 
-    /* Refresh question progress boxes after restoring answers */
-    if (typeof updateQuestionProgress === "function") {
-        updateQuestionProgress();
-    }
-
-    if (typeof updateReadingQuestionProgress === "function") {
-        updateReadingQuestionProgress();
-    }
+    updateQuestionProgress();
 }
 
-/* Automatically save whenever an answer changes */
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
 ).forEach(function(input) {
+
     input.addEventListener("input", saveListeningAnswers);
     input.addEventListener("change", saveListeningAnswers);
+
 });
 
-/* Restore answers when page opens */
 restoreListeningAnswers();
-
-</script>
-
-<script>
-const customPlayButton = document.getElementById("playPauseBtn");
-const customAudioProgress = document.getElementById("audioProgress");
-const customAudioTime = document.getElementById("audioTime");
-
-if (audio && customPlayButton) {
-
-    let audioHasStarted = false;
-
-    customPlayButton.addEventListener("click", function () {
-
-        if (audioHasStarted) return;
-
-        audioHasStarted = true;
-
-        audio.play();
-
-        // Hide play button permanently
-        customPlayButton.style.display = "none";
-    });
-
-    audio.addEventListener("timeupdate", function () {
-
-        if (audio.duration) {
-            const percentage =
-                (audio.currentTime / audio.duration) * 100;
-
-            customAudioProgress.style.width = percentage + "%";
-        }
-
-        const minutes = Math.floor(audio.currentTime / 60);
-        const seconds = Math.floor(audio.currentTime % 60);
-
-        customAudioTime.textContent =
-            minutes + ":" + String(seconds).padStart(2, "0");
-    });
-
-    audio.addEventListener("ended", function () {
-        customAudioTime.textContent = "Finished";
-    });
-
-}
 </script>
 
 

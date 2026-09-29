@@ -278,6 +278,8 @@ let localTimerRunning = false;
 const timerElement = document.getElementById("timer");
 const audio = document.getElementById("listeningAudio");
 const audioStatus = document.getElementById("audioStatus");
+const audioTimeKey = "listeningTest2AudioTime";
+const audioPlayingKey = "listeningTest2AudioPlaying";
 
 function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
@@ -351,9 +353,16 @@ if (audio) {
     let correctingAudio = false;
 
     audio.addEventListener("timeupdate", function () {
+
         if (!correctingAudio) {
             allowedAudioTime = audio.currentTime;
         }
+
+        sessionStorage.setItem(
+            audioTimeKey,
+            audio.currentTime
+        );
+
     });
 
     audio.addEventListener("seeking", function () {
@@ -367,9 +376,15 @@ if (audio) {
         }, 50);
     });
 
-    audio.addEventListener("loadedmetadata", function () {
-        allowedAudioTime = 0;
-        audio.currentTime = 0;
+    aaudio.addEventListener("loadedmetadata", function () {
+
+        const savedTime = Number(
+            sessionStorage.getItem(audioTimeKey) || 0
+        );
+
+        allowedAudioTime = savedTime;
+        audio.currentTime = savedTime;
+
     });
 }
 
@@ -401,12 +416,15 @@ if (audio && customPlayButton) {
 
         audioHasStarted = true;
 
+        sessionStorage.setItem(audioPlayingKey, "true");
+
         audio.play();
 
         customPlayButton.textContent = "Playing...";
         customPlayButton.disabled = true;
-    });
 
+    });
+    
     audio.addEventListener("timeupdate", function () {
 
         if (audio.duration && customAudioProgress) {

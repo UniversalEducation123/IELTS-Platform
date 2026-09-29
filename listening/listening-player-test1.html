@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Listening Test 1</title>
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header class="main-header">
+
+  <div class="logo">IELTS Practice</div>
+
+  <div class="header-right">
+
+    <div class="header-timer">
+      <span>Time Remaining</span>
+      <strong id="timer">--:--</strong>
+    </div>
+
+    <a href="../student-dashboard.html">Dashboard</a>
+    <a href="../index.html">Logout</a>
+
+  </div>
+
+</header>
+
+
+<div class="listening-section-navigation">
+
+  <strong>Go to:</strong>
+
+  <button class="section-jump-button active-section"
+          onclick="loadPart(1,this)">
+    Part 1
+  </button>
+
+  <button class="section-jump-button"
+          onclick="loadPart(2,this)">
+    Part 2
+  </button>
+
+  <button class="section-jump-button"
+          onclick="loadPart(3,this)">
+    Part 3
+  </button>
+
+  <button class="section-jump-button"
+          onclick="loadPart(4,this)">
+    Part 4
+  </button>
+
+</div>
+
+
+<section class="listening-card audio-section">
+
+  <h2>Listening Audio</h2>
+
+  <div class="audio-player-container">
+
+    <p id="audioStatus" class="audio-status">
+      Press Play to begin the listening test
+    </p>
+
+    <div class="custom-audio-player">
+
+      <button id="playPauseBtn"
+              class="audio-play-btn">
+        ▶ Play
+      </button>
+
+      <div class="audio-progress-container">
+        <div id="audioProgress"
+             class="audio-progress">
+        </div>
+      </div>
+
+      <span id="audioTime"
+            class="audio-time">
+        0:00
+      </span>
+
+    </div>
+
+    <audio id="listeningAudio" preload="auto">
+      <source src="../assets/listening-test-1.mp3"
+              type="audio/mpeg">
+    </audio>
+
+  </div>
+
+</section>
+
+
+<iframe id="partFrame"
+        src="listening-test-1.html"
+        style="width:100%; border:none; overflow:hidden;"
+        scrolling="no">
+</iframe>
+
+
+<script>
+
+let timeLeft = 30 * 60;
+let timerStarted = false;
+let timerInterval;
+
+const audio = document.getElementById("listeningAudio");
+const timer = document.getElementById("timer");
+const playBtn = document.getElementById("playPauseBtn");
+const progress = document.getElementById("audioProgress");
+const audioTime = document.getElementById("audioTime");
+const frame = document.getElementById("partFrame");
+
+
+function updateTimer(){
+
+    const m = Math.floor(timeLeft/60);
+    const s = timeLeft%60;
+
+    timer.textContent =
+        String(m).padStart(2,"0")+":"+
+        String(s).padStart(2,"0");
+}
+
+
+function startTimer(){
+
+    if(timerStarted) return;
+
+    timerStarted = true;
+
+    updateTimer();
+
+    timerInterval = setInterval(()=>{
+
+        timeLeft--;
+
+        updateTimer();
+
+        if(timeLeft<=0){
+
+            clearInterval(timerInterval);
+
+            audio.pause();
+
+            window.location.href="listening-final.html";
+
+        }
+
+    },1000);
+
+}
+
+
+playBtn.onclick = ()=>{
+
+    if(timerStarted) return;
+
+    audio.play();
+
+    startTimer();
+
+    playBtn.disabled=true;
+    playBtn.textContent="Playing...";
+
+};
+
+
+audio.addEventListener("timeupdate",()=>{
+
+    if(audio.duration){
+
+        progress.style.width =
+            (audio.currentTime/audio.duration)*100+"%";
+
+    }
+
+    const m=Math.floor(audio.currentTime/60);
+    const s=Math.floor(audio.currentTime%60);
+
+    audioTime.textContent =
+        m+":"+String(s).padStart(2,"0");
+
+});
+
+
+function resizeFrame() {
+    try {
+        const doc = frame.contentWindow.document;
+        frame.style.height = doc.body.scrollHeight + "px";
+    } catch (e) {}
+}
+
+function loadPart(part, button) {
+
+    document
+      .querySelectorAll(".section-jump-button")
+      .forEach(btn => btn.classList.remove("active-section"));
+
+    button.classList.add("active-section");
+
+    frame.src = `listening-test-${part}.html`;
+}
+
+frame.addEventListener("load", function () {
+    resizeFrame();
+
+    // keep resizing in case images/fonts finish loading
+    setTimeout(resizeFrame, 100);
+    setTimeout(resizeFrame, 300);
+    setTimeout(resizeFrame, 600);
+});
+
+// initial resize
+window.addEventListener("load", resizeFrame);
+window.addEventListener("resize", resizeFrame);
+
+</script>
+
+</body>
+</html>

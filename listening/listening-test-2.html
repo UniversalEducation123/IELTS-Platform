@@ -13,52 +13,6 @@
 
     <script src="../js/exam-inputs.js"></script>
 
-    <div class="listening-section-navigation">
-        <strong>Go to:</strong>
-
-        <a href="listening-test-1.html"
-           class="section-jump-button">
-            Part 1
-        </a>
-
-        <a href="listening-test-2.html"
-           class="section-jump-button active-section">
-            Part 2
-        </a>
-
-        <a href="#"
-   class="section-jump-button"
-   onclick="savePart2Answers(); saveListeningAnswers(); window.location.href='listening-test-3.html'; return false;">
-    Part 3
-</a>
-
-        <a href="listening-test-4.html"
-           class="section-jump-button">
-            Part 4
-        </a>
-    </div>
-
-    <header class="main-header">
-        <div class="logo">IELTS Practice</div>
-
-        <div class="header-right">
-            <div class="header-timer">
-                <span>Time Remaining</span>
-                <strong id="timer">--:--</strong>
-            </div>
-
-            <a href="../student-dashboard.html">Dashboard</a>
-            <a href="../index.html">Logout</a>
-        </div>
-    </header>
-
-    <section class="listening-header">
-        <div>
-            <h1>Part 2</h1>
-            <p>Questions 11–20</p>
-        </div>
-    </section>
-       
        <main class="listening-container">
 
        <!-- QUESTIONS SECTION -->
@@ -406,80 +360,7 @@
 
     </main>
 
-    <audio id="listeningAudio" style="display:none" preload="auto">
-        <source src="../assets/listening-test-1.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-
-
- /* =================================
-   RESUME CONTINUOUS AUDIO
-================================= */
-
-const audio = document.getElementById("listeningAudio");
-
-const savedAudioTime = Number(
-    sessionStorage.getItem("listeningAudioTime") || 0
-);
-
-const shouldResume =
-    sessionStorage.getItem("listeningAudioPlaying") === "true";
-
-audio.addEventListener("loadedmetadata", function () {
-    audio.currentTime = savedAudioTime;
-
-    if (shouldResume) {
-        audio.play().catch(() => {});
-    }
-});
-
-audio.addEventListener("timeupdate", function () {
-    sessionStorage.setItem(
-        "listeningAudioTime",
-        audio.currentTime
-    );
-});
-
-audio.addEventListener("pause", function () {
-    if (!audio.ended) {
-        audio.play();
-    }
-});
-
-/*
- * SHARED LISTENING TIMER - PART 2
- */
-
-let savedTime = sessionStorage.getItem("listeningTimeLeft");
-
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
-
-let timerStarted =
-    sessionStorage.getItem("listeningTimerStarted") === "true";
-
-let timerInterval;
-
-const timerElement = document.getElementById("timer");
-
-
-/*
- * UPDATE TIMER DISPLAY
- */
-
-function updateTimer() {
-    if (!timerElement) return;
-
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    timerElement.textContent =
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-}
-
 
 /*
  * SAVE PART 2 ANSWERS
@@ -554,58 +435,6 @@ function savePart2Answers() {
 }
 
 console.log("PART 2 SAVE FUNCTION LOADED");
-
-
-/*
- * AUTOMATIC SUBMIT WHEN TIME ENDS
- */
-
-function autoSubmitListeningTest() {
-    savePart2Answers();
-
-    if (audio) {
-        audio.pause();
-    }
-
-    sessionStorage.setItem(
-        "listeningAutoSubmitted",
-        "true"
-    );
-
-    sessionStorage.removeItem("listeningTimeLeft");
-    sessionStorage.removeItem("listeningTimerStarted");
-
-    window.location.href =
-        "listening-final.html?autoSubmit=true";
-}
-
-
-/*
- * RUN SHARED TIMER
- */
-
-function runSharedTimer() {
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function() {
-        timeLeft--;
-
-        sessionStorage.setItem(
-            "listeningTimeLeft",
-            timeLeft
-        );
-
-        updateTimer();
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-
-            autoSubmitListeningTest();
-        }
-
-    }, 1000);
-}
 
 
 /*
@@ -704,18 +533,19 @@ mapInputs.forEach(function(input) {
 const submitButton = document.getElementById("submitPart2Btn");
 
 if (submitButton) {
+
     submitButton.onclick = function () {
 
         savePart2Answers();
         saveListeningAnswers();
 
-        console.log(
-            "PART 2 SAVED:",
-            sessionStorage.getItem("listeningPart2Answers")
+        parent.loadPart(
+            3,
+            parent.document.querySelectorAll(".section-jump-button")[2]
         );
 
-        window.location.href = "listening-test-3.html";
     };
+
 }
 
 
@@ -956,6 +786,8 @@ function restoreListeningAnswers() {
     document.querySelectorAll(
         'input[type="text"], input[type="radio"], input[type="checkbox"], select'
     ).forEach(function(input) {
+
+        if (!input.name) return;
 
         const savedValue = answers[input.name];
 

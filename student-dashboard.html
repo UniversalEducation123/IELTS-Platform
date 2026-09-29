@@ -40,7 +40,7 @@
 
 <!-- Listening Test 1 -->
     <a
-        href="test-access.html?test=listening-test-1"
+        href="listening/listening-player-test1.html"
         class="dashboard-card"
         onclick="startFreshListeningTest()">
         <div class="dashboard-icon">🎧</div>
@@ -161,6 +161,18 @@ function clearListeningProgress() {
     localStorage.removeItem("listeningPart2Answers");
     localStorage.removeItem("listeningPart3Answers");
     localStorage.removeItem("listeningPart4Answers");
+
+    // Test 1 player
+    sessionStorage.removeItem("listeningTest1AudioTime");
+    sessionStorage.removeItem("listeningTest1AudioPlaying");
+
+    // Test 2 player
+    sessionStorage.removeItem("listeningTest2AudioTime");
+    sessionStorage.removeItem("listeningTest2AudioPlaying");
+
+    // Test 3 player
+    sessionStorage.removeItem("listeningTest3AudioTime");
+    sessionStorage.removeItem("listeningTest3AudioPlaying");
 
     // Clear all saved Listening answer keys
     for (let i = sessionStorage.length - 1; i >= 0; i--) {

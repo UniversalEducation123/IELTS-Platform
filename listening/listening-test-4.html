@@ -11,51 +11,6 @@
 
     <script src="../js/exam-inputs.js"></script>
 
-    <div class="listening-section-navigation">
-        <strong>Go to:</strong>
-
-        <a href="listening-test-1.html"
-           class="section-jump-button">
-            Part 1
-        </a>
-
-        <a href="listening-test-2.html"
-           class="section-jump-button">
-            Part 2
-        </a>
-
-        <a href="listening-test-3.html"
-           class="section-jump-button">
-            Part 3
-        </a>
-
-        <a href="listening-test-4.html"
-           class="section-jump-button active-section">
-            Part 4
-        </a>
-    </div>
-
-    <header class="main-header">
-        <div class="logo">IELTS Practice</div>
-
-        <div class="header-right">
-            <div class="header-timer">
-                <span>Time Remaining</span>
-                <strong id="timer">--:--</strong>
-            </div>
-
-            <a href="../student-dashboard.html">Dashboard</a>
-            <a href="../index.html">Logout</a>
-        </div>
-    </header>
-
-    <section class="listening-header">
-        <div>
-            <h1>Part 4</h1>
-            <p>Questions 31–40</p>
-        </div>
-    </section>
-
 <main class="listening-container">
 
 
@@ -198,210 +153,52 @@
 
     
         <button
-    id="submitPart4Btn"
-    class="primary-btn submit-section-btn"
-    type="button">
-    Finish Listening Test
-</button>
-    
+            id="submitPart4Btn"
+            class="primary-btn submit-section-btn"
+            type="button">
+            Finish Listening Test
+        </button>
 
 </main>
 
-<audio id="listeningAudio" style="display:none" preload="auto">
-    <source src="../assets/listening-test-1.mp3" type="audio/mpeg">
-</audio>
-
 <script>
+/* ========= Parent audio ========= */
+const audio = parent.document.getElementById("listeningAudio");
 
-/* =================================
-   RESUME CONTINUOUS AUDIO
-================================= */
-
-const audio = document.getElementById("listeningAudio");
-
-const savedAudioTime = Number(
-    sessionStorage.getItem("listeningAudioTime") || 0
-);
-
-const shouldResume =
-    sessionStorage.getItem("listeningAudioPlaying") === "true";
-
-audio.addEventListener("loadedmetadata", function () {
-
-    audio.currentTime = savedAudioTime;
-
-    if (shouldResume) {
-        audio.play().catch(() => {});
-    }
-
-});
-
-audio.addEventListener("timeupdate", function () {
-    sessionStorage.setItem(
-        "listeningAudioTime",
-        audio.currentTime
-    );
-});
-
-audio.addEventListener("pause", function () {
-    if (!audio.ended) {
-        audio.play();
-    }
-});
-
-/*
- * SHARED LISTENING TIMER
- */
-
-let savedTime = sessionStorage.getItem("listeningTimeLeft");
-
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
-
-let timerStarted =
-    sessionStorage.getItem("listeningTimerStarted") === "true";
-
-let timerInterval;
-
-const timerElement = document.getElementById("timer");
-
-function updateTimer() {
-    if (!timerElement) return;
-
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    timerElement.textContent =
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-}
-
-
-/*
- * SAVE PART 4 ANSWERS
- */
-
+/* SAVE PART 4 ANSWERS */
 function savePart4Answers() {
     const answers = {};
 
     for (let i = 31; i <= 40; i++) {
-        let input = document.querySelector(`[name="q${i}"]`);
-
-        if (!input) {
-            input = document.getElementById(`q${i}`);
-        }
-
-        if (input) {
-            answers[`q${i}`] = input.value.trim();
-        }
+        const input = document.querySelector(`[name="q${i}"]`);
+        answers[`q${i}`] = input ? input.value.trim() : "";
     }
 
     sessionStorage.setItem(
         "listeningPart4Answers",
         JSON.stringify(answers)
     );
-
-    console.log(
-        "PART 4 SAVED:",
-        sessionStorage.getItem("listeningPart4Answers")
-    );
 }
 
-
-/*
- * AUTO SUBMIT WHEN TIMER ENDS
- */
-
-function autoSubmitListeningTest() {
-    savePart4Answers();
-
-    if (audio) {
-        audio.pause();
-    }
-
-    sessionStorage.setItem(
-        "listeningAutoSubmitted",
-        "true"
-    );
-
-    sessionStorage.removeItem("listeningTimeLeft");
-    sessionStorage.removeItem("listeningTimerStarted");
-
-    window.location.href =
-        "listening-final.html?autoSubmit=true";
-}
-
-
-/*
- * SHARED TIMER
- */
-
-function runSharedTimer() {
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function () {
-        timeLeft--;
-
-        sessionStorage.setItem(
-            "listeningTimeLeft",
-            timeLeft
-        );
-
-        updateTimer();
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-
-            autoSubmitListeningTest();
-        }
-    }, 1000);
-}
-
-if (timerStarted) {
-    updateTimer();
-    runSharedTimer();
-} else {
-    if (timerElement) {
-        timerElement.textContent = "--:--";
-    }
-}
-
-
-/*
- * SAVE PART 4 ANSWERS AND FINISH TEST
- */
-
-const submitButton = document.getElementById(
-    "submitPart4Btn"
-);
+/* Finish Listening Test */
+const submitButton = document.getElementById("submitPart4Btn");
 
 if (submitButton) {
-    submitButton.addEventListener("click", function () {
+    submitButton.onclick = function () {
+
         savePart4Answers();
+        saveListeningAnswers();
 
-        console.log(
-            "PART 4 FINAL SAVED DATA:",
-            sessionStorage.getItem("listeningPart4Answers")
-        );
-
-        window.location.href =
-            "listening-final.html";
-    });
+        parent.window.location.href = "listening-final.html";
+    };
 }
 
-
-/*
- * QUESTION PROGRESS
- */
-
+/* QUESTION PROGRESS */
 function updateQuestionProgress() {
-    for (let i = 31; i <= 40; i++) {
-        const input = document.querySelector(
-            `[name="q${i}"]`
-        );
 
+    for (let i = 31; i <= 40; i++) {
+
+        const input = document.querySelector(`[name="q${i}"]`);
         const button = document.querySelector(
             `.question-progress-button[data-question="${i}"]`
         );
@@ -415,39 +212,26 @@ function updateQuestionProgress() {
     }
 }
 
-document.querySelectorAll(
-    'input[type="text"]'
-).forEach(function (input) {
-    input.addEventListener(
-        "input",
-        updateQuestionProgress
-    );
-
-    input.addEventListener(
-        "change",
-        updateQuestionProgress
-    );
+document.querySelectorAll('input[type="text"]').forEach(input => {
+    input.addEventListener("input", updateQuestionProgress);
+    input.addEventListener("change", updateQuestionProgress);
 });
 
 function goToQuestion(questionNumber) {
-    const input = document.querySelector(
-        `[name="q${questionNumber}"]`
-    );
+
+    const input = document.querySelector(`[name="q${questionNumber}"]`);
 
     if (input) {
         input.scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
-
         input.focus();
     }
 }
 
 updateQuestionProgress();
-
 </script>
-
 
 <script>
 
