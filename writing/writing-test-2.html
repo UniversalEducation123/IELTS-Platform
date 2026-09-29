@@ -738,14 +738,10 @@ function saveBeforeBack() {
         .single();
 
     if (error) {
-
-        console.error(
-            "Writing submission error:",
-            error
-        );
+        console.error("Writing submission error:", error);
 
         alert(
-            "There was a problem saving your test. Please try again."
+            `Error: ${error.message}\n\nDetails: ${error.details || "None"}`
         );
 
         return;
