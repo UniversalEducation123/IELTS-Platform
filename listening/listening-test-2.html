@@ -535,7 +535,6 @@ const submitButton = document.getElementById("submitPart2Btn");
 if (submitButton) {
 
     submitButton.onclick = function () {
-
         savePart2Answers();
         saveListeningAnswers();
 
@@ -544,6 +543,7 @@ if (submitButton) {
             parent.document.querySelectorAll(".section-jump-button")[2]
         );
 
+        return false;
     };
 
 }
@@ -839,7 +839,10 @@ document.querySelectorAll(
 });
 
 
-restoreListeningAnswers();
+window.addEventListener("load", function () {
+    restoreListeningAnswers();
+    updateQuestionProgress();
+});
 
 </script>
 

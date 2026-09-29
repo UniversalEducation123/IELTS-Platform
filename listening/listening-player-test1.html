@@ -191,7 +191,15 @@ audio.addEventListener("timeupdate",()=>{
 function resizeFrame() {
     try {
         const doc = frame.contentWindow.document;
-        frame.style.height = doc.body.scrollHeight + "px";
+
+        const height = Math.max(
+            doc.body.scrollHeight,
+            doc.documentElement.scrollHeight,
+            doc.body.offsetHeight,
+            doc.documentElement.offsetHeight
+        );
+
+        frame.style.height = (height + 40) + "px";
     } catch (e) {}
 }
 

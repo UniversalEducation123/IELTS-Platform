@@ -496,22 +496,20 @@ document.querySelectorAll('input[type="text"]').forEach(input=>{
 
 /* Continue to Part 4 */
 
-const submitButton = document.getElementById("submitPart3Btn");
+const submitButton = document.getElementById("submitPart2Btn");
 
-if(submitButton){
+if (submitButton) {
+    submitButton.onclick = function () {
 
-    submitButton.onclick = function(){
-
-        savePart3Answers();
+        savePart2Answers();
         saveListeningAnswers();
 
         parent.loadPart(
-            4,
-            parent.document.querySelectorAll(".section-jump-button")[3]
+            3,
+            parent.document.querySelectorAll(".section-jump-button")[2]
         );
 
     };
-
 }
 
 /* Question progress */
