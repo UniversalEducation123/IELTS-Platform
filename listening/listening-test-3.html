@@ -401,7 +401,8 @@
     <button
         id="submitPart3Btn"
         class="primary-btn submit-section-btn"
-        type="button">
+        type="button"
+        onclick="goToPart4()">
         Continue to Part 4
     </button>
 
@@ -449,6 +450,18 @@ function savePart3Answers() {
     );
 }
 
+function goToPart4() {
+
+    savePart3Answers();
+    saveListeningAnswers();
+
+    parent.loadPart(
+        4,
+        parent.document.querySelectorAll(".section-jump-button")[3]
+    );
+
+}
+
 /* Limit checkbox groups to TWO answers */
 
 const checkboxGroups = ["q21_22","q23_24","q25_26"];
@@ -494,24 +507,6 @@ document.querySelectorAll('input[type="text"]').forEach(input=>{
 
 });
 
-/* Continue to Part 4 */
-
-const submitButton = document.getElementById("submitPart3Btn");
-
-if (submitButton) {
-
-    submitButton.onclick = function () {
-
-        savePart3Answers();
-        saveListeningAnswers();
-
-        parent.loadPart(
-            4,
-            parent.document.querySelectorAll(".section-jump-button")[3]
-        );
-    };
-
-}
 
 /* Question progress */
 
