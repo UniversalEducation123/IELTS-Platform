@@ -695,16 +695,14 @@ function saveBeforeBack() {
 
     console.log("Student ID:", studentId);
 
-    const pdfPath = `${studentId}-writing-test-1.pdf`;
+    const pdfPath = `${studentId}-writing-test-1-${Date.now()}.pdf`;
 
     console.log("PDF Path:", pdfPath);
 
     const { error: uploadError } = await supabaseClient
         .storage
         .from("writing-pdfs")
-        .upload(pdfPath, pdfFile, {
-            upsert: true
-        });
+        .upload(pdfPath, pdfFile);
 
     if (uploadError) {
         console.error(uploadError);
