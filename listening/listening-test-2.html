@@ -448,17 +448,15 @@ q11_12.forEach(function(checkbox) {
     checkbox.addEventListener("change", function() {
 
         const selected = document.querySelectorAll(
-            'input[name="q11_12"]:checked'
+            `input[name="${checkbox.name}"]:checked`
         );
 
         if (selected.length > 2) {
             checkbox.checked = false;
-
-            alert(
-                "Please choose exactly TWO answers for Questions 11–12."
-            );
+            alert("Please choose exactly TWO answers.");
         }
 
+        saveListeningAnswers();
         updateQuestionProgress();
     });
 });
@@ -476,17 +474,15 @@ q13_14.forEach(function(checkbox) {
     checkbox.addEventListener("change", function() {
 
         const selected = document.querySelectorAll(
-            'input[name="q13_14"]:checked'
+            `input[name="${checkbox.name}"]:checked`
         );
 
         if (selected.length > 2) {
             checkbox.checked = false;
-
-            alert(
-                "Please choose exactly TWO answers for Questions 13–14."
-            );
+            alert("Please choose exactly TWO answers.");
         }
 
+        saveListeningAnswers();
         updateQuestionProgress();
     });
 });
@@ -507,6 +503,9 @@ mapInputs.forEach(function(input) {
             .toUpperCase()
             .replace(/[^A-I]/g, "")
             .slice(0, 1);
+
+        saveListeningAnswers();
+        updateQuestionProgress();
 
     });
 });
