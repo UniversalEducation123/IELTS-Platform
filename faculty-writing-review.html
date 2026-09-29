@@ -188,6 +188,28 @@ header h1{
     color:#7A7E74;
 }
 
+.student-info-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.download-original-btn{
+    padding:12px 18px;
+    background:#8B9A6E;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.download-original-btn:hover{
+    background:#78875D;
+}
+
 @media (max-width:700px){
 
     .review-grid{
@@ -210,6 +232,14 @@ header h1{
     .answer-card,
     .review-card{
         padding:20px;
+    }
+
+    .student-info-header{
+        flex-direction:column;
+    }
+
+    .download-original-btn{
+        width:100%;
     }
 
 }   
@@ -256,6 +286,13 @@ header h1{
             </p>
         </div>
 
+         <button
+            id="downloadOriginalBtn"
+            class="download-original-btn"
+            type="button"
+            onclick="downloadOriginalPDF()">
+            Download Original PDF
+        </button>
 
         <!-- TASK 1 -->
 
@@ -268,17 +305,6 @@ header h1{
             </div>
 
             <h3>Student's Answer</h3>
-
-            <row justify=end>
-            <button
-                id="downloadOriginalBtn"
-                class="secondary-btn"
-                type="button"
-                onclick="downloadOriginalPDF()"
-            >
-                Download Original PDF
-            </button>
-            </row>
 
             <div id="task1Answer" class="answer-box"></div>
 
