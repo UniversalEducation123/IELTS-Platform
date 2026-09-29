@@ -648,10 +648,10 @@ function saveBeforeBack() {
     );
 }
     /* =================================
-       FINISH TEST
-    ================================= */
+   FINISH TEST
+================================= */
 
-    async function finishWritingTest() {
+async function finishWritingTest() {
 
     sessionStorage.setItem(
         "writingTest1Task2Answer",
@@ -695,7 +695,8 @@ function saveBeforeBack() {
 
     console.log("Student ID:", studentId);
 
-    const pdfPath = `${studentId}-writing-test-1-${Date.now()}.pdf`;
+    const pdfPath =
+        `${studentId}-writing-test-1-${Date.now()}.pdf`;
 
     console.log("PDF Path:", pdfPath);
 
@@ -705,10 +706,12 @@ function saveBeforeBack() {
         .upload(pdfPath, pdfFile);
 
     if (uploadError) {
-        console.error(uploadError);
+        console.error("Upload error:", uploadError);
         alert(uploadError.message);
         return;
     }
+
+    console.log("PDF uploaded successfully");
 
     if (!studentId) {
         alert(
@@ -717,11 +720,13 @@ function saveBeforeBack() {
         return;
     }
 
+    /* ---------- Save to Database ---------- */
+
     const { data, error } = await supabaseClient
         .from("writing_submissions")
         .upsert([
             {
-                student_id: studentId,
+                student_id: String(studentId),
                 student_name: studentName,
                 test_id: "writing-test-1",
                 task1_answer: task1Answer,
@@ -732,16 +737,15 @@ function saveBeforeBack() {
         ], {
             onConflict: "student_id,test_id"
         })
-        .select()
-        .single();
+        .select();
+
+    console.log("Insert result:", data);
+    console.log("Insert error:", error);
 
     if (error) {
-        console.error("Writing submission error:", error);
-
         alert(
             `Error: ${error.message}\n\nDetails: ${error.details || "None"}`
         );
-
         return;
     }
 
