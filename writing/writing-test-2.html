@@ -681,74 +681,82 @@ async function finishWritingTest() {
 
     /* ---------- Generate PDF ---------- */
 
-    const pdf = await generateWritingPDF();
+const pdf = await generateWritingPDF();
 
-    const pdfBlob = pdf.output("blob");
+const pdfBlob = pdf.output("blob");
 
-    const pdfFile = new File(
-        [pdfBlob],
-        `${studentId}_writing-test-1.pdf`,
-        { type: "application/pdf" }
+/* ---------- Student filename ---------- */
+
+const safeName = studentName
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .trim()
+    .replace(/\s+/g, "_");
+
+const fileName = `${safeName}_Writing_Test_1.pdf`;
+
+const pdfFile = new File(
+    [pdfBlob],
+    fileName,
+    { type: "application/pdf" }
+);
+
+/* ---------- Upload PDF ---------- */
+
+const pdfPath = `${studentId}/${fileName}`;
+
+console.log("Student ID:", studentId);
+console.log("PDF Path:", pdfPath);
+
+const { error: uploadError } = await supabaseClient
+    .storage
+    .from("writing-pdfs")
+    .upload(pdfPath, pdfFile, {
+        upsert: true
+    });
+
+if (uploadError) {
+    console.error("Upload error:", uploadError);
+    alert(uploadError.message);
+    return;
+}
+
+console.log("PDF uploaded successfully");
+
+if (!studentId) {
+    alert(
+        "Student information was not found. Please log in again."
     );
+    return;
+}
 
-    /* ---------- Upload PDF ---------- */
+/* ---------- Save to Database ---------- */
 
-    console.log("Student ID:", studentId);
+const { error } = await supabaseClient
+    .from("writing_submissions")
+    .upsert([
+        {
+            student_id: String(studentId),
+            student_name: studentName,
+            test_id: "writing-test-1",
+            task1_answer: task1Answer,
+            task2_answer: task2Answer,
+            original_pdf: pdfPath,
+            status: "submitted",
+            submitted_at: new Date().toISOString()
+        }
+    ], {
+        onConflict: "student_id,test_id"
+    });
 
-    const pdfPath =
-        `${studentId}-writing-test-1-${Date.now()}.pdf`;
+if (error) {
+    console.error(error);
+    alert(error.message);
+    return;
+}
 
-    console.log("PDF Path:", pdfPath);
+clearInterval(timerInterval);
 
-    const { error: uploadError } = await supabaseClient
-        .storage
-        .from("writing-pdfs")
-        .upload(pdfPath, pdfFile);
-
-    if (uploadError) {
-        console.error("Upload error:", uploadError);
-        alert(uploadError.message);
-        return;
-    }
-
-    console.log("PDF uploaded successfully");
-
-    if (!studentId) {
-        alert(
-            "Student information was not found. Please log in again."
-        );
-        return;
-    }
-
-    /* ---------- Save to Database ---------- */
-
-    const { error } = await supabaseClient
-        .from("writing_submissions")
-        .upsert([
-            {
-                student_id: String(studentId),
-                student_name: studentName,
-                test_id: "writing-test-1",
-                task1_answer: task1Answer,
-                task2_answer: task2Answer,
-                original_pdf: pdfPath,
-                status: "submitted",
-                submitted_at: new Date().toISOString()
-            }
-        ], {
-            onConflict: "student_id,test_id"
-        });
-
-    if (error) {
-        console.error(error);
-        alert(error.message);
-        return;
-    }
-
-    clearInterval(timerInterval);
-
-    window.location.href =
-        "writing-final.html";
+window.location.href = "writing-final.html";
 }
 </script>
 ```

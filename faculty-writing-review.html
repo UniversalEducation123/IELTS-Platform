@@ -560,18 +560,19 @@ async function downloadOriginalPDF() {
     const { data, error } = await supabaseClient
         .storage
         .from("writing-pdfs")
-        .createSignedUrl(
-            currentSubmission.original_pdf,
-            300
-        );
+        .createSignedUrl(originalPdfPath, 300);
 
     if (error) {
-        alert("PDF not found.");
+        alert("Unable to download the PDF.");
         return;
     }
 
-    window.open(data.signedUrl, "_blank");
-
+    const a = document.createElement("a");
+    a.href = data.signedUrl;
+    a.download = originalPdfPath.split("/").pop();
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 }
 
 async function saveReview() {
