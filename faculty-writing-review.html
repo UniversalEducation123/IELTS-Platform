@@ -609,8 +609,13 @@ async function saveReview() {
 
     if (checkedPdf) {
 
+        const safeName = currentSubmission.student_name
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .trim()
+            .replace(/\s+/g, "_");
+
         checkedPdfPath =
-            `${currentSubmission.student_id}/writing-test-1-reviewed.pdf`;
+            `${currentSubmission.student_id}/${safeName}_Writing_Test_1_Reviewed.pdf`;
 
         const { error: uploadError } = await supabaseClient
             .storage
@@ -620,10 +625,8 @@ async function saveReview() {
             });
 
         if (uploadError) {
-
-            message.textContent =
-                "PDF upload failed.";
-
+            console.error(uploadError);     // keep this
+            message.textContent = uploadError.message;
             return;
         }
     }
