@@ -240,6 +240,22 @@ header h1{
     background:#78875D;
 }
 
+.view-pdf-button{
+    margin-top:14px;
+    width:100%;
+    padding:12px;
+    background:#8B9A6E;
+    color:#fff;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.view-pdf-button:hover{
+    background:#78875D;
+}
+
 @media (max-width:700px){
 
     header{
@@ -983,7 +999,7 @@ async function viewCheckedPDF(pdfPath) {
 
     const { data, error } = await supabaseClient
         .storage
-        .from("writing-pdfs")
+        .from("checked-writing-pdfs")
         .createSignedUrl(pdfPath, 300);
 
     if (error) {
@@ -993,7 +1009,6 @@ async function viewCheckedPDF(pdfPath) {
     }
 
     window.open(data.signedUrl, "_blank");
-
 }
 
 loadSubmittedTests();
