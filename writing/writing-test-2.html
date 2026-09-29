@@ -722,7 +722,7 @@ async function finishWritingTest() {
 
     /* ---------- Save to Database ---------- */
 
-    const { data, error } = await supabaseClient
+    const { error } = await supabaseClient
         .from("writing_submissions")
         .upsert([
             {
@@ -732,20 +732,16 @@ async function finishWritingTest() {
                 task1_answer: task1Answer,
                 task2_answer: task2Answer,
                 original_pdf: pdfPath,
-                status: "submitted"
+                status: "submitted",
+                submitted_at: new Date().toISOString()
             }
         ], {
             onConflict: "student_id,test_id"
-        })
-        .select();
-
-    console.log("Insert result:", data);
-    console.log("Insert error:", error);
+        });
 
     if (error) {
-        alert(
-            `Error: ${error.message}\n\nDetails: ${error.details || "None"}`
-        );
+        console.error(error);
+        alert(error.message);
         return;
     }
 

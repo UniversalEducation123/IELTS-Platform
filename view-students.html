@@ -99,8 +99,12 @@ let allWritingSubmissions = [];
 let selectedTest = "Test 1";
 
 
-// Load students and test results
+// =================================
+// LOAD STUDENTS + RESULTS
+// =================================
+
 async function loadStudentsAndResults() {
+
     const loadingMessage = document.getElementById("loadingMessage");
     const studentList = document.getElementById("studentList");
 
@@ -123,8 +127,7 @@ async function loadStudentsAndResults() {
         await supabaseClient
             .from("test_results")
             .select("*")
-            .eq("is_submitted", true)
-            .order("id", { ascending: true });
+            .eq("is_submitted", true);
 
     if (resultsError) {
         loadingMessage.textContent =
@@ -135,8 +138,7 @@ async function loadStudentsAndResults() {
     const { data: writingSubmissions, error: writingError } =
         await supabaseClient
             .from("writing_submissions")
-            .select("*")
-            .order("submitted_at", { ascending: false });
+            .select("*");
 
     if (writingError) {
         loadingMessage.textContent =
@@ -144,10 +146,9 @@ async function loadStudentsAndResults() {
         return;
     }
 
-allWritingSubmissions = writingSubmissions || [];
-
     allStudents = students || [];
     allResults = results || [];
+    allWritingSubmissions = writingSubmissions || [];
 
     loadingMessage.style.display = "none";
 
@@ -155,40 +156,91 @@ allWritingSubmissions = writingSubmissions || [];
 }
 
 
-// Show results according to selected test
+// =================================
+// SHOW RESULTS FOR ONE TEST
+// =================================
+
 function showTestResults(testName, clickedButton = null) {
 
     selectedTest = testName;
-
-    /* =================================
-       UPDATE ACTIVE FILTER BUTTON
-    ================================= */
 
     document.querySelectorAll(".test-filter-button").forEach(button => {
         button.classList.remove("active");
     });
 
     if (clickedButton) {
-
         clickedButton.classList.add("active");
-
-    } else {
-
-        const firstButton = document.querySelector(
-            `.test-filter-button[onclick*="'${testName}'"]`
-        );
-
-        if (firstButton) {
-            firstButton.classList.add("active");
-        }
-
     }
 
+    const studentList = document.getElementById("studentList");
+    studentList.innerHTML = "";
 
-    const studentList =
-        document.getElementById("studentList");
+    allStudents.forEach(student => {
+
+        const studentResults = allResults.filter(result =>
+            String(result.student_id) === String(student.id) &&
+            result.test_name === testName
+        );
+
+        const writingSubmission = allWritingSubmissions.find(submission =>
+            String(submission.student_id) === String(student.id) &&
+            submission.test_id === `writing-${testName.toLowerCase().replace(/\s+/g, "-")}`
+        );
+
+        studentList.innerHTML += `
+            <div class="student-card">
+
+                <div class="student-header">
+                    <h3>${student.name}</h3>
+                    <span>ID: ${student.id}</span>
+                </div>
+
+                <div class="student-actions">
+
+                    <button onclick="viewListening('${student.id}','${testName}')">
+                        Listening
+                    </button>
+
+                    <button onclick="viewReading('${student.id}','${testName}')">
+                        Reading
+                    </button>
+
+                    ${
+                        writingSubmission
+                        ? `
+                        <button
+                            class="review-button"
+                            onclick="reviewWriting('${writingSubmission.id}')">
+                            Review Writing
+                        </button>
+                        `
+                        : `
+                        <button
+                            class="review-button"
+                            disabled>
+                            No Writing
+                        </button>
+                        `
+                    }
+
+                </div>
+
+            </div>
+        `;
+    });
+}
 
 
+// =================================
+// OPEN WRITING REVIEW
+// =================================
+
+function reviewWriting(submissionId) {
+
+    window.location.href =
+        `review-writing.html?submission=${submissionId}`;
+
+}
     /* =================================
        FILTER RESULTS
     ================================= */
