@@ -693,7 +693,7 @@ function saveBeforeBack() {
 
     /* ---------- Upload PDF ---------- */
 
-    const pdfPath = "test.pdf";
+    const pdfPath = `${studentId}-writing-test-1.pdf`;
 
     const { error: uploadError } = await supabaseClient
         .storage
