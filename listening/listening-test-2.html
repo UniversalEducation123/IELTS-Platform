@@ -61,54 +61,6 @@
        
        <main class="listening-container">
 
-    <!-- AUDIO SECTION -->
-
-    <section class="listening-card audio-section">
-
-            <h2>Listening Audio</h2>
-
-            <div class="audio-player-container">
-
-                <p class="audio-status">
-                    Listen carefully and answer Questions 11–20.
-                    The audio can only be played once.
-                </p>
-
-                <div class="custom-audio-player">
-
-    <button
-        type="button"
-        id="playPauseBtn"
-        class="audio-play-btn">
-        ▶ Play
-    </button>
-
-    <div class="audio-progress-container">
-        <div
-            id="audioProgress"
-            class="audio-progress">
-        </div>
-    </div>
-
-    <span
-        id="audioTime"
-        class="audio-time">
-        0:00
-    </span>
-
-</div>
-
-<audio id="listeningAudio" preload="auto">
-    <source
-        src="../assets/listening-section-2.mp3"
-        type="audio/mpeg"
-    >
-</audio>
-
-</div>
-
-</section>
-
        <!-- QUESTIONS SECTION -->
 
 <section class="listening-card question-section">
@@ -472,7 +424,6 @@ let timerStarted =
 let timerInterval;
 
 const timerElement = document.getElementById("timer");
-const audio = document.getElementById("listeningAudio");
 
 
 /*
@@ -1018,115 +969,6 @@ document.querySelectorAll(
 
 
 restoreListeningAnswers();
-
-</script>
-
-
-<script>
-/*
- * PART 2 CUSTOM AUDIO PLAYER
- */
-
-const part2PlayButton =
-    document.getElementById("playPauseBtn");
-
-const part2AudioProgress =
-    document.getElementById("audioProgress");
-
-const part2AudioTime =
-    document.getElementById("audioTime");
-
-if (audio && part2PlayButton) {
-
-    let part2AudioHasStarted = false;
-    let part2AllowedAudioTime = 0;
-    let part2CorrectingAudio = false;
-
-    part2PlayButton.addEventListener("click", function() {
-
-        if (part2AudioHasStarted) return;
-
-        part2AudioHasStarted = true;
-
-        audio.play();
-
-        part2PlayButton.style.display = "none";
-    });
-
-
-    audio.addEventListener("timeupdate", function() {
-
-        if (!part2CorrectingAudio) {
-            part2AllowedAudioTime = audio.currentTime;
-        }
-
-        if (
-            audio.duration &&
-            part2AudioProgress
-        ) {
-            const percentage =
-                (audio.currentTime / audio.duration) * 100;
-
-            part2AudioProgress.style.width =
-                percentage + "%";
-        }
-
-        if (part2AudioTime) {
-
-            const minutes =
-                Math.floor(audio.currentTime / 60);
-
-            const seconds =
-                Math.floor(audio.currentTime % 60);
-
-            part2AudioTime.textContent =
-                minutes + ":" +
-                String(seconds).padStart(2, "0");
-        }
-
-    });
-
-
-    audio.addEventListener("seeking", function() {
-
-        if (part2CorrectingAudio) return;
-
-        part2CorrectingAudio = true;
-
-        audio.currentTime =
-            part2AllowedAudioTime;
-
-        setTimeout(function() {
-            part2CorrectingAudio = false;
-        }, 50);
-
-    });
-
-
-    audio.addEventListener("pause", function() {
-
-        if (
-            part2AudioHasStarted &&
-            !audio.ended &&
-            sessionStorage.getItem(
-                "listeningAutoSubmitted"
-            ) !== "true"
-        ) {
-            audio.play();
-        }
-
-    });
-
-
-    audio.addEventListener("ended", function() {
-
-        if (part2AudioTime) {
-            part2AudioTime.textContent = "Finished";
-        }
-
-    });
-
-}
 
 </script>
 
