@@ -436,21 +436,6 @@ function savePart2Answers() {
 
 console.log("PART 2 SAVE FUNCTION LOADED");
 
-
-/*
- * CONTINUE TIMER FROM PART 1
- */
-
-if (timerStarted) {
-    updateTimer();
-    runSharedTimer();
-} else {
-    if (timerElement) {
-        timerElement.textContent = "--:--";
-    }
-}
-
-
 /*
  * LIMIT QUESTIONS 11–12 TO TWO OPTIONS
  */
@@ -532,21 +517,17 @@ mapInputs.forEach(function(input) {
  */
 const submitButton = document.getElementById("submitPart2Btn");
 
-if (submitButton) {
+submitButton.addEventListener("click", function () {
 
-    submitButton.onclick = function () {
-        savePart2Answers();
-        saveListeningAnswers();
+    savePart2Answers();
+    saveListeningAnswers();
 
-        parent.loadPart(
-            3,
-            parent.document.querySelectorAll(".section-jump-button")[2]
-        );
+    parent.loadPart(
+        3,
+        parent.document.querySelectorAll(".section-jump-button")[2]
+    );
 
-        return false;
-    };
-
-}
+});
 
 
 /*
@@ -839,10 +820,8 @@ document.querySelectorAll(
 });
 
 
-window.addEventListener("load", function () {
-    restoreListeningAnswers();
-    updateQuestionProgress();
-});
+restoreListeningAnswers();
+updateQuestionProgress();
 
 </script>
 
