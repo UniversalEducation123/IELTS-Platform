@@ -900,6 +900,19 @@ Object.values(groupedTests).forEach(result => {
 
                     </div>
 
+                    ${
+                        submission.status === "reviewed" &&
+                        submission.checked_pdf
+                            ? `
+                            <button
+                                class="view-pdf-button"
+                                onclick="viewCheckedPDF('${submission.checked_pdf}')">
+                                View Checked PDF
+                            </button>
+                            `
+                            : ""
+                    }
+
                 </div>
 
             `;
@@ -966,6 +979,22 @@ function escapeHTML(value) {
 
 }
 
+async function viewCheckedPDF(pdfPath) {
+
+    const { data, error } = await supabaseClient
+        .storage
+        .from("writing-pdfs")
+        .createSignedUrl(pdfPath, 300);
+
+    if (error) {
+        console.error(error);
+        alert("Unable to open the checked PDF.");
+        return;
+    }
+
+    window.open(data.signedUrl, "_blank");
+
+}
 
 loadSubmittedTests();
 
