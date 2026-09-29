@@ -455,8 +455,48 @@
 
 </main>
 
+<audio id="listeningAudio" style="display:none" preload="auto">
+    <source src="../assets/listening-test-1.mp3" type="audio/mpeg">
+</audio>
 
 <script>
+
+    /* =================================
+   RESUME CONTINUOUS AUDIO
+================================= */
+
+const audio = document.getElementById("listeningAudio");
+
+const savedAudioTime = Number(
+    sessionStorage.getItem("listeningAudioTime") || 0
+);
+
+const shouldResume =
+    sessionStorage.getItem("listeningAudioPlaying") === "true";
+
+audio.addEventListener("loadedmetadata", function () {
+
+    audio.currentTime = savedAudioTime;
+
+    if (shouldResume) {
+        audio.play().catch(() => {});
+    }
+
+});
+
+audio.addEventListener("timeupdate", function () {
+    sessionStorage.setItem(
+        "listeningAudioTime",
+        audio.currentTime
+    );
+});
+
+audio.addEventListener("pause", function () {
+    if (!audio.ended) {
+        audio.play();
+    }
+});
+
 /*
  * SHARED LISTENING TIMER - PART 3
  */

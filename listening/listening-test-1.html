@@ -479,6 +479,29 @@ if (audio) {
         audio.currentTime = 0;
     });
 
+    /* =================================
+    SAVE AUDIO POSITION
+    ================================= */
+
+    audio.addEventListener("timeupdate", function () {
+        sessionStorage.setItem(
+            "listeningAudioTime",
+            audio.currentTime
+        );
+    });
+
+    audio.addEventListener("play", function () {
+        sessionStorage.setItem(
+            "listeningAudioPlaying",
+            "true"
+        );
+    });
+
+    audio.addEventListener("ended", function () {
+        sessionStorage.removeItem("listeningAudioPlaying");
+        sessionStorage.removeItem("listeningAudioTime");
+    });
+
 }
 
     function updateQuestionProgress() {
