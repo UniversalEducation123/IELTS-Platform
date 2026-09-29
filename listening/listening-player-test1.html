@@ -192,14 +192,18 @@ function resizeFrame() {
     try {
         const doc = frame.contentWindow.document;
 
-        const height = Math.max(
-            doc.body.scrollHeight,
-            doc.documentElement.scrollHeight,
-            doc.body.offsetHeight,
-            doc.documentElement.offsetHeight
-        );
+        // Reset first so it can shrink
+        frame.style.height = "0px";
 
-        frame.style.height = (height + 40) + "px";
+        requestAnimationFrame(() => {
+            const height = Math.max(
+                doc.body.scrollHeight,
+                doc.documentElement.scrollHeight
+            );
+
+            frame.style.height = height + "px";
+        });
+
     } catch (e) {}
 }
 
