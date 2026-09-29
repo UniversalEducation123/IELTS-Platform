@@ -554,14 +554,13 @@ async function generateWritingPDF() {
 
     pdf.setFontSize(11);
     pdf.setFont("helvetica", "normal");
-
     pdf.text(`Student: ${studentName}`, 15, y);
     pdf.text(`ID: ${studentId}`, 140, y);
 
     y += 7;
     pdf.text(`Date: ${today}`, 15, y);
 
-    y += 10;
+    y += 12;
 
     /* ---------- TASK 1 ---------- */
 
@@ -574,31 +573,18 @@ async function generateWritingPDF() {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(11);
 
-    const task1Prompt =
-        "The line chart below shows the rates of deforestation in the Brazilian Amazon between 2008 and 2017, and the pie chart shows the causes of deforestation.";
-
-    const prompt1 = pdf.splitTextToSize(task1Prompt, 180);
-    pdf.text(prompt1, 15, y);
-
-    y += prompt1.length * 5 + 6;
-
-    /* ---------- TASK 1 ANSWER ---------- */
-
     const task1Lines = pdf.splitTextToSize(task1, 180);
 
     task1Lines.forEach(line => {
-
         if (y > 280) {
             pdf.addPage();
             y = 20;
         }
-
         pdf.text(line, 15, y);
         y += 5;
-
     });
 
-    y += 8;
+    y += 10;
 
     /* ---------- TASK 2 ---------- */
 
@@ -616,28 +602,15 @@ async function generateWritingPDF() {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(11);
 
-    const task2Prompt =
-        "Too many young people and too many old people do not exercise enough. What is causing this? What can be done to change this?";
-
-    const prompt2 = pdf.splitTextToSize(task2Prompt, 180);
-    pdf.text(prompt2, 15, y);
-
-    y += prompt2.length * 5 + 6;
-
-    /* ---------- TASK 2 ANSWER ---------- */
-
     const task2Lines = pdf.splitTextToSize(task2, 180);
 
     task2Lines.forEach(line => {
-
         if (y > 280) {
             pdf.addPage();
             y = 20;
         }
-
         pdf.text(line, 15, y);
         y += 5;
-
     });
 
     return pdf;
