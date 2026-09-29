@@ -210,124 +210,91 @@ function showTestResults(testName, clickedButton = null) {
 
 
     /* =================================
-       GROUP BY STUDENT + TEST
-       
-       This combines separate Listening
-       and Reading rows into ONE card.
-    ================================= */
+   GROUP BY STUDENT + TEST
 
-    const groupedResults = {};
+   Combines Listening, Reading and
+   Writing into ONE card.
+================================= */
 
-    filteredResults.forEach(result => {
+const groupedResults = {};
 
-        const studentId =
-            String(result.student_id);
+/* ---------- Listening & Reading ---------- */
 
-        const currentTest =
-            result.test_name || "Unnamed Test";
+filteredResults.forEach(result => {
 
-        const groupKey =
-            studentId + "_" + currentTest;
+    const studentId = String(result.student_id);
+    const currentTest = result.test_name || "Unnamed Test";
+    const groupKey = studentId + "_" + currentTest;
 
+    if (!groupedResults[groupKey]) {
 
-        if (!groupedResults[groupKey]) {
+        groupedResults[groupKey] = {
+            student_id: result.student_id,
+            student_name: result.student_name,
+            test_name: currentTest,
+            test_date: result.test_date || null,
+            listening_score: null,
+            reading_score: null,
+            writing_score: null
+        };
 
-            groupedResults[groupKey] = {
+    }
 
-                student_id:
-                    result.student_id,
+    const grouped = groupedResults[groupKey];
 
-                student_name:
-                    result.student_name,
+    if (!grouped.test_date && result.test_date) {
+        grouped.test_date = result.test_date;
+    }
 
-                test_name:
-                    currentTest,
+    if (result.listening_score != null) {
+        grouped.listening_score = result.listening_score;
+    }
 
-                test_date:
-                    result.test_date || null,
+    if (result.reading_score != null) {
+        grouped.reading_score = result.reading_score;
+    }
 
-                listening_score:
-                    null,
+});
 
-                reading_score:
-                    null,
+/* ---------- Merge Writing submissions ---------- */
 
-                writing_score:
-                    null
+allWritingSubmissions.forEach(submission => {
 
-            };
+    const currentTest =
+        submission.test_id
+            .replace("writing-", "")
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, c => c.toUpperCase());
 
-        }
+    if (testName !== "ALL" && currentTest !== testName) {
+        return;
+    }
 
+    const groupKey =
+        String(submission.student_id) + "_" + currentTest;
 
-        const grouped =
-            groupedResults[groupKey];
+    if (!groupedResults[groupKey]) {
 
+        groupedResults[groupKey] = {
+            student_id: submission.student_id,
+            student_name: submission.student_name,
+            test_name: currentTest,
+            test_date: submission.submitted_at
+                ? submission.submitted_at.substring(0, 10)
+                : null,
+            listening_score: null,
+            reading_score: null,
+            writing_score: null
+        };
 
-        /* =========================
-           KEEP THE TEST DATE
-        ========================= */
+    }
 
-        if (
-            !grouped.test_date &&
-            result.test_date
-        ) {
+    groupedResults[groupKey].writing_score =
+        submission.overall_score;
 
-            grouped.test_date =
-                result.test_date;
+});
 
-        }
-
-
-        /* =========================
-           COMBINE LISTENING
-        ========================= */
-
-        if (
-            result.listening_score !== null &&
-            result.listening_score !== undefined
-        ) {
-
-            grouped.listening_score =
-                result.listening_score;
-
-        }
-
-
-        /* =========================
-           COMBINE READING
-        ========================= */
-
-        if (
-            result.reading_score !== null &&
-            result.reading_score !== undefined
-        ) {
-
-            grouped.reading_score =
-                result.reading_score;
-
-        }
-
-
-        /* =========================
-           KEEP WRITING SCORE
-        ========================= */
-
-        if (
-            result.writing_score !== null &&
-            result.writing_score !== undefined
-        ) {
-
-            grouped.writing_score =
-                result.writing_score;
-
-        }
-
-    });
-
-
-    const groupedResultList =
-        Object.values(groupedResults);
+const groupedResultList = Object.values(groupedResults);
 
 
     /* =================================
