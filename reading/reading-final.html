@@ -589,27 +589,32 @@ if (savedReview && reviewContainer) {
                 : ["B", "D"];
 
 
+        const normalizedUserAnswers =
+            userAnswers.map(function(answer) {
+                return String(answer)
+                    .trim()
+                    .toLowerCase();
+            });
+
+        const normalizedCorrectAnswers =
+            correctAnswers.map(function(answer) {
+                return String(answer)
+                    .trim()
+                    .toLowerCase();
+            });
+
+        let pairMarks = 0;
+
+        normalizedUserAnswers.forEach(function(answer) {
+
+            if (normalizedCorrectAnswers.includes(answer)) {
+                pairMarks++;
+            }
+
+        });
+
         const pairCorrect =
-            pairItem.pairCorrect === true ||
-            (
-                userAnswers.length === 2 &&
-                userAnswers
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",") ===
-                correctAnswers
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",")
-            );
+            pairMarks === 2;
 
 
         const reviewItem =
@@ -624,9 +629,11 @@ if (savedReview && reviewContainer) {
             <strong>Questions 20–21</strong>
 
             <span class="review-status">
-                ${pairCorrect
-                    ? "✓ Correct"
-                    : "✗ Incorrect"}
+                ${pairMarks === 2
+                ? "✓ 2/2 marks"
+                : pairMarks === 1
+                    ? "◐ 1/2 marks"
+                    : "✗ 0/2 marks"}
             </span>
 
             <p>
