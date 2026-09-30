@@ -1286,47 +1286,112 @@ function getAnswer(questionNumber) {
 }
 
 function saveReadingAnswerReview() {
+
     const review = {};
 
-    // Questions 1–19
+    /* ===============================
+       QUESTIONS 1–19
+    =============================== */
+
     for (let i = 1; i <= 19; i++) {
+
         review["q" + i] = {
             userAnswer: getAnswer(i),
             correctAnswer: answers["q" + i]
         };
+
     }
 
-    // Questions 20–21 shared checkbox group
+
+    /* ===============================
+       QUESTIONS 20–21
+       ONE SHARED TWO-ANSWER QUESTION
+    =============================== */
+
     const selected20_21 = Array.from(
-        document.querySelectorAll('input[name="q20"]:checked')
+        document.querySelectorAll(
+            'input[name="q20"]:checked'
+        )
     ).map(function(input) {
         return input.value;
     });
 
+
+    const correct20_21 = ["B", "D"];
+
+
+    /*
+     * Check whether BOTH correct answers
+     * were selected.
+     *
+     * Order does not matter.
+     */
+
+    const pairIsFullyCorrect =
+        selected20_21.length === 2 &&
+        selected20_21
+            .map(function(answer) {
+                return normalize(answer);
+            })
+            .sort()
+            .join(",") ===
+        correct20_21
+            .map(function(answer) {
+                return normalize(answer);
+            })
+            .sort()
+            .join(",");
+
+
     review.q20 = {
+
         userAnswer: selected20_21,
-        correctAnswer: ["B", "D"]
+
+        correctAnswer: correct20_21,
+
+        pairCorrect: pairIsFullyCorrect
+
     };
+
 
     review.q21 = {
+
         userAnswer: selected20_21,
-        correctAnswer: ["B", "D"]
+
+        correctAnswer: correct20_21,
+
+        pairCorrect: pairIsFullyCorrect
+
     };
 
-    // Questions 22–40
+
+    /* ===============================
+       QUESTIONS 22–40
+    =============================== */
+
     for (let i = 22; i <= 40; i++) {
+
         review["q" + i] = {
+
             userAnswer: getAnswer(i),
+
             correctAnswer: answers["q" + i]
+
         };
+
     }
+
 
     sessionStorage.setItem(
         "readingAnswerReview",
         JSON.stringify(review)
     );
 
-    console.log("Reading answer review saved:", review);
+
+    console.log(
+        "Reading answer review saved:",
+        review
+    );
 }
 
 function submitReadingTest() {
