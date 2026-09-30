@@ -568,10 +568,142 @@
 
         async function calculateListeningScore() {
 
-            const part1 =
-                JSON.parse(
-                    sessionStorage.getItem("listeningPart1Answers") || "{}"
-                );
+            const part1 = (() => {
+
+    /* First try the dedicated Part 1 storage */
+    const dedicated =
+        sessionStorage.getItem(
+            "listeningPart1Answers"
+        );
+
+    if (dedicated) {
+
+        try {
+
+            const parsed =
+                JSON.parse(dedicated);
+
+            if (
+                parsed &&
+                Object.keys(parsed).length > 0
+            ) {
+                return parsed;
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Could not read listeningPart1Answers:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* 
+     * Fallback to the automatic Part 1 page storage.
+     * This does NOT touch Parts 2, 3 or 4.
+     */
+    for (
+        let i = 0;
+        i < sessionStorage.length;
+        i++
+    ) {
+
+        const storageKey =
+            sessionStorage.key(i);
+
+        if (
+            !storageKey ||
+            !storageKey.startsWith(
+                "listeningAnswers_"
+            )
+        ) {
+            continue;
+        }
+
+        const raw =
+            sessionStorage.getItem(storageKey);
+
+        if (!raw) {
+            continue;
+        }
+
+        try {
+
+            const parsed =
+                JSON.parse(raw);
+
+            /*
+             * Make sure this is Part 1.
+             */
+            if (
+                parsed &&
+                (
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q1"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q2"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q3"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q4"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q5"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q6"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q7"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q8"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q9"
+                    ) ||
+                    Object.prototype.hasOwnProperty.call(
+                        parsed,
+                        "q10"
+                    )
+                )
+            ) {
+
+                return parsed;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Could not read Part 1 backup:",
+                error
+            );
+
+        }
+
+    }
+
+
+    return {};
+
+})();
 
             const part2 =
                 readAnswers("listeningPart2Answers");
