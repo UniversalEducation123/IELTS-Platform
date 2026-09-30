@@ -641,8 +641,12 @@ async function saveReview() {
             .trim()
             .replace(/\s+/g, "_");
 
+        const reviewTestNumber =
+            currentSubmission.test_id
+                .replace("writing-test-", "");
+
         checkedPdfPath =
-            `${currentSubmission.student_id}/${safeName}_Writing_Test_1_Reviewed.pdf`;
+            `${currentSubmission.student_id}/${safeName}_Writing_Test_${reviewTestNumber}_Reviewed.pdf`;
 
         const { error: uploadError } = await supabaseClient
             .storage

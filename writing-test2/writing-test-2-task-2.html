@@ -17,6 +17,7 @@
         href="../css/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
 
@@ -530,105 +531,396 @@
 
     async function finishWritingTest() {
 
-        sessionStorage.setItem(
-            "writingTest2Task2Answer",
-            answerBox.value
+    sessionStorage.setItem(
+        "writingTest2Task2Answer",
+        answerBox.value
+    );
+
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const studentName =
+        sessionStorage.getItem("studentName");
+
+
+    const task1Answer =
+        sessionStorage.getItem(
+            "writingTest2Task1Answer"
+        ) || "";
+
+
+    const task2Answer =
+        sessionStorage.getItem(
+            "writingTest2Task2Answer"
+        ) || "";
+
+
+    if (!studentId) {
+
+        alert(
+            "Student information was not found. Please log in again."
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       CREATE STUDENT PDF
+    ========================================= */
+
+    const { jsPDF } =
+        window.jspdf;
+
+
+    const pdf =
+        new jsPDF();
+
+
+    const safeName =
+        (studentName || "Student")
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .trim()
+            .replace(/\s+/g, "_");
+
+
+    const fileName =
+        `${safeName}_Writing_Test_2.pdf`;
+
+
+    const pdfPath =
+        `${studentId}/${fileName}`;
+
+
+    let y =
+        20;
+
+
+    const pageWidth =
+        pdf.internal.pageSize.getWidth();
+
+
+    const margin =
+        20;
+
+
+    const textWidth =
+        pageWidth - (margin * 2);
+
+
+    /* ---------- Student information ---------- */
+
+    pdf.setFontSize(18);
+
+    pdf.setFont(undefined, "bold");
+
+    pdf.text(
+        "IELTS Writing Test 2",
+        margin,
+        y
+    );
+
+
+    y += 12;
+
+
+    pdf.setFontSize(11);
+
+    pdf.setFont(undefined, "normal");
+
+    pdf.text(
+        `Student Name: ${studentName || "N/A"}`,
+        margin,
+        y
+    );
+
+
+    y += 7;
+
+
+    pdf.text(
+        `Student ID: ${studentId}`,
+        margin,
+        y
+    );
+
+
+    y += 7;
+
+
+    pdf.text(
+        `Date: ${new Date().toLocaleDateString()}`,
+        margin,
+        y
+    );
+
+
+    y += 15;
+
+
+    /* =========================================
+       HELPER FOR ANSWER SECTIONS
+    ========================================= */
+
+    function addAnswerSection(title, answer) {
+
+        pdf.setFontSize(15);
+
+        pdf.setFont(undefined, "bold");
+
+        pdf.text(
+            title,
+            margin,
+            y
         );
 
 
-        const studentId =
-            sessionStorage.getItem(
-                "studentId"
+        y += 9;
+
+
+        pdf.setFontSize(11);
+
+        pdf.setFont(undefined, "normal");
+
+
+        const lines =
+            pdf.splitTextToSize(
+                answer || "No answer submitted.",
+                textWidth
             );
 
 
-        const studentName =
-            sessionStorage.getItem(
-                "studentName"
+        lines.forEach(line => {
+
+            if (y > 275) {
+
+                pdf.addPage();
+
+                y = 20;
+
+            }
+
+
+            pdf.text(
+                line,
+                margin,
+                y
             );
 
 
-        const task1Answer =
-            sessionStorage.getItem(
-                "writingTest2Task1Answer"
-            ) || "";
+            y += 6;
+
+        });
 
 
-        const task2Answer =
-            sessionStorage.getItem(
-                "writingTest2Task2Answer"
-            ) || "";
-
-
-        if (!studentId) {
-
-            alert(
-                "Student information was not found. Please log in again."
-            );
-
-            return;
-
-        }
-
-
-        const { data, error } =
-            await supabaseClient
-
-                .from("writing_submissions")
-
-                .insert([
-                    {
-                        student_id:
-                            studentId,
-
-                        student_name:
-                            studentName,
-
-                        test_id:
-                            "writing-test-2",
-
-                        task1_answer:
-                            task1Answer,
-
-                        task2_answer:
-                            task2Answer,
-
-                        status:
-                            "submitted"
-                    }
-                ])
-
-                .select()
-
-                .single();
-
-
-        if (error) {
-
-            console.error(
-                "Writing Test 2 submission error:",
-                error
-            );
-
-
-            alert(
-                "There was a problem saving your test. Please try again."
-            );
-
-            return;
-
-        }
-
-
-        clearInterval(
-            timerInterval
-        );
-
-
-        window.location.href =
-            "writing-test-2-final.html";
+        y += 12;
 
     }
+
+
+    /* ---------- Writing Task 1 ---------- */
+
+    addAnswerSection(
+        "Writing Task 1",
+        task1Answer
+    );
+
+
+    /* ---------- Writing Task 2 ---------- */
+
+    addAnswerSection(
+        "Writing Task 2",
+        task2Answer
+    );
+
+
+    /* =========================================
+       CONVERT PDF TO BLOB
+    ========================================= */
+
+    const pdfBlob =
+        pdf.output("blob");
+
+
+    /* =========================================
+       UPLOAD PDF
+    ========================================= */
+
+    const { error: uploadError } =
+        await supabaseClient
+            .storage
+            .from("writing-pdfs")
+            .upload(
+                pdfPath,
+                pdfBlob,
+                {
+                    contentType: "application/pdf",
+                    upsert: true
+                }
+            );
+
+
+    if (uploadError) {
+
+        console.error(
+            "Writing Test 2 PDF upload error:",
+            uploadError
+        );
+
+
+        alert(
+            "The PDF could not be saved. Please try again."
+        );
+
+
+        return;
+
+    }
+
+
+    /* =========================================
+       SAVE / UPDATE WRITING SUBMISSION
+    ========================================= */
+
+    const { data: existingRows, error: findError } =
+        await supabaseClient
+            .from("writing_submissions")
+            .select("id")
+            .eq(
+                "student_id",
+                studentId
+            )
+            .eq(
+                "test_id",
+                "writing-test-2"
+            )
+            .limit(1);
+
+
+    if (findError) {
+
+        console.error(
+            "Writing Test 2 submission lookup error:",
+            findError
+        );
+
+
+        alert(
+            "There was a problem checking your submission. Please try again."
+        );
+
+
+        return;
+
+    }
+
+
+    const submissionData = {
+
+        student_id:
+            studentId,
+
+        student_name:
+            studentName,
+
+        test_id:
+            "writing-test-2",
+
+        task1_answer:
+            task1Answer,
+
+        task2_answer:
+            task2Answer,
+
+        original_pdf:
+            pdfPath,
+
+        status:
+            "submitted"
+
+    };
+
+
+    let saveError = null;
+
+
+    if (
+        existingRows &&
+        existingRows.length > 0
+    ) {
+
+        const { error } =
+            await supabaseClient
+                .from("writing_submissions")
+                .update(submissionData)
+                .eq(
+                    "id",
+                    existingRows[0].id
+                );
+
+        saveError =
+            error;
+
+    } else {
+
+        const { error } =
+            await supabaseClient
+                .from("writing_submissions")
+                .insert(
+                    submissionData
+                );
+
+        saveError =
+            error;
+
+    }
+
+
+    if (saveError) {
+
+        console.error(
+            "Writing Test 2 submission error:",
+            saveError
+        );
+
+
+        alert(
+            "There was a problem saving your test. Please try again."
+        );
+
+
+        return;
+
+    }
+
+
+    /* =========================================
+       FINISH TEST
+    ========================================= */
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    sessionStorage.removeItem(
+        "writingTest2TimeLeft"
+    );
+
+    sessionStorage.removeItem(
+        "writingTest2Task1Answer"
+    );
+
+    sessionStorage.removeItem(
+        "writingTest2Task2Answer"
+    );
+
+
+    window.location.href =
+        "writing-test-2-final.html";
+
+}
 
 </script>
 
