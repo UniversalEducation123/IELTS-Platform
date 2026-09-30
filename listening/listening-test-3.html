@@ -645,6 +645,11 @@ function saveListeningAnswers() {
         answerStorageKey,
         JSON.stringify(answers)
     );
+
+    sessionStorage.setItem(
+        "listeningPart3Answers",
+        JSON.stringify(answers)
+    );
 }
 
 
