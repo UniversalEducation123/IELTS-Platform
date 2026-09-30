@@ -18,23 +18,27 @@
 
     <strong>Go to:</strong>
 
-    <a href="listening-test-2-part1.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(1, parent.document.querySelectorAll('.section-jump-button')[0]); return false;">
         Part 1
     </a>
 
-    <a href="listening-test-2-part2.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(2, parent.document.querySelectorAll('.section-jump-button')[1]); return false;">
         Part 2
     </a>
 
-    <a href="listening-test-2-part3.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(3, parent.document.querySelectorAll('.section-jump-button')[2]); return false;">
         Part 3
     </a>
 
-    <a href="listening-test-2-part4.html"
-       class="section-jump-button active-section">
+    <a href="#"
+       class="section-jump-button active-section"
+       onclick="parent.loadPart(4, parent.document.querySelectorAll('.section-jump-button')[3]); return false;">
         Part 4
     </a>
 
@@ -266,12 +270,14 @@
 
     <!-- Navigation -->
 
-    <div class="part-navigation">
+   <div class="part-navigation">
 
-        <a href="listening-test-2-final.html"
-           class="continue-button">
+        <button
+            type="button"
+            class="continue-button"
+            onclick="finishListeningTest()">
             Finish Test
-        </a>
+        </button>
 
     </div>
 
@@ -279,89 +285,15 @@
 
 
 <script>
-/* Shared timer for Listening Test 2 */
 
-let savedTime = sessionStorage.getItem("listeningTest2TimeLeft");
+    function finishListeningTest() {
 
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
+    saveAnswers();
 
-let timerStarted =
-    sessionStorage.getItem("listeningTest2TimerStarted") === "true";
-
-let timerInterval;
-
-const timerElement = document.getElementById("timer");
-
-
-function updateTimer() {
-
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    if (timerElement) {
-        timerElement.textContent =
-            String(minutes).padStart(2, "0") + ":" +
-            String(seconds).padStart(2, "0");
-    }
+    parent.window.location.href = "listening-final.html";
 
 }
 
-
-function runSharedTimer() {
-
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function () {
-
-        timeLeft--;
-
-        updateTimer();
-
-        sessionStorage.setItem(
-            "listeningTest2TimeLeft",
-            timeLeft
-        );
-
-        if (timeLeft <= 0) {
-
-            clearInterval(timerInterval);
-
-            timerInterval = null;
-
-            sessionStorage.removeItem(
-                "listeningTest2TimeLeft"
-            );
-
-            sessionStorage.removeItem(
-                "listeningTest2TimerStarted"
-            );
-
-            alert("Time is up!");
-
-        }
-
-    }, 1000);
-
-}
-
-
-if (timerStarted) {
-
-    updateTimer();
-
-    runSharedTimer();
-
-} else if (timerElement) {
-
-    timerElement.textContent = "--:--";
-
-}
-</script>
-
-
-<script>
 /* Highlight answered question-number buttons */
 
 function saveAnswers() {

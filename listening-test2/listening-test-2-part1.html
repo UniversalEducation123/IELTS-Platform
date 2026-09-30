@@ -22,31 +22,37 @@
 
 <script src="../js/exam-inputs.js"></script>
 
+
 <div class="listening-section-navigation">
 
     <strong>Go to:</strong>
 
-    <a href="listening-test-2-part1.html"
-       class="section-jump-button active-section">
+    <a href="#"
+       class="section-jump-button active-section"
+       onclick="parent.loadPart(1, parent.document.querySelectorAll('.section-jump-button')[0]); return false;">
         Part 1
     </a>
 
-    <a href="listening-test-2-part2.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(2, parent.document.querySelectorAll('.section-jump-button')[1]); return false;">
         Part 2
     </a>
 
-    <a href="listening-test-2-part3.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(3, parent.document.querySelectorAll('.section-jump-button')[2]); return false;">
         Part 3
     </a>
 
-    <a href="listening-test-2-part4.html"
-       class="section-jump-button">
+    <a href="#"
+       class="section-jump-button"
+       onclick="parent.loadPart(4, parent.document.querySelectorAll('.section-jump-button')[3]); return false;">
         Part 4
     </a>
 
 </div>
+
 
 <header class="main-header">
 
@@ -66,6 +72,7 @@
 
 </header>
 
+
 <section class="listening-header">
 
     <div>
@@ -75,43 +82,11 @@
 
 </section>
 
+
 <main class="listening-container">
 
-<section class="listening-card audio-section">
 
-    <h2>Part 1: Listen and answer questions 1–10</h2>
-
-    <div class="audio-player-container">
-
-        <div class="audio-status" id="audioStatus">
-            Press Play to begin the listening test
-        </div>
-
-        <div class="custom-audio-player">
-
-            <button type="button"
-                    id="playPauseBtn"
-                    class="audio-play-btn">
-                ▶ Play
-            </button>
-
-            <div class="audio-progress-container">
-                <div id="audioProgress" class="audio-progress"></div>
-            </div>
-
-            <span id="audioTime" class="audio-time">0:00</span>
-
-        </div>
-
-        <audio id="listeningAudio" preload="auto">
-            <source src="../assets/listening-test-2.mpeg" type="audio/mpeg">
-        </audio>
-
-    </div>
-
-</section>
-
-        <div class="question-section">
+<div class="question-section">
 
     <div class="question-heading">
 
@@ -125,6 +100,7 @@
 
     </div>
 
+
     <div id="questions-container">
 
         <h2>COMPLAINT RECORD FORM</h2>
@@ -133,357 +109,300 @@
 
             <tr>
                 <th>Holiday booked in name of:</th>
+
                 <td>
                     <span class="question-number">1.</span>
+
                     First name:
-                    <input type="text" name="q1" class="inline-answer">
+
+                    <input type="text"
+                           name="q1"
+                           class="inline-answer">
+
                     Last name:
-                    <input type="text" name="q1_last" class="inline-answer">
+
+                    <input type="text"
+                           name="q1_last"
+                           class="inline-answer">
                 </td>
             </tr>
 
+
             <tr>
                 <th>Address:</th>
+
                 <td>
                     Flat 4<br><br>
+
                     <span class="question-number">2.</span>
-                    <input type="text" name="q2" class="form-answer">
+
+                    <input type="text"
+                           name="q2"
+                           class="form-answer">
+
                     <br><br>
+
                     Winchester SO2 4ER
                 </td>
             </tr>
 
+
             <tr>
                 <th>Daytime telephone number:</th>
+
                 <td>
                     <span class="question-number">3.</span>
-                    <input type="text" name="q3" class="form-answer">
+
+                    <input type="text"
+                           name="q3"
+                           class="form-answer">
                 </td>
             </tr>
+
 
             <tr>
                 <th>Booking reference</th>
+
                 <td>
                     <span class="question-number">4.</span>
-                    <input type="text" name="q4" class="form-answer">
+
+                    <input type="text"
+                           name="q4"
+                           class="form-answer">
                 </td>
             </tr>
 
+
             <tr>
                 <th>Special offer?</th>
+
                 <td>
-                    Yes, from <span class="question-number">5.</span>
-                    <input type="text" name="q5" class="inline-answer">
+                    Yes, from
+
+                    <span class="question-number">5.</span>
+
+                    <input type="text"
+                           name="q5"
+                           class="inline-answer">
+
                     company
                 </td>
             </tr>
 
+
             <tr>
                 <th>Insurance</th>
+
                 <td>
-                    Yes, had <span class="question-number">6.</span>
-                    <input type="text" name="q6" class="inline-answer">
+                    Yes, had
+
+                    <span class="question-number">6.</span>
+
+                    <input type="text"
+                           name="q6"
+                           class="inline-answer">
+
                     Policy
                 </td>
             </tr>
 
+
             <tr>
                 <th>Type of holiday booked:</th>
+
                 <td>
                     <span class="question-number">7.</span>
-                    <input type="text" name="q7" class="inline-answer">
+
+                    <input type="text"
+                           name="q7"
+                           class="inline-answer">
+
                     Break
                 </td>
             </tr>
 
+
             <tr>
                 <th>Date holiday commenced:</th>
+
                 <td>
                     <span class="question-number">8.</span>
-                    <input type="text" name="q8" class="form-answer">
+
+                    <input type="text"
+                           name="q8"
+                           class="form-answer">
                 </td>
             </tr>
+
 
             <tr>
                 <th>Details of complaint:</th>
+
                 <td>
+
                     <p>
-                        • no <span class="question-number">9.</span>
-                        <input type="text" name="q9" class="inline-answer">
+                        • no
+
+                        <span class="question-number">9.</span>
+
+                        <input type="text"
+                               name="q9"
+                               class="inline-answer">
+
                         at station
                     </p>
 
+
                     <p>
-                        • A <span class="question-number">10.</span>
-                        <input type="text" name="q10" class="inline-answer">
+                        • A
+
+                        <span class="question-number">10.</span>
+
+                        <input type="text"
+                               name="q10"
+                               class="inline-answer">
+
                         was missing
                     </p>
+
                 </td>
             </tr>
 
-                </table>
+        </table>
 
     </div>
-    <!-- End questions-container -->
+
 
     <div class="question-progress">
 
         <strong>Questions:</strong>
 
-        <button type="button" class="question-progress-button" data-question="1">1</button>
-        <button type="button" class="question-progress-button" data-question="2">2</button>
-        <button type="button" class="question-progress-button" data-question="3">3</button>
-        <button type="button" class="question-progress-button" data-question="4">4</button>
-        <button type="button" class="question-progress-button" data-question="5">5</button>
-        <button type="button" class="question-progress-button" data-question="6">6</button>
-        <button type="button" class="question-progress-button" data-question="7">7</button>
-        <button type="button" class="question-progress-button" data-question="8">8</button>
-        <button type="button" class="question-progress-button" data-question="9">9</button>
-        <button type="button" class="question-progress-button" data-question="10">10</button>
+        <button type="button"
+                class="question-progress-button"
+                data-question="1">1</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="2">2</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="3">3</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="4">4</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="5">5</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="6">6</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="7">7</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="8">8</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="9">9</button>
+
+        <button type="button"
+                class="question-progress-button"
+                data-question="10">10</button>
 
     </div>
 
 </div>
-<!-- End question-section -->
+
 
 <div class="part-navigation">
 
-    <a href="listening-test-2-part2.html"
-       class="continue-button">
+    <button type="button"
+            class="continue-button"
+            onclick="goToPart2()">
+
         Continue to Part 2
-    </a>
+
+    </button>
 
 </div>
 
+
 </main>
 
-<script>
-
-/*
- * LISTENING TEST 2 SHARED TIMER
- */
-
-let savedTime = sessionStorage.getItem("listeningTest2TimeLeft");
-
-let timeLeft = savedTime !== null
-    ? Number(savedTime)
-    : 30 * 60;
-
-let timerStarted =
-    sessionStorage.getItem("listeningTest2TimerStarted") === "true";
-
-let timerInterval;
-let localTimerRunning = false;
-
-const timerElement = document.getElementById("timer");
-const audio = document.getElementById("listeningAudio");
-const audioStatus = document.getElementById("audioStatus");
-const audioTimeKey = "listeningTest2AudioTime";
-const audioPlayingKey = "listeningTest2AudioPlaying";
-
-function updateTimer() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    if (timerElement) {
-        timerElement.textContent =
-            String(minutes).padStart(2, "0") + ":" +
-            String(seconds).padStart(2, "0");
-    }
-}
-
-function runSharedTimer() {
-    if (timerInterval) return;
-
-    timerInterval = setInterval(function () {
-        timeLeft--;
-        updateTimer();
-
-        sessionStorage.setItem("listeningTest2TimeLeft", timeLeft);
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerInterval = null;
-
-            sessionStorage.removeItem("listeningTest2TimeLeft");
-            sessionStorage.removeItem("listeningTest2TimerStarted");
-
-            if (audio) {
-                audio.pause();
-            }
-
-            alert("Time is up!");
-        }
-    }, 1000);
-}
-
-function startTimer() {
-    if (timerStarted) return;
-
-    timerStarted = true;
-    localTimerRunning = true;
-
-    sessionStorage.setItem("listeningTest2TimerStarted", "true");
-
-    if (audioStatus) {
-        audioStatus.textContent =
-            "Listening test in progress. Audio cannot be paused.";
-    }
-
-    updateTimer();
-    runSharedTimer();
-}
-
-if (audio) {
-    audio.addEventListener("play", startTimer);
-
-    audio.addEventListener("pause", function () {
-        if (localTimerRunning && timeLeft > 0) {
-            audio.play();
-        }
-    });
-}
-
-/*
- * Prevent audio forward/backward seeking
- */
-
-if (audio) {
-    let allowedAudioTime = 0;
-    let correctingAudio = false;
-
-    audio.addEventListener("timeupdate", function () {
-
-        if (!correctingAudio) {
-            allowedAudioTime = audio.currentTime;
-        }
-
-        sessionStorage.setItem(
-            audioTimeKey,
-            audio.currentTime
-        );
-
-    });
-
-    audio.addEventListener("seeking", function () {
-        if (correctingAudio) return;
-
-        correctingAudio = true;
-        audio.currentTime = allowedAudioTime;
-
-        setTimeout(function () {
-            correctingAudio = false;
-        }, 50);
-    });
-
-    aaudio.addEventListener("loadedmetadata", function () {
-
-        const savedTime = Number(
-            sessionStorage.getItem(audioTimeKey) || 0
-        );
-
-        allowedAudioTime = savedTime;
-        audio.currentTime = savedTime;
-
-    });
-}
-
-/*
- * Restore timer if already started
- */
-
-if (timerStarted) {
-    localTimerRunning = true;
-    updateTimer();
-    runSharedTimer();
-} else if (timerElement) {
-    timerElement.textContent = "--:--";
-}
-</script>
 
 <script>
-const customPlayButton = document.getElementById("playPauseBtn");
-const customAudioProgress = document.getElementById("audioProgress");
-const customAudioTime = document.getElementById("audioTime");
 
-if (audio && customPlayButton) {
+/* Save Part 1 answers before moving to Part 2 */
 
-    let audioHasStarted = false;
+function goToPart2() {
 
-    customPlayButton.addEventListener("click", function () {
+    saveAnswers();
 
-        if (audioHasStarted) return;
+    parent.loadPart(
+        2,
+        parent.document.querySelectorAll(".section-jump-button")[1]
+    );
 
-        audioHasStarted = true;
-
-        sessionStorage.setItem(audioPlayingKey, "true");
-
-        audio.play();
-
-        customPlayButton.textContent = "Playing...";
-        customPlayButton.disabled = true;
-
-    });
-    
-    audio.addEventListener("timeupdate", function () {
-
-        if (audio.duration && customAudioProgress) {
-            const percentage =
-                (audio.currentTime / audio.duration) * 100;
-
-            customAudioProgress.style.width = percentage + "%";
-        }
-
-        if (customAudioTime) {
-            const minutes = Math.floor(audio.currentTime / 60);
-            const seconds = Math.floor(audio.currentTime % 60);
-
-            customAudioTime.textContent =
-                minutes + ":" + String(seconds).padStart(2, "0");
-        }
-    });
-
-    audio.addEventListener("ended", function () {
-        if (customAudioTime) {
-            customAudioTime.textContent = "Finished";
-        }
-    });
 }
-</script>
 
-<script>
-/* Highlight only the question-number buttons */
+
+/* Save answers */
 
 function saveAnswers() {
+
     document.querySelectorAll(
         ".listening-question-table input"
     ).forEach(function(input) {
+
         sessionStorage.setItem(
             "listeningTest2_" + input.name,
             input.value
         );
+
     });
+
 }
 
+
+/* Restore answers */
+
 function restoreAnswers() {
+
     document.querySelectorAll(
         ".listening-question-table input"
     ).forEach(function(input) {
+
         const savedAnswer = sessionStorage.getItem(
             "listeningTest2_" + input.name
         );
 
         if (savedAnswer !== null) {
+
             input.value = savedAnswer;
+
         }
+
     });
+
 }
+
+
+/* Update question progress */
 
 function updateQuestionProgress() {
 
     for (let i = 1; i <= 10; i++) {
 
         let inputs;
+
 
         if (i === 1) {
 
@@ -499,9 +418,11 @@ function updateQuestionProgress() {
 
         }
 
+
         const button = document.querySelector(
             `.question-progress-button[data-question="${i}"]`
         );
+
 
         if (!button) continue;
 
@@ -509,9 +430,10 @@ function updateQuestionProgress() {
         let answered = false;
 
 
-        /* Question 1:
-           BOTH first name AND last name are required
-        */
+        /*
+         * Question 1:
+         * BOTH first name AND last name are required
+         */
 
         if (i === 1) {
 
@@ -520,6 +442,7 @@ function updateQuestionProgress() {
 
             const lastName =
                 document.querySelector('[name="q1_last"]');
+
 
             answered =
                 firstName &&
@@ -530,9 +453,10 @@ function updateQuestionProgress() {
         }
 
 
-        /* Questions 2–10:
-           One answer is enough
-        */
+        /*
+         * Questions 2–10:
+         * One answer is enough
+         */
 
         else {
 
@@ -562,6 +486,8 @@ function updateQuestionProgress() {
 }
 
 
+/* Save + update progress whenever an answer changes */
+
 document.querySelectorAll(
     ".listening-question-table input"
 ).forEach(function(input) {
@@ -579,10 +505,17 @@ document.querySelectorAll(
 });
 
 
+/* Restore saved answers */
+
 restoreAnswers();
+
+
+/* Restore progress */
+
 updateQuestionProgress();
 
 </script>
+
 
 </body>
 </html>
