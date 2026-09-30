@@ -569,7 +569,9 @@
         async function calculateListeningScore() {
 
             const part1 =
-                readAnswers("listeningPart1Answers");
+                JSON.parse(
+                    sessionStorage.getItem("listeningPart1Answers") || "{}"
+                );
 
             const part2 =
                 readAnswers("listeningPart2Answers");
