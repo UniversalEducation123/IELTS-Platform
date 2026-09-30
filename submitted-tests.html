@@ -120,7 +120,7 @@ header h1{
 
 .score-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(5,1fr);
     gap:18px;
 }
 
@@ -492,7 +492,9 @@ if (data && data.length > 0) {
                 test_name: testName,
                 test_date: result.test_date || null,
                 listening_score: null,
-                reading_score: null
+                reading_score: null,
+                speaking_score: null,
+                final_mock_score: null
             };
 
         }
@@ -534,6 +536,31 @@ if (data && data.length > 0) {
 
             test.reading_score =
                 result.reading_score;
+
+        }
+
+        /* Combine Speaking score */
+
+        if (
+            result.speaking_score !== null &&
+            result.speaking_score !== undefined
+        ) {
+
+            test.speaking_score =
+                result.speaking_score;
+
+        }
+
+
+        /* Combine Final Mock score */
+
+        if (
+            result.final_mock_score !== null &&
+            result.final_mock_score !== undefined
+        ) {
+
+            test.final_mock_score =
+                result.final_mock_score;
 
         }
 
@@ -628,7 +655,33 @@ Object.values(groupedTests).forEach(result => {
             )
             : "Not submitted";
 
+    /* =================================
+    SPEAKING
+    ================================= */
 
+    const speakingSubmitted =
+        result.speaking_score !== null &&
+        result.speaking_score !== undefined;
+
+    const speakingBand =
+        speakingSubmitted
+            ? Number(result.speaking_score).toFixed(1)
+            : "Pending";
+
+
+    /* =================================
+    FINAL MOCK
+    ================================= */
+
+    const finalMockSubmitted =
+        result.final_mock_score !== null &&
+        result.final_mock_score !== undefined;
+
+    const finalMockScore =
+        finalMockSubmitted
+            ? Number(result.final_mock_score).toFixed(1)
+            : "Pending";
+            
     /* =================================
        CREATE TEST CARD
     ================================= */
@@ -662,160 +715,193 @@ Object.values(groupedTests).forEach(result => {
 
             <div class="score-grid">
 
+    <!-- =========================
+         LISTENING
+    ========================== -->
 
-                <!-- =========================
-                     LISTENING
-                ========================== -->
+    <div class="score-item">
 
-                <div class="score-item">
+        <strong>
+            Listening
+        </strong>
 
-                    <strong>
-                        Listening
-                    </strong>
+        <span>
+            ${listeningBand}
+        </span>
 
-                    <span>
-                        ${listeningBand}
-                    </span>
+        <small>
+            ${
+                listeningSubmitted
+                    ? result.listening_score + " / 40"
+                    : ""
+            }
+        </small>
 
-                    <small>
+    </div>
+
+
+    <!-- =========================
+         READING
+    ========================== -->
+
+    <div class="score-item">
+
+        <strong>
+            Reading
+        </strong>
+
+        <span>
+            ${readingBand}
+        </span>
+
+        <small>
+            ${
+                readingSubmitted
+                    ? result.reading_score + " / 40"
+                    : ""
+            }
+        </small>
+
+    </div>
+
+
+    <!-- =========================
+         WRITING
+    ========================== -->
+
+    <div class="score-item">
+
+        <strong>
+            Writing
+        </strong>
+
+        <span>
+            ${writingScore}
+        </span>
+
+        <small>
+            ${statusText}
+        </small>
+
+
+        ${
+            writingSubmission &&
+            writingSubmission.status === "reviewed"
+
+                ? `
+
+                    <div class="faculty-review">
+
+                        <strong class="faculty-review-title">
+                            Faculty Review
+                        </strong>
+
+                        <p>
+                            <b>Task 1:</b>
+                            ${
+                                writingSubmission.task1_score !== null &&
+                                writingSubmission.task1_score !== undefined
+                                    ? writingSubmission.task1_score
+                                    : "Not scored"
+                            }
+                        </p>
+
+                        <p>
+                            <b>Task 2:</b>
+                            ${
+                                writingSubmission.task2_score !== null &&
+                                writingSubmission.task2_score !== undefined
+                                    ? writingSubmission.task2_score
+                                    : "Not scored"
+                            }
+                        </p>
+
+                        <p class="faculty-feedback-label">
+                            <b>Faculty Feedback:</b>
+                        </p>
+
+                        <p class="faculty-feedback-text">
+                            ${
+                                writingSubmission.faculty_feedback
+                                    ? escapeHTML(
+                                        writingSubmission.faculty_feedback
+                                      )
+                                    : "No feedback provided."
+                            }
+                        </p>
+
                         ${
-                            listeningSubmitted
-                                ? result.listening_score +
-                                  " / 40"
+                            writingSubmission.checked_pdf
+                                ? `
+                                    <a
+                                        href="#"
+                                        class="review-pdf-btn"
+                                        onclick="viewReviewedPDF('${writingSubmission.checked_pdf}'); return false;">
+                                        📄 View Reviewed PDF
+                                    </a>
+                                `
                                 : ""
                         }
-                    </small>
 
-                </div>
+                    </div>
 
+                `
+                : ""
+        }
 
-                <!-- =========================
-                     READING
-                ========================== -->
-
-                <div class="score-item">
-
-                    <strong>
-                        Reading
-                    </strong>
-
-                    <span>
-                        ${readingBand}
-                    </span>
-
-                    <small>
-                        ${
-                            readingSubmitted
-                                ? result.reading_score +
-                                  " / 40"
-                                : ""
-                        }
-                    </small>
-
-                </div>
+    </div>
 
 
-                <!-- =========================
-                     WRITING
-                ========================== -->
+    <!-- =========================
+         SPEAKING
+    ========================== -->
 
-                <div class="score-item">
+    <div class="score-item">
 
-                    <strong>
-                        Writing
-                    </strong>
+        <strong>
+            Speaking
+        </strong>
 
-                    <span>
-                        ${writingScore}
-                    </span>
+        <span>
+            ${speakingBand}
+        </span>
 
-                    <small>
-                        ${statusText}
-                    </small>
+        <small>
+            ${
+                speakingSubmitted
+                    ? "Score entered"
+                    : "Awaiting faculty score"
+            }
+        </small>
 
-
-                    ${
-                        writingSubmission &&
-                        writingSubmission.status === "reviewed"
-
-                            ? `
-
-                                <div
-                                    class="faculty-review"
-                                >
-
-                                    <strong
-                                        class="faculty-review-title"
-                                    >
-                                        Faculty Review
-                                    </strong>
+    </div>
 
 
-                                    <p>
+    <!-- =========================
+         FINAL MOCK
+    ========================== -->
 
-                                        <b>Task 1:</b>
+    <div class="score-item">
 
-                                        ${
-                                            writingSubmission.task1_score !== null &&
-                                            writingSubmission.task1_score !== undefined
-                                                ? writingSubmission.task1_score
-                                                : "Not scored"
-                                        }
+        <strong>
+            Final Mock
+        </strong>
 
-                                    </p>
+        <span>
+            ${finalMockScore}
+        </span>
 
+        <small>
+            ${
+                finalMockSubmitted
+                    ? "All 4 sections complete"
+                    : "Pending"
+            }
+        </small>
 
-                                    <p>
+    </div>
 
-                                        <b>Task 2:</b>
-
-                                        ${
-                                            writingSubmission.task2_score !== null &&
-                                            writingSubmission.task2_score !== undefined
-                                                ? writingSubmission.task2_score
-                                                : "Not scored"
-                                        }
-
-                                    </p>
-
-
-                                    <p
-                                        class="faculty-feedback-label"
-                                    >
-                                        <b>
-                                            Faculty Feedback:
-                                        </b>
-                                    </p>
-
-
-                                   <p class="faculty-feedback-text">
-                                        ${
-                                            writingSubmission.faculty_feedback
-                                                ? escapeHTML(writingSubmission.faculty_feedback)
-                                                : "No feedback provided."
-                                        }
-                                    </p>
-
-                                    ${
-                                        writingSubmission.checked_pdf
-                                            ? `
-                                                <a href="#"
-                                                class="review-pdf-btn"
-                                                onclick="viewReviewedPDF('${writingSubmission.checked_pdf}'); return false;">
-                                                📄 View Reviewed PDF
-                                                </a>
-                                            `
-                                            : ""
-                                    }
-
-                                </div>
-
-                            `
-
-                            : ""
-                    }
-
-                </div>
+</div>
 
             </div>
 
