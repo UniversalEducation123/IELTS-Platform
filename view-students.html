@@ -7,6 +7,55 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+    .score-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .speaking-score-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        margin-top: 8px;
+        border: 1px solid #d8cfc3;
+        border-radius: 8px;
+        background: #fcfaf7;
+        font-size: 14px;
+    }
+
+    .speaking-save-button {
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px 10px;
+        border: none;
+        border-radius: 8px;
+        background: #8b9a6e;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .speaking-save-button:hover {
+        background: #78875d;
+    }
+
+    .final-mock-pending {
+        color: #777;
+    }
+
+    @media (max-width: 900px) {
+        .score-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .score-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
     const facultyId = sessionStorage.getItem("facultyId");
@@ -235,7 +284,9 @@ filteredResults.forEach(result => {
             test_date: result.test_date || null,
             listening_score: null,
             reading_score: null,
-            writing_score: null
+            writing_score: null,
+            speaking_score: null,
+            final_mock_score: null
         };
 
     }
@@ -252,6 +303,16 @@ filteredResults.forEach(result => {
 
     if (result.reading_score != null) {
         grouped.reading_score = result.reading_score;
+    }
+
+    if (result.speaking_score != null) {
+        grouped.speaking_score =
+            result.speaking_score;
+    }
+
+    if (result.final_mock_score != null) {
+        grouped.final_mock_score =
+            result.final_mock_score;
     }
 
 });
@@ -284,7 +345,9 @@ allWritingSubmissions.forEach(submission => {
                 : null,
             listening_score: null,
             reading_score: null,
-            writing_score: null
+            writing_score: null,
+            speaking_score: null,
+            final_mock_score: null
         };
 
     }
@@ -403,6 +466,12 @@ const groupedResultList = Object.values(groupedResults);
         const writingScore =
             result.writing_score;
 
+        const speakingScore =
+            result.speaking_score;
+
+        const finalMockScore =
+            result.final_mock_score;
+
 
         /* =============================
            BANDS
@@ -507,150 +576,239 @@ const groupedResultList = Object.values(groupedResults);
 
                 <div class="score-grid">
 
+    <!-- LISTENING -->
 
-                    <!-- =====================
-                         LISTENING
-                    ====================== -->
+    <div class="score-item">
 
-                    <div class="score-item">
+        <strong>
+            Listening
+        </strong>
 
-                        <strong>
-                            Listening
-                        </strong>
+        <span>
+            ${
+                listeningScore !== null &&
+                listeningScore !== undefined
+                    ? listeningScore + " / 40"
+                    : "Not submitted"
+            }
+        </span>
 
+        <small>
+            Band:
+            ${
+                listeningScore !== null &&
+                listeningScore !== undefined
+                    ? getListeningBand(listeningScore)
+                    : "Not submitted"
+            }
+        </small>
 
-                        <span>
-
-                            ${
-                                listeningScore !== null &&
-                                listeningScore !== undefined
-
-                                    ? listeningScore + " / 40"
-
-                                    : "Not submitted"
-                            }
-
-                        </span>
-
-
-                        <small>
-
-                            Band:
-                            ${listeningBand}
-
-                        </small>
-
-                    </div>
+    </div>
 
 
-                    <!-- =====================
-                         READING
-                    ====================== -->
+    <!-- READING -->
 
-                    <div class="score-item">
+    <div class="score-item">
 
-                        <strong>
-                            Reading
-                        </strong>
+        <strong>
+            Reading
+        </strong>
 
+        <span>
+            ${
+                readingScore !== null &&
+                readingScore !== undefined
+                    ? readingScore + " / 40"
+                    : "Not submitted"
+            }
+        </span>
 
-                        <span>
+        <small>
+            Band:
+            ${
+                readingScore !== null &&
+                readingScore !== undefined
+                    ? getReadingBand(readingScore)
+                    : "Not submitted"
+            }
+        </small>
 
-                            ${
-                                readingScore !== null &&
-                                readingScore !== undefined
-
-                                    ? readingScore + " / 40"
-
-                                    : "Not submitted"
-                            }
-
-                        </span>
-
-
-                        <small>
-
-                            Band:
-                            ${readingBand}
-
-                        </small>
-
-                    </div>
+    </div>
 
 
-                    <!-- =====================
-                         WRITING
-                    ====================== -->
+    <!-- WRITING -->
 
-                    <div class="score-item">
+    <div class="score-item">
 
-                        <strong>
-                            Writing
-                        </strong>
+        <strong>
+            Writing
+        </strong>
 
+        <span>
+            ${
+                writingSubmission
+                    ? "Submitted"
+                    : "Not submitted"
+            }
+        </span>
 
-                        <span>
+        <small>
+            ${
+                writingSubmission
+                    ? (
+                        writingSubmission.status === "reviewed"
+                            ? "Band: " +
+                              (
+                                  writingSubmission.overall_score ??
+                                  "Pending"
+                              )
+                            : "Ready for review"
+                    )
+                    : "No submission"
+            }
+        </small>
 
-                            ${
-                                writingSubmission
-                                    ? "Submitted"
-                                    : "Not submitted"
-                            }
-
-                        </span>
-
-
-                        <small>
-
-                            ${
-                                writingSubmission
-
-                                    ? (
-                                        writingSubmission.status ===
-                                        "reviewed"
-
-                                            ? "Review submitted"
-
-                                            : "Ready for review"
-                                      )
-
-                                    : "No submission"
-                            }
-
-                        </small>
-
-
+        ${
+            writingSubmission
+                ? `
+                    <button
+                        type="button"
+                        class="review-writing-button"
+                        onclick="reviewWriting('${writingSubmission.id}')"
+                    >
                         ${
-                            writingSubmission
-                                ? `
-                                    <button
-                                        type="button"
-                                        class="review-writing-button"
-                                        onclick="reviewWriting('${writingSubmission.id}')"
-                                    >
-                                        ${
-                                            writingSubmission.status === "reviewed"
-                                                ? "View Review"
-                                                : "Review Writing"
-                                        }
-                                    </button>
-                                `
-                                : `
-                                    <button
-                                        type="button"
-                                        class="review-writing-button"
-                                        disabled
-                                    >
-                                        No Writing
-                                    </button>
-                                `
+                            writingSubmission.status === "reviewed"
+                                ? "View Review"
+                                : "Review Writing"
                         }
+                    </button>
+                `
+                : `
+                    <button
+                        type="button"
+                        class="review-writing-button"
+                        disabled
+                    >
+                        No Writing
+                    </button>
+                `
+        }
+
+    </div>
 
 
-                    </div>
+    <!-- SPEAKING -->
+
+    <div class="score-item">
+
+        <strong>
+            Speaking
+        </strong>
+
+        ${
+            speakingScore !== null &&
+            speakingScore !== undefined
+
+                ? `
+                    <span>
+                        ${Number(speakingScore).toFixed(1)}
+                    </span>
+
+                    <small>
+                        Score entered
+                    </small>
+                `
+
+                : `
+                    <span>
+                        Pending
+                    </span>
+
+                    <small>
+                        Enter manually
+                    </small>
+                `
+        }
+
+        <input
+            type="number"
+            class="speaking-score-input"
+            id="speaking-${result.student_id}-${result.test_name.replace(/\s+/g, "-")}"
+            min="0"
+            max="9"
+            step="0.5"
+            value="${
+                speakingScore !== null &&
+                speakingScore !== undefined
+                    ? speakingScore
+                    : ""
+            }"
+            placeholder="e.g. 6.0"
+        >
+
+        <button
+            type="button"
+            class="speaking-save-button"
+            onclick="
+                saveSpeakingScore(
+                    ${result.student_id},
+                    '${escapeHTML(result.test_name)}'
+                )
+            "
+        >
+            Save Speaking
+        </button>
+
+    </div>
+
+</div>
 
 
-                </div>
+<!-- FINAL MOCK -->
+
+<div style="
+    margin-top:18px;
+    padding:16px;
+    border:1px solid #ddd4c8;
+    border-radius:12px;
+    background:#faf8f4;
+">
+
+    <strong>
+        Final Mock Test
+    </strong>
+
+    <span style="
+        display:block;
+        margin-top:6px;
+        font-size:20px;
+        font-weight:700;
+    ">
+
+        ${
+            finalMockScore !== null &&
+            finalMockScore !== undefined
+
+                ? Number(finalMockScore).toFixed(1)
+
+                : "Pending"
+        }
+
+    </span>
+
+    <small>
+
+        ${
+            finalMockScore !== null &&
+            finalMockScore !== undefined
+
+                ? "Listening + Reading + Writing + Speaking"
+                : "Waiting for all four section scores"
+        }
+
+    </small>
+
+</div>
 
 
             </div>
@@ -745,6 +903,196 @@ function getReadingBand(score) {
     return "0.0";
 }
 
+// Speaking score is entered directly as an IELTS band.
+function getSpeakingBand(score) {
+    if (score === null || score === undefined || score === "") {
+        return null;
+    }
+
+    const value = Number(score);
+
+    if (!Number.isFinite(value)) {
+        return null;
+    }
+
+    return value.toFixed(1);
+}
+
+
+// Calculate final mock score only when all four section bands exist.
+function calculateFinalMockScore(
+    listeningScore,
+    readingScore,
+    writingScore,
+    speakingScore
+) {
+
+    if (
+        listeningScore === null ||
+        listeningScore === undefined ||
+        listeningScore === "" ||
+
+        readingScore === null ||
+        readingScore === undefined ||
+        readingScore === "" ||
+
+        writingScore === null ||
+        writingScore === undefined ||
+        writingScore === "" ||
+
+        speakingScore === null ||
+        speakingScore === undefined ||
+        speakingScore === ""
+    ) {
+        return null;
+    }
+
+    const listeningBand =
+        Number(getListeningBand(listeningScore));
+
+    const readingBand =
+        Number(getReadingBand(readingScore));
+
+    const writingBand =
+        Number(writingScore);
+
+    const speakingBand =
+        Number(speakingScore);
+
+    if (
+        !Number.isFinite(listeningBand) ||
+        !Number.isFinite(readingBand) ||
+        !Number.isFinite(writingBand) ||
+        !Number.isFinite(speakingBand)
+    ) {
+        return null;
+    }
+
+    const average =
+        (
+            listeningBand +
+            readingBand +
+            writingBand +
+            speakingBand
+        ) / 4;
+
+    return Math.round(average * 2) / 2;
+}
+
+
+// Save the faculty-entered Speaking score.
+async function saveSpeakingScore(
+    studentId,
+    testName
+) {
+
+    const input =
+        document.getElementById(
+            `speaking-${studentId}-${testName.replace(/\s+/g, "-")}`
+        );
+
+    if (!input) {
+        return;
+    }
+
+    const speakingValue =
+        input.value.trim();
+
+    if (speakingValue === "") {
+        alert("Please enter the Speaking score.");
+        return;
+    }
+
+    const speakingScore =
+        Number(speakingValue);
+
+    if (
+        !Number.isFinite(speakingScore) ||
+        speakingScore < 0 ||
+        speakingScore > 9 ||
+        speakingScore % 0.5 !== 0
+    ) {
+        alert("Speaking score must be between 0 and 9 in 0.5 increments.");
+        return;
+    }
+
+    /*
+     * Find an existing test_results row
+     * for this student and test.
+     */
+    const existingResult =
+        allResults.find(result =>
+            String(result.student_id) === String(studentId) &&
+            result.test_name === testName
+        );
+
+    if (!existingResult) {
+        alert(
+            "The student does not have a test result row yet."
+        );
+        return;
+    }
+
+    const listeningScore =
+        existingResult.listening_score;
+
+    const readingScore =
+        existingResult.reading_score;
+
+    const writingSubmission =
+        allWritingSubmissions.find(submission =>
+            String(submission.student_id) === String(studentId) &&
+            submission.test_id ===
+                (
+                    "writing-" +
+                    testName
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")
+                )
+        );
+
+    const writingScore =
+        writingSubmission
+            ? writingSubmission.overall_score
+            : null;
+
+    const finalMockScore =
+        calculateFinalMockScore(
+            listeningScore,
+            readingScore,
+            writingScore,
+            speakingScore
+        );
+
+    const updateData = {
+        speaking_score: speakingScore,
+        final_mock_score: finalMockScore
+    };
+
+    const { error } =
+        await supabaseClient
+            .from("test_results")
+            .update(updateData)
+            .eq("id", existingResult.id);
+
+    if (error) {
+        console.error(error);
+        alert(
+            "Error saving Speaking score: " +
+            error.message
+        );
+        return;
+    }
+
+    alert(
+        finalMockScore !== null
+            ? "Speaking score saved. Final Mock score updated."
+            : "Speaking score saved. Final Mock remains pending until all four scores are available."
+    );
+
+    await loadStudentsAndResults();
+}
 
 // Prevent HTML injection in student names
 function escapeHTML(value) {
