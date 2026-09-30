@@ -19,6 +19,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             align-items: stretch;
+            height: 65vh;
         }
 
         .writing-question-panel,
@@ -27,6 +28,8 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             padding: 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
 
         .writing-question-panel img {
@@ -44,9 +47,9 @@
 
         .writing-answer-panel textarea {
             width: 100%;
-            min-height: 600px;
+            height: 500px;
             box-sizing: border-box;
-            resize: vertical;
+            resize: none;
             padding: 16px;
             font: inherit;
             line-height: 1.6;
@@ -75,12 +78,19 @@
 
             .writing-task-layout {
                 grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .writing-question-panel,
+            .writing-answer-panel {
+                max-height: 500px;
             }
 
             .writing-answer-panel textarea {
-                min-height: 400px;
+                height: 400px;
             }
         }
+        
     </style>
 </head>
 

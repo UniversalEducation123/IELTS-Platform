@@ -151,6 +151,87 @@
         border: none;
     }
 
+    /* =================================
+    TASK 2 QUESTION + ANSWER LAYOUT
+    ================================= */
+
+    .writing-task2-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        height: 65vh;
+        margin-top: 24px;
+    }
+
+
+    /* =================================
+    LEFT QUESTION PANEL
+    ================================= */
+
+    .writing-task2-question-panel {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+
+    /* =================================
+    RIGHT ANSWER PANEL
+    ================================= */
+
+    .writing-task2-answer-panel {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+
+        min-height: 0;
+    }
+
+    .writing-task2-answer-panel h3 {
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
+
+
+    /* =================================
+    ANSWER BOX
+    ================================= */
+
+    .writing-task2-answer-panel textarea {
+        width: 100%;
+        flex: 1;
+
+        min-height: 0;
+
+        box-sizing: border-box;
+
+        resize: none;
+
+        overflow-y: auto;
+
+        padding: 16px;
+
+        font: inherit;
+        font-size: 16px;
+        line-height: 1.6;
+
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+    }
+
+    .writing-task2-answer-panel textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
     /* Mobile */
 
     @media (max-width: 900px) {
@@ -159,14 +240,26 @@
             padding: 20px;
         }
 
+       .writing-task2-layout {
+            grid-template-columns: 1fr;
+            height: auto;
+        }
+
+        .writing-task2-question-panel {
+            min-height: auto;
+        }
+
+        .writing-task2-answer-panel {
+            height: 500px;
+        }
+
+        .writing-task2-answer-panel textarea {
+            min-height: 0;
+        }
+
         .writing-task2-question {
             font-size: 18px;
         }
-
-        .writing-task2-answer textarea {
-            min-height: 400px;
-        }
-
         .writing-task2-navigation {
             flex-direction: column;
             gap: 12px;
@@ -274,56 +367,71 @@
         </div>
 
 
-        <!-- QUESTION -->
+        <!-- =================================
+            QUESTION + ANSWER LAYOUT
+        ================================= -->
 
-        <div class="writing-task2-question">
-
-            Too many young people and too many old people do not exercise enough.
-            What is causing this? What can be done to change this?
-
-        </div>
+        <div class="writing-task2-layout">
 
 
-        <!-- INSTRUCTIONS -->
+            <!-- =========================
+                LEFT SIDE: QUESTION
+            ========================== -->
 
-        <p class="writing-task2-instruction">
-            Give reasons for your answer and include any relevant examples
-            from your own knowledge or experience.
-        </p>
+            <div class="writing-task2-question-panel">
 
-        <p class="writing-task2-instruction">
-            <strong>You should write at least 250 words.</strong>
-        </p>
+                <div class="writing-task2-question">
+
+                    Too many young people and too many old people do not exercise enough.
+                    What is causing this? What can be done to change this?
+
+                </div>
 
 
-        <!-- ANSWER -->
+                <p class="writing-task2-instruction">
+                    Give reasons for your answer and include any relevant examples
+                    from your own knowledge or experience.
+                </p>
 
-        <div class="writing-task2-answer">
-
-            <h3>
-                Your Answer
-            </h3>
-
-            <textarea
-                id="answer"
-                placeholder="Write your answer here..."
-                spellcheck="true"
-            ></textarea>
-
-            <div class="writing-task2-meta">
-
-                <span>
-                    Minimum: 250 words
-                </span>
-
-                <span class="writing-task2-word-count">
-                    Words:
-                    <strong id="wordCount">0</strong>
-                </span>
+                <p class="writing-task2-instruction">
+                    <strong>You should write at least 250 words.</strong>
+                </p>
 
             </div>
 
+
+    <!-- =========================
+         RIGHT SIDE: ANSWER
+    ========================== -->
+
+    <div class="writing-task2-answer-panel">
+
+        <h3>
+            Your Answer
+        </h3>
+
+        <textarea
+            id="answer"
+            placeholder="Write your answer here..."
+            spellcheck="true"
+        ></textarea>
+
+        <div class="writing-task2-meta">
+
+            <span>
+                Minimum: 250 words
+            </span>
+
+            <span class="writing-task2-word-count">
+                Words:
+                <strong id="wordCount">0</strong>
+            </span>
+
         </div>
+
+    </div>
+
+</div>
 
 
         <!-- NAVIGATION -->
