@@ -19,57 +19,6 @@
 
     <script src="../js/exam-inputs.js"></script>
 
-<div class="listening-section-navigation">
-
-    <strong>Go to:</strong>
-
-    <a href="listening-test-3-part1.html"
-       class="section-jump-button">
-        Part 1
-    </a>
-
-    <a href="listening-test-3-part2.html"
-       class="section-jump-button">
-        Part 2
-    </a>
-
-    <a href="listening-test-3-part3.html"
-       class="section-jump-button active-section">
-        Part 3
-    </a>
-
-    <a href="listening-test-3-part4.html"
-       class="section-jump-button">
-        Part 4
-    </a>
-
-</div>
-
-<header class="main-header">
-
-    <div class="logo">
-        IELTS Practice
-    </div>
-
-    <div class="header-right">
-
-        <div class="header-timer">
-            <span>Time Remaining</span>
-            <strong id="timer">--:--</strong>
-        </div>
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
-
-    </div>
-
-</header>
-
 <section class="listening-header">
 
     <div>
@@ -369,100 +318,6 @@
 <script>
 
     /* =========================================
-       ACCESS PROTECTION
-    ========================================= */
-
-    const listeningAccessKey =
-        "access_listening-test-3";
-
-    const listeningAccessGranted =
-        sessionStorage.getItem(listeningAccessKey);
-
-    if (listeningAccessGranted !== "true") {
-
-        window.location.href =
-            "../test-access.html?test=listening-test-3";
-
-    }
-
-
-    /* =========================================
-       TIMER
-    ========================================= */
-
-    let timeLeft =
-        parseInt(
-            sessionStorage.getItem(
-                "listeningTest3TimeLeft"
-            )
-        );
-
-    if (
-        isNaN(timeLeft) ||
-        timeLeft <= 0
-    ) {
-
-        timeLeft = 30 * 60;
-
-    }
-
-
-    function updateTimer() {
-
-        const minutes =
-            Math.floor(timeLeft / 60);
-
-        const seconds =
-            timeLeft % 60;
-
-        document.getElementById("timer")
-            .textContent =
-            String(minutes).padStart(2, "0")
-            + ":"
-            + String(seconds).padStart(2, "0");
-
-    }
-
-
-    updateTimer();
-
-
-    const timerInterval =
-        setInterval(function() {
-
-            if (timeLeft <= 0) {
-
-                clearInterval(timerInterval);
-
-                saveAllAnswers();
-
-                window.location.href =
-                    "listening-test-3-final.html";
-
-                return;
-
-            }
-
-
-            timeLeft--;
-
-            sessionStorage.setItem(
-                "listeningTest3TimeLeft",
-                timeLeft
-            );
-
-            updateTimer();
-
-        }, 1000);
-
-
-    sessionStorage.setItem(
-        "listeningTest3TimerStarted",
-        "true"
-    );
-
-
-    /* =========================================
        SAVE ANSWERS
     ========================================= */
 
@@ -644,9 +499,7 @@
     ========================================= */
 
     document
-    .querySelectorAll(
-        ".question-progress-button"
-    )
+    .querySelectorAll(".question-progress-button")
     .forEach(function(button) {
 
         button.addEventListener(
@@ -658,16 +511,28 @@
 
                 if (question >= 1 && question <= 10) {
 
-                    window.location.href =
-                        "listening-test-3-part1.html";
+                    saveAllAnswers();
+
+                    parent.loadPart(
+                        1,
+                        parent.document.querySelectorAll(
+                            ".section-jump-button"
+                        )[0]
+                    );
 
                 } else if (
                     question >= 11 &&
                     question <= 20
                 ) {
 
-                    window.location.href =
-                        "listening-test-3-part2.html";
+                    saveAllAnswers();
+
+                    parent.loadPart(
+                        2,
+                        parent.document.querySelectorAll(
+                            ".section-jump-button"
+                        )[1]
+                    );
 
                 } else if (
                     question >= 21 &&
@@ -686,17 +551,20 @@
 
     });
 
-
     /* =========================================
-       NAVIGATION
+    NAVIGATION
     ========================================= */
 
     function goToPart2() {
 
         saveAllAnswers();
 
-        window.location.href =
-            "listening-test-3-part2.html";
+        parent.loadPart(
+            2,
+            parent.document.querySelectorAll(
+                ".section-jump-button"
+            )[1]
+        );
 
     }
 
@@ -705,20 +573,24 @@
 
         saveAllAnswers();
 
-        window.location.href =
+        parent.window.location.href =
             "listening-test-3-final.html";
 
     }
+
 
     function goToPart4() {
 
         saveAllAnswers();
 
-        window.location.href =
-            "listening-test-3-part4.html";
+        parent.loadPart(
+            4,
+            parent.document.querySelectorAll(
+                ".section-jump-button"
+            )[3]
+        );
 
     }
-
 
     /* =========================================
        INITIAL LOAD

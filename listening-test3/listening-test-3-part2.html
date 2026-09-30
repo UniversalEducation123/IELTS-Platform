@@ -21,56 +21,6 @@
 
     <script src="../js/exam-inputs.js"></script>
 
-    <div class="listening-section-navigation">
-
-    <strong>Go to:</strong>
-
-    <a href="listening-test-3-part1.html"
-       class="section-jump-button">
-        Part 1
-    </a>
-
-    <a href="listening-test-3-part2.html"
-       class="section-jump-button active-section">
-        Part 2
-    </a>
-
-    <a href="listening-test-3-part3.html"
-       class="section-jump-button">
-        Part 3
-    </a>
-
-    <a href="listening-test-3-part4.html"
-       class="section-jump-button">
-        Part 4
-    </a>
-
-</div>
-
-<header class="main-header">
-
-    <div class="logo">
-        IELTS Practice
-    </div>
-
-    <div class="header-right">
-
-        <div class="header-timer">
-            <span>Time Remaining</span>
-            <strong id="timer">--:--</strong>
-        </div>
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
-
-    </div>
-
-</header>
 
 <main class="listening-container">
 
@@ -377,109 +327,6 @@
 
 
 <script>
-
-
-/* =========================================
-   ACCESS CHECK
-========================================= */
-
-const listeningAccessKey =
-    "access_listening-test-3";
-
-const listeningAccessGranted =
-    sessionStorage.getItem(listeningAccessKey);
-
-if (listeningAccessGranted !== "true") {
-
-    window.location.href =
-        "../test-access.html?test=listening-test-3";
-
-}
-
-
-/* =========================================
-   TIMER
-========================================= */
-
-let timeLeft =
-    sessionStorage.getItem(
-        "listeningTest3TimeLeft"
-    );
-
-if (timeLeft === null) {
-
-    timeLeft = 30 * 60;
-
-} else {
-
-    timeLeft = Number(timeLeft);
-
-}
-
-
-let timerInterval = null;
-
-
-function updateTimer() {
-
-    const minutes =
-        Math.floor(timeLeft / 60);
-
-    const seconds =
-        timeLeft % 60;
-
-    document.getElementById("timer").textContent =
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(seconds).padStart(2, "0");
-
-}
-
-
-function startTimer() {
-
-    if (timerInterval) {
-        return;
-    }
-
-    timerInterval =
-        setInterval(function() {
-
-            if (timeLeft <= 0) {
-
-                clearInterval(timerInterval);
-
-                window.location.href =
-                    "listening-test-3-final.html";
-
-                return;
-
-            }
-
-            timeLeft--;
-
-            sessionStorage.setItem(
-                "listeningTest3TimeLeft",
-                timeLeft
-            );
-
-            updateTimer();
-
-        }, 1000);
-
-}
-
-
-const timerStarted =
-    sessionStorage.getItem(
-        "listeningTest3TimerStarted"
-    );
-
-if (timerStarted === "true") {
-
-    startTimer();
-
-}
 
 
 /* =========================================
@@ -823,8 +670,12 @@ function goToPart1() {
 
     saveAnswers();
 
-    window.location.href =
-        "listening-test-3-part1.html";
+    parent.loadPart(
+        1,
+        parent.document.querySelectorAll(
+            ".section-jump-button"
+        )[0]
+    );
 
 }
 
@@ -833,8 +684,12 @@ function goToPart3() {
 
     saveAnswers();
 
-    window.location.href =
-        "listening-test-3-part3.html";
+    parent.loadPart(
+        3,
+        parent.document.querySelectorAll(
+            ".section-jump-button"
+        )[2]
+    );
 
 }
 
@@ -845,7 +700,6 @@ function goToPart3() {
 
 restoreAnswers();
 
-updateTimer();
 
 </script>
 
