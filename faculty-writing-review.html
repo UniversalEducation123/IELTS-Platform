@@ -719,13 +719,18 @@ async function saveReview() {
             .replace(/\b\w/g, c => c.toUpperCase());
 
 
-    const { data: testResult, error: testResultError } =
+    const { data: testResults, error: testResultError } =
         await supabaseClient
             .from("test_results")
             .select("*")
-            .eq("student_id", Number(currentSubmission.student_id))
-            .eq("test_name", testName)
-            .maybeSingle();
+            .eq(
+                "student_id",
+                Number(currentSubmission.student_id)
+            )
+            .eq(
+                "test_name",
+                testName
+            );
 
 
     if (testResultError) {
@@ -740,25 +745,64 @@ async function saveReview() {
     }
 
 
-    if (testResult) {
+    let listeningScore = null;
+    let readingScore = null;
+    let speakingScore = null;
 
-        const finalMockScore =
-            calculateFinalMockScore(
-                testResult.listening_score,
-                testResult.reading_score,
-                Number(overallScore),
-                testResult.speaking_score
-            );
+    (testResults || []).forEach(result => {
 
+        if (
+            listeningScore === null &&
+            result.listening_score !== null &&
+            result.listening_score !== undefined
+        ) {
+            listeningScore = result.listening_score;
+        }
+
+        if (
+            readingScore === null &&
+            result.reading_score !== null &&
+            result.reading_score !== undefined
+        ) {
+            readingScore = result.reading_score;
+        }
+
+        if (
+            speakingScore === null &&
+            result.speaking_score !== null &&
+            result.speaking_score !== undefined
+        ) {
+            speakingScore = result.speaking_score;
+        }
+
+    });
+
+
+    const finalMockScore =
+        calculateFinalMockScore(
+            listeningScore,
+            readingScore,
+            Number(overallScore),
+            speakingScore
+        );
+
+
+    if (testResults && testResults.length > 0) {
 
         const { error: finalMockError } =
             await supabaseClient
                 .from("test_results")
                 .update({
-                    final_mock_score:
-                        finalMockScore
+                    final_mock_score: finalMockScore
                 })
-                .eq("id", testResult.id);
+                .eq(
+                    "student_id",
+                    Number(currentSubmission.student_id)
+                )
+                .eq(
+                    "test_name",
+                    testName
+                );
 
 
         if (finalMockError) {
@@ -776,8 +820,6 @@ async function saveReview() {
 
     message.textContent =
         "Review saved successfully!";
-
-}
 
 function getListeningBand(score) {
 

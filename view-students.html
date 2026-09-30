@@ -360,34 +360,49 @@ allWritingSubmissions.forEach(submission => {
 const groupedResultList = Object.values(groupedResults);
 
 
-    /* =================================
-       NO RESULTS
-    ================================= */
+/* =========================================
+   CALCULATE FINAL MOCK FROM CURRENT SCORES
+========================================= */
 
-    if (groupedResultList.length === 0) {
+groupedResultList.forEach(result => {
 
-        studentList.innerHTML = `
+    result.final_mock_score =
+        calculateFinalMockScore(
+            result.listening_score,
+            result.reading_score,
+            result.writing_score,
+            result.speaking_score
+        );
 
-            <div class="no-students-message">
-
-                No results found for
-                ${
-                    testName === "ALL"
-                        ? "any test"
-                        : testName
-                }.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
+});
 
 
-    studentList.innerHTML = "";
+/* =================================
+   NO RESULTS
+================================= */
 
+if (groupedResultList.length === 0) {
+
+    studentList.innerHTML = `
+
+        <div class="no-students-message">
+
+            No results found for
+            ${
+                testName === "ALL"
+                    ? "any test"
+                    : testName
+            }.
+
+        </div>
+
+    `;
+
+    return;
+
+}
+
+studentList.innerHTML = "";
 
     /* =================================
        CREATE ONE CARD PER TEST
@@ -734,7 +749,7 @@ const groupedResultList = Object.values(groupedResults);
             type="number"
             class="speaking-score-input"
             id="speaking-${result.student_id}-${result.test_name.replace(/\s+/g, "-")}"
-            min="0"
+            min="1"
             max="9"
             step="0.5"
             value="${
@@ -1033,32 +1048,66 @@ async function saveSpeakingScore(
         speakingScore > 9 ||
         speakingScore % 0.5 !== 0
     ) {
-        alert("Speaking score must be between 1 and 9 in 0.5 increments.");
+        alert(
+            "Speaking score must be between 1 and 9 in 0.5 increments."
+        );
         return;
     }
 
-    /*
-     * Find an existing test_results row
-     * for this student and test.
-     */
-    const existingResult =
-        allResults.find(result =>
+
+    /* =========================================
+       GET ALL TEST RESULT ROWS
+    ========================================= */
+
+    const matchingResults =
+        allResults.filter(result =>
             String(result.student_id) === String(studentId) &&
             result.test_name === testName
         );
 
-    if (!existingResult) {
+    if (matchingResults.length === 0) {
+
         alert(
             "The student does not have a test result row yet."
         );
+
         return;
     }
 
-    const listeningScore =
-        existingResult.listening_score;
 
-    const readingScore =
-        existingResult.reading_score;
+    /* =========================================
+       MERGE LISTENING + READING FROM ALL ROWS
+    ========================================= */
+
+    let listeningScore = null;
+    let readingScore = null;
+
+    matchingResults.forEach(result => {
+
+        if (
+            listeningScore === null &&
+            result.listening_score !== null &&
+            result.listening_score !== undefined
+        ) {
+            listeningScore =
+                result.listening_score;
+        }
+
+        if (
+            readingScore === null &&
+            result.reading_score !== null &&
+            result.reading_score !== undefined
+        ) {
+            readingScore =
+                result.reading_score;
+        }
+
+    });
+
+
+    /* =========================================
+       FIND WRITING SCORE
+    ========================================= */
 
     const writingSubmission =
         allWritingSubmissions.find(submission =>
@@ -1078,6 +1127,11 @@ async function saveSpeakingScore(
             ? writingSubmission.overall_score
             : null;
 
+
+    /* =========================================
+       CALCULATE FINAL MOCK
+    ========================================= */
+
     const finalMockScore =
         calculateFinalMockScore(
             listeningScore,
@@ -1086,31 +1140,44 @@ async function saveSpeakingScore(
             speakingScore
         );
 
-    const updateData = {
-        speaking_score: speakingScore,
-        final_mock_score: finalMockScore
-    };
+
+    /* =========================================
+       UPDATE ALL MATCHING TEST RESULT ROWS
+    ========================================= */
 
     const { error } =
         await supabaseClient
             .from("test_results")
-            .update(updateData)
-            .eq("id", existingResult.id);
+            .update({
+                speaking_score:
+                    speakingScore,
+
+                final_mock_score:
+                    finalMockScore
+            })
+            .eq("student_id", Number(studentId))
+            .eq("test_name", testName);
+
 
     if (error) {
+
         console.error(error);
+
         alert(
             "Error saving Speaking score: " +
             error.message
         );
+
         return;
     }
+
 
     alert(
         finalMockScore !== null
             ? "Speaking score saved. Final Mock score updated."
             : "Speaking score saved. Final Mock remains pending until all four scores are available."
     );
+
 
     await loadStudentsAndResults();
 }
