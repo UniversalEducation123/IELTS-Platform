@@ -3606,3 +3606,87 @@ body.listening-page{
     }
 
 }
+
+/* =========================================
+   QUESTIONS 27–30 FLOWCHART LAYOUT
+========================================= */
+
+.flowchart-layout {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: 30px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+
+/* Answer options */
+
+.flowchart-layout .answer-box {
+    margin: 0;
+    position: sticky;
+    top: 20px;
+}
+
+
+/* Flow chart */
+
+.flowchart-layout .flowchart {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/* Smaller screens */
+
+@media (max-width: 900px) {
+
+    .flowchart-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .flowchart-layout .answer-box {
+        position: static;
+    }
+
+}
+
+/* =========================================
+   QUESTIONS 15–20 MAP LAYOUT
+========================================= */
+
+.map-layout {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 25px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.map-layout .map-container {
+    width: 100%;
+    margin: 0;
+}
+
+.map-layout .listening-map {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.map-layout .map-questions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0;
+}
+
+.map-layout .map-question {
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .map-layout {
+        grid-template-columns: 1fr;
+    }
+}
