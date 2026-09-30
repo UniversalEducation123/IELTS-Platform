@@ -708,11 +708,185 @@ async function saveReview() {
     }
 
 
+    /* =========================================
+    UPDATE FINAL MOCK SCORE
+    ========================================= */
+
+    const testName =
+        currentSubmission.test_id
+            .replace("writing-", "")
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, c => c.toUpperCase());
+
+
+    const { data: testResult, error: testResultError } =
+        await supabaseClient
+            .from("test_results")
+            .select("*")
+            .eq("student_id", Number(currentSubmission.student_id))
+            .eq("test_name", testName)
+            .maybeSingle();
+
+
+    if (testResultError) {
+
+        console.error(testResultError);
+
+        message.textContent =
+            "Review saved, but Final Mock could not be updated: " +
+            testResultError.message;
+
+        return;
+    }
+
+
+    if (testResult) {
+
+        const finalMockScore =
+            calculateFinalMockScore(
+                testResult.listening_score,
+                testResult.reading_score,
+                Number(overallScore),
+                testResult.speaking_score
+            );
+
+
+        const { error: finalMockError } =
+            await supabaseClient
+                .from("test_results")
+                .update({
+                    final_mock_score:
+                        finalMockScore
+                })
+                .eq("id", testResult.id);
+
+
+        if (finalMockError) {
+
+            console.error(finalMockError);
+
+            message.textContent =
+                "Review saved, but Final Mock could not be updated: " +
+                finalMockError.message;
+
+            return;
+        }
+    }
+
+
     message.textContent =
         "Review saved successfully!";
 
 }
 
+function getListeningBand(score) {
+
+    score = Number(score);
+
+    if (score >= 39) return 9.0;
+    if (score >= 37) return 8.5;
+    if (score >= 35) return 8.0;
+    if (score >= 32) return 7.5;
+    if (score >= 30) return 7.0;
+    if (score >= 27) return 6.5;
+    if (score >= 23) return 6.0;
+    if (score >= 20) return 5.5;
+    if (score >= 16) return 5.0;
+    if (score >= 13) return 4.5;
+    if (score >= 10) return 4.0;
+    if (score >= 8) return 3.5;
+    if (score >= 6) return 3.0;
+    if (score >= 4) return 2.5;
+    if (score >= 1) return 2.0;
+
+    return 0.0;
+}
+
+
+function getReadingBand(score) {
+
+    score = Number(score);
+
+    if (score >= 39) return 9.0;
+    if (score >= 37) return 8.5;
+    if (score >= 35) return 8.0;
+    if (score >= 33) return 7.5;
+    if (score >= 30) return 7.0;
+    if (score >= 27) return 6.5;
+    if (score >= 23) return 6.0;
+    if (score >= 19) return 5.5;
+    if (score >= 15) return 5.0;
+    if (score >= 13) return 4.5;
+    if (score >= 10) return 4.0;
+    if (score >= 8) return 3.5;
+    if (score >= 6) return 3.0;
+    if (score >= 4) return 2.5;
+    if (score >= 1) return 2.0;
+
+    return 0.0;
+}
+
+
+function calculateFinalMockScore(
+    listeningScore,
+    readingScore,
+    writingScore,
+    speakingScore
+) {
+
+    if (
+        listeningScore === null ||
+        listeningScore === undefined ||
+
+        readingScore === null ||
+        readingScore === undefined ||
+
+        writingScore === null ||
+        writingScore === undefined ||
+
+        speakingScore === null ||
+        speakingScore === undefined
+    ) {
+        return null;
+    }
+
+    const listeningBand =
+        getListeningBand(listeningScore);
+
+    const readingBand =
+        getReadingBand(readingScore);
+
+    const writingBand =
+        Number(writingScore);
+
+    const speakingBand =
+        Number(speakingScore);
+
+    if (
+        !Number.isFinite(listeningBand) ||
+        !Number.isFinite(readingBand) ||
+        !Number.isFinite(writingBand) ||
+        !Number.isFinite(speakingBand)
+    ) {
+        return null;
+    }
+
+    const average =
+        (
+            listeningBand +
+            readingBand +
+            writingBand +
+            speakingBand
+        ) / 4;
+
+    // IELTS overall rounding:
+    // .25 -> next .5
+    // .75 -> next whole number
+
+    return Math.round(
+        (average + Number.EPSILON) * 2
+    ) / 2;
+}
 
 loadSubmission();
 

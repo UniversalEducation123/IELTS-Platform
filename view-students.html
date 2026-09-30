@@ -919,7 +919,7 @@ function getSpeakingBand(score) {
 }
 
 
-// Calculate final mock score only when all four section bands exist.
+// Calculate IELTS overall band from the four section bands.
 function calculateFinalMockScore(
     listeningScore,
     readingScore,
@@ -927,22 +927,20 @@ function calculateFinalMockScore(
     speakingScore
 ) {
 
+    const values = [
+        listeningScore,
+        readingScore,
+        writingScore,
+        speakingScore
+    ];
+
+    // All four scores must exist
     if (
-        listeningScore === null ||
-        listeningScore === undefined ||
-        listeningScore === "" ||
-
-        readingScore === null ||
-        readingScore === undefined ||
-        readingScore === "" ||
-
-        writingScore === null ||
-        writingScore === undefined ||
-        writingScore === "" ||
-
-        speakingScore === null ||
-        speakingScore === undefined ||
-        speakingScore === ""
+        values.some(value =>
+            value === null ||
+            value === undefined ||
+            value === ""
+        )
     ) {
         return null;
     }
@@ -959,11 +957,21 @@ function calculateFinalMockScore(
     const speakingBand =
         Number(speakingScore);
 
+    const bands = [
+        listeningBand,
+        readingBand,
+        writingBand,
+        speakingBand
+    ];
+
+    // Every component must be a valid band from 1.0 to 9.0
     if (
-        !Number.isFinite(listeningBand) ||
-        !Number.isFinite(readingBand) ||
-        !Number.isFinite(writingBand) ||
-        !Number.isFinite(speakingBand)
+        bands.some(
+            band =>
+                !Number.isFinite(band) ||
+                band < 1 ||
+                band > 9
+        )
     ) {
         return null;
     }
@@ -976,9 +984,22 @@ function calculateFinalMockScore(
             speakingBand
         ) / 4;
 
-    return Math.round(average * 2) / 2;
-}
+    /*
+     * IELTS rounding:
+     * .25 → next .5
+     * .75 → next whole
+     *
+     * Math.round to the nearest half band handles
+     * .0, .25, .5 and .75 correctly.
+     */
 
+    const rounded =
+        Math.round(
+            (average + Number.EPSILON) * 2
+        ) / 2;
+
+    return Number(rounded.toFixed(1));
+}
 
 // Save the faculty-entered Speaking score.
 async function saveSpeakingScore(
@@ -1008,11 +1029,11 @@ async function saveSpeakingScore(
 
     if (
         !Number.isFinite(speakingScore) ||
-        speakingScore < 0 ||
+        speakingScore < 1 ||
         speakingScore > 9 ||
         speakingScore % 0.5 !== 0
     ) {
-        alert("Speaking score must be between 0 and 9 in 0.5 increments.");
+        alert("Speaking score must be between 1 and 9 in 0.5 increments.");
         return;
     }
 
