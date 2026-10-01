@@ -11,7 +11,6 @@
 
     <title>Listening Test 3 Result</title>
 
-
     <style>
 
        *{
@@ -34,10 +33,6 @@ body{
     color:#5F5B55;
 }
 
-/* =====================================
-   HEADER
-===================================== */
-
 .result-header{
     width:100%;
     max-width:900px;
@@ -54,7 +49,6 @@ body{
 
     border:1px solid #E8E1D6;
     border-radius:16px;
-
     box-shadow:0 8px 22px rgba(76,74,70,.05);
 }
 
@@ -82,10 +76,6 @@ body{
     color:#8B9A6E;
 }
 
-/* =====================================
-   RESULT CARD
-===================================== */
-
 .result-card{
     width:100%;
     max-width:750px;
@@ -97,7 +87,6 @@ body{
 
     border:1px solid #ECE4D8;
     border-radius:22px;
-
     box-shadow:0 14px 34px rgba(76,74,70,.06);
 }
 
@@ -114,10 +103,6 @@ h2{
     font-size:24px;
 }
 
-/* =====================================
-   SCORE
-===================================== */
-
 .result-line{
     display:flex;
     justify-content:space-between;
@@ -125,7 +110,6 @@ h2{
 
     padding:16px 5px;
     border-bottom:1px solid #E8E1D6;
-
     color:#5F5B55;
     font-size:18px;
 }
@@ -138,7 +122,6 @@ h2{
 .band-line{
     margin-top:12px;
     padding-top:22px;
-
     border-top:2px solid #D9E2D0;
     font-size:21px;
 }
@@ -148,10 +131,6 @@ h2{
     color:#8B9A6E;
 }
 
-/* =====================================
-   ANSWER REVIEW
-===================================== */
-
 .answer-review-section{
     margin-top:35px;
 }
@@ -159,7 +138,6 @@ h2{
 .answer-review-item{
     margin-bottom:14px;
     padding:16px 18px;
-
     border-radius:12px;
     border-left:5px solid;
 }
@@ -203,10 +181,6 @@ h2{
     color:#4C4A46;
 }
 
-/* =====================================
-   BUTTON
-===================================== */
-
 .home-button{
     display:block;
     width:fit-content;
@@ -220,7 +194,6 @@ h2{
     border-radius:999px;
     font-size:15px;
     font-weight:600;
-
     transition:.25s ease;
 }
 
@@ -229,10 +202,6 @@ h2{
     transform:translateY(-2px);
     box-shadow:0 10px 20px rgba(139,154,110,.18);
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:600px){
 
@@ -382,18 +351,10 @@ h2{
 </div>
 
 
-<!-- SUPABASE -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
-
-
-/* =========================================
-   SUPABASE CONNECTION
-========================================= */
-
 
 const SUPABASE_URL =
     "https://gehczgguwxqwfowmbedy.supabase.co";
@@ -1229,67 +1190,48 @@ async function calculateListeningScore() {
 ========================================= */
 
 
-async function saveResultToSupabase(
-    score
-) {
+async function saveResultToSupabase(score) {
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const studentName =
+        sessionStorage.getItem("studentName") || "Student";
 
 
-    if (
-        sessionStorage.getItem(
-            "listeningTest3ResultSaved"
-        ) === "true"
-    ) {
+    if (!studentId) {
 
-
-        console.log(
-            "Listening Test 3 result already saved."
+        console.error(
+            "Student ID not found."
         );
-
 
         return;
 
     }
 
 
-
-    const studentId =
-        sessionStorage.getItem(
-            "studentId"
-        );
-
-
-    const studentName =
-        sessionStorage.getItem(
-            "studentName"
-        ) || "Student";
-
+    const numericStudentId =
+        Number(studentId);
 
 
     const resultData = {
 
         student_id:
-            studentId
-                ? Number(studentId)
-                : null,
-
+            numericStudentId,
 
         student_name:
             studentName,
 
-
         test_name:
             "Test 3",
-
 
         test_date:
             new Date()
                 .toISOString()
                 .split("T")[0],
 
-
         listening_score:
             score,
-
 
         is_submitted:
             true
@@ -1297,38 +1239,132 @@ async function saveResultToSupabase(
     };
 
 
-
     console.log(
-        "Data being sent to Supabase:",
+        "TEST 3 RESULT DATA:",
         resultData
     );
 
 
+    /* =========================================
+       CHECK FOR EXISTING TEST 3 RESULT
+    ========================================= */
 
     const {
-        error
+        data: existingRows,
+        error: findError
     } =
         await supabaseClient
             .from("test_results")
-            .insert(
-                resultData
-            );
+            .select("id")
+            .eq(
+                "student_id",
+                numericStudentId
+            )
+            .eq(
+                "test_name",
+                "Test 3"
+            )
+            .limit(1);
 
 
-
-    if (error) {
-
+    if (findError) {
 
         console.error(
-            "Error saving Listening Test 3 result:",
-            error
+            "Error checking existing Test 3 result:",
+            findError
         );
 
+        alert(
+            "Could not check the Test 3 result: " +
+            findError.message
+        );
 
         return;
 
     }
 
+
+    /* =========================================
+       UPDATE EXISTING RESULT
+    ========================================= */
+
+    if (
+        existingRows &&
+        existingRows.length > 0
+    ) {
+
+        const {
+            error: updateError
+        } =
+            await supabaseClient
+                .from("test_results")
+                .update(resultData)
+                .eq(
+                    "id",
+                    existingRows[0].id
+                );
+
+
+        if (updateError) {
+
+            console.error(
+                "Error updating Test 3 result:",
+                updateError
+            );
+
+            alert(
+                "Test 3 result could not be saved: " +
+                updateError.message
+            );
+
+            return;
+
+        }
+
+        console.log(
+            "Test 3 result updated successfully."
+        );
+
+    }
+
+
+    /* =========================================
+       INSERT NEW RESULT
+    ========================================= */
+
+    else {
+
+        const {
+            error: insertError
+        } =
+            await supabaseClient
+                .from("test_results")
+                .insert(
+                    resultData
+                );
+
+
+        if (insertError) {
+
+            console.error(
+                "Error inserting Test 3 result:",
+                insertError
+            );
+
+            alert(
+                "Test 3 result could not be saved: " +
+                insertError.message
+            );
+
+            return;
+
+        }
+
+        console.log(
+            "Test 3 result inserted successfully."
+        );
+
+    }
 
 
     sessionStorage.setItem(
@@ -1336,14 +1372,7 @@ async function saveResultToSupabase(
         "true"
     );
 
-
-
-    console.log(
-        "Listening Test 3 result saved successfully."
-    );
-
 }
-
 
 
 /* =========================================
