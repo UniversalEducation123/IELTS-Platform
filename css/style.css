@@ -3690,3 +3690,58 @@ body.listening-page{
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================
+   Listening Highlight Controls
+===================================== */
+
+body.listening-highlight-mode {
+    cursor: text;
+}
+
+body.listening-highlight-mode .listening-container {
+    cursor: text;
+}
+
+.listening-highlight-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#listeningHighlightToggle,
+#listeningClearHighlights {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+#listeningHighlightToggle {
+    background: #fff;
+    border: 1px solid #DDD;
+}
+
+#listeningHighlightToggle.active {
+    background: #F3D36A;
+}
+
+#listeningClearHighlights {
+    background: #fff;
+    border: 1px solid #DDD;
+}
+
+#listeningHighlightToggle:hover,
+#listeningClearHighlights:hover {
+    transform: scale(1.05);
+}
+
+::highlight(listening-highlight) {
+    background: #FDE68A;
+}

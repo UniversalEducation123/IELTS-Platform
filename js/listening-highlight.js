@@ -29,91 +29,6 @@ const clearBtn =
         "listeningClearHighlights"
     );
 
-/* ---------- Styles ---------- */
-
-const style = document.createElement("style");
-
-style.textContent = `
-
-body.listening-highlight-mode{
-    cursor:text;
-}
-
-body.listening-highlight-mode .listening-container{
-    cursor:text;
-}
-
-
-#listeningHighlightToggle,
-#listeningClearHighlights {
-    position: fixed;
-    right: 22px;
-    z-index: 9999;
-    width: 52px;
-    height: 52px;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,.18);
-    transition: .2s;
-}
-
-#listeningHighlightToggle {
-    top: calc(50% - 60px);
-    background: #8B9A6E;
-    color: #fff;
-}
-
-#readingHighlightToggle.active,
-#listeningHighlightToggle.active {
-    background: #F3D36A;
-}
-
-#listeningClearHighlights {
-    top: calc(50% + 5px);
-    background: #fff;
-    border: 1px solid #DDD;
-}
-
-#listeningHighlightToggle:hover {
-    transform: scale(1.08);
-}
-
-#listeningClearHighlights:hover {
-    transform: scale(1.08);
-}
-
-::highlight(listening-highlight){
-
-    background:#FDE68A;
-
-}
-
-
-@media (max-width:700px){
-
-    #listeningHighlightToggle{
-
-        right:18px;
-        top:50%;
-
-    }
-
-    #listeningClearHighlights{
-
-        right:18px;
-        top:50%;
-
-    }
-
-}
-`;
-
-document.head.appendChild(style);
-
 
 /* ---------- Save ---------- */
 
@@ -333,33 +248,21 @@ document.addEventListener(
 
 /* ---------- Toggle ---------- */
 
-highlightBtn.addEventListener(
-    "click",
-    function(){
+highlightBtn.onclick = function () {
 
-        highlightMode = !highlightMode;
+    highlightMode = !highlightMode;
 
+    document.body.classList.toggle(
+        "listening-highlight-mode",
+        highlightMode
+    );
 
-        document.body.classList.toggle(
+    highlightBtn.classList.toggle(
+        "active",
+        highlightMode
+    );
 
-            "listening-highlight-mode",
-
-            highlightMode
-
-        );
-
-
-        highlightBtn.classList.toggle(
-
-            "active",
-
-            highlightMode
-
-        );
-
-    }
-);
-
+};
 
 /* ---------- Highlight CSS API ---------- */
 
@@ -450,41 +353,28 @@ document.addEventListener(
 
 /* ---------- Clear all highlights ---------- */
 
-clearBtn.addEventListener(
-    "click",
-    function(){
+clearBtn.onclick = () => {
 
-        const root =
-            getHighlightRoot();
+    const root =
+        getHighlightRoot();
 
+    if (!root) return;
 
-        if (!root) return;
-
-
-        if (
-            !confirm(
-                "Remove all highlights from this part?"
-            )
-        ){
-
-            return;
-
-        }
-
-
-        listeningHighlight.clear();
-
-
-        savedRanges = [];
-
-
-        sessionStorage.setItem(
-
-            pageKey,
-
-            JSON.stringify(savedRanges)
-
-        );
-
+    if (
+        !confirm(
+            "Remove all highlights from this part?"
+        )
+    ) {
+        return;
     }
-);
+
+    listeningHighlight.clear();
+
+    savedRanges = [];
+
+    sessionStorage.setItem(
+        pageKey,
+        JSON.stringify(savedRanges)
+    );
+
+};
