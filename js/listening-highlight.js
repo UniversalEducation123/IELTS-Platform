@@ -102,12 +102,16 @@ body.listening-highlight-mode .listening-container{
 
 #listeningHighlightToggle{
 
-    bottom:24px;
+    top:50%;
+    right:22px;
+
+    transform:translateY(-10px);
 
     background:#8B9A6E;
 
     color:#fff;
 }
+
 
 
 #listeningHighlightToggle.active{
@@ -119,7 +123,10 @@ body.listening-highlight-mode .listening-container{
 
 #listeningClearHighlights{
 
-    bottom:88px;
+    top:50%;
+    right:22px;
+
+    transform:translateY(55px);
 
     background:#fff;
 
@@ -128,10 +135,15 @@ body.listening-highlight-mode .listening-container{
 }
 
 
-#listeningHighlightToggle:hover,
+#listeningHighlightToggle:hover{
+
+    transform:translateY(-10px) scale(1.08);
+
+}
+
 #listeningClearHighlights:hover{
 
-    transform:scale(1.08);
+    transform:translateY(55px) scale(1.08);
 
 }
 
@@ -148,14 +160,14 @@ body.listening-highlight-mode .listening-container{
     #listeningHighlightToggle{
 
         right:18px;
-        bottom:18px;
+        top:50%;
 
     }
 
     #listeningClearHighlights{
 
         right:18px;
-        bottom:82px;
+        top:50%;
 
     }
 
