@@ -73,17 +73,11 @@
 
     <strong>Questions:</strong>
 
-    <button type="button"
-            class="question-progress-button current"
-            data-question="1">1</button>
+    <button type="button" class="question-progress-button current" data-question="1">1</button>
 
-    <button type="button"
-            class="question-progress-button"
-            data-question="2">2</button>
+    <button type="button" class="question-progress-button" data-question="2">2</button>
 
-    <button type="button"
-            class="question-progress-button"
-            data-question="3">3</button>
+    <button type="button" class="question-progress-button" data-question="3">3</button>
 
     <button type="button"
             class="question-progress-button"
@@ -508,6 +502,84 @@ function saveAnswers() {
 
 }
 
+/* =========================================
+   QUESTION PROGRESS
+========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 1; i <= 10; i++) {
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+        const button =
+            document.querySelector(
+                `.question-progress-button[data-question="${i}"]`
+            );
+
+        if (!button || !inputs.length) {
+            continue;
+        }
+
+        let answered = false;
+
+
+        inputs.forEach(function(input) {
+
+            /* Checkboxes */
+
+            if (input.type === "checkbox") {
+
+                if (input.checked) {
+                    answered = true;
+                }
+
+            }
+
+
+            /* Radio buttons */
+
+            else if (input.type === "radio") {
+
+                if (input.checked) {
+                    answered = true;
+                }
+
+            }
+
+
+            /* Text inputs and selects */
+
+            else {
+
+                if (
+                    input.value &&
+                    input.value.trim() !== ""
+                ) {
+                    answered = true;
+                }
+
+            }
+
+        });
+
+
+        if (answered) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
 
 /* =========================================
    RESTORE ANSWERS
@@ -568,6 +640,43 @@ function restoreAnswers() {
 
 }
 
+/* =========================================
+   QUESTION PROGRESS BUTTONS
+========================================= */
+
+document
+    .querySelectorAll(
+        ".question-progress-button"
+    )
+    .forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                const questionNumber =
+                    this.dataset.question;
+
+                const input =
+                    document.querySelector(
+                        `[name="q${questionNumber}"]`
+                    );
+
+                if (input) {
+
+                    input.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                    input.focus();
+
+                }
+
+            }
+        );
+
+    });
 
 /* =========================================
    SAVE WHEN ANSWERS CHANGE
@@ -577,7 +686,12 @@ document
     .getElementById("listeningForm")
     .addEventListener(
         "input",
-        saveAnswers
+        function() {
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        }
     );
 
 
@@ -585,9 +699,13 @@ document
     .getElementById("listeningForm")
     .addEventListener(
         "change",
-        saveAnswers
-    );
+        function() {
 
+            saveAnswers();
+            updateQuestionProgress();
+
+        }
+    );
 
 /* =========================================
    CONTINUE TO PART 2
@@ -613,6 +731,7 @@ function goToPart2() {
 ========================================= */
 
 restoreAnswers();
+updateQuestionProgress();
 
 </script>
 
