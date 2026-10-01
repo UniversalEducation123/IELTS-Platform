@@ -609,45 +609,127 @@
         }
 
 
-        const { data, error } =
+        /* =========================================
+        CHECK FOR EXISTING SUBMISSION
+        ========================================= */
+
+        const {
+            data: existingRows,
+            error: findError
+        } =
             await supabaseClient
-
                 .from("writing_submissions")
-
-                .insert([
-                    {
-                        student_id:
-                            studentId,
-
-                        student_name:
-                            studentName,
-
-                        test_id:
-                            "writing-test-3",
-
-                        task1_answer:
-                            task1Answer,
-
-                        task2_answer:
-                            task2Answer,
-
-                        status:
-                            "submitted"
-                    }
-                ])
-
-                .select()
-
-                .single();
+                .select("id")
+                .eq(
+                    "student_id",
+                    studentId
+                )
+                .eq(
+                    "test_id",
+                    "writing-test-3"
+                )
+                .limit(1);
 
 
-        if (error) {
+        if (findError) {
+
+            console.error(
+                "Writing Test 3 submission lookup error:",
+                findError
+            );
+
+            alert(
+                "There was a problem checking your submission. Please try again."
+            );
+
+            return;
+
+        }
+
+
+        /* =========================================
+        SUBMISSION DATA
+        ========================================= */
+
+        const submissionData = {
+
+            student_id:
+                studentId,
+
+            student_name:
+                studentName,
+
+            test_id:
+                "writing-test-3",
+
+            task1_answer:
+                task1Answer,
+
+            task2_answer:
+                task2Answer,
+
+            status:
+                "submitted"
+
+        };
+
+
+        let saveError = null;
+
+
+        /* =========================================
+        UPDATE EXISTING SUBMISSION
+        ========================================= */
+
+        if (
+            existingRows &&
+            existingRows.length > 0
+        ) {
+
+            const { error } =
+                await supabaseClient
+                    .from("writing_submissions")
+                    .update(submissionData)
+                    .eq(
+                        "id",
+                        existingRows[0].id
+                    );
+
+            saveError =
+                error;
+
+        }
+
+
+        /* =========================================
+        INSERT NEW SUBMISSION
+        ========================================= */
+
+        else {
+
+            const { error } =
+                await supabaseClient
+                    .from("writing_submissions")
+                    .insert(
+                        submissionData
+                    );
+
+            saveError =
+                error;
+
+        }
+
+
+        /* =========================================
+        HANDLE SAVE ERROR
+        ========================================= */
+
+        if (saveError) {
 
             console.error(
                 "Writing Test 3 submission error:",
-                error
+                saveError
             );
-
 
             alert(
                 "There was a problem saving your test. Please try again."
