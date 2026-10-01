@@ -653,64 +653,75 @@ studentList.innerHTML = "";
 
     <!-- WRITING -->
 
-    <div class="score-item">
+<div class="score-item">
 
-        <strong>
-            Writing
-        </strong>
+    <strong>
+        Writing
+    </strong>
 
-        <span>
-            ${
-                writingSubmission
-                    ? "Submitted"
-                    : "Not submitted"
-            }
-        </span>
-
-        <small>
-            ${
-                writingSubmission
-                    ? (
-                        writingSubmission.status === "reviewed"
-                            ? "Band: " +
-                              (
-                                  writingSubmission.overall_score ??
-                                  "Pending"
-                              )
-                            : "Ready for review"
-                    )
-                    : "No submission"
-            }
-        </small>
-
+    <span>
         ${
-            writingSubmission
-                ? `
-                    <button
-                        type="button"
-                        class="review-writing-button"
-                        onclick="reviewWriting('${writingSubmission.id}')"
-                    >
-                        ${
-                            writingSubmission.status === "reviewed"
-                                ? "View Review"
-                                : "Review Writing"
-                        }
-                    </button>
-                `
-                : `
-                    <button
-                        type="button"
-                        class="review-writing-button"
-                        disabled
-                    >
-                        No Writing
-                    </button>
-                `
+            writingSubmission &&
+            (
+                writingSubmission.status === "submitted" ||
+                writingSubmission.status === "reviewed"
+            )
+                ? "Submitted"
+                : "Not submitted"
         }
+    </span>
 
-    </div>
+    <small>
+        ${
+            writingSubmission &&
+            writingSubmission.status === "reviewed"
+                ? "Band: " +
+                  (
+                      writingSubmission.overall_score ??
+                      "Pending"
+                  )
 
+                : writingSubmission &&
+                  writingSubmission.status === "submitted"
+                    ? "Ready for review"
+
+                    : "No submission"
+        }
+    </small>
+
+
+    ${
+        writingSubmission &&
+        (
+            writingSubmission.status === "submitted" ||
+            writingSubmission.status === "reviewed"
+        )
+            ? `
+                <button
+                    type="button"
+                    class="review-writing-button"
+                    onclick="reviewWriting('${writingSubmission.id}')"
+                >
+                    ${
+                        writingSubmission.status === "reviewed"
+                            ? "View Review"
+                            : "Review Writing"
+                    }
+                </button>
+            `
+
+            : `
+                <button
+                    type="button"
+                    class="review-writing-button"
+                    disabled
+                >
+                    No Writing
+                </button>
+            `
+    }
+
+</div>
 
     <!-- SPEAKING -->
 
