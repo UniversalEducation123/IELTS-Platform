@@ -367,7 +367,14 @@ const SUPABASE_ANON_KEY =
 const supabaseClient =
     window.supabase.createClient(
         SUPABASE_URL,
-        SUPABASE_ANON_KEY
+        SUPABASE_ANON_KEY,
+        {
+            auth: {
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
+            }
+        }
     );
 
 
@@ -1210,14 +1217,10 @@ async function saveResultToSupabase(score) {
     }
 
 
-    const numericStudentId =
-        Number(studentId);
-
-
     const resultData = {
 
         student_id:
-            numericStudentId,
+            Number(studentId),
 
         student_name:
             studentName,
@@ -1245,38 +1248,26 @@ async function saveResultToSupabase(score) {
     );
 
 
-    /* =========================================
-       CHECK FOR EXISTING TEST 3 RESULT
-    ========================================= */
-
     const {
-        data: existingRows,
-        error: findError
+        data,
+        error
     } =
         await supabaseClient
             .from("test_results")
-            .select("id")
-            .eq(
-                "student_id",
-                numericStudentId
-            )
-            .eq(
-                "test_name",
-                "Test 3"
-            )
-            .limit(1);
+            .insert(resultData)
+            .select();
 
 
-    if (findError) {
+    if (error) {
 
         console.error(
-            "Error checking existing Test 3 result:",
-            findError
+            "ERROR SAVING TEST 3 RESULT:",
+            error
         );
 
         alert(
-            "Could not check the Test 3 result: " +
-            findError.message
+            "Test 3 result could not be saved: " +
+            error.message
         );
 
         return;
@@ -1284,87 +1275,10 @@ async function saveResultToSupabase(score) {
     }
 
 
-    /* =========================================
-       UPDATE EXISTING RESULT
-    ========================================= */
-
-    if (
-        existingRows &&
-        existingRows.length > 0
-    ) {
-
-        const {
-            error: updateError
-        } =
-            await supabaseClient
-                .from("test_results")
-                .update(resultData)
-                .eq(
-                    "id",
-                    existingRows[0].id
-                );
-
-
-        if (updateError) {
-
-            console.error(
-                "Error updating Test 3 result:",
-                updateError
-            );
-
-            alert(
-                "Test 3 result could not be saved: " +
-                updateError.message
-            );
-
-            return;
-
-        }
-
-        console.log(
-            "Test 3 result updated successfully."
-        );
-
-    }
-
-
-    /* =========================================
-       INSERT NEW RESULT
-    ========================================= */
-
-    else {
-
-        const {
-            error: insertError
-        } =
-            await supabaseClient
-                .from("test_results")
-                .insert(
-                    resultData
-                );
-
-
-        if (insertError) {
-
-            console.error(
-                "Error inserting Test 3 result:",
-                insertError
-            );
-
-            alert(
-                "Test 3 result could not be saved: " +
-                insertError.message
-            );
-
-            return;
-
-        }
-
-        console.log(
-            "Test 3 result inserted successfully."
-        );
-
-    }
+    console.log(
+        "TEST 3 RESULT SAVED SUCCESSFULLY:",
+        data
+    );
 
 
     sessionStorage.setItem(
