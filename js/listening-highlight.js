@@ -19,45 +19,15 @@ function getHighlightRoot() {
 
 }
 
+const highlightBtn =
+    window.parent.document.getElementById(
+        "listeningHighlightToggle"
+    );
 
-/* ---------- Toolbar ---------- */
-
-const highlightBtn = document.createElement("button");
-
-highlightBtn.id = "listeningHighlightToggle";
-
-highlightBtn.innerHTML = `
-<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-  <g transform="rotate(-35 12 12)">
-    <rect x="8" y="2" width="8" height="13" rx="2" fill="#F3D36A"/>
-    <rect x="8" y="15" width="8" height="5" fill="#C89B00"/>
-    <polygon points="8,20 16,20 12,23" fill="#8B6B00"/>
-  </g>
-</svg>`;
-
-document.body.appendChild(highlightBtn);
-
-
-const clearBtn = document.createElement("button");
-
-clearBtn.id = "listeningClearHighlights";
-
-clearBtn.innerHTML = `
-<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-  <path d="M7 16L15 8L20 13L12 21H7L3 17L11 9"
-        fill="none"
-        stroke="#5F5B55"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-  <path d="M7 21H18"
-        stroke="#5F5B55"
-        stroke-width="2"
-        stroke-linecap="round"/>
-</svg>`;
-
-document.body.appendChild(clearBtn);
-
+const clearBtn =
+    window.parent.document.getElementById(
+        "listeningClearHighlights"
+    );
 
 /* ---------- Styles ---------- */
 
@@ -75,78 +45,46 @@ body.listening-highlight-mode .listening-container{
 
 
 #listeningHighlightToggle,
-#listeningClearHighlights{
-
-    position:fixed;
-    right:22px;
-    z-index:9999;
-
-    width:52px;
-    height:52px;
-
-    border:none;
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:22px;
-    cursor:pointer;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.18);
-
-    transition:.2s;
+#listeningClearHighlights {
+    position: fixed;
+    right: 22px;
+    z-index: 9999;
+    width: 52px;
+    height: 52px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    transition: .2s;
 }
 
-
-#listeningHighlightToggle{
-
-    top:50%;
-    right:22px;
-
-    transform:translateY(-10px);
-
-    background:#8B9A6E;
-
-    color:#fff;
+#listeningHighlightToggle {
+    top: calc(50% - 60px);
+    background: #8B9A6E;
+    color: #fff;
 }
 
-
-
-#listeningHighlightToggle.active{
-
-    background:#F3D36A;
-
+#readingHighlightToggle.active,
+#listeningHighlightToggle.active {
+    background: #F3D36A;
 }
 
-
-#listeningClearHighlights{
-
-    top:50%;
-    right:22px;
-
-    transform:translateY(55px);
-
-    background:#fff;
-
-    border:1px solid #DDD;
-
+#listeningClearHighlights {
+    top: calc(50% + 5px);
+    background: #fff;
+    border: 1px solid #DDD;
 }
 
-
-#listeningHighlightToggle:hover{
-
-    transform:translateY(-10px) scale(1.08);
-
+#listeningHighlightToggle:hover {
+    transform: scale(1.08);
 }
 
-#listeningClearHighlights:hover{
-
-    transform:translateY(55px) scale(1.08);
-
+#listeningClearHighlights:hover {
+    transform: scale(1.08);
 }
-
 
 ::highlight(listening-highlight){
 
