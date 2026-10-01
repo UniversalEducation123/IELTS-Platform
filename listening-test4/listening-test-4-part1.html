@@ -555,24 +555,40 @@ function updateQuestionProgress() {
                 `.question-progress-button[data-question="${i}"]`
             );
 
-        if (!button || !inputs.length) {
+        if (!button) {
             continue;
         }
 
         let answered = false;
 
+
         inputs.forEach(function(input) {
 
-            if (
-                input.type === "checkbox" ||
-                input.type === "radio"
-            ) {
+            /* Checkbox questions */
+
+            if (input.type === "checkbox") {
 
                 if (input.checked) {
                     answered = true;
                 }
 
-            } else {
+            }
+
+
+            /* Radio questions */
+
+            else if (input.type === "radio") {
+
+                if (input.checked) {
+                    answered = true;
+                }
+
+            }
+
+
+            /* Text inputs and select boxes */
+
+            else {
 
                 if (
                     input.value &&
@@ -585,10 +601,16 @@ function updateQuestionProgress() {
 
         });
 
-        button.classList.toggle(
-            "answered",
-            answered
-        );
+
+        if (answered) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
 
     }
 
@@ -606,16 +628,16 @@ function goToQuestion(questionNumber) {
             `[name="q${questionNumber}"]`
         );
 
-    if (input) {
-
-        input.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        input.focus();
-
+    if (!input) {
+        return;
     }
+
+    input.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    input.focus();
 
 }
 
