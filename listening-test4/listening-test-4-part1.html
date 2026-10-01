@@ -12,63 +12,103 @@
     <link rel="stylesheet"
           href="../css/style.css">
 
+    <style>
+        .map-question-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            align-items: start;
+            margin-top: 25px;
+        }
+
+        .map-container {
+            width: 100%;
+        }
+
+        .listening-map {
+            width: 100%;
+            max-width: 700px;
+            display: block;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .map-questions {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .map-questions .question {
+            padding: 18px;
+        }
+
+        .map-questions select {
+            min-width: 90px;
+            padding: 8px 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 800px) {
+
+            .map-question-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+    </style>
+
 </head>
 
 <body>
 
+    <!-- QUESTION PROGRESS -->
 
-<div class="listening-section-navigation">
+<div class="question-progress">
 
-    <strong>Go to:</strong>
+    <strong>Questions:</strong>
 
-    <a href="listening-test-4-part1.html"
-       class="section-jump-button active-section">
-        Part 1
-    </a>
+    <button type="button"
+            class="question-progress-button current"
+            data-question="1">1</button>
 
-    <a href="listening-test-4-part2.html"
-       class="section-jump-button">
-        Part 2
-    </a>
+    <button type="button"
+            class="question-progress-button"
+            data-question="2">2</button>
 
-    <a href="listening-test-4-part3.html"
-       class="section-jump-button">
-        Part 3
-    </a>
+    <button type="button"
+            class="question-progress-button"
+            data-question="3">3</button>
 
-    <a href="listening-test-4-part4.html"
-       class="section-jump-button">
-        Part 4
-    </a>
+    <button type="button"
+            class="question-progress-button"
+            data-question="4">4</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="5">5</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="6">6</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="7">7</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="8">8</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="9">9</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="10">10</button>
 
 </div>
-
-
-<header class="main-header">
-
-    <div class="logo">
-        IELTS Practice
-    </div>
-
-    <div class="header-right">
-
-        <div class="header-timer">
-            <span>Time Remaining</span>
-            <strong id="timer">--:--</strong>
-        </div>
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
-
-    </div>
-
-</header>
-
 
 <main class="listening-container">
 
@@ -297,115 +337,101 @@
 
 
 
-<!-- =========================================
-     QUESTIONS 8–10
-========================================= -->
+<!-- QUESTIONS 8-10 -->
 
-<section class="listening-part">
+<section class="listening-card">
 
-    <div class="question-box">
+    <h2>Questions 8–10</h2>
 
-        <h2>Questions 8–10</h2>
+    <p>
+        Label the map below.
+        Write the correct letter A–H next to questions 8–10.
+    </p>
 
-        <p>
-            Label the map below.
-        </p>
+    <div class="map-question-layout">
 
-        <p>
-            Choose the correct letter, A–H.
-        </p>
+        <!-- MAP -->
 
+        <div class="map-container">
 
-        <div class="question">
-
-            <p>
-                <strong>8.</strong>
-                Eastern Towers
-            </p>
-
-            <select
-                name="q8"
-                class="answer-input">
-
-                <option value="">
-                    Select an answer
-                </option>
-
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                <option value="H">H</option>
-
-            </select>
+            <img
+                src="../assets/listening-test4-map.png"
+                alt="Map for Questions 8 to 10"
+                class="listening-map">
 
         </div>
 
 
-        <div class="question">
+        <!-- QUESTIONS -->
 
-            <p>
-                <strong>9.</strong>
-                Granby Mansions
-            </p>
+        <div class="map-questions">
 
-            <select
-                name="q9"
-                class="answer-input">
+            <div class="question">
 
-                <option value="">
-                    Select an answer
-                </option>
+                <p>
+                    <strong>8.</strong>
+                    Eastern Towers
+                </p>
 
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                <option value="H">H</option>
+                <select name="q8">
+                    <option value="">Select</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                </select>
 
-            </select>
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <strong>9.</strong>
+                    Granby Mansions
+                </p>
+
+                <select name="q9">
+                    <option value="">Select</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                </select>
+
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    <strong>10.</strong>
+                    Busby Garden
+                </p>
+
+                <select name="q10">
+                    <option value="">Select</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                </select>
+
+            </div>
 
         </div>
-
-
-        <div class="question">
-
-            <p>
-                <strong>10.</strong>
-                Busby Garden
-            </p>
-
-            <select
-                name="q10"
-                class="answer-input">
-
-                <option value="">
-                    Select an answer
-                </option>
-
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                <option value="H">H</option>
-
-            </select>
-
-        </div>
-
-
-        <p>
-            <strong>Map image will be added here.</strong>
-        </p>
 
     </div>
 
