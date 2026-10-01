@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
-        /* ================================
-           WRITING TASK 1
-        ================================= */
 
         .writing-task-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             align-items: stretch;
+
+            height: 65vh;
+            min-height: 500px;
         }
 
         .writing-question-panel,
@@ -27,6 +27,18 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             padding: 20px;
+            box-sizing: border-box;
+            min-height: 0;
+        }
+
+        .writing-question-panel {
+            overflow-y: auto;
+        }
+
+        .writing-answer-panel {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
         }
 
         .writing-question-panel img {
@@ -44,12 +56,15 @@
 
         .writing-answer-panel textarea {
             width: 100%;
-            min-height: 600px;
+            flex: 1;
+            min-height: 0;
+
             box-sizing: border-box;
-            resize: vertical;
+            resize: none;
             padding: 16px;
             font: inherit;
             line-height: 1.6;
+
             border: 1px solid #ccc;
             border-radius: 8px;
         }
@@ -58,6 +73,7 @@
             margin-top: 10px;
             text-align: right;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .writing-navigation {
@@ -75,11 +91,20 @@
 
             .writing-task-layout {
                 grid-template-columns: 1fr;
+                height: auto;
+                min-height: 0;
+            }
+
+            .writing-question-panel,
+            .writing-answer-panel {
+                max-height: 500px;
             }
 
             .writing-answer-panel textarea {
                 min-height: 400px;
+                flex: none;
             }
+
         }
     </style>
 </head>
