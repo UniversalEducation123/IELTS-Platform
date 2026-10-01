@@ -69,6 +69,8 @@
 
 <main class="listening-container">
 
+    <form id="listeningForm">
+
     <section class="listening-card question-section">
 
         <!-- =========================================
@@ -487,7 +489,9 @@
         </button>
 
 
-    </section>
+        </section>
+
+    </form>
 
 </main>
 
@@ -545,72 +549,104 @@ function updateQuestionProgress() {
 
     for (let i = 1; i <= 10; i++) {
 
-        const inputs =
-            document.querySelectorAll(
-                `[name="q${i}"]`
-            );
+        const button = document.querySelector(
+            `.question-progress-button[data-question="${i}"]`
+        );
 
-        const button =
-            document.querySelector(
-                `.question-progress-button[data-question="${i}"]`
-            );
+        if (!button) continue;
 
-        if (!button) {
-            continue;
-        }
 
         let answered = false;
 
 
-        inputs.forEach(function(input) {
+        /* =========================================
+           QUESTIONS 1–4
+           Text inputs
+        ========================================= */
 
-            /* Checkbox questions */
+        if (i >= 1 && i <= 4) {
 
-            if (input.type === "checkbox") {
+            const input = document.querySelector(
+                `[name="q${i}"]`
+            );
 
-                if (input.checked) {
-                    answered = true;
-                }
-
+            if (
+                input &&
+                input.value.trim() !== ""
+            ) {
+                answered = true;
             }
-
-
-            /* Radio questions */
-
-            else if (input.type === "radio") {
-
-                if (input.checked) {
-                    answered = true;
-                }
-
-            }
-
-
-            /* Text inputs and select boxes */
-
-            else {
-
-                if (
-                    input.value &&
-                    input.value.trim() !== ""
-                ) {
-                    answered = true;
-                }
-
-            }
-
-        });
-
-
-        if (answered) {
-
-            button.classList.add("answered");
-
-        } else {
-
-            button.classList.remove("answered");
 
         }
+
+
+        /* =========================================
+           QUESTIONS 5–7
+           Three checkbox answers
+        ========================================= */
+
+        else if (i >= 5 && i <= 7) {
+
+            const checked =
+                document.querySelectorAll(
+                    'input[name="q5"]:checked'
+                );
+
+            /*
+             * The progress boxes represent
+             * the three answers individually.
+             *
+             * 1 selected  → Q5 highlighted
+             * 2 selected  → Q5 + Q6 highlighted
+             * 3 selected  → Q5 + Q6 + Q7 highlighted
+             */
+
+            const count = checked.length;
+
+            if (i === 5 && count >= 1) {
+                answered = true;
+            }
+
+            if (i === 6 && count >= 2) {
+                answered = true;
+            }
+
+            if (i === 7 && count >= 3) {
+                answered = true;
+            }
+
+        }
+
+
+        /* =========================================
+           QUESTIONS 8–10
+           Select boxes
+        ========================================= */
+
+        else if (i >= 8 && i <= 10) {
+
+            const select = document.querySelector(
+                `[name="q${i}"]`
+            );
+
+            if (
+                select &&
+                select.value !== ""
+            ) {
+                answered = true;
+            }
+
+        }
+
+
+        /* =========================================
+           APPLY HIGHLIGHT
+        ========================================= */
+
+        button.classList.toggle(
+            "answered",
+            answered
+        );
 
     }
 
