@@ -1,182 +1,590 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test 4 - Listening Part 1</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #fdf8f5;
-            color: #333;
-        }
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 30px;
-        }
+    <title>IELTS Listening Test 4 - Part 1</title>
 
-        h1 {
-            text-align: center;
-            color: #2f6f5e;
-        }
+    <link rel="stylesheet"
+          href="../css/style.css">
 
-        h2 {
-            color: #d46a92;
-            margin-top: 35px;
-        }
-
-        .instructions {
-            background: #f5e8ee;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-
-        .question-box {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .question {
-            margin: 18px 0;
-            font-size: 17px;
-        }
-
-        input {
-            border: none;
-            border-bottom: 2px solid #777;
-            width: 180px;
-            padding: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        .options {
-            margin-top: 20px;
-            line-height: 2;
-        }
-
-        .map-section {
-            min-height: 300px;
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px dashed #bbb;
-            border-radius: 10px;
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="container">
 
-    <h1>Test 4 - Listening</h1>
+<div class="listening-section-navigation">
 
-    <h2>Part 1: Questions 1-10</h2>
+    <strong>Go to:</strong>
 
-    <div class="question-box">
+    <a href="listening-test-4-part1.html"
+       class="section-jump-button active-section">
+        Part 1
+    </a>
 
-        <h3>Questions 1-4</h3>
+    <a href="listening-test-4-part2.html"
+       class="section-jump-button">
+        Part 2
+    </a>
 
-        <div class="instructions">
-            Complete the notes below.<br>
-            Write <strong>NO MORE THAN ONE WORD AND/OR A NUMBER</strong>
-            for each answer.
-        </div>
+    <a href="listening-test-4-part3.html"
+       class="section-jump-button">
+        Part 3
+    </a>
 
-        <h3>Easylet Accommodation Agency</h3>
-
-        <div class="question">
-            Cheapest properties: £
-            <input type="text" id="q1">
-            per week
-        </div>
-
-        <div class="question">
-            Minimum period of contract:
-            <input type="text" id="q2">
-        </div>
-
-        <div class="question">
-            Office open Saturdays until
-            <input type="text" id="q3">
-        </div>
-
-        <div class="question">
-            List of properties available on the
-            <input type="text" id="q4">
-        </div>
-
-    </div>
-
-
-    <div class="question-box">
-
-        <h3>Questions 5-7</h3>
-
-        <div class="instructions">
-            Choose <strong>THREE</strong> letters A-G.
-        </div>
-
-        <p>
-            Which THREE things are included for free with every property
-            for rent from Easylet?
-        </p>
-
-        <div class="options">
-            <label>A. <input type="checkbox" name="q5-7" value="A"> heating bills</label><br>
-            <label>B. <input type="checkbox" name="q5-7" value="B"> kitchen equipment</label><br>
-            <label>C. <input type="checkbox" name="q5-7" value="C"> plates and glasses</label><br>
-            <label>D. <input type="checkbox" name="q5-7" value="D"> sheets and towels</label><br>
-            <label>E. <input type="checkbox" name="q5-7" value="E"> telephone</label><br>
-            <label>F. <input type="checkbox" name="q5-7" value="F"> television</label><br>
-            <label>G. <input type="checkbox" name="q5-7" value="G"> water bill</label>
-        </div>
-
-    </div>
-
-
-    <div class="question-box">
-
-        <h3>Questions 8-10</h3>
-
-        <div class="instructions">
-            Label the map below.<br>
-            Write the correct letter <strong>A-H</strong> next to questions 8-10.
-        </div>
-
-        <p><strong>Where are the following blocks of flats situated?</strong></p>
-
-        <div class="map-section">
-            <p>Map will be added here.</p>
-        </div>
-
-        <div class="question">
-            8. Eastern Towers
-            <input type="text" id="q8">
-        </div>
-
-        <div class="question">
-            9. Granby Mansions
-            <input type="text" id="q9">
-        </div>
-
-        <div class="question">
-            10. Busby Garden
-            <input type="text" id="q10">
-        </div>
-
-    </div>
+    <a href="listening-test-4-part4.html"
+       class="section-jump-button">
+        Part 4
+    </a>
 
 </div>
+
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">--:--</strong>
+        </div>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+<main class="listening-container">
+
+
+<section class="listening-header">
+
+    <div>
+
+        <h1>Part 1</h1>
+
+        <p>Questions 1–10</p>
+
+    </div>
+
+</section>
+
+
+<form id="listeningForm">
+
+
+<!-- =========================================
+     QUESTIONS 1–4
+========================================= -->
+
+<section class="listening-part active">
+
+    <div class="question-box">
+
+        <h2>Questions 1–4</h2>
+
+        <p>
+            Complete the notes below.
+        </p>
+
+        <p>
+            Write NO MORE THAN ONE WORDS AND/OR A NUMBER
+            for each answer.
+        </p>
+
+
+        <h3>
+            Easylet Accommodation Agency
+        </h3>
+
+
+        <!-- Q1 -->
+
+        <div class="question">
+
+            <p>
+                1. Cheapest properties: £
+                <input
+                    type="text"
+                    name="q1"
+                    class="answer-input"
+                    autocomplete="off">
+                per week
+            </p>
+
+        </div>
+
+
+        <!-- Q2 -->
+
+        <div class="question">
+
+            <p>
+                2. Minimum period of contract:
+                <input
+                    type="text"
+                    name="q2"
+                    class="answer-input"
+                    autocomplete="off">
+            </p>
+
+        </div>
+
+
+        <!-- Q3 -->
+
+        <div class="question">
+
+            <p>
+                3. Office open Saturdays until
+                <input
+                    type="text"
+                    name="q3"
+                    class="answer-input"
+                    autocomplete="off">
+            </p>
+
+        </div>
+
+
+        <!-- Q4 -->
+
+        <div class="question">
+
+            <p>
+                4. List of properties available on the
+                <input
+                    type="text"
+                    name="q4"
+                    class="answer-input"
+                    autocomplete="off">
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     QUESTIONS 5–7
+========================================= -->
+
+<section class="listening-part">
+
+    <div class="question-box">
+
+        <h2>Questions 5–7</h2>
+
+        <p>
+            Choose THREE letters, A–G.
+        </p>
+
+        <p>
+            Which THREE things are included for free
+            with every property for rent from Easylet?
+        </p>
+
+
+        <div class="question">
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="A">
+
+                A. heating bills
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="B">
+
+                B. kitchen equipment
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="C">
+
+                C. plates and glasses
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="D">
+
+                D. sheets and towels
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="E">
+
+                E. telephone
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="F">
+
+                F. television
+
+            </label>
+
+
+            <label class="option">
+
+                <input
+                    type="checkbox"
+                    name="q5"
+                    value="G">
+
+                G. water bill
+
+            </label>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     QUESTIONS 8–10
+========================================= -->
+
+<section class="listening-part">
+
+    <div class="question-box">
+
+        <h2>Questions 8–10</h2>
+
+        <p>
+            Label the map below.
+        </p>
+
+        <p>
+            Choose the correct letter, A–H.
+        </p>
+
+
+        <div class="question">
+
+            <p>
+                <strong>8.</strong>
+                Eastern Towers
+            </p>
+
+            <select
+                name="q8"
+                class="answer-input">
+
+                <option value="">
+                    Select an answer
+                </option>
+
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="question">
+
+            <p>
+                <strong>9.</strong>
+                Granby Mansions
+            </p>
+
+            <select
+                name="q9"
+                class="answer-input">
+
+                <option value="">
+                    Select an answer
+                </option>
+
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="question">
+
+            <p>
+                <strong>10.</strong>
+                Busby Garden
+            </p>
+
+            <select
+                name="q10"
+                class="answer-input">
+
+                <option value="">
+                    Select an answer
+                </option>
+
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+                <option value="H">H</option>
+
+            </select>
+
+        </div>
+
+
+        <p>
+            <strong>Map image will be added here.</strong>
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<div class="part-navigation">
+
+    <button
+        type="button"
+        class="next-btn"
+        onclick="goToPart2()">
+
+        Continue to Part 2
+
+    </button>
+
+</div>
+
+
+</form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   SAVE ANSWERS
+========================================= */
+
+function saveAnswers() {
+
+    for (let i = 1; i <= 10; i++) {
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+        let values = [];
+
+        inputs.forEach(function(input) {
+
+            if (
+                input.type === "checkbox" ||
+                input.type === "radio"
+            ) {
+
+                if (input.checked) {
+                    values.push(input.value);
+                }
+
+            } else {
+
+                values.push(input.value);
+
+            }
+
+        });
+
+        sessionStorage.setItem(
+            "listeningTest4_q" + i,
+            JSON.stringify(values)
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   RESTORE ANSWERS
+========================================= */
+
+function restoreAnswers() {
+
+    for (let i = 1; i <= 10; i++) {
+
+        const saved =
+            sessionStorage.getItem(
+                "listeningTest4_q" + i
+            );
+
+        if (!saved) {
+            continue;
+        }
+
+        let values;
+
+        try {
+
+            values = JSON.parse(saved);
+
+        } catch (e) {
+
+            values = [saved];
+
+        }
+
+
+        const inputs =
+            document.querySelectorAll(
+                `[name="q${i}"]`
+            );
+
+
+        inputs.forEach(function(input) {
+
+            if (
+                input.type === "checkbox" ||
+                input.type === "radio"
+            ) {
+
+                input.checked =
+                    values.includes(input.value);
+
+            } else {
+
+                input.value =
+                    values[0] || "";
+
+            }
+
+        });
+
+    }
+
+}
+
+
+/* =========================================
+   SAVE WHEN ANSWERS CHANGE
+========================================= */
+
+document
+    .getElementById("listeningForm")
+    .addEventListener(
+        "input",
+        saveAnswers
+    );
+
+
+document
+    .getElementById("listeningForm")
+    .addEventListener(
+        "change",
+        saveAnswers
+    );
+
+
+/* =========================================
+   CONTINUE TO PART 2
+========================================= */
+
+function goToPart2() {
+
+    saveAnswers();
+
+    window.parent.postMessage(
+        {
+            type: "loadListeningPart",
+            part: 2
+        },
+        "*"
+    );
+
+}
+
+
+/* =========================================
+   RESTORE
+========================================= */
+
+restoreAnswers();
+
+</script>
+
 
 </body>
 </html>
