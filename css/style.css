@@ -3745,3 +3745,51 @@ body.listening-highlight-mode .listening-container {
 ::highlight(listening-highlight) {
     background: #FDE68A;
 }
+
+.diagram-side-layout {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 25px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.diagram-image-box {
+    width: 100%;
+}
+
+.diagram-image-box .test2-diagram-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.diagram-answer-boxes {
+    width: 100%;
+}
+
+.diagram-answer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 15px;
+}
+
+.diagram-answer-grid label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.diagram-answer-grid .inline-answer {
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+
+    .diagram-side-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
