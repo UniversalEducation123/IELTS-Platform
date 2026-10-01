@@ -17,70 +17,140 @@
 
     <style>
 
+    .writing-task-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: stretch;
+
+        /* Keeps both panels within the screen */
+        height: 65vh;
+        min-height: 500px;
+    }
+
+
+    /* =========================================
+       LEFT: QUESTION PANEL
+    ========================================= */
+
+    .writing-question-panel {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+
+        /* Individual scrolling */
+        overflow-y: auto;
+        min-height: 0;
+    }
+
+
+    .writing-question-panel img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        color: rgb(19, 18, 18);
+    }
+
+
+    /* =========================================
+       RIGHT: ANSWER PANEL
+    ========================================= */
+
+    .writing-answer-panel {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+
+        /* Individual scrolling */
+        overflow-y: auto;
+        min-height: 0;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .writing-answer-panel textarea {
+        width: 100%;
+
+        /* Fills the available answer panel */
+        flex: 1;
+        min-height: 0;
+
+        box-sizing: border-box;
+        resize: none;
+
+        padding: 16px;
+        font: inherit;
+        font-size: 16px;
+        line-height: 1.6;
+
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+
+        overflow-y: auto;
+    }
+
+
+    .writing-answer-panel textarea:focus {
+        border-color: #3b0f12;
+
+        box-shadow:
+            0 0 0 3px rgba(59, 15, 18, 0.1);
+    }
+
+
+    .writing-word-count {
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #666;
+        flex-shrink: 0;
+    }
+
+
+    .writing-navigation {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 900px) {
+
         .writing-task-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: start;
+            grid-template-columns: 1fr;
+
+            height: auto;
+            min-height: 0;
         }
 
-        .writing-question-panel img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            color: rgb(19, 18, 18);
+        .writing-question-panel,
+        .writing-answer-panel {
+            max-height: 500px;
         }
 
         .writing-answer-panel textarea {
-            width: 100%;
-            min-height: 650px;
-            box-sizing: border-box;
-            resize: vertical;
-            padding: 16px;
-            font: inherit;
-            font-size: 16px;
-            line-height: 1.6;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            outline: none;
+            min-height: 400px;
+            flex: none;
         }
 
-        .writing-answer-panel textarea:focus {
-            border-color: #3b0f12;
-            box-shadow:
-                0 0 0 3px rgba(59, 15, 18, 0.1);
-        }
+    }
 
-        .writing-word-count {
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #666;
-        }
-
-        .writing-navigation {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 900px) {
-
-            .writing-task-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .writing-answer-panel textarea {
-                min-height: 450px;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
