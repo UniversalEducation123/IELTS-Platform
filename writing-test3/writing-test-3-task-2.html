@@ -17,6 +17,7 @@
         href="../css/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
 
@@ -598,6 +599,184 @@
             ) || "";
 
 
+        const { jsPDF } =
+            window.jspdf;
+
+        const pdf =
+            new jsPDF();
+
+        const studentIdNumber =
+            String(studentId);
+
+        const safeName =
+            (studentName || "Student")
+                .replace(/[^a-zA-Z0-9 ]/g, "")
+                .trim()
+                .replace(/\s+/g, "_");
+
+        const fileName =
+            `${safeName}_Writing_Test_3.pdf`;
+
+        const pdfPath =
+            `${studentIdNumber}/${fileName}`;
+
+        const margin = 20;
+
+        const pageWidth =
+            pdf.internal.pageSize.getWidth();
+
+        const textWidth =
+            pageWidth - (margin * 2);
+
+        let y = 20;
+
+
+        /* Student information */
+
+        pdf.setFontSize(18);
+        pdf.setFont(undefined, "bold");
+
+        pdf.text(
+            "IELTS Writing Test 3",
+            margin,
+            y
+        );
+
+        y += 12;
+
+        pdf.setFontSize(11);
+        pdf.setFont(undefined, "normal");
+
+        pdf.text(
+            `Student Name: ${studentName || "N/A"}`,
+            margin,
+            y
+        );
+
+        y += 7;
+
+        pdf.text(
+            `Student ID: ${studentId}`,
+            margin,
+            y
+        );
+
+        y += 7;
+
+        pdf.text(
+            `Date: ${new Date().toLocaleDateString()}`,
+            margin,
+            y
+        );
+
+        y += 15;
+
+
+        /* Helper */
+
+        function addAnswerSection(title, answer) {
+
+            pdf.setFontSize(15);
+            pdf.setFont(undefined, "bold");
+
+            pdf.text(
+                title,
+                margin,
+                y
+            );
+
+            y += 9;
+
+            pdf.setFontSize(11);
+            pdf.setFont(undefined, "normal");
+
+            const lines =
+                pdf.splitTextToSize(
+                    answer || "No answer submitted.",
+                    textWidth
+                );
+
+            lines.forEach(function(line) {
+
+                if (y > 275) {
+
+                    pdf.addPage();
+
+                    y = 20;
+
+                }
+
+                pdf.text(
+                    line,
+                    margin,
+                    y
+                );
+
+                y += 6;
+
+            });
+
+            y += 12;
+        }
+
+
+        /* Task 1 */
+
+        addAnswerSection(
+            "Writing Task 1",
+            task1Answer
+        );
+
+
+        /* Task 2 */
+
+        addAnswerSection(
+            "Writing Task 2",
+            task2Answer
+        );
+
+
+        /* Convert to Blob */
+
+        const pdfBlob =
+            pdf.output("blob");
+
+
+        /* Upload original PDF */
+
+        const {
+            error: uploadError
+        } =
+            await supabaseClient
+                .storage
+                .from("writing-pdfs")
+                .upload(
+                    pdfPath,
+                    pdfBlob,
+                    {
+                        contentType:
+                            "application/pdf",
+                        upsert: true
+                    }
+                );
+
+
+        if (uploadError) {
+
+            console.error(
+                "Writing Test 3 PDF upload error:",
+                uploadError
+            );
+
+            alert(
+                "The original writing PDF could not be saved."
+            );
+
+            return;
+
+        }
+
+
         if (!studentId) {
 
             alert(
@@ -667,6 +846,9 @@
 
             task2_answer:
                 task2Answer,
+
+            original_pdf:
+                pdfPath,
 
             status:
                 "submitted"
