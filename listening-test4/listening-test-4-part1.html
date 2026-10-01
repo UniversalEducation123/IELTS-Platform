@@ -67,322 +67,62 @@
 
 <body>
 
-    <!-- QUESTION PROGRESS -->
-
-<div class="question-progress">
-
-    <strong>Questions:</strong>
-
-    <button type="button" class="question-progress-button current" data-question="1">1</button>
-
-    <button type="button" class="question-progress-button" data-question="2">2</button>
-
-    <button type="button" class="question-progress-button" data-question="3">3</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="4">4</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="5">5</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="6">6</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="7">7</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="8">8</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="9">9</button>
-
-    <button type="button"
-            class="question-progress-button"
-            data-question="10">10</button>
-
-</div>
-
 <main class="listening-container">
 
+    <section class="listening-card question-section">
 
-<section class="listening-header">
+        <!-- =========================================
+             QUESTION HEADING
+        ========================================= -->
 
-    <div>
+        <div class="question-heading">
 
-        <h1>Part 1</h1>
+            <h2>Questions 1–10</h2>
 
-        <p>Questions 1–10</p>
+            <p>Complete the notes and label the map below.</p>
 
-    </div>
-
-</section>
-
-
-<form id="listeningForm">
-
-
-<!-- =========================================
-     QUESTIONS 1–4
-========================================= -->
-
-<section class="listening-part active">
-
-    <div class="question-box">
-
-        <h2>Questions 1–4</h2>
-
-        <p>
-            Complete the notes below.
-        </p>
-
-        <p>
-            Write NO MORE THAN ONE WORDS AND/OR A NUMBER
-            for each answer.
-        </p>
-
-
-        <h3>
-            Easylet Accommodation Agency
-        </h3>
-
-
-        <!-- Q1 -->
-
-        <div class="question">
-
-            <p>
-                1. Cheapest properties: £
-                <input
-                    type="text"
-                    name="q1"
-                    class="answer-input"
-                    autocomplete="off">
-                per week
+            <p class="instruction">
+                Write NO MORE THAN ONE WORDS AND/OR A NUMBER
+                for questions 1–4.
             </p>
 
         </div>
 
 
-        <!-- Q2 -->
+        <!-- =========================================
+             QUESTIONS 1–4
+        ========================================= -->
 
-        <div class="question">
+        <div class="question-box">
 
-            <p>
-                2. Minimum period of contract:
-                <input
-                    type="text"
-                    name="q2"
-                    class="answer-input"
-                    autocomplete="off">
-            </p>
-
-        </div>
-
-
-        <!-- Q3 -->
-
-        <div class="question">
+            <h2>Questions 1–4</h2>
 
             <p>
-                3. Office open Saturdays until
-                <input
-                    type="text"
-                    name="q3"
-                    class="answer-input"
-                    autocomplete="off">
+                Complete the notes below.
             </p>
 
-        </div>
-
-
-        <!-- Q4 -->
-
-        <div class="question">
-
-            <p>
-                4. List of properties available on the
-                <input
-                    type="text"
-                    name="q4"
-                    class="answer-input"
-                    autocomplete="off">
+            <p class="instruction">
+                Write NO MORE THAN ONE WORDS AND/OR A NUMBER
+                for each answer.
             </p>
 
-        </div>
+            <h3>
+                Easylet Accommodation Agency
+            </h3>
 
-    </div>
-
-</section>
-
-
-
-<!-- =========================================
-     QUESTIONS 5–7
-========================================= -->
-
-<section class="listening-part">
-
-    <div class="question-box">
-
-        <h2>Questions 5–7</h2>
-
-        <p>
-            Choose THREE letters, A–G.
-        </p>
-
-        <p>
-            Which THREE things are included for free
-            with every property for rent from Easylet?
-        </p>
-
-
-        <div class="question">
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="A">
-
-                A. heating bills
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="B">
-
-                B. kitchen equipment
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="C">
-
-                C. plates and glasses
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="D">
-
-                D. sheets and towels
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="E">
-
-                E. telephone
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="F">
-
-                F. television
-
-            </label>
-
-
-            <label class="option">
-
-                <input
-                    type="checkbox"
-                    name="q5"
-                    value="G">
-
-                G. water bill
-
-            </label>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- QUESTIONS 8-10 -->
-
-<section class="question-box map-question-box">
-
-    <h2>Questions 8–10</h2>
-
-    <p>
-        Label the map below.
-        Write the correct letter A–H next to questions 8–10.
-    </p>
-
-    <div class="map-question-layout">
-
-        <!-- MAP -->
-
-        <div class="map-container">
-
-            <img
-                src="../assets/listening-test4-map.png"
-                alt="Map for Questions 8 to 10"
-                class="listening-map">
-
-        </div>
-
-
-        <!-- QUESTIONS -->
-
-        <div class="map-questions">
 
             <div class="question">
 
                 <p>
-                    <strong>8.</strong>
-                    Eastern Towers
+                    1. Cheapest properties: £
+                    <input
+                        type="text"
+                        name="q1"
+                        data-question="1"
+                        class="listening-answer"
+                        autocomplete="off">
+                    per week
                 </p>
-
-                <select name="q8">
-                    <option value="">Select</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                </select>
 
             </div>
 
@@ -390,21 +130,14 @@
             <div class="question">
 
                 <p>
-                    <strong>9.</strong>
-                    Granby Mansions
+                    2. Minimum period of contract:
+                    <input
+                        type="text"
+                        name="q2"
+                        data-question="2"
+                        class="listening-answer"
+                        autocomplete="off">
                 </p>
-
-                <select name="q9">
-                    <option value="">Select</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                </select>
 
             </div>
 
@@ -412,47 +145,349 @@
             <div class="question">
 
                 <p>
-                    <strong>10.</strong>
-                    Busby Garden
+                    3. Office open Saturdays until
+                    <input
+                        type="text"
+                        name="q3"
+                        data-question="3"
+                        class="listening-answer"
+                        autocomplete="off">
                 </p>
 
-                <select name="q10">
-                    <option value="">Select</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                </select>
+            </div>
+
+
+            <div class="question">
+
+                <p>
+                    4. List of properties available on the
+                    <input
+                        type="text"
+                        name="q4"
+                        data-question="4"
+                        class="listening-answer"
+                        autocomplete="off">
+                </p>
 
             </div>
 
         </div>
 
-    </div>
 
-</section>
+        <!-- =========================================
+             QUESTIONS 5–7
+        ========================================= -->
+
+        <div class="question-box">
+
+            <h2>Questions 5–7</h2>
+
+            <p>
+                Choose THREE letters, A–G.
+            </p>
+
+            <p>
+                Which THREE things are included for free
+                with every property for rent from Easylet?
+            </p>
 
 
+            <div class="question">
 
-<div class="part-navigation">
+                <label class="option">
 
-    <button
-        type="button"
-        class="next-btn"
-        onclick="goToPart2()">
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="A">
 
-        Continue to Part 2
+                    A. heating bills
 
-    </button>
-
-</div>
+                </label>
 
 
-</form>
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="B">
+
+                    B. kitchen equipment
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="C">
+
+                    C. plates and glasses
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="D">
+
+                    D. sheets and towels
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="E">
+
+                    E. telephone
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="F">
+
+                    F. television
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="checkbox"
+                        name="q5"
+                        value="G">
+
+                    G. water bill
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             QUESTIONS 8–10
+        ========================================= -->
+
+        <div class="question-box map-question-box">
+
+            <h2>Questions 8–10</h2>
+
+            <p>
+                Label the map below.
+                Write the correct letter A–H next to questions 8–10.
+            </p>
+
+
+            <div class="map-question-layout">
+
+                <!-- MAP -->
+
+                <div class="map-container">
+
+                    <img
+                        src="../assets/listening-test4-map.png"
+                        alt="Map for Questions 8 to 10"
+                        class="listening-map">
+
+                </div>
+
+
+                <!-- QUESTIONS -->
+
+                <div class="map-questions">
+
+                    <div class="question">
+
+                        <p>
+                            <strong>8.</strong>
+                            Eastern Towers
+                        </p>
+
+                        <select
+                            name="q8"
+                            data-question="8"
+                            class="listening-answer">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>9.</strong>
+                            Granby Mansions
+                        </p>
+
+                        <select
+                            name="q9"
+                            data-question="9"
+                            class="listening-answer">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>10.</strong>
+                            Busby Garden
+                        </p>
+
+                        <select
+                            name="q10"
+                            data-question="10"
+                            class="listening-answer">
+
+                            <option value="">
+                                Select
+                            </option>
+
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             QUESTION PROGRESS
+        ========================================= -->
+
+        <div class="question-progress">
+
+            <span class="question-progress-title">
+                Questions:
+            </span>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="1"
+                    onclick="goToQuestion(1)">1</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="2"
+                    onclick="goToQuestion(2)">2</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="3"
+                    onclick="goToQuestion(3)">3</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="4"
+                    onclick="goToQuestion(4)">4</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="5"
+                    onclick="goToQuestion(5)">5</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="6"
+                    onclick="goToQuestion(6)">6</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="7"
+                    onclick="goToQuestion(7)">7</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="8"
+                    onclick="goToQuestion(8)">8</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="9"
+                    onclick="goToQuestion(9)">9</button>
+
+            <button type="button"
+                    class="question-progress-button"
+                    data-question="10"
+                    onclick="goToQuestion(10)">10</button>
+
+        </div>
+
+
+        <!-- =========================================
+             CONTINUE
+        ========================================= -->
+
+        <button
+            type="button"
+            class="primary-btn submit-section-btn"
+            id="submitListeningBtn">
+
+            Continue to Part 2
+
+        </button>
+
+
+    </section>
 
 </main>
 
@@ -526,34 +561,18 @@ function updateQuestionProgress() {
 
         let answered = false;
 
-
         inputs.forEach(function(input) {
 
-            /* Checkboxes */
-
-            if (input.type === "checkbox") {
-
-                if (input.checked) {
-                    answered = true;
-                }
-
-            }
-
-
-            /* Radio buttons */
-
-            else if (input.type === "radio") {
+            if (
+                input.type === "checkbox" ||
+                input.type === "radio"
+            ) {
 
                 if (input.checked) {
                     answered = true;
                 }
 
-            }
-
-
-            /* Text inputs and selects */
-
-            else {
+            } else {
 
                 if (
                     input.value &&
@@ -566,16 +585,35 @@ function updateQuestionProgress() {
 
         });
 
+        button.classList.toggle(
+            "answered",
+            answered
+        );
 
-        if (answered) {
+    }
 
-            button.classList.add("answered");
+}
 
-        } else {
 
-            button.classList.remove("answered");
+/* =========================================
+   GO TO QUESTION
+========================================= */
 
-        }
+function goToQuestion(questionNumber) {
+
+    const input =
+        document.querySelector(
+            `[name="q${questionNumber}"]`
+        );
+
+    if (input) {
+
+        input.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        input.focus();
 
     }
 
