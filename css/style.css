@@ -3793,3 +3793,49 @@ body.listening-highlight-mode .listening-container {
     }
 
 }
+
+/* =====================================
+   Listening Test 2 Part 2
+   Options + Questions Side by Side
+===================================== */
+
+.part2-table-layout {
+    display: grid;
+    grid-template-columns: 28% 72%;
+    gap: 25px;
+    align-items: start;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.part2-table-layout .answer-options-box {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.part2-table-layout .answer-options-box h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.part2-table-layout .answer-options-box p {
+    margin: 8px 0;
+}
+
+.part2-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.part2-table-container .listening-question-table {
+    width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+
+    .part2-table-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
