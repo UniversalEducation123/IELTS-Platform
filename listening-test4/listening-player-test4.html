@@ -154,10 +154,6 @@
 
 <script>
 
-/* =========================================
-   TIMER
-========================================= */
-
 let timeLeft =
     parseInt(
         sessionStorage.getItem(
@@ -180,10 +176,6 @@ let timerStarted = false;
 let timerInterval;
 
 
-/* =========================================
-   ELEMENTS
-========================================= */
-
 const audio =
     document.getElementById("listeningAudio");
 
@@ -203,10 +195,6 @@ const frame =
     document.getElementById("partFrame");
 
 
-/* =========================================
-   TIMER DISPLAY
-========================================= */
-
 function updateTimer() {
 
     const minutes =
@@ -225,10 +213,6 @@ function updateTimer() {
 
 updateTimer();
 
-
-/* =========================================
-   START TIMER
-========================================= */
 
 function startTimer() {
 

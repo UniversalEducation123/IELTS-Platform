@@ -14,10 +14,6 @@
 
     <style>
 
-        /* =========================================
-           QUESTION OPTIONS
-        ========================================= */
-
         .multiple-choice-question {
             margin-bottom: 30px;
         }
@@ -40,10 +36,53 @@
             margin-top: 4px;
         }
 
+        .task-matching-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr;
+            gap: 35px;
+            align-items: start;
+            margin-top: 25px;
+        }
 
-        /* =========================================
-           RESPONSIVE
-        ========================================= */
+        .task-matching-instructions {
+            padding: 20px;
+        }
+
+        .task-matching-instructions p {
+            margin-bottom: 15px;
+        }
+
+        .task-matching-questions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .task-matching-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .task-matching-question p {
+            margin: 0;
+            flex: 1;
+        }
+
+        .task-matching-question select {
+            min-width: 100px;
+            padding: 8px 10px;
+            font-size: 16px;
+        }
+
+        @media (max-width: 800px) {
+
+            .task-matching-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
 
         @media (max-width: 800px) {
 
@@ -66,10 +105,6 @@
         <section class="listening-card question-section">
 
 
-            <!-- =========================================
-                 QUESTION HEADING
-            ========================================= -->
-
             <div class="question-heading">
 
                 <h2>Questions 21–30</h2>
@@ -79,11 +114,6 @@
                 </p>
 
             </div>
-
-
-            <!-- =========================================
-                 QUESTIONS 21–25
-            ========================================= -->
 
             <div class="question-box">
 
@@ -318,172 +348,175 @@
             </div>
 
 
-            <!-- =========================================
-                 QUESTIONS 26–30
-            ========================================= -->
+                <!-- =========================================
+                    QUESTIONS 26–30
+                ========================================= -->
 
-            <div class="question-box">
+                <div class="question-box">
 
-                <h2>Questions 26–30</h2>
+                    <h2>Questions 26–30</h2>
 
-                <p>
-                    Who will do the following tasks?
-                </p>
-
-                <p class="instruction">
-                    Write the correct letter, A, B or C next
-                    to questions 26–30.
-                </p>
-
-                <p>
-                    <strong>A</strong> Martin
-                    <br>
-                    <strong>B</strong> Kate
-                    <br>
-                    <strong>C</strong> both Martin and Kate
-                </p>
+                    <div class="task-matching-layout">
 
 
-                <!-- QUESTION 26 -->
+                        <!-- LEFT: INSTRUCTIONS -->
 
-                <div class="question">
+                        <div class="task-matching-instructions">
 
-                    <p>
-                        <strong>26.</strong>
-                        compose questionnaire
-                    </p>
+                            <p>
+                                <strong>Who will do the following tasks?</strong>
+                            </p>
 
-                    <select
-                        name="q26"
-                        data-question="26"
-                        class="listening-answer">
+                            <p>
+                                Write the correct letter, A, B or C next
+                                to questions 26–30.
+                            </p>
 
-                        <option value="">
-                            Select
-                        </option>
+                            <p>
+                                <strong>A</strong> Martin
+                            </p>
 
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
+                            <p>
+                                <strong>B</strong> Kate
+                            </p>
 
-                    </select>
+                            <p>
+                                <strong>C</strong> both Martin and Kate
+                            </p>
+
+                        </div>
+
+
+                        <!-- RIGHT: QUESTIONS -->
+
+                        <div class="task-matching-questions">
+
+
+                            <!-- 26 -->
+
+                            <div class="question task-matching-question">
+
+                                <p>
+                                    <strong>26.</strong>
+                                    compose questionnaire
+                                </p>
+
+                                <select
+                                    name="q26"
+                                    data-question="26"
+                                    class="listening-answer">
+
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- 27 -->
+
+                            <div class="question task-matching-question">
+
+                                <p>
+                                    <strong>27.</strong>
+                                    select people to interview
+                                </p>
+
+                                <select
+                                    name="q27"
+                                    data-question="27"
+                                    class="listening-answer">
+
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- 28 -->
+
+                            <div class="question task-matching-question">
+
+                                <p>
+                                    <strong>28.</strong>
+                                    conduct interviews
+                                </p>
+
+                                <select
+                                    name="q28"
+                                    data-question="28"
+                                    class="listening-answer">
+
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- 29 -->
+
+                            <div class="question task-matching-question">
+
+                                <p>
+                                    <strong>29.</strong>
+                                    analyse statistics
+                                </p>
+
+                                <select
+                                    name="q29"
+                                    data-question="29"
+                                    class="listening-answer">
+
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- 30 -->
+
+                            <div class="question task-matching-question">
+
+                                <p>
+                                    <strong>30.</strong>
+                                    prepare visuals for presentation
+                                </p>
+
+                                <select
+                                    name="q30"
+                                    data-question="30"
+                                    class="listening-answer">
+
+                                    <option value="">Select</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-
-                <!-- QUESTION 27 -->
-
-                <div class="question">
-
-                    <p>
-                        <strong>27.</strong>
-                        select people to interview
-                    </p>
-
-                    <select
-                        name="q27"
-                        data-question="27"
-                        class="listening-answer">
-
-                        <option value="">
-                            Select
-                        </option>
-
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- QUESTION 28 -->
-
-                <div class="question">
-
-                    <p>
-                        <strong>28.</strong>
-                        conduct interviews
-                    </p>
-
-                    <select
-                        name="q28"
-                        data-question="28"
-                        class="listening-answer">
-
-                        <option value="">
-                            Select
-                        </option>
-
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- QUESTION 29 -->
-
-                <div class="question">
-
-                    <p>
-                        <strong>29.</strong>
-                        analyse statistics
-                    </p>
-
-                    <select
-                        name="q29"
-                        data-question="29"
-                        class="listening-answer">
-
-                        <option value="">
-                            Select
-                        </option>
-
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- QUESTION 30 -->
-
-                <div class="question">
-
-                    <p>
-                        <strong>30.</strong>
-                        prepare visuals for presentation
-                    </p>
-
-                    <select
-                        name="q30"
-                        data-question="30"
-                        class="listening-answer">
-
-                        <option value="">
-                            Select
-                        </option>
-
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================================
-                 QUESTION PROGRESS
-            ========================================= -->
 
             <div class="question-progress">
 
@@ -563,11 +596,6 @@
 
             </div>
 
-
-            <!-- =========================================
-                 CONTINUE
-            ========================================= -->
-
             <button
                 type="button"
                 class="primary-btn submit-section-btn"
@@ -587,10 +615,6 @@
 
 
 <script>
-
-/* =========================================
-   SAVE ANSWERS
-========================================= */
 
 function saveAnswers() {
 
@@ -630,11 +654,6 @@ function saveAnswers() {
     }
 
 }
-
-
-/* =========================================
-   QUESTION PROGRESS
-========================================= */
 
 function updateQuestionProgress() {
 
@@ -710,10 +729,6 @@ function updateQuestionProgress() {
 }
 
 
-/* =========================================
-   GO TO QUESTION
-========================================= */
-
 function goToQuestion(questionNumber) {
 
     const input =
@@ -731,11 +746,6 @@ function goToQuestion(questionNumber) {
     input.focus();
 
 }
-
-
-/* =========================================
-   RESTORE ANSWERS
-========================================= */
 
 function restoreAnswers() {
 
@@ -791,10 +801,6 @@ function restoreAnswers() {
 }
 
 
-/* =========================================
-   SAVE WHEN ANSWERS CHANGE
-========================================= */
-
 document
     .getElementById("listeningForm")
     .addEventListener(
@@ -820,11 +826,6 @@ document
         }
     );
 
-
-/* =========================================
-   CONTINUE TO PART 4
-========================================= */
-
 function goToPart4() {
 
     saveAnswers();
@@ -839,10 +840,6 @@ function goToPart4() {
 
 }
 
-
-/* =========================================
-   RESTORE
-========================================= */
 
 restoreAnswers();
 
