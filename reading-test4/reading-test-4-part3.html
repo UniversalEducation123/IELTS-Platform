@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,590 +10,556 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f2eb;
-            color: #333;
-        }
 
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 30px;
-            background: white;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .navbar .logo img {
-            height: 45px;
-        }
-
-        .navbar nav {
-            display: flex;
-            gap: 20px;
-        }
-
-        .navbar nav a {
-            text-decoration: none;
-            color: #444;
-            font-weight: 600;
-        }
-
-        .reading-wrapper {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .reading-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .reading-header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        #timer {
-            font-size: 22px;
-            font-weight: bold;
-            background: #8b9a6e;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-        }
-
-        .question-progress {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 15px 0 20px;
-            padding: 12px;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-        }
-
-        .question-progress button {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #ccc;
-            background: #f5f5f5;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .question-progress button.answered {
-            background: #8b9a6e;
-            color: white;
-            border-color: #8b9a6e;
-        }
-
-        .part-navigation {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .part-navigation button,
-        .submit-test-btn {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: 600;
-            background: #eee7dc;
-            color: #444;
-        }
-
-        .part-navigation button.active {
-            background: #8b9a6e;
-            color: white;
-        }
-
-        .submit-test-btn {
-            background: #8b9a6e;
-            color: white;
-            margin-left: auto;
-        }
-
-        .reading-split-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            align-items: start;
-        }
-
-        .passage-panel,
-        .questions-panel {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 25px;
-        }
-
-        .passage-panel {
-            max-height: 72vh;
-            overflow-y: auto;
-            line-height: 1.7;
-        }
-
-        .passage-panel h2 {
-            margin-top: 0;
-            color: #444;
-        }
-
-        .passage-panel p {
-            margin-bottom: 18px;
-        }
-
-        .questions-panel h2 {
-            margin-top: 0;
-        }
-
-        .question-block {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .question-block:last-child {
-            border-bottom: none;
-        }
-
-        .question-title {
-            font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .question-option {
-            margin: 8px 0;
-        }
-
-        .question-option label {
-            cursor: pointer;
-        }
-
-        input[type="text"] {
+        .question input[type="text"] {
             padding: 8px 10px;
-            border: 1px solid #bbb;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            font-size: 15px;
-            width: 180px;
-            max-width: 100%;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
             box-sizing: border-box;
         }
 
-        .table-wrapper {
-            overflow-x: auto;
-            margin-top: 15px;
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
         }
 
         .reading-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            margin-top: 20px;
         }
 
         .reading-table th,
         .reading-table td {
             border: 1px solid #ccc;
             padding: 12px;
+            vertical-align: top;
             text-align: left;
-            vertical-align: middle;
         }
 
         .reading-table th {
-            background: #f1ece4;
-            font-weight: 700;
+            background: #f5f1ea;
+            font-weight: 600;
         }
 
-        .reading-table input {
-            width: 160px;
+        .reading-table input[type="text"] {
+            width: 100%;
+            max-width: 180px;
+            box-sizing: border-box;
         }
 
         .matching-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .matching-table th,
         .matching-table td {
             border: 1px solid #ccc;
             padding: 12px;
+            vertical-align: middle;
             text-align: left;
         }
 
         .matching-table th {
-            background: #f1ece4;
+            background: #f5f1ea;
+            font-weight: 600;
         }
 
-        .three-choice-note {
-            background: #f7f3ec;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin: 10px 0 15px;
-            line-height: 1.5;
+        .matching-table input[type="text"] {
+            width: 70px;
+            max-width: 70px;
+            text-align: center;
         }
 
         .roman-options {
-            margin-top: 15px;
-            line-height: 1.9;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            line-height: 1.8;
         }
 
-        .bottom-navigation {
+        .three-answer-boxes {
+            margin-top: 20px;
+        }
+
+        .three-answer-boxes label {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-top: 25px;
+            gap: 10px;
+            margin: 12px 0;
         }
 
-        @media (max-width: 900px) {
-            .reading-split-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .passage-panel {
-                max-height: none;
-            }
-
-            .submit-test-btn {
-                margin-left: 0;
-            }
+        .three-answer-boxes input[type="text"] {
+            width: 100px;
+            max-width: 100px;
+            margin-top: 0;
         }
 
-        @media (max-width: 600px) {
-            .navbar {
-                padding: 10px 15px;
-            }
-
-            .reading-wrapper {
-                padding: 10px;
-            }
-
-            .passage-panel,
-            .questions-panel {
-                padding: 15px;
-            }
-
-            .reading-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
+        @media (max-width: 700px) {
 
             .reading-table {
-                min-width: 500px;
+                font-size: 14px;
             }
+
+            .reading-table th,
+            .reading-table td {
+                padding: 8px;
+            }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+<script>
+
+    const readingAccessKey = "access_reading-test-4";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-test-4";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
 <header class="navbar">
 
-    <a href="../student-dashboard.html" class="logo">
-        <img src="../assets/logo.png" alt="Universal Education Logo">
+    <a href="../index.html" class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
     </a>
 
+
+    <h3>
+        IELTS Academic Reading Test 4
+    </h3>
+
+
     <nav>
-        <a href="../student-dashboard.html">Dashboard</a>
-        <a href="../student-login.html">Logout</a>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
     </nav>
 
 </header>
 
 
-<div class="reading-wrapper">
 
-    <div class="reading-header">
-        <h1>IELTS Academic Reading Test 4</h1>
+<!-- ================================
+     QUESTION PROGRESS
+     ================================ -->
 
-        <div id="timer">60:00</div>
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+
+<main class="reading-wrapper">
+
+
+    <!-- ================================
+         TIMER
+         ================================ -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+            60:00
+        </div>
+
     </div>
 
 
-    <!-- QUESTION PROGRESS -->
 
-    <div class="question-progress">
+    <!-- ================================
+         PART BUTTONS
+         ================================ -->
 
-        <button type="button" data-question="1">1</button>
-        <button type="button" data-question="2">2</button>
-        <button type="button" data-question="3">3</button>
-        <button type="button" data-question="4">4</button>
-        <button type="button" data-question="5">5</button>
-        <button type="button" data-question="6">6</button>
-        <button type="button" data-question="7">7</button>
-        <button type="button" data-question="8">8</button>
-        <button type="button" data-question="9">9</button>
-        <button type="button" data-question="10">10</button>
-        <button type="button" data-question="11">11</button>
-        <button type="button" data-question="12">12</button>
-        <button type="button" data-question="13">13</button>
-        <button type="button" data-question="14">14</button>
-        <button type="button" data-question="15">15</button>
-        <button type="button" data-question="16">16</button>
-        <button type="button" data-question="17">17</button>
-        <button type="button" data-question="18">18</button>
-        <button type="button" data-question="19">19</button>
-        <button type="button" data-question="20">20</button>
-        <button type="button" data-question="21">21</button>
-        <button type="button" data-question="22">22</button>
-        <button type="button" data-question="23">23</button>
-        <button type="button" data-question="24">24</button>
-        <button type="button" data-question="25">25</button>
-        <button type="button" data-question="26">26</button>
-        <button type="button" data-question="27">27</button>
-        <button type="button" data-question="28">28</button>
-        <button type="button" data-question="29">29</button>
-        <button type="button" data-question="30">30</button>
-        <button type="button" data-question="31">31</button>
-        <button type="button" data-question="32">32</button>
-        <button type="button" data-question="33">33</button>
-        <button type="button" data-question="34">34</button>
-        <button type="button" data-question="35">35</button>
-        <button type="button" data-question="36">36</button>
-        <button type="button" data-question="37">37</button>
-        <button type="button" data-question="38">38</button>
-        <button type="button" data-question="39">39</button>
-        <button type="button" data-question="40">40</button>
-
-    </div>
-
-
-    <!-- PART NAVIGATION -->
-
-    <div class="part-navigation">
-
-        <button type="button" onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button type="button" onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button type="button" class="active">
-            Part 3
-        </button>
+    <div class="part-buttons">
 
         <button
             type="button"
-            class="submit-test-btn"
-            onclick="submitReadingTest()">
-            Submit Reading Test
+            onclick="goToPart(1)">
+            Part 1
         </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+            Part 2
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+            Part 3
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+
+        </div>
 
     </div>
 
 
+
+    <!-- ================================
+         READING FORM
+         ================================ -->
+
     <form id="readingForm">
 
-        <div class="reading-split-layout">
+
+        <!-- =========================================
+             PART 3
+             ========================================= -->
+
+        <section
+            id="part3"
+            class="reading-part active">
 
 
-            <!-- =========================
-                 PASSAGE
-                 ========================= -->
-
-            <section class="passage-panel">
-
-                <h2>Bathymetry</h2>
-
-                <p>
-                    The ocean floor is often considered the last frontier on earth,
-                    as it is a domain that remains greatly unexplored. Bathymetry,
-                    also known as sea-floor topography, involves measuring and
-                    mapping the depths of the underwater world. Today much of the
-                    ocean floor still remains unmapped because collecting bathymetry
-                    data in waters of great depth is a time consuming and complex endeavor.
-                </p>
-
-                <p>
-                    Two hundred years ago most people assumed that the ocean floor
-                    was similar to the beaches and coastlines. During the nineteenth
-                    century, attempts to produce maps of the seafloor involved lowering
-                    weighted lines from a boat and waiting for the tension of the line
-                    to change. When the handline hit the ocean floor, the depth of the
-                    water was determined by measuring the amount of slack. Each of these
-                    measurements was called a sounding, and thousands of soundings had
-                    to be done just to get a rough measurement of a small portion of
-                    the ocean floor. Besides estimating the depth, these surveys helped
-                    in identifying large shipping hazards, especially near the shoreline.
-                    A naval officer published the first evidence of underwater mountains
-                    in a bathymetric chart in 1855.
-                </p>
-
-                <p>
-                    During World War I, scientists developed the technology for measuring
-                    sound waves in the ocean. Anti-Submarine Detection Investigation
-                    Committee (ASDICs) was the original name for these underwater sound
-                    projectors, but by World War II the term sonar was adopted in the
-                    United States and many other nations. Sonar, which stands for Sound,
-                    Navigation, and Ranging, was first used to detect submarines and
-                    icebergs. By calculating the amount of time it took for a sound
-                    signal to reflect back to its original source, sonar could measure
-                    the depth of the ocean as well as the depth of any objects found
-                    within it.
-                </p>
-
-                <p>
-                    The first sonar devices were passive systems that could only receive
-                    sound waves. By the 1930s, single-beam sonar was being used to
-                    transmit sound waves in a vertical line from a ship to the seafloor.
-                    The sound waves were recorded as they returned from the surface to
-                    the ship. However, this type of sonar was more useful in detecting
-                    submerged objects than mapping the seafloor.
-                </p>
-
-                <p>
-                    Throughout World War II, technology improved, and active sonar systems
-                    that both received and produced sound waves were being used. It was
-                    the invention of the acoustic transducer and the acoustic projector
-                    that made way for this modern sonar. The newer systems made it possible
-                    to identify certain material, such as rock or mud. Since mud absorbed
-                    a good portion of a sound signal, it provided a much weaker echo than
-                    rocks, which reflected much of the sound wave.
-                </p>
-
-                <p>
-                    The multi-beam sonar, which could be attached to a ship’s hull,
-                    was developed in the 1960s. With this type of sonar, multiple beams
-                    could be adjusted to a number of different positions, and a larger
-                    area of the ocean could be surveyed. Maps created with the aid of
-                    multi-beam sonar helped to explain the formation of ridges and trenches,
-                    including the Ring of Fire and the Mid-Ocean Ridge.
-                </p>
-
-                <p>
-                    The Ring of Fire is a zone that circles the Pacific Ocean and is
-                    famous for its seismic activity. This area, which extends from the
-                    coast of New Zealand to the coast of North and South America, also
-                    accounts for more than 75 percent of the world’s active and dormant
-                    volcanoes.
-                </p>
-
-                <p>
-                    The Mid-Ocean Ridge is a section of undersea mountains that extends
-                    over 12,000 feet high and 1,200 miles wide. These mountains, which
-                    zigzag around the continents, are generally considered the most
-                    outstanding topographical features on earth.
-                </p>
-
-                <p>
-                    The invention of the side-scan sonar was another modern breakthrough
-                    for the field of bathymetry. This type of sonar is towed on cables,
-                    making it possible to send and receive sound waves over a broad
-                    section of the seafloor at much lower angles than the multi-beam sonar.
-                    The benefit of the side-scan sonar system is that it can detect very
-                    specific features over a large area.
-                </p>
-
-                <p>
-                    The most modern form of bathymetry, which is also the least accurate,
-                    is done with data collected by satellite altimetry. This method began
-                    to be used in the 1970s. This type of mapping relies on radar altimeters
-                    that receive echoes from the sea surface. These signals measure the
-                    distance between the satellite and the ocean floor.
-                </p>
-
-                <p>
-                    Unfortunately, due to water vapor and ionization, electromagnetic
-                    waves are often decelerated as they move through the atmosphere;
-                    therefore, the satellite receives inaccurate measurements. The benefit
-                    of using satellites to map the ocean is that it can take pictures of
-                    the entire globe, including areas that have not yet been measured by
-                    sonar. At this time, satellite altimetry is mainly used to locate areas
-                    where detailed sonar measurements need to be conducted.
-                </p>
-
-                <p>
-                    Due to a constant flux of plate activity, the topography of the seafloor
-                    is ever-changing. Scientists expect bathymetry to become one of the most
-                    important sciences as humans search for new energy sources and seek
-                    alternate routes for telecommunication. Preserving the ocean’s biosphere
-                    for the future will also rely on an accurate mapping of the seafloor.
-                </p>
-
-            </section>
+            <div class="reading-split-layout">
 
 
-            <!-- =========================
-                 QUESTIONS
-                 ========================= -->
+                <!-- =================================
+                     LEFT SIDE: PASSAGE
+                     ================================= -->
 
-            <section class="questions-panel">
-
-                <h2>Questions 28–40</h2>
+                <section class="passage-panel">
 
 
-                <!-- QUESTIONS 28–33 -->
+                    <h2>
+                        Passage 3: Bathymetry
+                    </h2>
 
-                <div class="question-block">
-
-                    <div class="question-title">
-                        Questions 28–33
-                    </div>
 
                     <p>
-                        Complete the table below.
-                        <strong>Write NO MORE THAN THREE WORDS.</strong>
+                        The ocean floor is often considered the last frontier on earth,
+                        as it is a domain that remains greatly unexplored. Bathymetry,
+                        also known as sea-floor topography, involves measuring and
+                        mapping the depths of the underwater world. Today much of the
+                        ocean floor still remains unmapped because collecting bathymetry
+                        data in waters of great depth is a time consuming and complex
+                        endeavor.
                     </p>
 
-                    <div class="table-wrapper">
+
+                    <p>
+                        Two hundred years ago most people assumed that the ocean floor
+                        was similar to the beaches and coastlines. During the nineteenth
+                        century, attempts to produce maps of the seafloor involved
+                        lowering weighted lines from a boat and waiting for the tension
+                        of the line to change. When the handline hit the ocean floor,
+                        the depth of the water was determined by measuring the amount
+                        of slack. Each of these measurements was called a sounding,
+                        and thousands of soundings had to be done just to get a rough
+                        measurement of a small portion of the ocean floor. Besides
+                        estimating the depth, these surveys helped in identifying large
+                        shipping hazards, especially near the shoreline. A naval officer
+                        published the first evidence of underwater mountains in a
+                        bathymetric chart in 1855.
+                    </p>
+
+
+                    <p>
+                        During World War I, scientists developed the technology for
+                        measuring sound waves in the ocean. Anti-Submarine Detection
+                        Investigation Committee (ASDICs) was the original name for
+                        these underwater sound projectors, but by World War II the
+                        term sonar was adopted in the United States and many other
+                        nations. Sonar, which stands for Sound, Navigation, and Ranging,
+                        was first used to detect submarines and icebergs. By calculating
+                        the amount of time it took for a sound signal to reflect back
+                        to its original source, sonar could measure the depth of the
+                        ocean as well as the depth of any objects found within it.
+                    </p>
+
+
+                    <p>
+                        The first sonar devices were passive systems that could only
+                        receive sound waves. By the 1930s, single-beam sonar was being
+                        used to transmit sound waves in a vertical line from a ship
+                        to the seafloor. The sound waves were recorded as they returned
+                        from the surface to the ship. However, this type of sonar was
+                        more useful in detecting submerged objects than mapping the
+                        seafloor.
+                    </p>
+
+
+                    <p>
+                        Throughout World War II, technology improved, and active sonar
+                        systems that both received and produced sound waves were being
+                        used. It was the invention of the acoustic transducer and the
+                        acoustic projector that made way for this modern sonar. The newer
+                        systems made it possible to identify certain material, such as
+                        rock or mud. Since mud absorbed a good portion of a sound signal,
+                        it provided a much weaker echo than rocks, which reflected much
+                        of the sound wave.
+                    </p>
+
+
+                    <p>
+                        The multi-beam sonar, which could be attached to a ship’s hull,
+                        was developed in the 1960s. With this type of sonar, multiple
+                        beams could be adjusted to a number of different positions,
+                        and a larger area of the ocean could be surveyed. Maps created
+                        with the aid of multi-beam sonar helped to explain the formation
+                        of ridges and trenches, including the Ring of Fire and the
+                        Mid-Ocean Ridge.
+                    </p>
+
+
+                    <p>
+                        The Ring of Fire is a zone that circles the Pacific Ocean and
+                        is famous for its seismic activity. This area, which extends
+                        from the coast of New Zealand to the coast of North and South
+                        America, also accounts for more than 75 percent of the world’s
+                        active and dormant volcanoes.
+                    </p>
+
+
+                    <p>
+                        The Mid-Ocean Ridge is a section of undersea mountains that
+                        extends over 12,000 feet high and 1,200 miles wide. These
+                        mountains, which zigzag around the continents, are generally
+                        considered the most outstanding topographical features on earth.
+                    </p>
+
+
+                    <p>
+                        The invention of the side-scan sonar was another modern
+                        breakthrough for the field of bathymetry. This type of sonar
+                        is towed on cables, making it possible to send and receive
+                        sound waves over a broad section of the seafloor at much lower
+                        angles than the multi-beam sonar. The benefit of the side-scan
+                        sonar system is that it can detect very specific features over
+                        a large area.
+                    </p>
+
+
+                    <p>
+                        The most modern form of bathymetry, which is also the least
+                        accurate, is done with data collected by satellite altimetry.
+                        This method began to be used in the 1970s. This type of mapping
+                        relies on radar altimeters that receive echoes from the sea
+                        surface. These signals measure the distance between the satellite
+                        and the ocean floor.
+                    </p>
+
+
+                    <p>
+                        Unfortunately, due to water vapor and ionization, electromagnetic
+                        waves are often decelerated as they move through the atmosphere;
+                        therefore, the satellite receives inaccurate measurements. The
+                        benefit of using satellites to map the ocean is that it can take
+                        pictures of the entire globe, including areas that have not yet
+                        been measured by sonar. At this time, satellite altimetry is
+                        mainly used to locate areas where detailed sonar measurements
+                        need to be conducted.
+                    </p>
+
+
+                    <p>
+                        Due to a constant flux of plate activity, the topography of
+                        the seafloor is ever-changing. Scientists expect bathymetry to
+                        become one of the most important sciences as humans search for
+                        new energy sources and seek alternate routes for telecommunication.
+                        Preserving the ocean’s biosphere for the future will also rely
+                        on an accurate mapping of the seafloor.
+                    </p>
+
+
+                </section>
+
+
+
+                <!-- =================================
+                     RIGHT SIDE: QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- QUESTIONS 28–33 -->
+
+                    <div class="question">
+
+                        <p>
+                            <strong>Questions 28–33</strong>
+                        </p>
+
+                        <p>
+                            Complete the table below.
+                            <strong>Write NO MORE THAN THREE WORDS.</strong>
+                        </p>
+
 
                         <table class="reading-table">
 
                             <thead>
+
                                 <tr>
-                                    <th>Method</th>
-                                    <th>First Used</th>
-                                    <th>Used For</th>
-                                    <th>How it Works</th>
+
+                                    <th>
+                                        Method
+                                    </th>
+
+                                    <th>
+                                        First Used
+                                    </th>
+
+                                    <th>
+                                        Used For
+                                    </th>
+
+                                    <th>
+                                        How it Works
+                                    </th>
+
                                 </tr>
+
                             </thead>
+
 
                             <tbody>
 
                                 <tr>
-                                    <td>Weighted line</td>
 
                                     <td>
+                                        Weighted line
+                                    </td>
+
+                                    <td>
+
                                         <input
                                             type="text"
                                             name="q28"
                                             aria-label="Question 28">
+
                                     </td>
 
                                     <td>
+
                                         determining
                                         <input
                                             type="text"
                                             name="q29"
                                             aria-label="Question 29">
+
                                     </td>
 
                                     <td>
                                         drop a line until it hits the bottom
                                     </td>
+
                                 </tr>
 
 
                                 <tr>
+
                                     <td>
+
                                         <input
                                             type="text"
                                             name="q30"
                                             aria-label="Question 30">
+
                                     </td>
 
                                     <td>
@@ -604,26 +571,32 @@
                                     </td>
 
                                     <td>
+
                                         send
                                         <input
                                             type="text"
                                             name="q31"
                                             aria-label="Question 31">
                                         to ocean floor
+
                                     </td>
+
                                 </tr>
 
 
                                 <tr>
+
                                     <td>
                                         Multi-beam sonar
                                     </td>
 
                                     <td>
+
                                         <input
                                             type="text"
                                             name="q32"
                                             aria-label="Question 32">
+
                                     </td>
 
                                     <td>
@@ -631,13 +604,15 @@
                                     </td>
 
                                     <td>
-                                        send multiple sound waves in
-                                        different directions
+                                        send multiple sound waves in different
+                                        directions
                                     </td>
+
                                 </tr>
 
 
                                 <tr>
+
                                     <td>
                                         Satellite altimetry
                                     </td>
@@ -647,16 +622,19 @@
                                     </td>
 
                                     <td>
+
                                         taking pictures of
                                         <input
                                             type="text"
                                             name="q33"
                                             aria-label="Question 33">
+
                                     </td>
 
                                     <td>
                                         send signals from satellite
                                     </td>
+
                                 </tr>
 
                             </tbody>
@@ -665,99 +643,151 @@
 
                     </div>
 
-                </div>
 
 
-                <!-- QUESTIONS 34–37 -->
+                    <!-- QUESTIONS 34–37 -->
 
-                <div class="question-block">
+                    <div class="question">
 
-                    <div class="question-title">
-                        Questions 34–37
-                    </div>
-
-                    <p>
-                        Match each description below with the ocean region that it describes.
-                    </p>
-
-                    <p>
-                        In boxes 34–37 on your Answer Sheet, write:
-                    </p>
-
-                    <p>
-                        <strong>A</strong> if it describes the Ring of Fire<br>
-                        <strong>B</strong> if it describes the Mid-Ocean Ridge
-                    </p>
+                        <p>
+                            <strong>Questions 34–37</strong>
+                        </p>
 
 
-                    <div class="matching-table">
+                        <p>
+                            Match each description below with the ocean region
+                            that it describes.
+                        </p>
+
+
+                        <p>
+                            In boxes 34–37 on your Answer Sheet, write:
+                        </p>
+
+
+                        <p>
+                            <strong>A</strong> if it describes the Ring of Fire
+                            <br>
+                            <strong>B</strong> if it describes the Mid-Ocean Ridge
+                        </p>
+
 
                         <table class="matching-table">
 
                             <thead>
+
                                 <tr>
-                                    <th>Question</th>
-                                    <th>Description</th>
-                                    <th>Answer</th>
+
+                                    <th>
+                                        Question
+                                    </th>
+
+                                    <th>
+                                        Description
+                                    </th>
+
+                                    <th>
+                                        Answer
+                                    </th>
+
                                 </tr>
+
                             </thead>
+
 
                             <tbody>
 
                                 <tr>
-                                    <td>34</td>
+
                                     <td>
-                                        It is known for the earthquakes that occur there.
+                                        <strong>34.</strong>
                                     </td>
+
                                     <td>
+                                        It is known for the earthquakes
+                                        that occur there.
+                                    </td>
+
+                                    <td>
+
                                         <input
                                             type="text"
                                             name="q34"
                                             maxlength="1"
                                             aria-label="Question 34">
+
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
-                                    <td>35</td>
+
+                                    <td>
+                                        <strong>35.</strong>
+                                    </td>
+
                                     <td>
                                         It is over one thousand miles wide.
                                     </td>
+
                                     <td>
+
                                         <input
                                             type="text"
                                             name="q35"
                                             maxlength="1"
                                             aria-label="Question 35">
+
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
-                                    <td>36</td>
+
+                                    <td>
+                                        <strong>36.</strong>
+                                    </td>
+
                                     <td>
                                         It is a mountain range.
                                     </td>
+
                                     <td>
+
                                         <input
                                             type="text"
                                             name="q36"
                                             maxlength="1"
                                             aria-label="Question 36">
+
                                     </td>
+
                                 </tr>
 
+
                                 <tr>
-                                    <td>37</td>
+
                                     <td>
-                                        It contains the majority of the earth’s volcanoes.
+                                        <strong>37.</strong>
                                     </td>
+
                                     <td>
+                                        It contains the majority of the
+                                        earth’s volcanoes.
+                                    </td>
+
+                                    <td>
+
                                         <input
                                             type="text"
                                             name="q37"
                                             maxlength="1"
                                             aria-label="Question 37">
+
                                     </td>
+
                                 </tr>
 
                             </tbody>
@@ -766,256 +796,431 @@
 
                     </div>
 
-                </div>
 
 
-                <!-- QUESTIONS 38–40 -->
+                    <!-- QUESTIONS 38–40 -->
 
-                <div class="question-block">
+                    <div class="question">
 
-                    <div class="question-title">
-                        Questions 38–40
+                        <p>
+                            <strong>Questions 38–40</strong>
+                        </p>
+
+
+                        <p>
+                            The list below gives some possible reasons for
+                            mapping the ocean floor.
+                        </p>
+
+
+                        <p>
+                            Which THREE of these reasons are mentioned
+                            in the reading passage?
+                        </p>
+
+
+                        <p>
+                            Write the appropriate Roman numerals
+                            <strong>i–vi</strong> in boxes 38–40.
+                        </p>
+
+
+                        <div class="roman-options">
+
+                            <div>
+                                <strong>i.</strong>
+                                Predicting earthquakes
+                            </div>
+
+                            <div>
+                                <strong>ii.</strong>
+                                Finding new fuel resources
+                            </div>
+
+                            <div>
+                                <strong>iii.</strong>
+                                Protecting ocean life
+                            </div>
+
+                            <div>
+                                <strong>iv.</strong>
+                                Understanding weather patterns
+                            </div>
+
+                            <div>
+                                <strong>v.</strong>
+                                Improving communications systems
+                            </div>
+
+                            <div>
+                                <strong>vi.</strong>
+                                Improving the fishing industry
+                            </div>
+
+                        </div>
+
+
+                        <div class="three-answer-boxes">
+
+                            <label>
+
+                                <strong>38.</strong>
+
+                                <input
+                                    type="text"
+                                    name="q38"
+                                    maxlength="3"
+                                    aria-label="Question 38">
+
+                            </label>
+
+
+                            <label>
+
+                                <strong>39.</strong>
+
+                                <input
+                                    type="text"
+                                    name="q39"
+                                    maxlength="3"
+                                    aria-label="Question 39">
+
+                            </label>
+
+
+                            <label>
+
+                                <strong>40.</strong>
+
+                                <input
+                                    type="text"
+                                    name="q40"
+                                    maxlength="3"
+                                    aria-label="Question 40">
+
+                            </label>
+
+                        </div>
+
                     </div>
 
-                    <p>
-                        The list below gives some possible reasons for mapping the ocean floor.
-                    </p>
 
-                    <div class="three-choice-note">
-                        Which THREE of these reasons are mentioned in the reading passage?
-                        <br>
-                        Write the appropriate Roman numerals
-                        <strong>i–vi</strong> in boxes 38–40.
-                    </div>
+                </section>
 
+            </div>
 
-                    <div class="roman-options">
+        </section>
 
-                        <div>
-                            <strong>i.</strong> Predicting earthquakes
-                        </div>
-
-                        <div>
-                            <strong>ii.</strong> Finding new fuel resources
-                        </div>
-
-                        <div>
-                            <strong>iii.</strong> Protecting ocean life
-                        </div>
-
-                        <div>
-                            <strong>iv.</strong> Understanding weather patterns
-                        </div>
-
-                        <div>
-                            <strong>v.</strong> Improving communications systems
-                        </div>
-
-                        <div>
-                            <strong>vi.</strong> Improving the fishing industry
-                        </div>
-
-                    </div>
-
-
-                    <div style="margin-top: 20px;">
-
-                        <label>
-                            <strong>38.</strong>
-                            <input
-                                type="text"
-                                name="q38"
-                                maxlength="3"
-                                aria-label="Question 38">
-                        </label>
-
-                        <br><br>
-
-                        <label>
-                            <strong>39.</strong>
-                            <input
-                                type="text"
-                                name="q39"
-                                maxlength="3"
-                                aria-label="Question 39">
-                        </label>
-
-                        <br><br>
-
-                        <label>
-                            <strong>40.</strong>
-                            <input
-                                type="text"
-                                name="q40"
-                                maxlength="3"
-                                aria-label="Question 40">
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </div>
 
     </form>
 
+</main>
 
-    <div class="bottom-navigation">
-
-        <button
-            type="button"
-            class="part-navigation button"
-            onclick="goToPart(2)">
-            ← Back to Part 2
-        </button>
-
-        <button
-            type="button"
-            class="submit-test-btn"
-            onclick="submitReadingTest()">
-            Submit Reading Test
-        </button>
-
-    </div>
-
-</div>
 
 
 <script>
 
-const ACCESS_KEY = "access_reading-test-4";
+/* =========================================
+   READING TEST 4 TIMER
+   ========================================= */
 
-const TEST_PREFIX = "readingTest4_";
-
-let timeLeft = 60 * 60;
-let timerInterval;
+let timeLeftStorage =
+    sessionStorage.getItem("readingTest4TimeLeft");
 
 
-/* =========================
-   TIMER
-   ========================= */
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
 
-function startTimer() {
 
-    const savedTime = sessionStorage.getItem(
-        "readingTest4TimeLeft"
-    );
+let timerStarted =
+    sessionStorage.getItem("readingTest4TimerStarted") === "true";
 
-    if (savedTime !== null) {
-        timeLeft = parseInt(savedTime, 10);
-    }
 
-    updateTimer();
+let timerInterval = null;
 
-    timerInterval = setInterval(function () {
 
-        timeLeft--;
+const timerElement =
+    document.getElementById("timer");
 
-        sessionStorage.setItem(
-            "readingTest4TimeLeft",
-            timeLeft
-        );
-
-        updateTimer();
-
-        if (timeLeft <= 0) {
-
-            clearInterval(timerInterval);
-
-            submitReadingTest();
-
-        }
-
-    }, 1000);
-}
 
 
 function updateTimer() {
 
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
+    const minutes =
+        Math.floor(timeLeft / 60);
 
-    document.getElementById("timer").textContent =
-        String(minutes).padStart(2, "0") +
-        ":" +
-        String(seconds).padStart(2, "0");
+
+    const seconds =
+        timeLeft % 60;
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+
 }
 
 
-/* =========================
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+
+    timerInterval =
+        setInterval(function() {
+
+            timeLeft--;
+
+            updateTimer();
+
+
+            sessionStorage.setItem(
+                "readingTest4TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+
+                sessionStorage.removeItem(
+                    "readingTest4TimeLeft"
+                );
+
+
+                sessionStorage.removeItem(
+                    "readingTest4TimerStarted"
+                );
+
+
+                alert("Time is up!");
+
+            }
+
+        }, 1000);
+
+}
+
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+
+    timerStarted = true;
+
+
+    sessionStorage.setItem(
+        "readingTest4TimerStarted",
+        "true"
+    );
+
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+
+/* Start timer */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+
+/* =========================================
    SAVE ANSWERS
-   ========================= */
+   ========================================= */
 
 function saveAnswers() {
 
-    const form = document.getElementById("readingForm");
-
-    const inputs = form.querySelectorAll(
-        "input[name]"
-    );
-
-    inputs.forEach(function (input) {
-
-        sessionStorage.setItem(
-            TEST_PREFIX + input.name,
-            input.value
-        );
-
-    });
-}
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
 
 
-/* =========================
-   RESTORE ANSWERS
-   ========================= */
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
 
-function restoreAnswers() {
 
-    const form = document.getElementById("readingForm");
+            if (input.checked) {
 
-    const inputs = form.querySelectorAll(
-        "input[name]"
-    );
+                sessionStorage.setItem(
+                    "readingTest4_" + input.name,
+                    input.value
+                );
 
-    inputs.forEach(function (input) {
+            }
 
-        const saved = sessionStorage.getItem(
-            TEST_PREFIX + input.name
-        );
 
-        if (saved !== null) {
-            input.value = saved;
+        } else {
+
+            sessionStorage.setItem(
+                "readingTest4_" + input.name,
+                input.value
+            );
+
         }
 
     });
 
-    updateQuestionProgress();
 }
 
 
-/* =========================
+
+/* =========================================
+   RESET COMPLETED READING TEST 4
+   ========================================= */
+
+function resetCompletedReadingTest4() {
+
+    if (
+        sessionStorage.getItem(
+            "readingTest4Submitted"
+        ) === "true"
+    ) {
+
+
+        for (let i = 1; i <= 40; i++) {
+
+            sessionStorage.removeItem(
+                "readingTest4_q" + i
+            );
+
+        }
+
+
+        sessionStorage.removeItem(
+            "readingTest4TimeLeft"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest4TimerStarted"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest4Submitted"
+        );
+
+    }
+
+}
+
+
+resetCompletedReadingTest4();
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingTest4_" + input.name
+            );
+
+
+        if (savedAnswer === null) {
+            return;
+        }
+
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            input.checked =
+                input.value === savedAnswer;
+
+        } else {
+
+            input.value =
+                savedAnswer;
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================
    QUESTION PROGRESS
-   ========================= */
+   ========================================= */
 
 function updateQuestionProgress() {
 
     for (let i = 1; i <= 40; i++) {
 
+
         const button =
             document.querySelector(
-                '.question-progress button[data-question="' + i + '"]'
+                `.reading-question-progress button[data-question="${i}"]`
             );
 
-        if (!button) continue;
 
-        const answer =
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
             sessionStorage.getItem(
-                TEST_PREFIX + "q" + i
+                `readingTest4_q${i}`
             );
 
-        if (answer && answer.trim() !== "") {
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
 
             button.classList.add("answered");
 
@@ -1024,68 +1229,41 @@ function updateQuestionProgress() {
             button.classList.remove("answered");
 
         }
+
     }
+
 }
 
 
-/* =========================
-   SAVE WHILE TYPING
-   ========================= */
 
-document.addEventListener(
-    "input",
-    function (event) {
-
-        if (
-            event.target &&
-            event.target.name
-        ) {
-
-            sessionStorage.setItem(
-                TEST_PREFIX + event.target.name,
-                event.target.value
-            );
-
-            updateQuestionProgress();
-        }
-
-    }
-);
-
-
-/* =========================
-   QUESTION BUTTONS
-   ========================= */
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
 
 document.querySelectorAll(
-    ".question-progress button"
-).forEach(function (button) {
+    "#readingForm input"
+).forEach(function(input) {
 
-    button.addEventListener(
-        "click",
-        function () {
 
-            const question =
-                Number(
-                    button.dataset.question
-                );
+    input.addEventListener(
+        "input",
+        function() {
 
-            if (question <= 14) {
+            saveAnswers();
 
-                goToPart(1);
+            updateQuestionProgress();
 
-            } else if (question <= 27) {
+        }
+    );
 
-                goToPart(2);
 
-            } else {
+    input.addEventListener(
+        "change",
+        function() {
 
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
+            saveAnswers();
 
-            }
+            updateQuestionProgress();
 
         }
     );
@@ -1093,13 +1271,25 @@ document.querySelectorAll(
 });
 
 
-/* =========================
+
+/* =========================================
+   RESTORE SAVED ANSWERS
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+
+/* =========================================
    PART NAVIGATION
-   ========================= */
+   ========================================= */
 
 function goToPart(partNumber) {
 
     saveAnswers();
+
 
     if (partNumber === 1) {
 
@@ -1108,12 +1298,14 @@ function goToPart(partNumber) {
 
     }
 
+
     if (partNumber === 2) {
 
         window.location.href =
             "reading-test-4-part2.html";
 
     }
+
 
     if (partNumber === 3) {
 
@@ -1125,30 +1317,23 @@ function goToPart(partNumber) {
 }
 
 
-/* =========================
+
+/* =========================================
    SUBMIT TEST
-   ========================= */
+   ========================================= */
 
 function submitReadingTest() {
 
     saveAnswers();
 
-    clearInterval(timerInterval);
 
     window.location.href =
         "reading-test-4-final.html";
+
 }
 
-
-/* =========================
-   INITIALIZE
-   ========================= */
-
-restoreAnswers();
-
-startTimer();
-
 </script>
+
 
 </body>
 </html>
