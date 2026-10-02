@@ -157,9 +157,7 @@
 
     <a href="../index.html" class="logo">
 
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
 
     </a>
 
@@ -168,26 +166,14 @@
         IELTS Academic Reading Test 4
     </h3>
 
-
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html">Logout </a>
 
     </nav>
 
 </header>
-
-
-
-<!-- ================================
-     QUESTION PROGRESS
-     ================================ -->
 
 <div class="reading-question-progress">
 
@@ -244,48 +230,17 @@
 <main class="reading-wrapper">
 
 
-    <!-- ================================
-         TIMER
-         ================================ -->
-
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
-            60:00
-        </div>
+        <div class="timer" id="timer"> 60:00 </div>
 
     </div>
 
-
-
-    <!-- ================================
-         PART BUTTONS
-         ================================ -->
-
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
-
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
@@ -301,29 +256,14 @@
     </div>
 
 
-
-    <!-- ================================
-         READING FORM
-         ================================ -->
-
     <form id="readingForm">
 
 
-        <!-- =========================================
-             PART 3
-             ========================================= -->
-
-        <section
-            id="part3"
-            class="reading-part active">
+        <section id="part3" class="reading-part active">
 
 
             <div class="reading-split-layout">
 
-
-                <!-- =================================
-                     LEFT SIDE: PASSAGE
-                     ================================= -->
 
                 <section class="passage-panel">
 
@@ -343,7 +283,6 @@
                         endeavor.
                     </p>
 
-
                     <p>
                         Two hundred years ago most people assumed that the ocean floor
                         was similar to the beaches and coastlines. During the nineteenth
@@ -360,7 +299,6 @@
                         bathymetric chart in 1855.
                     </p>
 
-
                     <p>
                         During World War I, scientists developed the technology for
                         measuring sound waves in the ocean. Anti-Submarine Detection
@@ -374,7 +312,6 @@
                         ocean as well as the depth of any objects found within it.
                     </p>
 
-
                     <p>
                         The first sonar devices were passive systems that could only
                         receive sound waves. By the 1930s, single-beam sonar was being
@@ -384,7 +321,6 @@
                         more useful in detecting submerged objects than mapping the
                         seafloor.
                     </p>
-
 
                     <p>
                         Throughout World War II, technology improved, and active sonar
@@ -397,7 +333,6 @@
                         of the sound wave.
                     </p>
 
-
                     <p>
                         The multi-beam sonar, which could be attached to a ship’s hull,
                         was developed in the 1960s. With this type of sonar, multiple
@@ -408,7 +343,6 @@
                         Mid-Ocean Ridge.
                     </p>
 
-
                     <p>
                         The Ring of Fire is a zone that circles the Pacific Ocean and
                         is famous for its seismic activity. This area, which extends
@@ -417,14 +351,12 @@
                         active and dormant volcanoes.
                     </p>
 
-
                     <p>
                         The Mid-Ocean Ridge is a section of undersea mountains that
                         extends over 12,000 feet high and 1,200 miles wide. These
                         mountains, which zigzag around the continents, are generally
                         considered the most outstanding topographical features on earth.
                     </p>
-
 
                     <p>
                         The invention of the side-scan sonar was another modern
@@ -436,7 +368,6 @@
                         a large area.
                     </p>
 
-
                     <p>
                         The most modern form of bathymetry, which is also the least
                         accurate, is done with data collected by satellite altimetry.
@@ -445,7 +376,6 @@
                         surface. These signals measure the distance between the satellite
                         and the ocean floor.
                     </p>
-
 
                     <p>
                         Unfortunately, due to water vapor and ionization, electromagnetic
@@ -457,7 +387,6 @@
                         mainly used to locate areas where detailed sonar measurements
                         need to be conducted.
                     </p>
-
 
                     <p>
                         Due to a constant flux of plate activity, the topography of
@@ -471,11 +400,6 @@
 
                 </section>
 
-
-
-                <!-- =================================
-                     RIGHT SIDE: QUESTIONS
-                     ================================= -->
 
                 <section class="questions-panel">
 
@@ -806,7 +730,7 @@
 
                     <!-- QUESTIONS 38–40 -->
 
-                    <div class="question">
+                    
 
                         <p>
                             <strong>Questions 38–40</strong>
@@ -829,7 +753,7 @@
                             Write the appropriate Roman numerals
                             <strong>i–vi</strong> in boxes 38–40.
                         </p>
-
+                    <div class="question">
 
                         <div class="roman-options">
 
@@ -926,9 +850,6 @@
 
 <script>
 
-/* =========================================
-   READING TEST 4 TIMER
-   ========================================= */
 
 let timeLeftStorage =
     sessionStorage.getItem("readingTest4TimeLeft");
@@ -1062,11 +983,6 @@ if (!timerStarted) {
 }
 
 
-
-/* =========================================
-   SAVE ANSWERS
-   ========================================= */
-
 function saveAnswers() {
 
     document.querySelectorAll(
@@ -1104,10 +1020,6 @@ function saveAnswers() {
 }
 
 
-
-/* =========================================
-   RESET COMPLETED READING TEST 4
-   ========================================= */
 
 function resetCompletedReadingTest4() {
 
@@ -1154,10 +1066,6 @@ updateQuestionProgress();
 
 
 
-/* =========================================
-   RESTORE ANSWERS
-   ========================================= */
-
 function restoreAnswers() {
 
     document.querySelectorAll(
@@ -1195,11 +1103,6 @@ function restoreAnswers() {
 
 }
 
-
-
-/* =========================================
-   QUESTION PROGRESS
-   ========================================= */
 
 function updateQuestionProgress() {
 
@@ -1241,11 +1144,6 @@ function updateQuestionProgress() {
 }
 
 
-
-/* =========================================
-   ANSWER EVENTS
-   ========================================= */
-
 document.querySelectorAll(
     "#readingForm input"
 ).forEach(function(input) {
@@ -1278,19 +1176,10 @@ document.querySelectorAll(
 
 
 
-/* =========================================
-   RESTORE SAVED ANSWERS
-   ========================================= */
-
 restoreAnswers();
 
 updateQuestionProgress();
 
-
-
-/* =========================================
-   PART NAVIGATION
-   ========================================= */
 
 function goToPart(partNumber) {
 
@@ -1322,11 +1211,6 @@ function goToPart(partNumber) {
 
 }
 
-
-
-/* =========================================
-   SUBMIT TEST
-   ========================================= */
 
 function submitReadingTest() {
 

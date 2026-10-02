@@ -117,9 +117,7 @@
 
     <a href="../index.html" class="logo">
 
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
 
     </a>
 
@@ -142,12 +140,6 @@
     </nav>
 
 </header>
-
-
-
-<!-- ================================
-     QUESTION PROGRESS
-     ================================ -->
 
 <div class="reading-question-progress">
 
@@ -205,48 +197,18 @@
 <main class="reading-wrapper">
 
 
-    <!-- ================================
-         TIMER
-         ================================ -->
-
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
-            60:00
-        </div>
+        <div class="timer" id="timer"> 60:00 </div>
 
     </div>
 
 
-
-    <!-- ================================
-         PART BUTTONS
-         ================================ -->
-
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
-
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
@@ -262,17 +224,8 @@
     </div>
 
 
-
-    <!-- ================================
-         READING FORM
-         ================================ -->
-
     <form id="readingForm">
 
-
-        <!-- =========================================
-             PART 2
-             ========================================= -->
 
         <section
             id="part2"
@@ -280,11 +233,6 @@
 
 
             <div class="reading-split-layout">
-
-
-                <!-- =================================
-                     LEFT SIDE: PASSAGE
-                     ================================= -->
 
                 <section class="passage-panel">
 
@@ -314,7 +262,6 @@
                         joined to the stem.
                     </p>
 
-
                     <p>
                         Unlike the common pipe, which was used by average
                         tribesmen for casual smoking purposes, the sacred pipe
@@ -334,7 +281,6 @@
                         the marriage ceremony.
                     </p>
 
-
                     <p>
                         Cultivating the tobacco was the responsibility of certain
                         members of the tribe. Generally, tobacco was mixed with
@@ -347,7 +293,6 @@
                         directions.
                     </p>
 
-
                     <p>
                         In a typical pipe ceremony, the pipe holder stood up and
                         held the pipe bowl in his left hand, with the stem held
@@ -359,7 +304,6 @@
                         would evolve from wisdom if they prayed to the morning
                         star.
                     </p>
-
 
                     <p>
                         Before offering a prayer to the South, the pipe holder
@@ -375,7 +319,6 @@
                         providing health and endurance.
                     </p>
 
-
                     <p>
                         After these four prayers, the pipe holder held the stem
                         to the ground again and the tribe promised to respect
@@ -386,7 +329,6 @@
                         Great Spirit, thanking him for being the creator of
                         Mother Earth, Father Sky, and the four directions.
                     </p>
-
 
                     <p>
                         After the pipe holder had worked his way around the four
@@ -436,7 +378,6 @@
                         <strong>A-C</strong>,
                         for questions 15–19.
                     </p>
-
 
 
                     <div class="question">
@@ -891,9 +832,6 @@
 
 <script>
 
-/* =========================================
-   READING TEST 4 TIMER
-   ========================================= */
 
 let timeLeftStorage =
     sessionStorage.getItem("readingTest4TimeLeft");
@@ -1027,11 +965,6 @@ if (!timerStarted) {
 }
 
 
-
-/* =========================================
-   SAVE ANSWERS
-   ========================================= */
-
 function saveAnswers() {
 
     document.querySelectorAll(
@@ -1068,11 +1001,6 @@ function saveAnswers() {
 
 }
 
-
-
-/* =========================================
-   RESET COMPLETED READING TEST 4
-   ========================================= */
 
 function resetCompletedReadingTest4() {
 
@@ -1118,11 +1046,6 @@ restoreAnswers();
 updateQuestionProgress();
 
 
-
-/* =========================================
-   RESTORE ANSWERS
-   ========================================= */
-
 function restoreAnswers() {
 
     document.querySelectorAll(
@@ -1160,11 +1083,6 @@ function restoreAnswers() {
 
 }
 
-
-
-/* =========================================
-   QUESTION PROGRESS
-   ========================================= */
 
 function updateQuestionProgress() {
 
@@ -1206,11 +1124,6 @@ function updateQuestionProgress() {
 }
 
 
-
-/* =========================================
-   ANSWER EVENTS
-   ========================================= */
-
 document.querySelectorAll(
     "#readingForm input"
 ).forEach(function(input) {
@@ -1242,20 +1155,11 @@ document.querySelectorAll(
 });
 
 
-
-/* =========================================
-   RESTORE SAVED ANSWERS
-   ========================================= */
-
 restoreAnswers();
 
 updateQuestionProgress();
 
 
-
-/* =========================================
-   PART NAVIGATION
-   ========================================= */
 
 function goToPart(partNumber) {
 
@@ -1287,11 +1191,6 @@ function goToPart(partNumber) {
 
 }
 
-
-
-/* =========================================
-   SUBMIT TEST
-   ========================================= */
 
 function submitReadingTest() {
 

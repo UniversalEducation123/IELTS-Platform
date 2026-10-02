@@ -116,9 +116,7 @@
 <header class="navbar">
 
     <a href="../index.html" class="logo">
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
     </a>
 
     <h3>IELTS Academic Reading Test 4</h3>
@@ -185,11 +183,7 @@
 
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
-            60:00
-        </div>
+        <div class="timer" id="timer"> 60:00 </div>
 
     </div>
 
@@ -247,7 +241,6 @@
                         allergic reaction in a subsequent exposure.
                     </p>
 
-
                     <p>
                         A variety of allergy tests are available for determining
                         specific substances that trigger allergic reactions in
@@ -260,7 +253,6 @@
                         isolate which substances cause reactions in allergy
                         sufferers.
                     </p>
-
 
                     <p>
                         One of the most common types of environmental allergy
@@ -286,7 +278,6 @@
                         reaction usually fades within a few hours.
                     </p>
 
-
                     <p>
                         Another test that is very similar to the skin-prick
                         test is the intradermal allergy test. This involves
@@ -307,7 +298,6 @@
                         release fluid into the tissues. This lowers blood volume
                         and can result in heart failure.
                     </p>
-
 
                     <p>
                         A blood test can be performed to safely isolate over
@@ -330,7 +320,6 @@
                         results.
                     </p>
 
-
                     <p>
                         A number of other allergy tests are available, though
                         many are considered unreliable according to The Academy
@@ -346,7 +335,6 @@
                         watching for the reaction of blood cells after placing
                         allergens on a slide next to a person’s blood samples.
                     </p>
-                    
 
                     <p>
                         After using a reliable testing method, the cause of an
@@ -367,10 +355,6 @@
 
                 </section>
 
-
-                <!-- =================================
-                     RIGHT SIDE: QUESTIONS
-                     ================================= -->
 
                 <section class="questions-panel">
 
@@ -802,10 +786,6 @@
 
 <script>
 
-/* =========================================
-   READING TEST 4 TIMER
-   ========================================= */
-
 let timeLeftStorage =
     sessionStorage.getItem("readingTest4TimeLeft");
 
@@ -920,10 +900,6 @@ if (!timerStarted) {
 }
 
 
-/* =========================================
-   SAVE ANSWERS
-   ========================================= */
-
 function saveAnswers() {
 
     document.querySelectorAll(
@@ -957,10 +933,6 @@ function saveAnswers() {
 
 }
 
-
-/* =========================================
-   RESET COMPLETED READING TEST 4
-   ========================================= */
 
 function resetCompletedReadingTest4() {
 
@@ -1000,10 +972,6 @@ restoreAnswers();
 updateQuestionProgress();
 
 
-/* =========================================
-   RESTORE ANSWERS
-   ========================================= */
-
 function restoreAnswers() {
 
     document.querySelectorAll(
@@ -1039,10 +1007,6 @@ function restoreAnswers() {
 
 }
 
-
-/* =========================================
-   QUESTION PROGRESS
-   ========================================= */
 
 function updateQuestionProgress() {
 
@@ -1082,10 +1046,6 @@ function updateQuestionProgress() {
 }
 
 
-/* =========================================
-   ANSWER EVENTS
-   ========================================= */
-
 document.querySelectorAll(
     "#readingForm input"
 ).forEach(function(input) {
@@ -1116,18 +1076,10 @@ document.querySelectorAll(
 });
 
 
-/* =========================================
-   RESTORE SAVED ANSWERS
-   ========================================= */
-
 restoreAnswers();
 
 updateQuestionProgress();
 
-
-/* =========================================
-   PART NAVIGATION
-   ========================================= */
 
 function goToPart(partNumber) {
 
@@ -1159,10 +1111,6 @@ function goToPart(partNumber) {
 
 }
 
-
-/* =========================================
-   SUBMIT TEST
-   ========================================= */
 
 function submitReadingTest() {
 
