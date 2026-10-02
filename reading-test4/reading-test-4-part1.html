@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 4</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .reading-diagram {
+            width: 100%;
+            max-width: 650px;
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .diagram-answers {
+            margin-top: 20px;
+        }
+
+        .diagram-answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .diagram-answer-row strong {
+            min-width: 30px;
+        }
+
+        .diagram-answer-row input {
+            width: 260px;
+            padding: 9px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .word-bank {
+            padding: 15px;
+            margin: 15px 0 25px;
+            background: #f7f2eb;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            line-height: 1.9;
+        }
+
+        .word-bank span {
+            display: inline-block;
+            margin-right: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .diagram-answer-row {
+                flex-wrap: wrap;
+            }
+
+            .diagram-answer-row input {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+
+    const readingAccessKey = "access_reading-test-4";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+        window.location.href =
+            "../test-access.html?test=reading-test-4";
+    }
+
+</script>
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+    </a>
+
+    <h3>IELTS Academic Reading Test 4</h3>
+
+    <nav>
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../student-login.html">Logout</a>
+    </nav>
+
+</header>
+
+
+<!-- ================================
+     QUESTION PROGRESS
+     ================================ -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+<main class="reading-wrapper">
+
+
+    <!-- ================================
+         TIMER
+         ================================ -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+            60:00
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         PART BUTTONS
+         ================================ -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+            Part 1
+        </button>
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+            Part 2
+        </button>
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+            Part 3
+        </button>
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         READING FORM
+         ================================ -->
+
+    <form id="readingForm">
+
+
+        <!-- =========================================
+             PART 1
+             ========================================= -->
+
+        <section
+            id="part1"
+            class="reading-part active">
+
+            <div class="reading-split-layout">
+
+
+                <!-- =================================
+                     LEFT SIDE: PASSAGE
+                     ================================= -->
+
+                <section class="passage-panel">
+
+                    <h2>
+                        Passage 1: allergy testing
+                    </h2>
+
+
+                    <p>
+                        Allergic reactions are triggered by the contact,
+                        inhalation, or ingestion of a number of different
+                        allergens. Some of the most common allergens are made
+                        up of proteins found in plants, mold, food, venom,
+                        animal skin, and medication. Symptoms of allergic
+                        reactions range from mild irritation such as itching,
+                        wheezing, and coughing to life-threatening conditions
+                        related to the respiratory and gastrointestinal organs.
+                        Serious allergic reactions are more likely to result
+                        from food, drugs, and stinging insects. A person does
+                        not become allergic to a particular substance until
+                        after the first exposure. However, in some cases, even
+                        trace amounts of a substance, such as peanuts or
+                        seafood in a mother’s breast milk, can cause an
+                        allergic reaction in a subsequent exposure.
+                    </p>
+
+
+                    <p>
+                        A variety of allergy tests are available for determining
+                        specific substances that trigger allergic reactions in
+                        individuals. Allergists, also known as immunologists,
+                        are trained in selecting the types of tests that are
+                        both safe and appropriate, depending on the suspected
+                        allergies. By using allergen extracts, tiny amounts of
+                        commonly bothersome allergens (usually in the form of
+                        purified liquid drops), immunologists are often able to
+                        isolate which substances cause reactions in allergy
+                        sufferers.
+                    </p>
+
+
+                    <p>
+                        One of the most common types of environmental allergy
+                        tests is the skin-prick test. This technique involves
+                        placing small drops of potential allergen onto the skin
+                        of the forearm about one to two inches apart. After the
+                        drops are placed on the arm, a needle is used to puncture
+                        the skin at the site of each drop. (Though the procedure
+                        is virtually painless, this test is often done on the
+                        upper back of children to prevent them from seeing the
+                        needle.) If an allergy is present, an allergic antibody
+                        called immunoglobulin E (IgE) will activate a special
+                        cell called a mast cell. Mast cells release chemicals
+                        (also known as mediators) that cause itching and
+                        swelling. The most common mediator is histamine.
+                        Histamine is what causes the controlled hive known as
+                        a wheal and flare. The white wheal is the small raised
+                        surface, while the flare is the redness that spreads
+                        out from it. In an uncontrolled allergic reaction,
+                        wheals and flares can get much bigger and spread all
+                        over a person’s body. Results from a skin test can
+                        usually be obtained within 20 to 30 minutes, while the
+                        reaction usually fades within a few hours.
+                    </p>
+
+
+                    <p>
+                        Another test that is very similar to the skin-prick
+                        test is the intradermal allergy test. This involves
+                        placing the allergen sample under the skin with a
+                        syringe. The intradermal test involves more risk and is
+                        usually saved for use if the allergy persists even
+                        after a skin-prick test comes back negative. People
+                        who have experienced serious allergic reactions called
+                        anaphylactic reactions are not advised to have these
+                        types of tests. These allergy sufferers may be
+                        hypersensitive to even trace amounts of the allergens
+                        when they are introduced into the blood. Anaphylaxis
+                        is an allergic reaction that affects the whole body
+                        and is potentially life-threatening. Hives on the lips
+                        and throat can become severe enough to block air
+                        passage. Anaphylactic shock occurs when enough histamine
+                        is released to cause the blood vessels to dilate and
+                        release fluid into the tissues. This lowers blood volume
+                        and can result in heart failure.
+                    </p>
+
+
+                    <p>
+                        A blood test can be performed to safely isolate over
+                        400 different allergies, including dangerous food and
+                        environmental allergens. The Radio Allergo Sorbant Test
+                        (RAST) measures specific IgE antibodies using a blood
+                        sample. IgE is normally found in very small amounts in
+                        the blood; it is created as a defense mechanism when it
+                        senses an intruder. Separate tests are done for each
+                        potential allergen, and IgE results are graded from
+                        0 to 6. For example, canine serum IgE will be high if
+                        a person has an allergy to dogs. The RAST is used if
+                        patients have pre-existing skin conditions or if
+                        patients cannot stop taking certain medications such
+                        as antidepressants or antihistamines for even a short
+                        period of time. (People must stop taking antihistamines
+                        several days prior to taking a skin allergy test because
+                        the medication can interfere with the results.) The RAST
+                        is a more expensive test that does not provide immediate
+                        results.
+                    </p>
+
+
+                    <p>
+                        A number of other allergy tests are available, though
+                        many are considered unreliable according to The Academy
+                        of Allergy, Asthma, and Immunology. Applied kinesiology
+                        is a test that analyzes the loss of muscle strength in
+                        the presence of potential allergens. Provocation and
+                        neutralization testing involves injecting food allergens
+                        into the skin in different quantities, with the goal of
+                        determining the smallest dose needed to neutralize the
+                        symptoms. Sublingual provocation and neutralization is
+                        a similar test, except that the allergens are injected
+                        underneath the tongue. Cytotoxity testing involves
+                        watching for the reaction of blood cells after placing
+                        allergens on a slide next to a person’s blood samples.
+                    </p>
+
+
+                    <p>
+                        After using a reliable testing method, the cause of an
+                        allergic reaction is often identified, and a physician
+                        is able to help a patient develop a treatment plan with
+                        the goal of controlling or eliminating the allergic
+                        symptoms. Those who are allergic to furry pets, pollen,
+                        and plants are prescribed mild medication or taught how
+                        to control their reactions with simple lifestyle
+                        changes, while those with food allergies learn to
+                        safely remove certain foods from their diets. Allergy
+                        sufferers who are prone to anaphylactic reactions are
+                        educated about life-saving techniques such as carrying
+                        the drug epinephrine and wearing medical alert bracelets.
+                        As soon as people understand their allergies, they can
+                        begin to experience an improved quality of life.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================
+                     RIGHT SIDE: QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- QUESTIONS 1–7 -->
+
+                    <h2>Questions 1–7</h2>
+
+                    <p>
+                        The passage describes three different types of allergy
+                        tests. Which of the characteristics below belongs to
+                        which type of test? In boxes 1–7 on your Answer Sheet,
+                        write
+                    </p>
+
+                    <p>
+                        <strong>A</strong> if it is a characteristic of the
+                        skin-prick test.
+                    </p>
+
+                    <p>
+                        <strong>B</strong> if it is a characteristic of the
+                        intradermal test.
+                    </p>
+
+                    <p>
+                        <strong>C</strong> if it is a characteristic of the
+                        blood test.
+                    </p>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">1.</span>
+                            A substance is inserted beneath the skin with a
+                            needle.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q1"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">2.</span>
+                            It is often done on a patient’s back.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q2"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">3.</span>
+                            It is advisable for patients who have skin
+                            problems.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q3"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">4.</span>
+                            It is not advisable for patients who have had
+                            serious allergic reactions in the past.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q4"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">5.</span>
+                            It shows results within half an hour.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q5"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q5"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q5"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">6.</span>
+                            It can cause red and white bumps on the
+                            patient’s skin.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q6"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q6"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q6"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">7.</span>
+                            It has a higher cost than other tests.
+                        </p>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q7"
+                                value="A">
+                            A
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q7"
+                                value="B">
+                            B
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="q7"
+                                value="C">
+                            C
+                        </label>
+
+                    </div>
+
+
+                    <!-- QUESTIONS 8–14 -->
+
+                    <h2>Questions 8–14</h2>
+
+                    <p>
+                        Complete the summary of the reading passage below.
+                        Choose your answers from the box below, and write
+                        them in boxes 8–14 on your Answer Sheet.
+                    </p>
+
+                    <p>
+                        There are more words than spaces so you will not use
+                        them all.
+                    </p>
+
+
+                    <div class="word-bank">
+
+                        <span>mold</span>
+                        <span>smelling</span>
+                        <span>identify</span>
+                        <span>allegens</span>
+                        <span>avoiding</span>
+                        <span>medicines</span>
+                        <span>eating</span>
+                        <span>treat</span>
+                        <span>antihistamine</span>
+                        <span>anaphylaxis</span>
+                        <span>causes</span>
+                        <span>signs</span>
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            Allergic reactions result from touching, breathing,
+                            or
+                            <strong>(8)</strong>
+                            certain substances called
+                            <strong>(9)</strong>.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q8"
+                            aria-label="Question 8">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            <strong>9.</strong>
+                            Complete the next part of the summary.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q9"
+                            aria-label="Question 9">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            Coughing or itching are two possible
+                            <strong>(10)</strong>
+                            of an allergic reaction.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q10"
+                            aria-label="Question 10">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            More serious allergic reactions may result from
+                            certain insect bites, foods, or
+                            <strong>(11)</strong>.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q11"
+                            aria-label="Question 11">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            A severe allergic reaction is known as
+                            <strong>(12)</strong>.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q12"
+                            aria-label="Question 12">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            Doctors can use a variety of tests to
+                            <strong>(13)</strong>
+                            the source of an allergy.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q13"
+                            aria-label="Question 13">
+
+                    </div>
+
+
+                    <div class="question">
+
+                        <p>
+                            Treatment may include taking medication or
+                            <strong>(14)</strong>
+                            the substances that cause the allergic reaction.
+                        </p>
+
+                        <input
+                            type="text"
+                            name="q14"
+                            aria-label="Question 14">
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+/* =========================================
+   READING TEST 4 TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem("readingTest4TimeLeft");
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem("readingTest4TimerStarted") === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+}
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+    timerInterval =
+        setInterval(function () {
+
+            timeLeft--;
+
+            updateTimer();
+
+            sessionStorage.setItem(
+                "readingTest4TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+                sessionStorage.removeItem(
+                    "readingTest4TimeLeft"
+                );
+
+                sessionStorage.removeItem(
+                    "readingTest4TimerStarted"
+                );
+
+                alert("Time is up!");
+
+            }
+
+        }, 1000);
+}
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+    timerStarted = true;
+
+    sessionStorage.setItem(
+        "readingTest4TimerStarted",
+        "true"
+    );
+
+    updateTimer();
+
+    runTimer();
+}
+
+
+/* Start Reading Test 4 timer when Part 1 opens */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            if (input.checked) {
+
+                sessionStorage.setItem(
+                    "readingTest4_" + input.name,
+                    input.value
+                );
+
+            }
+
+        } else {
+
+            sessionStorage.setItem(
+                "readingTest4_" + input.name,
+                input.value
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   RESET COMPLETED READING TEST 4
+   ========================================= */
+
+function resetCompletedReadingTest4() {
+
+    if (
+        sessionStorage.getItem("readingTest4Submitted") === "true"
+    ) {
+
+        for (let i = 1; i <= 40; i++) {
+
+            sessionStorage.removeItem(
+                "readingTest4_q" + i
+            );
+
+        }
+
+        sessionStorage.removeItem(
+            "readingTest4TimeLeft"
+        );
+
+        sessionStorage.removeItem(
+            "readingTest4TimerStarted"
+        );
+
+        sessionStorage.removeItem(
+            "readingTest4Submitted"
+        );
+
+    }
+
+}
+
+
+resetCompletedReadingTest4();
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingTest4_" + input.name
+            );
+
+
+        if (savedAnswer === null) {
+            return;
+        }
+
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            input.checked =
+                input.value === savedAnswer;
+
+        } else {
+
+            input.value = savedAnswer;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 1; i <= 40; i++) {
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest4_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document.querySelectorAll(
+    "#readingForm input"
+).forEach(function(input) {
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+
+    input.addEventListener(
+        "change",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+});
+
+
+/* =========================================
+   RESTORE SAVED ANSWERS
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-4-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-4-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-4-part3.html";
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT TEST
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+    window.location.href =
+        "reading-test-4-final.html";
+
+}
+
+</script>
+
+</body>
+</html>
