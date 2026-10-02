@@ -14,18 +14,30 @@
 
     <style>
 
-        /* PLAN */
-
         .plan-question-box {
             margin-top: 25px;
         }
 
         .plan-question-layout {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1.5fr 1fr 0.7fr;
             gap: 30px;
             align-items: start;
-            margin-top: 25px;
+        }
+
+        .plan-options {
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .plan-options p {
+            margin: 8px 0;
+        }
+
+        .plan-options p:first-child {
+            margin-bottom: 15px;
         }
 
         .plan-container {
@@ -39,13 +51,12 @@
             border: 1px solid #ddd;
             border-radius: 10px;
         }
-
+        
         .plan-questions {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-
         .plan-questions .question {
             padding: 18px;
         }
@@ -55,9 +66,6 @@
             padding: 8px 10px;
             font-size: 16px;
         }
-
-
-        /* TABLE */
 
         .listening-table-wrapper {
             width: 100%;
@@ -88,9 +96,6 @@
             max-width: 220px;
             box-sizing: border-box;
         }
-
-
-        /* RESPONSIVE */
 
         @media (max-width: 800px) {
 
@@ -367,6 +372,7 @@
             </div>
 
 
+
             <!-- QUESTIONS 18–20 -->
 
             <div class="question-box plan-question-box">
@@ -395,6 +401,23 @@
                     </div>
 
 
+                    <!-- OPTIONS -->
+
+                    <div class="plan-options">
+
+                        <p><strong>Options</strong></p>
+
+                        <p>A &nbsp; bicycle parking</p>
+                        <p>B &nbsp; drinks machine</p>
+                        <p>C &nbsp; first aid room</p>
+                        <p>D &nbsp; manager's office</p>
+                        <p>E &nbsp; telephones</p>
+                        <p>F &nbsp; ticket office</p>
+                        <p>G &nbsp; toilets</p>
+
+                    </div>
+
+
                     <!-- QUESTIONS -->
 
                     <div class="plan-questions">
@@ -411,9 +434,7 @@
                                 data-question="18"
                                 class="listening-answer">
 
-                                <option value="">
-                                    Select
-                                </option>
+                                <option value="">Select</option>
 
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -439,9 +460,7 @@
                                 data-question="19"
                                 class="listening-answer">
 
-                                <option value="">
-                                    Select
-                                </option>
+                                <option value="">Select</option>
 
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -467,9 +486,7 @@
                                 data-question="20"
                                 class="listening-answer">
 
-                                <option value="">
-                                    Select
-                                </option>
+                                <option value="">Select</option>
 
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -489,7 +506,6 @@
                 </div>
 
             </div>
-
 
             <!-- QUESTION PROGRESS -->
 
