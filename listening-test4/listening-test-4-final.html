@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Listening Test 4 Result</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f4f7;
+            color: #333;
+        }
+
+
+        /* HEADER */
+
+        .main-header {
+            background: #ffffff;
+            padding: 18px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d46a9e;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-right a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .header-right a:hover {
+            color: #d46a9e;
+        }
+
+
+        /* MAIN */
+
+        .result-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+
+        /* RESULT CARD */
+
+        .result-card {
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .result-card h1 {
+            margin-top: 0;
+            color: #4f8068;
+        }
+
+        .score-line {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0 10px;
+        }
+
+        .band-line {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d46a9e;
+            margin-bottom: 25px;
+        }
+
+        #saveMessage {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+
+        /* REVIEW */
+
+        .review-section {
+            margin-top: 35px;
+            text-align: left;
+        }
+
+        .review-section h2 {
+            text-align: center;
+            color: #4f8068;
+            margin-bottom: 25px;
+        }
+
+        .review-item {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+        }
+
+        .review-item.correct {
+            border-left: 5px solid #6da77f;
+        }
+
+        .review-item.incorrect {
+            border-left: 5px solid #d46a9e;
+        }
+
+        .review-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .your-answer {
+            margin: 5px 0;
+        }
+
+        .correct-answer {
+            margin: 5px 0;
+            color: #4f8068;
+            font-weight: 600;
+        }
+
+        .group-review {
+            background: #f8f5f8;
+            border: 1px solid #ded8de;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .group-review h3 {
+            margin-top: 0;
+            color: #4f8068;
+        }
+
+        .group-score {
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+
+        /* BUTTON */
+
+        .dashboard-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 13px 25px;
+            background: #d46a9e;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .dashboard-button:hover {
+            background: #bd5688;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .main-header {
+                padding: 15px 20px;
+            }
+
+            .result-card {
+                padding: 25px 18px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+    <div class="header-right">
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- RESULT -->
+
+<main class="result-container">
+
+    <div class="result-card">
+
+        <h1>Listening Test 4 Result</h1>
+
+        <div class="score-line" id="scoreDisplay">
+            Score: 0 / 40
+        </div>
+
+        <div class="band-line" id="bandDisplay">
+            Band Score: 2.0
+        </div>
+
+        <div id="saveMessage">
+            Saving your result...
+        </div>
+
+
+
+        <!-- ANSWER REVIEW -->
+
+        <section class="review-section">
+
+            <h2>Answer Review</h2>
+
+            <div id="reviewContainer"></div>
+
+        </section>
+
+
+
+        <a
+            href="../submitted-tests.html"
+            class="dashboard-button">
+
+            View Submitted Tests
+
+        </a>
+
+    </div>
+
+</main>
+
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
+    "https://gehczgguwxqwfowmbedy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+
+/* =========================
+   NORMALIZE ANSWERS
+========================= */
+
+function normalizeAnswer(answer) {
+
+    return String(answer || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]/g, "");
+
+}
+
+
+
+/* =========================
+   READ TEST 4 ANSWER
+========================= */
+
+function readTest4Answer(questionNumber) {
+
+    const raw =
+        sessionStorage.getItem(
+            "listeningTest4_q" + questionNumber
+        );
+
+    if (!raw) {
+        return [];
+    }
+
+    try {
+
+        const parsed = JSON.parse(raw);
+
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+
+        return [parsed];
+
+    } catch {
+
+        return [raw];
+
+    }
+
+}
+
+
+
+/* =========================
+   GET FIRST ANSWER
+========================= */
+
+function getSingleAnswer(questionNumber) {
+
+    const answers =
+        readTest4Answer(questionNumber);
+
+    return answers.length
+        ? answers[0]
+        : "";
+
+}
+
+
+
+/* =========================
+   SINGLE ANSWER CHECK
+========================= */
+
+function isCorrect(studentAnswer, acceptedAnswers) {
+
+    const normalizedStudent =
+        normalizeAnswer(studentAnswer);
+
+    return acceptedAnswers.some(answer =>
+        normalizeAnswer(answer) === normalizedStudent
+    );
+
+}
+
+
+
+/* =========================
+   BAND SCORE
+========================= */
+
+function calculateBand(score) {
+
+    if (score >= 39) return "9.0";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8.0";
+    if (score >= 32) return "7.5";
+    if (score >= 30) return "7.0";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6.0";
+    if (score >= 20) return "5.5";
+    if (score >= 16) return "5.0";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4.0";
+    if (score >= 8) return "3.5";
+    if (score >= 6) return "3.0";
+    if (score >= 4) return "2.5";
+    if (score >= 1) return "2.0";
+
+    return "0.0";
+
+}
+
+
+
+/* =========================
+   ADD REVIEW ITEM
+========================= */
+
+function addReviewItem(
+    questionNumber,
+    studentAnswer,
+    correctAnswers,
+    score
+) {
+
+    const container =
+        document.getElementById("reviewContainer");
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "review-item " +
+        (score ? "correct" : "incorrect");
+
+
+    const correctText =
+        correctAnswers.join(" / ");
+
+    const displayStudent =
+        studentAnswer ||
+        "Not answered";
+
+
+    item.innerHTML = `
+
+        <div class="review-question">
+            Question ${questionNumber}
+        </div>
+
+        <div class="your-answer">
+            Your answer:
+            <strong>${displayStudent}</strong>
+        </div>
+
+        <div class="correct-answer">
+            Correct answer:
+            ${correctText}
+        </div>
+
+    `;
+
+
+    container.appendChild(item);
+
+}
+
+
+
+/* =========================
+   ADD GROUP REVIEW
+   QUESTIONS 5–7
+========================= */
+
+function addGroupReview567(
+    selectedAnswers,
+    correctAnswers,
+    score
+) {
+
+    const container =
+        document.getElementById("reviewContainer");
+
+    const item =
+        document.createElement("div");
+
+    item.className = "group-review";
+
+
+    const selectedText =
+        selectedAnswers.length
+            ? selectedAnswers.join(", ")
+            : "Not answered";
+
+
+    item.innerHTML = `
+
+        <h3>Questions 5–7</h3>
+
+        <div>
+            Your answers:
+            <strong>${selectedText}</strong>
+        </div>
+
+        <div class="correct-answer">
+            Correct answers:
+            ${correctAnswers.join(", ")}
+        </div>
+
+        <div class="group-score">
+            Score: ${score} / 3
+        </div>
+
+    `;
+
+
+    container.appendChild(item);
+
+}
+
+
+
+/* =========================
+   ADD PAIR REVIEW
+========================= */
+
+function addPairReview(
+    questionNumber,
+    studentAnswers,
+    correctAnswers,
+    score
+) {
+
+    const container =
+        document.getElementById("reviewContainer");
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "review-item " +
+        (score ? "correct" : "incorrect");
+
+
+    const studentText =
+        studentAnswers.length
+            ? studentAnswers.join(", ")
+            : "Not answered";
+
+
+    item.innerHTML = `
+
+        <div class="review-question">
+            Question ${questionNumber}
+        </div>
+
+        <div class="your-answer">
+            Your answers:
+            <strong>${studentText}</strong>
+        </div>
+
+        <div class="correct-answer">
+            Correct answers:
+            ${correctAnswers.join(", ")}
+        </div>
+
+    `;
+
+
+    container.appendChild(item);
+
+}
+
+
+
+/* =========================
+   START SCORING
+========================= */
+
+function calculateResult() {
+
+    let score = 0;
+
+
+
+    /* =========================
+       QUESTIONS 1–4
+    ========================= */
+
+    const individualAnswers = {
+
+        1: ["90"],
+        2: ["6 months"],
+        3: ["4 pm"],
+        4: ["internet"],
+
+        8: ["B"],
+        9: ["H"],
+        10: ["E"],
+
+        13: ["28th August", "28 August", "August 28", "August 28th"],
+        14: ["People at Work"],
+        15: ["careers advice"],
+        16: ["Land from Air"],
+        17: ["balloon trip"],
+
+        18: ["B"],
+        19: ["E"],
+        20: ["C"],
+
+        21: ["B"],
+        22: ["C"],
+        23: ["C"],
+        24: ["A"],
+        25: ["A"],
+        26: ["C"],
+        27: ["C"],
+        28: ["B"],
+        29: ["C"],
+        30: ["A"],
+
+        31: ["Norway"],
+        32: ["organic"],
+        33: ["disease"],
+        34: ["plastic"],
+        35: ["mass manufacturing"],
+        36: ["packaging"],
+        37: ["disposable goods"],
+
+        38: ["C"],
+        39: ["E"],
+        40: ["D"]
+
+    };
+
+
+
+    /* SCORE QUESTIONS 1–4 */
+
+    for (let q = 1; q <= 4; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTIONS 5–7
+    ========================= */
+
+    const selected567 =
+        readTest4Answer(5);
+
+    const correct567 =
+        ["B", "F", "G"];
+
+
+    const normalizedSelected567 =
+        selected567.map(answer =>
+            normalizeAnswer(answer)
+        );
+
+
+    let score567 = 0;
+
+
+    correct567.forEach(answer => {
+
+        if (
+            normalizedSelected567.includes(
+                normalizeAnswer(answer)
+            )
+        ) {
+            score567++;
+        }
+
+    });
+
+
+    score += score567;
+
+
+    addGroupReview567(
+        selected567,
+        correct567,
+        score567
+    );
+
+
+
+    /* =========================
+       QUESTIONS 8–10
+    ========================= */
+
+    for (let q = 8; q <= 10; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTION 11
+       A + C
+    ========================= */
+
+    const student11 =
+        readTest4Answer(11);
+
+    const correct11 =
+        ["A", "C"];
+
+
+    const normalized11 =
+        student11
+            .map(answer => normalizeAnswer(answer))
+            .sort();
+
+    const expected11 =
+        correct11
+            .map(answer => normalizeAnswer(answer))
+            .sort();
+
+
+    const correctResult11 =
+        normalized11.length === 2 &&
+        normalized11[0] === expected11[0] &&
+        normalized11[1] === expected11[1];
+
+
+    if (correctResult11) {
+        score++;
+    }
+
+
+    addPairReview(
+        11,
+        student11,
+        correct11,
+        correctResult11 ? 1 : 0
+    );
+
+
+
+    /* =========================
+       QUESTION 12
+       B + D
+    ========================= */
+
+    const student12 =
+        readTest4Answer(12);
+
+    const correct12 =
+        ["B", "D"];
+
+
+    const normalized12 =
+        student12
+            .map(answer => normalizeAnswer(answer))
+            .sort();
+
+    const expected12 =
+        correct12
+            .map(answer => normalizeAnswer(answer))
+            .sort();
+
+
+    const correctResult12 =
+        normalized12.length === 2 &&
+        normalized12[0] === expected12[0] &&
+        normalized12[1] === expected12[1];
+
+
+    if (correctResult12) {
+        score++;
+    }
+
+
+    addPairReview(
+        12,
+        student12,
+        correct12,
+        correctResult12 ? 1 : 0
+    );
+
+
+
+    /* =========================
+       QUESTIONS 13–17
+    ========================= */
+
+    for (let q = 13; q <= 17; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTIONS 18–20
+    ========================= */
+
+    for (let q = 18; q <= 20; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTIONS 21–30
+    ========================= */
+
+    for (let q = 21; q <= 30; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTIONS 31–37
+    ========================= */
+
+    for (let q = 31; q <= 37; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       QUESTIONS 38–40
+    ========================= */
+
+    for (let q = 38; q <= 40; q++) {
+
+        const student =
+            getSingleAnswer(q);
+
+        const correct =
+            individualAnswers[q];
+
+        const correctResult =
+            isCorrect(student, correct);
+
+        if (correctResult) {
+            score++;
+        }
+
+        addReviewItem(
+            q,
+            student,
+            correct,
+            correctResult ? 1 : 0
+        );
+
+    }
+
+
+
+    /* =========================
+       BAND
+    ========================= */
+
+    const band =
+        calculateBand(score);
+
+
+    document.getElementById("scoreDisplay")
+        .textContent =
+        `Score: ${score} / 40`;
+
+
+    document.getElementById("bandDisplay")
+        .textContent =
+        `Band Score: ${band.toFixed(1)}`;
+
+
+
+    saveResult(score, band);
+
+}
+
+
+
+/* =========================
+   SAVE RESULT
+========================= */
+
+async function saveResult(score, band) {
+
+    const saveMessage =
+        document.getElementById("saveMessage");
+
+
+    /* Prevent duplicate submissions */
+
+    if (
+        sessionStorage.getItem(
+            "listeningTest4ResultSaved"
+        ) === "true"
+    ) {
+
+        saveMessage.textContent =
+            "Your result has already been saved.";
+
+        return;
+
+    }
+
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const studentName =
+        sessionStorage.getItem("studentName");
+
+
+    try {
+
+        const { error } =
+            await supabaseClient
+                .from("test_results")
+                .insert({
+
+                    student_id: studentId,
+                    student_name: studentName,
+
+                    test_name: "Test 4",
+
+                    test_date:
+                        new Date()
+                            .toISOString()
+                            .split("T")[0],
+
+                    listening_score: score,
+
+                    is_submitted: true
+
+                });
+
+
+        if (error) {
+
+            console.error(
+                "Test 4 result save error:",
+                error
+            );
+
+            saveMessage.textContent =
+                "There was a problem saving your result.";
+
+            return;
+
+        }
+
+
+        sessionStorage.setItem(
+            "listeningTest4ResultSaved",
+            "true"
+        );
+
+
+        saveMessage.textContent =
+            "Your result has been saved successfully.";
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Test 4 submission error:",
+            error
+        );
+
+        saveMessage.textContent =
+            "There was a problem saving your result.";
+
+    }
+
+}
+
+
+
+/* =========================
+   RUN
+========================= */
+
+calculateResult();
+
+
+</script>
+
+</body>
+</html>
