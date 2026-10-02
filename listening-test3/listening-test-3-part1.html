@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>IELTS Listening Test 3 - Part 1</title>
 
     <link rel="stylesheet" href="../css/style.css">
-
-    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -18,33 +16,7 @@
 
 
 <main class="listening-container">
-
-    <section class="listening-header">
-    <div>
-        <h1>Part 1</h1>
-        <p>Questions 1–10</p>
-    </div>
-</section>    
-
-    <!-- QUESTION PROGRESS -->
-
-    <div class="question-progress">
-
-    <strong>Questions:</strong>
-
-    <button type="button" class="question-progress-button" data-question="1">1</button>
-    <button type="button" class="question-progress-button" data-question="2">2</button>
-    <button type="button" class="question-progress-button" data-question="3">3</button>
-    <button type="button" class="question-progress-button" data-question="4">4</button>
-    <button type="button" class="question-progress-button" data-question="5">5</button>
-    <button type="button" class="question-progress-button" data-question="6">6</button>
-    <button type="button" class="question-progress-button" data-question="7">7</button>
-    <button type="button" class="question-progress-button" data-question="8">8</button>
-    <button type="button" class="question-progress-button" data-question="9">9</button>
-    <button type="button" class="question-progress-button" data-question="10">10</button>
-
-</div>
-
+<section class="listening-card question-section">
 
     <form id="listeningForm">
 
@@ -365,6 +337,54 @@
 
         </section>
 
+        
+
+    </form>
+
+    <div class="question-progress">
+    <span class="question-progress-title">Questions:</span>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="1">1</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="2">2</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="3">3</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="4">4</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="5">5</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="6">6</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="7">7</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="8">8</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="9">9</button>
+
+    <button type="button"
+            class="question-progress-button"
+            data-question="10">10</button>
+</div>
+
         <div class="part-navigation">
 
             <button
@@ -376,7 +396,7 @@
 
         </div>
 
-    </form>
+        </section>
 
 </main>
 
