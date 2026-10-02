@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS Academic Reading Test 4</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        .question input[type="text"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .flowchart {
+            margin-top: 25px;
+        }
+
+        .flowchart-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .flowchart-row .question-number {
+            min-width: 28px;
+            font-weight: bold;
+        }
+
+        .flowchart-row input[type="text"] {
+            flex: 1;
+            max-width: 280px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .flowchart-arrow {
+            text-align: center;
+            font-size: 28px;
+            line-height: 1;
+            color: #8b9a6e;
+            margin: 4px 0;
+        }
+
+        @media (max-width: 700px) {
+
+            .flowchart-row {
+                flex-wrap: wrap;
+            }
+
+            .flowchart-row input[type="text"] {
+                width: 100%;
+                max-width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<script>
+
+    const readingAccessKey = "access_reading-test-4";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-test-4";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
+    </a>
+
+
+    <h3>
+        IELTS Academic Reading Test 4
+    </h3>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================================
+     QUESTION PROGRESS
+     ================================ -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+
+<main class="reading-wrapper">
+
+
+    <!-- ================================
+         TIMER
+         ================================ -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+            60:00
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         PART BUTTONS
+         ================================ -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+            Part 1
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+            Part 2
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+            Part 3
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         READING FORM
+         ================================ -->
+
+    <form id="readingForm">
+
+
+        <!-- =========================================
+             PART 2
+             ========================================= -->
+
+        <section
+            id="part2"
+            class="reading-part active">
+
+
+            <div class="reading-split-layout">
+
+
+                <!-- =================================
+                     LEFT SIDE: PASSAGE
+                     ================================= -->
+
+                <section class="passage-panel">
+
+
+                    <h2>
+                        Passage 2: The Sacred Pipe
+                    </h2>
+
+
+                    <p>
+                        The sacred pipe was one of the most important artifacts
+                        of the indigenous people of North America. In almost
+                        every culture, the sacred pipe was considered a gift
+                        from The Great Spirit. The Cree believed that the pipe,
+                        the tobacco, and the fire were given as parting gifts
+                        from the Creator, while the Iowa Black Bear clan
+                        believed that the pipe bowl and later the pipe stem
+                        emerged from the earth as gifts to the earth’s first
+                        bears. In most cases, the sacred pipe was considered a
+                        medium through which humans could pray to The Great
+                        Spirit, asking for guidance, health, and the necessities
+                        of life. In order for the prayers to reach the Great
+                        Spirit, they had to travel in the plumes of smoke from
+                        the sacred pipe. Because of its connection to the
+                        spiritual world, the pipe was treated with more respect
+                        than any human being, especially when the pipe bowl was
+                        joined to the stem.
+                    </p>
+
+
+                    <p>
+                        Unlike the common pipe, which was used by average
+                        tribesmen for casual smoking purposes, the sacred pipe
+                        was built with precise craftsmanship. Before a pipe was
+                        carved, the catlinite (pipestone) was blessed and prayed
+                        over. The bowl of the traditional sacred pipe was made
+                        of red pipestone to represent the Earth. The wooden stem
+                        represented all that grew upon the Earth. In the Lakota
+                        Society, as in many Native American tribes, the people
+                        believed that the pipe bowl also represented a woman
+                        while the pipe stem represented a man. Joined together,
+                        the pipe symbolized the circle of love between a man and
+                        woman. The sacred pipe was the only object that was
+                        built by both genders; men carved the bowl and stem while
+                        women decorated the pipe with porcupine quills. In many
+                        tribes the man and woman held onto the sacred pipe during
+                        the marriage ceremony.
+                    </p>
+
+
+                    <p>
+                        Cultivating the tobacco was the responsibility of certain
+                        members of the tribe. Generally, tobacco was mixed with
+                        herbs, bark, and roots, such as bay-berry, mugwort, and
+                        wild cherry bark. These mixtures varied depending on the
+                        plants that were indigenous to the tribal area. Ceremonial
+                        tobacco was much stronger than the type that was used for
+                        everyday smoking. Rather than being inhaled, the smoke
+                        from the sacred pipe was puffed out the mouth in four
+                        directions.
+                    </p>
+
+
+                    <p>
+                        In a typical pipe ceremony, the pipe holder stood up and
+                        held the pipe bowl in his left hand, with the stem held
+                        toward the East in his right hand. Before adding the
+                        first pinch of tobacco to the pipe bowl, he sprinkled
+                        some on the ground as an offering to both Mother Earth
+                        and the East. The East was acknowledged as the place
+                        where the morning star rose. Tribes believed that peace
+                        would evolve from wisdom if they prayed to the morning
+                        star.
+                    </p>
+
+
+                    <p>
+                        Before offering a prayer to the South, the pipe holder
+                        again offered Mother Earth a sprinkling of tobacco and
+                        added another pinch into the bowl. The South was believed
+                        to bring strength, growth, and healing. While facing west
+                        the pipe holder acknowledged Mother Earth and prepared
+                        to thank the area where the sun sets. West was where the
+                        tribe believed the Spirit Helpers lived. At this time,
+                        they prayed for guidance from the spiritual world. The
+                        ceremony then proceeded to the North, which was thanked
+                        for blanketing Mother Earth with white snow, and for
+                        providing health and endurance.
+                    </p>
+
+
+                    <p>
+                        After these four prayers, the pipe holder held the stem
+                        to the ground again and the tribe promised to respect
+                        and protect Mother Earth. Next, the stem was held up at
+                        an angle so that Father Sky could be thanked for the
+                        energy and heat he gave to the human body. Finally, the
+                        stem was held straight up and the tribe acknowledged The
+                        Great Spirit, thanking him for being the creator of
+                        Mother Earth, Father Sky, and the four directions.
+                    </p>
+
+
+                    <p>
+                        After the pipe holder had worked his way around the four
+                        directions, he lit the pipe and passed it around the
+                        sacred circle in the same direction as the ceremonial
+                        prayers, starting from the East. Each member took a puff
+                        of smoke and offered another prayer. When the pipe had
+                        made a full circle, it was capped with bark, and the stem
+                        was removed. It was important for the stem and bowl to be
+                        stored in separate pockets in a pipe pouch. These pieces
+                        were not allowed to touch each other, except during a
+                        sacred pipe ceremony.
+                    </p>
+
+
+                    <p>
+                        Pipestone, Minnesota, is considered hallowed ground for
+                        North American tribes. Regardless of their conflicts,
+                        tribes put their weapons down and gathered in peace in
+                        these quarries. According to the Dakota tribe, The Great
+                        Spirit once called all Indian nations to this location.
+                        Here the Spirit stood on the red pipestone and broke a
+                        piece away from the rock to make a giant pipe. He told
+                        his people that the red stone was their flesh and that
+                        it should be used to make a sacred pipe. He also said
+                        that the pipestone belonged to all native tribesmen and
+                        that the quarries must be considered a sacred place.
+                        Thus, people who had sacred pipes in their possession
+                        were considered caretakers, not owners.
+                    </p>
+
+
+                </section>
+
+
+
+                <!-- =================================
+                     RIGHT SIDE: QUESTIONS
+                     ================================= -->
+
+                <section class="questions-panel">
+
+
+                    <!-- QUESTIONS 15–19 -->
+
+                    <h2>
+                        Questions 15–19
+                    </h2>
+
+
+                    <p>
+                        Choose the correct letters,
+                        <strong>A-C</strong>,
+                        and write them in boxes 15–19 on your Answer Sheet.
+                    </p>
+
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">15.</span>
+                            The sacred pipe was important in Native American
+                            cultures because
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q15"
+                                value="A">
+
+                            A. it was part of their spiritual practice
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q15"
+                                value="B">
+
+                            B. it was used in gift exchanges between tribes
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q15"
+                                value="C">
+
+                            C. it represented traditional handicrafts
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">16.</span>
+                            The pipe was made of
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q16"
+                                value="A">
+
+                            A. stone and wood
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q16"
+                                value="B">
+
+                            B. bark and roots
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q16"
+                                value="C">
+
+                            C. red clay from the Earth
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">17.</span>
+                            The pipe was sometimes used at
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q17"
+                                value="A">
+
+                            A. funerals
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q17"
+                                value="B">
+
+                            B. births
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q17"
+                                value="C">
+
+                            C. weddings
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">18.</span>
+                            During the pipe ceremony, tribe members smoked
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q18"
+                                value="A">
+
+                            A. plain tobacco
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q18"
+                                value="B">
+
+                            B. a combination of plants
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q18"
+                                value="C">
+
+                            C. only bark
+
+                        </label>
+
+                    </div>
+
+
+
+                    <div class="question">
+
+                        <p>
+                            <span class="question-number">19.</span>
+                            Pipestone, Minnesota, is an important place because
+                            it is
+                        </p>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q19"
+                                value="A">
+
+                            A. the site of a major battle
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q19"
+                                value="B">
+
+                            B. the origin of the Dakota tribe
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="radio"
+                                name="q19"
+                                value="C">
+
+                            C. source of stone for pipes
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- QUESTIONS 20–27 -->
+
+                    <h2>
+                        Questions 20–27
+                    </h2>
+
+                    <p>
+                        Complete the flowchart about the pipe ceremony.
+                        Write <strong>NO MORE THAN THREE WORDS</strong>
+                        for each answer.
+                    </p>
+
+
+                    <div class="flowchart">
+
+
+                        <!-- QUESTION 20 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">20.</span>
+
+                            <span>
+                                The pipe holder takes the
+                                <strong>bowl</strong>
+                                in his left hand.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q20"
+                                aria-label="Question 20">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 21 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">21.</span>
+
+                            <span>
+                                The
+                                <strong>stem</strong>
+                                is held in the other hand.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q21"
+                                aria-label="Question 21">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 22 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">22.</span>
+
+                            <span>
+                                The pipe holder offers tobacco to Mother Earth
+                                and
+                                <strong>acknowledges</strong>
+                                the place where the morning star rises.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q22"
+                                aria-label="Question 22">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 23 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">23.</span>
+
+                            <span>
+                                The pipe holder prays to
+                                <strong>the South</strong>
+                                to bring strength, growth and healing.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q23"
+                                aria-label="Question 23">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 24 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">24.</span>
+
+                            <span>
+                                The pipe holder prays in appreciation for
+                                <strong>Mother Earth</strong>
+                                and Father Sky.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q24"
+                                aria-label="Question 24">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 25 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">25.</span>
+
+                            <span>
+                                The Great Spirit is thanked for
+                                <strong>the four directions</strong>.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q25"
+                                aria-label="Question 25">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 26 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">26.</span>
+
+                            <span>
+                                Each member
+                                <strong>takes a puff</strong>
+                                of smoke and offers another prayer.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q26"
+                                aria-label="Question 26">
+
+                        </div>
+
+
+                        <div class="flowchart-arrow">↓</div>
+
+
+                        <!-- QUESTION 27 -->
+
+                        <div class="flowchart-row">
+
+                            <span class="question-number">27.</span>
+
+                            <span>
+                                The bowl and stem are
+                                <strong>separated</strong>
+                                after the ceremony.
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q27"
+                                aria-label="Question 27">
+
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+
+            </div>
+
+        </section>
+
+
+    </form>
+
+</main>
+
+
+
+<script>
+
+/* =========================================
+   READING TEST 4 TIMER
+   ========================================= */
+
+let timeLeftStorage =
+    sessionStorage.getItem("readingTest4TimeLeft");
+
+
+let timeLeft =
+    timeLeftStorage !== null
+        ? Number(timeLeftStorage)
+        : 60 * 60;
+
+
+let timerStarted =
+    sessionStorage.getItem("readingTest4TimerStarted") === "true";
+
+
+let timerInterval = null;
+
+
+const timerElement =
+    document.getElementById("timer");
+
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    if (timerElement) {
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0")
+            + ":"
+            + String(seconds).padStart(2, "0");
+
+    }
+
+}
+
+
+
+function runTimer() {
+
+    if (timerInterval) {
+        return;
+    }
+
+
+    timerInterval =
+        setInterval(function() {
+
+            timeLeft--;
+
+            updateTimer();
+
+
+            sessionStorage.setItem(
+                "readingTest4TimeLeft",
+                timeLeft
+            );
+
+
+            if (timeLeft <= 0) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+
+                sessionStorage.removeItem(
+                    "readingTest4TimeLeft"
+                );
+
+
+                sessionStorage.removeItem(
+                    "readingTest4TimerStarted"
+                );
+
+
+                alert("Time is up!");
+
+            }
+
+        }, 1000);
+
+}
+
+
+
+function startTimer() {
+
+    if (timerStarted) {
+        return;
+    }
+
+
+    timerStarted = true;
+
+
+    sessionStorage.setItem(
+        "readingTest4TimerStarted",
+        "true"
+    );
+
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+
+/* Start timer */
+
+if (!timerStarted) {
+
+    startTimer();
+
+} else {
+
+    updateTimer();
+
+    runTimer();
+
+}
+
+
+
+/* =========================================
+   SAVE ANSWERS
+   ========================================= */
+
+function saveAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+
+            if (input.checked) {
+
+                sessionStorage.setItem(
+                    "readingTest4_" + input.name,
+                    input.value
+                );
+
+            }
+
+
+        } else {
+
+            sessionStorage.setItem(
+                "readingTest4_" + input.name,
+                input.value
+            );
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================
+   RESET COMPLETED READING TEST 4
+   ========================================= */
+
+function resetCompletedReadingTest4() {
+
+    if (
+        sessionStorage.getItem(
+            "readingTest4Submitted"
+        ) === "true"
+    ) {
+
+
+        for (let i = 1; i <= 40; i++) {
+
+            sessionStorage.removeItem(
+                "readingTest4_q" + i
+            );
+
+        }
+
+
+        sessionStorage.removeItem(
+            "readingTest4TimeLeft"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest4TimerStarted"
+        );
+
+
+        sessionStorage.removeItem(
+            "readingTest4Submitted"
+        );
+
+    }
+
+}
+
+
+resetCompletedReadingTest4();
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+
+/* =========================================
+   RESTORE ANSWERS
+   ========================================= */
+
+function restoreAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input"
+    ).forEach(function(input) {
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingTest4_" + input.name
+            );
+
+
+        if (savedAnswer === null) {
+            return;
+        }
+
+
+        if (
+            input.type === "radio"
+            || input.type === "checkbox"
+        ) {
+
+            input.checked =
+                input.value === savedAnswer;
+
+        } else {
+
+            input.value =
+                savedAnswer;
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================
+   QUESTION PROGRESS
+   ========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 1; i <= 40; i++) {
+
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingTest4_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================
+   ANSWER EVENTS
+   ========================================= */
+
+document.querySelectorAll(
+    "#readingForm input"
+).forEach(function(input) {
+
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+
+    input.addEventListener(
+        "change",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+});
+
+
+
+/* =========================================
+   RESTORE SAVED ANSWERS
+   ========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+
+/* =========================================
+   PART NAVIGATION
+   ========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading-test-4-part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading-test-4-part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading-test-4-part3.html";
+
+    }
+
+}
+
+
+
+/* =========================================
+   SUBMIT TEST
+   ========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+
+    window.location.href =
+        "reading-test-4-final.html";
+
+}
+
+</script>
+
+
+</body>
+</html>

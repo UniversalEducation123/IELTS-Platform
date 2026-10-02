@@ -145,6 +145,27 @@
         <span>Start Listening →</span>
     </a>
 
+<!-- Reading Test 4 -->
+    <a
+        href="test-access.html?test=reading-test-4"
+        class="dashboard-card">
+        <div class="dashboard-icon">📖</div>
+        <h2>Reading Test 4</h2>
+        <p> Practice IELTS Academic Reading and check your score. </p>
+        <span>Start Reading →</span>
+    </a>
+
+<!-- Writing Test 4 -->
+<a
+    href="test-access.html?test=writing-test-4"
+    class="dashboard-card"
+    onclick="startFreshWritingTest()">
+    <div class="dashboard-icon">✍️</div>
+    <h2>Writing Test 4</h2>
+    <p>Practice IELTS Academic Writing Task 1 and Task 2.</p>
+    <span>Start Writing →</span>
+</a>
+
     </div>
 
  </div>
@@ -184,6 +205,11 @@ function clearListeningProgress() {
     // Test 3 player
     sessionStorage.removeItem("listeningTest3AudioTime");
     sessionStorage.removeItem("listeningTest3AudioPlaying");
+
+    // Test 4 player
+    sessionStorage.removeItem("listeningTest4AudioTime");
+    sessionStorage.removeItem("listeningTest4AudioPlaying");
+
 
     // Clear all saved Listening answer keys
     for (let i = sessionStorage.length - 1; i >= 0; i--) {
@@ -235,6 +261,28 @@ function startFreshWritingTest() {
     localStorage.removeItem("writingTest2Task1Answer");
     localStorage.removeItem("writingTest2Task2Answer");
     localStorage.removeItem("writingTest2Completed");
+
+    // Writing Test 3
+    sessionStorage.removeItem("writingTest3TimeLeft");
+    sessionStorage.removeItem("writingTest3Task1Answer");
+    sessionStorage.removeItem("writingTest3Task2Answer");
+    sessionStorage.removeItem("writingTest3Completed");
+
+    localStorage.removeItem("writingTest3TimeLeft");
+    localStorage.removeItem("writingTest3Task1Answer");
+    localStorage.removeItem("writingTest3Task2Answer");
+    localStorage.removeItem("writingTest3Completed");
+
+    // Writing Test 4
+    sessionStorage.removeItem("writingTest4TimeLeft");
+    sessionStorage.removeItem("writingTest4Task1Answer");
+    sessionStorage.removeItem("writingTest4Task2Answer");
+    sessionStorage.removeItem("writingTest4Completed");
+
+    localStorage.removeItem("writingTest4TimeLeft");
+    localStorage.removeItem("writingTest4Task1Answer");
+    localStorage.removeItem("writingTest4Task2Answer");
+    localStorage.removeItem("writingTest4Completed");
     
 }
 
