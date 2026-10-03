@@ -209,97 +209,20 @@
 
         async function checkTestAccessMode() {
 
-            console.log(
-                "Checking access mode for:",
-                testId
-            );
+    console.log(
+        "Checking access mode for:",
+        testId
+    );
 
+    const { data: accessStatus, error } =
+        await db
+            .from("test_access_codes")
+            .select("test_id, enabled");
 
-            const { data: accessStatus, error } =
-                await db
-                    .from("test_access_codes")
-                    .select("test_id, enabled");
+    console.log("ALL ACCESS ROWS:", accessStatus);
+    console.log("ACCESS ERROR:", error);
 
-            console.log("ALL ACCESS ROWS:", accessStatus);
-            console.log("ACCESS ERROR:", error);
-
-
-            console.log(
-                "ACCESS STATUS:",
-                accessStatus
-            );
-
-            console.log(
-                "ACCESS STATUS ERROR:",
-                error
-            );
-
-
-            if (error) {
-
-                console.error(
-                    "Access mode error:",
-                    error
-                );
-
-                message.textContent =
-                    "Unable to check test access.";
-
-                return;
-            }
-
-
-            if (!accessStatus) {
-
-                message.textContent =
-                    "Test access settings not found.";
-
-                return;
-            }
-
-
-            /*
-            enabled = FALSE
-            Access code is OFF
-            Student can enter directly
-            */
-
-            if (accessStatus.enabled === false) {
-
-                console.log(
-                    "Access code is OFF. Entering test directly."
-                );
-
-
-                /*
-                IMPORTANT:
-                Give the test page permission to open.
-                */
-
-                sessionStorage.setItem(
-                    "access_" + testId,
-                    "true"
-                );
-
-
-                window.location.href =
-                    selectedTest.page;
-
-                return;
-            }
-
-
-            /*
-            enabled = TRUE
-            Access code is ON
-            Password required
-            */
-
-            console.log(
-                "Access code is ON. Password required."
-            );
-
-        }
+}
 
 
         /*
