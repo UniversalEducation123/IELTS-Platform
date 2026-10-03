@@ -810,11 +810,6 @@ h2{
         );
 
 
-
-        /* =================================
-           SAVE RESULT TO SUPABASE
-        ================================= */
-
         await saveResultToSupabase(
             correctCount
         );
@@ -829,78 +824,135 @@ h2{
        SAVE RESULT TO SUPABASE
     ===================================== */
 
-    async function saveResultToSupabase(
-        score
-    ) {
+  async function saveResultToSupabase(score) {
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    const studentName =
+        sessionStorage.getItem("studentName");
+
+    const numericStudentId =
+        studentId ? Number(studentId) : null;
 
 
-        const studentId =
-            sessionStorage.getItem(
-                "studentId"
-            );
+    /* =====================================
+       FIND EXISTING TEST 4 RESULT
+    ===================================== */
+
+    const { data: existingResult, error: findError } =
+        await supabaseClient
+            .from("test_results")
+            .select("id")
+            .eq("student_id", numericStudentId)
+            .eq("test_name", "Test 4")
+            .order("id", { ascending: false })
+            .limit(1)
+            .maybeSingle();
 
 
-        const studentName =
-            sessionStorage.getItem(
-                "studentName"
-            );
+    if (findError) {
 
-
-        const resultData = {
-            student_id:
-                studentId
-                    ? Number(studentId)
-                    : null,
-
-            student_name:
-                studentName,
-
-            test_name:
-                "Test 4",
-
-            test_date:
-                new Date()
-                    .toISOString()
-                    .split("T")[0],
-
-            reading_score:
-                score,
-
-            is_submitted:
-                true
-        };
-
-
-        console.log(
-            "Data being sent to Supabase:",
-            resultData
+        console.error(
+            "Error finding existing Test 4 result:",
+            findError
         );
 
+        return;
+    }
 
-        const { error } =
+
+    /* =====================================
+       UPDATE EXISTING ROW
+    ===================================== */
+
+    if (existingResult) {
+
+        const { error: updateError } =
             await supabaseClient
                 .from("test_results")
-                .insert(resultData);
+                .update({
+                    student_name: studentName,
+                    test_date:
+                        new Date()
+                            .toISOString()
+                            .split("T")[0],
+                    reading_score: score,
+                    is_submitted: true
+                })
+                .eq("id", existingResult.id);
 
 
-        if (error) {
+        if (updateError) {
 
             console.error(
-                "Error saving Reading Test 4 result:",
-                error
+                "Error updating Reading Test 4 result:",
+                updateError
             );
 
             return;
-
         }
 
 
         console.log(
-            "Reading Test 4 result saved successfully."
+            "Reading Test 4 score updated in existing row:",
+            score
         );
 
+        return;
     }
 
+
+    /* =====================================
+       NO EXISTING ROW
+       CREATE ONE
+    ===================================== */
+
+    const resultData = {
+
+        student_id:
+            numericStudentId,
+
+        student_name:
+            studentName,
+
+        test_name:
+            "Test 4",
+
+        test_date:
+            new Date()
+                .toISOString()
+                .split("T")[0],
+
+        reading_score:
+            score,
+
+        is_submitted:
+            true
+    };
+
+
+    const { error: insertError } =
+        await supabaseClient
+            .from("test_results")
+            .insert(resultData);
+
+
+    if (insertError) {
+
+        console.error(
+            "Error creating Reading Test 4 result:",
+            insertError
+        );
+
+        return;
+    }
+
+
+    console.log(
+        "Reading Test 4 result created successfully."
+    );
+}
 
 
     /* =====================================
