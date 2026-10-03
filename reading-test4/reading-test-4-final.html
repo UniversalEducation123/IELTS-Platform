@@ -3,13 +3,8 @@
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Test 4 Result</title>
-
 
     <style>
 
@@ -31,13 +26,8 @@ body{
             rgba(234,226,214,.45),
             transparent 35%),
         #F7F2EB;
-
     color:#5F5B55;
 }
-
-/* =====================================
-   HEADER
-===================================== */
 
 .result-header{
     width:100%;
@@ -52,10 +42,8 @@ body{
 
     background:rgba(255,255,255,.78);
     backdrop-filter:blur(16px);
-
     border:1px solid #E8E1D6;
     border-radius:16px;
-
     box-shadow:0 8px 22px rgba(76,74,70,.05);
 }
 
@@ -83,21 +71,15 @@ body{
     color:#8B9A6E;
 }
 
-/* =====================================
-   RESULT CARD
-===================================== */
-
 .result-card{
     max-width:850px;
     margin:0 auto;
     padding:42px;
-
     background:rgba(255,255,255,.82);
     backdrop-filter:blur(14px);
 
     border:1px solid #ECE4D8;
     border-radius:24px;
-
     box-shadow:0 14px 34px rgba(76,74,70,.06);
 }
 
@@ -114,10 +96,6 @@ h2{
     margin:36px 0 20px;
 }
 
-/* =====================================
-   SCORE
-===================================== */
-
 .result-line{
     display:flex;
     justify-content:space-between;
@@ -125,7 +103,6 @@ h2{
 
     padding:15px 0;
     border-bottom:1px solid #ECE4D8;
-
     font-size:18px;
 }
 
@@ -140,7 +117,6 @@ h2{
 
     border-top:2px solid #DCE4D2;
     border-bottom:none;
-
     font-size:21px;
 }
 
@@ -149,10 +125,6 @@ h2{
     color:#72805A;
 }
 
-/* =====================================
-   ANSWER REVIEW
-===================================== */
-
 .answer-review-section{
     margin-top:34px;
 }
@@ -160,7 +132,6 @@ h2{
 .answer-review-item{
     margin-bottom:14px;
     padding:16px 18px;
-
     border-left:5px solid;
     border-radius:14px;
 }
@@ -204,14 +175,9 @@ h2{
     color:#5F5B55;
 }
 
-/* =====================================
-   BUTTON
-===================================== */
-
 .home-button{
     display:block;
     width:fit-content;
-
     margin:34px auto 0;
     padding:13px 28px;
 
@@ -221,7 +187,6 @@ h2{
     text-decoration:none;
     font-size:15px;
     font-weight:600;
-
     border-radius:999px;
     transition:.25s;
 }
@@ -231,10 +196,6 @@ h2{
     transform:translateY(-2px);
     box-shadow:0 10px 22px rgba(139,154,110,.18);
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:600px){
 
@@ -286,13 +247,8 @@ h2{
 
         <div class="result-header-links">
 
-            <a href="../student-dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="../index.html">
-                Logout
-            </a>
+            <a href="../student-dashboard.html"> Dashboard </a>
+            <a href="../index.html"> Logout </a>
 
         </div>
 
@@ -392,18 +348,20 @@ h2{
        SUPABASE CONNECTION
     ===================================== */
 
-    const SUPABASE_URL =
-        "https://gehczgguwxqwfowmbedy.supabase.co";
-
-
-    const SUPABASE_ANON_KEY =
-        "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
-
+    const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
 
     const supabaseClient =
         window.supabase.createClient(
             SUPABASE_URL,
-            SUPABASE_ANON_KEY
+            SUPABASE_ANON_KEY,
+            {
+                auth: {
+                    persistSession: false,
+                    autoRefreshToken: false,
+                    detectSessionInUrl: false
+                }
+            }
         );
 
 
