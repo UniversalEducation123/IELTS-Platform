@@ -864,26 +864,79 @@ function reviewWriting(submissionId) {
 
 // Delete only the selected student's selected test result
 async function deleteTestResult(studentId, testName) {
+
     const confirmed = confirm(
-        `Delete ${testName} result for this student? This will not delete the student account.`
+        `Delete ${testName} result for this student? This will delete all section results for this test, including the Writing submission.`
     );
 
     if (!confirmed) {
         return;
     }
 
-    const { error } = await supabaseClient
-        .from("test_results")
-        .delete()
-        .eq("student_id", Number(studentId))
-        .eq("test_name", testName);
+    /* =========================================
+       DELETE LISTENING / READING / SPEAKING
+       ========================================= */
 
-    if (error) {
-        alert("Error deleting test result: " + error.message);
+    const { error: resultsError } =
+        await supabaseClient
+            .from("test_results")
+            .delete()
+            .eq("student_id", Number(studentId))
+            .eq("test_name", testName);
+
+    if (resultsError) {
+
+        console.error(resultsError);
+
+        alert(
+            "Error deleting test result: " +
+            resultsError.message
+        );
+
         return;
     }
 
-    alert(`${testName} result deleted successfully.`);
+
+    /* =========================================
+       DELETE WRITING SUBMISSION
+       ========================================= */
+
+    const writingTestId =
+        "writing-" +
+        String(testName)
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+
+
+    const { error: writingError } =
+        await supabaseClient
+            .from("writing_submissions")
+            .delete()
+            .eq("student_id", Number(studentId))
+            .eq("test_id", writingTestId);
+
+
+    if (writingError) {
+
+        console.error(writingError);
+
+        alert(
+            "The test result was deleted, but the Writing submission could not be deleted: " +
+            writingError.message
+        );
+
+        return;
+    }
+
+
+    /* =========================================
+       RELOAD EVERYTHING
+       ========================================= */
+
+    alert(
+        `${testName} deleted successfully.`
+    );
 
     await loadStudentsAndResults();
 }
