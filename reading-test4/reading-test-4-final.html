@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Reading Test 4 Result</title>
+
+
+    <style>
+
+       *{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    padding:30px 15px;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+
+    background:
+        radial-gradient(circle at top left,
+            rgba(139,154,110,.10),
+            transparent 35%),
+        radial-gradient(circle at bottom right,
+            rgba(234,226,214,.45),
+            transparent 35%),
+        #F7F2EB;
+
+    color:#5F5B55;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.result-header{
+    width:100%;
+    max-width:900px;
+    height:64px;
+    margin:0 auto 24px;
+    padding:0 22px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(16px);
+
+    border:1px solid #E8E1D6;
+    border-radius:16px;
+
+    box-shadow:0 8px 22px rgba(76,74,70,.05);
+}
+
+.result-logo{
+    font-size:20px;
+    font-weight:700;
+    color:#5F5B55;
+}
+
+.result-header-links{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.result-header-links a{
+    color:#6B6A63;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.result-header-links a:hover{
+    color:#8B9A6E;
+}
+
+/* =====================================
+   RESULT CARD
+===================================== */
+
+.result-card{
+    max-width:850px;
+    margin:0 auto;
+    padding:42px;
+
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(14px);
+
+    border:1px solid #ECE4D8;
+    border-radius:24px;
+
+    box-shadow:0 14px 34px rgba(76,74,70,.06);
+}
+
+h1{
+    margin:0 0 34px;
+    text-align:center;
+    color:#5F5B55;
+    font-size:32px;
+}
+
+h2{
+    color:#5F5B55;
+    font-size:23px;
+    margin:36px 0 20px;
+}
+
+/* =====================================
+   SCORE
+===================================== */
+
+.result-line{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 0;
+    border-bottom:1px solid #ECE4D8;
+
+    font-size:18px;
+}
+
+.result-line span{
+    font-weight:700;
+    color:#72805A;
+}
+
+.band-line{
+    margin-top:12px;
+    padding-top:22px;
+
+    border-top:2px solid #DCE4D2;
+    border-bottom:none;
+
+    font-size:21px;
+}
+
+.band-line span{
+    font-size:26px;
+    color:#72805A;
+}
+
+/* =====================================
+   ANSWER REVIEW
+===================================== */
+
+.answer-review-section{
+    margin-top:34px;
+}
+
+.answer-review-item{
+    margin-bottom:14px;
+    padding:16px 18px;
+
+    border-left:5px solid;
+    border-radius:14px;
+}
+
+.answer-review-item.correct{
+    background:#F4F7F1;
+    border-left-color:#8B9A6E;
+}
+
+.answer-review-item.wrong{
+    background:#FAF4F1;
+    border-left-color:#B59A86;
+}
+
+.review-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+}
+
+.review-status{
+    font-weight:700;
+}
+
+.correct .review-status{
+    color:#72805A;
+}
+
+.wrong .review-status{
+    color:#9A7E6A;
+}
+
+.answer-review-item p{
+    margin:6px 0;
+    color:#6B6A63;
+    line-height:1.6;
+}
+
+.answer-review-item strong{
+    color:#5F5B55;
+}
+
+/* =====================================
+   BUTTON
+===================================== */
+
+.home-button{
+    display:block;
+    width:fit-content;
+
+    margin:34px auto 0;
+    padding:13px 28px;
+
+    background:#8B9A6E;
+    color:#FFFFFF;
+
+    text-decoration:none;
+    font-size:15px;
+    font-weight:600;
+
+    border-radius:999px;
+    transition:.25s;
+}
+
+.home-button:hover{
+    background:#77885C;
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(139,154,110,.18);
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width:600px){
+
+    body{
+        padding:18px 12px;
+    }
+
+    .result-header{
+        height:auto;
+        padding:16px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .result-card{
+        padding:28px 20px;
+    }
+
+    h1{
+        font-size:27px;
+    }
+
+    h2{
+        font-size:21px;
+    }
+
+    .result-line{
+        font-size:16px;
+    }
+
+    .review-header{
+        flex-direction:column;
+        gap:4px;
+    }
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header class="result-header">
+
+        <div class="result-logo">
+            IELTS Practice
+        </div>
+
+        <div class="result-header-links">
+
+            <a href="../student-dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="../index.html">
+                Logout
+            </a>
+
+        </div>
+
+    </header>
+
+
+<div class="result-card">
+
+
+    <h1>
+        Reading Test 4 Result
+    </h1>
+
+
+    <div class="result-line">
+
+        <strong>
+            Correct Answers:
+        </strong>
+
+        <span id="correctAnswers">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="result-line">
+
+        <strong>
+            Wrong Answers:
+        </strong>
+
+        <span id="wrongAnswers">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="result-line">
+
+        <strong>
+            Total Score:
+        </strong>
+
+        <span id="totalScore">
+            0 / 40
+        </span>
+
+    </div>
+
+
+    <div class="result-line band-line">
+
+        <strong>
+            IELTS Band:
+        </strong>
+
+        <span id="bandScore">
+            2.0
+        </span>
+
+    </div>
+
+
+    <div class="answer-review-section">
+
+        <h2>
+            Answer Review
+        </h2>
+
+        <div id="answerReview"></div>
+
+    </div>
+
+
+    <a
+        href="../submitted-tests.html"
+        class="home-button">
+
+        View Submitted Tests
+
+    </a>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+    /* =====================================
+       SUPABASE CONNECTION
+    ===================================== */
+
+    const SUPABASE_URL =
+        "https://gehczgguwxqwfowmbedy.supabase.co";
+
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_9h-NB-3bSeofDt2PchapIw_me-RTx3z";
+
+
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
+
+
+
+    /* =====================================
+       ANSWER NORMALIZATION
+    ===================================== */
+
+    function normalizeAnswer(answer) {
+
+        return String(answer || "")
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]/g, "");
+
+    }
+
+
+
+    function isCorrect(
+        studentAnswer,
+        acceptedAnswers
+    ) {
+
+        const student =
+            normalizeAnswer(studentAnswer);
+
+
+        if (!student) {
+
+            return false;
+
+        }
+
+
+        return acceptedAnswers.some(
+            function(answer) {
+
+                return (
+                    student ===
+                    normalizeAnswer(answer)
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================
+       BAND SCORE
+    ===================================== */
+
+   function calculateBand(correctCount) {
+
+    if (correctCount >= 39) return "9.0";
+    if (correctCount >= 37) return "8.5";
+    if (correctCount >= 35) return "8.0";
+    if (correctCount >= 33) return "7.5";
+    if (correctCount >= 30) return "7.0";
+    if (correctCount >= 27) return "6.5";
+    if (correctCount >= 23) return "6.0";
+    if (correctCount >= 19) return "5.5";
+    if (correctCount >= 15) return "5.0";
+    if (correctCount >= 13) return "4.5";
+    if (correctCount >= 10) return "4.0";
+    if (correctCount >= 8) return "3.5";
+    if (correctCount >= 6) return "3.0";
+    if (correctCount >= 4) return "2.5";
+
+    return "2.0";
+}
+    
+
+
+
+    /* =====================================
+       READING TEST 4 ANSWER KEY
+    ===================================== */
+
+    const answerKey = {
+
+        /* ===============================
+           PASSAGE 1
+           QUESTIONS 1–14
+        =============================== */
+
+        q1: ["B"],
+
+        q2: ["A"],
+
+        q3: ["C"],
+
+        q4: ["B"],
+
+        q5: ["A"],
+
+        q6: ["A"],
+
+        q7: ["C"],
+
+        q8: ["eating"],
+
+        q9: ["allergens"],
+
+        q10: ["signs"],
+
+        q11: ["medicines"],
+
+        q12: ["anaphylaxis"],
+
+        q13: ["identify"],
+
+        q14: ["avoiding"],
+
+
+        /* ===============================
+           PASSAGE 2
+           QUESTIONS 15–27
+        =============================== */
+
+        q15: ["A"],
+
+        q16: ["A"],
+
+        q17: ["C"],
+
+        q18: ["B"],
+
+        q19: ["C"],
+
+        q20: ["bowl", "pipe bowl"],
+
+        q21: ["stem", "pipe stem"],
+
+        q22: ["acknowledged"],
+
+        q23: ["South", "The South"],
+
+        q24: ["Mother Earth"],
+
+        q25: ["four directions", "the four directions"],
+
+        q26: ["took a puff", "puffed", "smoke"],
+
+        q27: ["separated", "stored seperately"],
+
+
+        /* ===============================
+           PASSAGE 3
+           QUESTIONS 28–40
+        =============================== */
+
+        q28: ["19th century", "19th century"],
+
+        q29: ["depth"],
+
+        q30: ["single beam sonar", "single-beam sonar"],
+
+        q31: ["sound waves"],
+
+        q32: ["1960s"],
+
+        q33: [
+            "entire globe",
+            "the entire globe",
+            "earth",
+            "the earth",
+            "globe",
+            "the world"
+        ],
+
+        q34: ["A"],
+
+        q35: ["B"],
+
+        q36: ["B"],
+
+        q37: ["A"],
+
+        q38: ["ii"],
+
+        q39: ["iii"],
+
+        q40: ["v"]
+
+    };
+
+
+
+    /* =====================================
+       READ SAVED ANSWERS
+    ===================================== */
+
+    function readTest4Answers() {
+
+        const answers = {};
+
+
+        for (let i = 1; i <= 40; i++) {
+
+            answers["q" + i] =
+                sessionStorage.getItem(
+                    "readingTest4_q" + i
+                ) || "";
+
+        }
+
+
+        return answers;
+
+    }
+
+
+
+    /* =====================================
+       ANSWER REVIEW
+    ===================================== */
+
+    function addReviewItem(
+        questionNumber,
+        studentAnswer,
+        correctAnswer,
+        correct
+    ) {
+
+        const answerReview =
+            document.getElementById(
+                "answerReview"
+            );
+
+
+        if (!answerReview) {
+
+            return;
+
+        }
+
+
+        const reviewItem =
+            document.createElement("div");
+
+
+        reviewItem.className =
+            correct
+                ? "answer-review-item correct"
+                : "answer-review-item wrong";
+
+
+
+        const header =
+            document.createElement("div");
+
+
+        header.className =
+            "review-header";
+
+
+        const question =
+            document.createElement("strong");
+
+
+        question.textContent =
+            "Question " + questionNumber;
+
+
+        const status =
+            document.createElement("span");
+
+
+        status.className =
+            "review-status";
+
+
+        status.textContent =
+            correct
+                ? "✓ Correct"
+                : "✗ Wrong";
+
+
+        header.appendChild(question);
+
+        header.appendChild(status);
+
+
+        reviewItem.appendChild(header);
+
+
+
+        const studentLine =
+            document.createElement("p");
+
+
+        const studentLabel =
+            document.createElement("strong");
+
+
+        studentLabel.textContent =
+            "Your answer: ";
+
+
+        studentLine.appendChild(
+            studentLabel
+        );
+
+
+        studentLine.appendChild(
+            document.createTextNode(
+                studentAnswer || "Not answered"
+            )
+        );
+
+
+        reviewItem.appendChild(
+            studentLine
+        );
+
+
+
+        const correctLine =
+            document.createElement("p");
+
+
+        const correctLabel =
+            document.createElement("strong");
+
+
+        correctLabel.textContent =
+            "Correct answer: ";
+
+
+        correctLine.appendChild(
+            correctLabel
+        );
+
+
+        correctLine.appendChild(
+            document.createTextNode(
+                correctAnswer
+            )
+        );
+
+
+        reviewItem.appendChild(
+            correctLine
+        );
+
+
+        answerReview.appendChild(
+            reviewItem
+        );
+
+    }
+
+
+
+    /* =====================================
+       MAIN SCORE CALCULATION
+    ===================================== */
+
+    async function calculateReadingScore() {
+
+        const answers =
+            readTest4Answers();
+
+
+        let correctCount = 0;
+
+
+        for (let i = 1; i <= 40; i++) {
+
+            const key =
+                "q" + i;
+
+
+            const student =
+                answers[key] || "";
+
+
+            const accepted =
+                answerKey[key] || [];
+
+
+            const correct =
+                isCorrect(
+                    student,
+                    accepted
+                );
+
+
+            if (correct) {
+
+                correctCount++;
+
+            }
+
+
+            addReviewItem(
+                i,
+                student,
+                accepted.join(" / "),
+                correct
+            );
+
+        }
+
+
+
+        /* =================================
+           DISPLAY FINAL SCORE
+        ================================= */
+
+        const wrongCount =
+            40 - correctCount;
+
+
+        document.getElementById(
+            "correctAnswers"
+        ).textContent =
+            correctCount;
+
+
+        document.getElementById(
+            "wrongAnswers"
+        ).textContent =
+            wrongCount;
+
+
+        document.getElementById(
+            "totalScore"
+        ).textContent =
+            correctCount + " / 40";
+
+
+        document.getElementById(
+            "bandScore"
+        ).textContent =
+            calculateBand(correctCount);
+
+
+
+        console.log(
+            "FINAL READING TEST 4 SCORE:",
+            correctCount + " / 40"
+        );
+
+
+
+        /* =================================
+           SAVE RESULT TO SUPABASE
+        ================================= */
+
+        await saveResultToSupabase(
+            correctCount
+        );
+
+        markReadingTest4AsSubmitted();
+
+    }
+
+
+
+    /* =====================================
+       SAVE RESULT TO SUPABASE
+    ===================================== */
+
+    async function saveResultToSupabase(
+        score
+    ) {
+
+
+        const studentId =
+            sessionStorage.getItem(
+                "studentId"
+            );
+
+
+        const studentName =
+            sessionStorage.getItem(
+                "studentName"
+            );
+
+
+        const resultData = {
+            student_id:
+                studentId
+                    ? Number(studentId)
+                    : null,
+
+            student_name:
+                studentName,
+
+            test_name:
+                "Test 4",
+
+            test_date:
+                new Date()
+                    .toISOString()
+                    .split("T")[0],
+
+            reading_score:
+                score,
+
+            is_submitted:
+                true
+        };
+
+
+        console.log(
+            "Data being sent to Supabase:",
+            resultData
+        );
+
+
+        const { error } =
+            await supabaseClient
+                .from("test_results")
+                .insert(resultData);
+
+
+        if (error) {
+
+            console.error(
+                "Error saving Reading Test 4 result:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Reading Test 4 result saved successfully."
+        );
+
+    }
+
+
+
+    /* =====================================
+       START CALCULATION
+    ===================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            calculateReadingScore();
+
+        }
+    );
+
+
+    function markReadingTest4AsSubmitted() {
+
+        sessionStorage.setItem(
+            "readingTest4Submitted",
+            "true"
+        );
+
+    }
+
+</script>
+
+
+</body>
+</html>
