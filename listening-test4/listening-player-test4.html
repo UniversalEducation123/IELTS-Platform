@@ -10,6 +10,22 @@
 
 <body>
 
+    <script>
+
+    const listeningAccessKey = "access_listening-test-4";
+
+    const listeningAccessGranted =
+        sessionStorage.getItem(listeningAccessKey);
+
+    if (listeningAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=listening-test-4";
+
+    }
+
+</script>
+
 <header class="main-header">
 
   <div class="logo">IELTS Practice</div>
