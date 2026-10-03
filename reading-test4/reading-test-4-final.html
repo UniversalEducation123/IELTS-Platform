@@ -810,12 +810,14 @@ h2{
         );
 
 
-        await saveResultToSupabase(
-            correctCount
-        );
+       const saved =
+            await saveResultToSupabase(
+                correctCount
+            );
 
-        markReadingTest4AsSubmitted();
-
+        if (saved) {
+            markReadingTest4AsSubmitted();
+        }
     }
 
 
@@ -824,7 +826,7 @@ h2{
        SAVE RESULT TO SUPABASE
     ===================================== */
 
-  async function saveResultToSupabase(score) {
+ async function saveResultToSupabase(score) {
 
     const studentId =
         sessionStorage.getItem("studentId");
@@ -832,41 +834,49 @@ h2{
     const studentName =
         sessionStorage.getItem("studentName");
 
-    const numericStudentId =
-        studentId ? Number(studentId) : null;
+
+    if (!studentId) {
+        console.error("Student ID is missing.");
+        return false;
+    }
 
 
     /* =====================================
-       FIND EXISTING TEST 4 RESULT
+       FIND EXISTING TEST 4 ROW
     ===================================== */
 
-    const { data: existingResult, error: findError } =
+    const { data: existingResults, error: findError } =
         await supabaseClient
             .from("test_results")
             .select("id")
-            .eq("student_id", numericStudentId)
+            .eq("student_id", Number(studentId))
             .eq("test_name", "Test 4")
-            .order("id", { ascending: false })
-            .limit(1)
-            .maybeSingle();
+            .order("id", { ascending: true });
 
 
     if (findError) {
 
         console.error(
-            "Error finding existing Test 4 result:",
+            "Error finding Test 4 result:",
             findError
         );
 
-        return;
+        return false;
     }
 
 
     /* =====================================
-       UPDATE EXISTING ROW
+       UPDATE EXISTING TEST 4 ROW
     ===================================== */
 
-    if (existingResult) {
+    if (
+        existingResults &&
+        existingResults.length > 0
+    ) {
+
+        const existingId =
+            existingResults[0].id;
+
 
         const { error: updateError } =
             await supabaseClient
@@ -880,7 +890,7 @@ h2{
                     reading_score: score,
                     is_submitted: true
                 })
-                .eq("id", existingResult.id);
+                .eq("id", existingId);
 
 
         if (updateError) {
@@ -890,28 +900,28 @@ h2{
                 updateError
             );
 
-            return;
+            return false;
         }
 
 
         console.log(
-            "Reading Test 4 score updated in existing row:",
+            "Reading Test 4 score updated successfully:",
             score
         );
 
-        return;
+        return true;
     }
 
 
     /* =====================================
        NO EXISTING ROW
-       CREATE ONE
+       CREATE TEST 4 ROW
     ===================================== */
 
     const resultData = {
 
         student_id:
-            numericStudentId,
+            Number(studentId),
 
         student_name:
             studentName,
@@ -945,16 +955,17 @@ h2{
             insertError
         );
 
-        return;
+        return false;
     }
 
 
     console.log(
-        "Reading Test 4 result created successfully."
+        "Reading Test 4 result created successfully:",
+        score
     );
+
+    return true;
 }
-
-
     /* =====================================
        START CALCULATION
     ===================================== */
