@@ -866,32 +866,27 @@ function reviewWriting(submissionId) {
 async function deleteTestResult(studentId, testName) {
 
     const confirmed = confirm(
-        `Delete ${testName} result for this student? This will delete all section results and the Writing submission for this test.`
+        `Delete ${testName} result for this student? This will delete all section results for this test, including the Writing submission.`
     );
 
     if (!confirmed) {
         return;
     }
 
-
     /* =========================================
-       DELETE TEST RESULTS
+       DELETE LISTENING / READING / SPEAKING
        ========================================= */
 
-    const { data: deletedResults, error: resultsError } =
+    const { error: resultsError } =
         await supabaseClient
             .from("test_results")
             .delete()
-            .eq("student_id", String(studentId))
-            .eq("test_name", testName)
-            .select("id");
+            .eq("student_id", Number(studentId))
+            .eq("test_name", testName);
 
     if (resultsError) {
 
-        console.error(
-            "Test results delete error:",
-            resultsError
-        );
+        console.error(resultsError);
 
         alert(
             "Error deleting test result: " +
@@ -914,23 +909,20 @@ async function deleteTestResult(studentId, testName) {
             .replace(/\s+/g, "-");
 
 
-    const { data: deletedWriting, error: writingError } =
+    const { error: writingError } =
         await supabaseClient
             .from("writing_submissions")
             .delete()
-            .eq("student_id", String(studentId))
-            .eq("test_id", writingTestId)
-            .select("id");
+            .eq("student_id", Number(studentId))
+            .eq("test_id", writingTestId);
+
 
     if (writingError) {
 
-        console.error(
-            "Writing submission delete error:",
-            writingError
-        );
+        console.error(writingError);
 
         alert(
-            "The test result could not be fully deleted: " +
+            "The test result was deleted, but the Writing submission could not be deleted: " +
             writingError.message
         );
 
@@ -939,51 +931,14 @@ async function deleteTestResult(studentId, testName) {
 
 
     /* =========================================
-       CHECK WHETHER ANYTHING WAS ACTUALLY DELETED
+       RELOAD EVERYTHING
        ========================================= */
 
-    const testResultsDeleted =
-        deletedResults && deletedResults.length > 0;
-
-    const writingDeleted =
-        deletedWriting && deletedWriting.length > 0;
-
-
-    console.log(
-        "Deleted test_results:",
-        deletedResults
+    alert(
+        `${testName} deleted successfully.`
     );
-
-    console.log(
-        "Deleted writing_submissions:",
-        deletedWriting
-    );
-
-
-    /* =========================================
-       RELOAD DATABASE DATA
-       ========================================= */
 
     await loadStudentsAndResults();
-
-
-    /* =========================================
-       SHOW CORRECT MESSAGE
-       ========================================= */
-
-    if (testResultsDeleted || writingDeleted) {
-
-        alert(
-            `${testName} deleted successfully.`
-        );
-
-    } else {
-
-        alert(
-            `No ${testName} records were deleted. Please check the database permissions.`
-        );
-
-    }
 }
 
 
