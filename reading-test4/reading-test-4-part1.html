@@ -67,27 +67,78 @@
         }
 
         .word-bank {
-            padding: 15px;
-            margin: 15px 0 25px;
-            background: #f7f2eb;
+            width: 100%;
             border: 1px solid #ddd;
-            border-radius: 8px;
-            line-height: 1.9;
+            margin: 15px 0 25px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
         }
 
         .word-bank span {
+            padding: 10px 12px;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .word-bank span:nth-child(4n) {
+            border-right: none;
+        }
+
+        .word-bank span:nth-last-child(-n+4) {
+            border-bottom: none;
+        }
+
+        .summary-text {
+            line-height: 1.8;
+            margin-top: 10px;
+        }
+
+        .summary-text input[type="text"] {
             display: inline-block;
-            margin-right: 14px;
+            width: 125px;
+            padding: 3px 6px;
+            margin: 0 4px;
+            border: none;
+            border-bottom: 1px solid #555;
+            border-radius: 0;
+            font-size: 16px;
+            text-align: center;
+            vertical-align: baseline;
+            box-sizing: border-box;
+            background: transparent;
+        }
+
+        .summary-text input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid #8b9a6e;
         }
 
         @media (max-width: 700px) {
-            .diagram-answer-row {
-                flex-wrap: wrap;
+
+            .word-bank {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .diagram-answer-row input {
-                width: 100%;
-                max-width: 100%;
+            .word-bank span:nth-child(4n) {
+                border-right: 1px solid #ddd;
+            }
+
+            .word-bank span:nth-child(2n) {
+                border-right: none;
+            }
+
+            .word-bank span:nth-last-child(-n+4) {
+                border-bottom: 1px solid #ddd;
+            }
+
+            .word-bank span:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+
+            .summary-text input[type="text"] {
+                width: 105px;
             }
         }
     </style>
@@ -635,12 +686,8 @@
                     <p>
                         Complete the summary of the reading passage below.
                         Choose your answers from the box below, and write
-                        them in boxes 8–14.
-                    </p>
-
-                    <p>
-                        There are more words than spaces so you will not use
-                        them all.
+                        them in boxes 8–14 on your Answer Sheet. There are
+                        more words than spaces so you will not use them all.
                     </p>
 
 
@@ -649,11 +696,13 @@
                         <span>mold</span>
                         <span>smelling</span>
                         <span>identify</span>
-                        <span>allegens</span>
+                        <span>allergens</span>
+
                         <span>avoiding</span>
                         <span>medicines</span>
                         <span>eating</span>
                         <span>treat</span>
+
                         <span>antihistamine</span>
                         <span>anaphylaxis</span>
                         <span>causes</span>
@@ -662,114 +711,63 @@
                     </div>
 
 
-                    <div class="question">
+                    <div class="summary-text">
 
                         <p>
-                            Allergic reactions result from touching, breathing,
-                            or
-                            <strong>(8)</strong>
+                            Allergic reactions result from touching, breathing, or
+
+                            <input
+                                type="text"
+                                name="q8"
+                                aria-label="Question 8">
+
                             certain substances called
-                            <strong>(9)</strong>.
-                        </p>
 
-                        <input
-                            type="text"
-                            name="q8"
-                            aria-label="Question 8">
+                            <input
+                                type="text"
+                                name="q9"
+                                aria-label="Question 9">.
 
-                    </div>
-
-
-                    <div class="question">
-
-                        <p>
-                            <strong>9.</strong>
-                            Complete the next part of the summary.
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q9"
-                            aria-label="Question 9">
-
-                    </div>
-
-
-                    <div class="question">
-
-                        <p>
                             Coughing or itching are two possible
-                            <strong>(10)</strong>
-                            of an allergic reaction.
-                        </p>
 
-                        <input
-                            type="text"
-                            name="q10"
-                            aria-label="Question 10">
+                            <input
+                                type="text"
+                                name="q10"
+                                aria-label="Question 10">
 
-                    </div>
+                            of an allergic reaction. More serious allergic reactions
+                            may result from certain insect bites, foods, or
 
+                            <input
+                                type="text"
+                                name="q11"
+                                aria-label="Question 11">.
 
-                    <div class="question">
-
-                        <p>
-                            More serious allergic reactions may result from
-                            certain insect bites, foods, or
-                            <strong>(11)</strong>.
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q11"
-                            aria-label="Question 11">
-
-                    </div>
-
-
-                    <div class="question">
-
-                        <p>
                             A severe allergic reaction is known as
-                            <strong>(12)</strong>.
-                        </p>
 
-                        <input
-                            type="text"
-                            name="q12"
-                            aria-label="Question 12">
+                            <input
+                                type="text"
+                                name="q12"
+                                aria-label="Question 12">.
 
-                    </div>
-
-
-                    <div class="question">
-
-                        <p>
+                            It can result in loss of blood volume and heart failure.
                             Doctors can use a variety of tests to
-                            <strong>(13)</strong>
-                            the source of an allergy.
-                        </p>
 
-                        <input
-                            type="text"
-                            name="q13"
-                            aria-label="Question 13">
+                            <input
+                                type="text"
+                                name="q13"
+                                aria-label="Question 13">
 
-                    </div>
+                            the source of an allergy. Treatment may include taking
+                            medication or
 
+                            <input
+                                type="text"
+                                name="q14"
+                                aria-label="Question 14">
 
-                    <div class="question">
-
-                        <p>
-                            Treatment may include taking medication or
-                            <strong>(14)</strong>
                             the substances that cause the allergic reaction.
                         </p>
-
-                        <input
-                            type="text"
-                            name="q14"
-                            aria-label="Question 14">
 
                     </div>
 
