@@ -836,29 +836,9 @@ h2{
 
 
     if (!studentId) {
-        console.error("Student ID is missing.");
-        return false;
-    }
-
-
-    /* =====================================
-       FIND EXISTING TEST 4 ROW
-    ===================================== */
-
-    const { data: existingResults, error: findError } =
-        await supabaseClient
-            .from("test_results")
-            .select("id")
-            .eq("student_id", Number(studentId))
-            .eq("test_name", "Test 4")
-            .order("id", { ascending: true });
-
-
-    if (findError) {
 
         console.error(
-            "Error finding Test 4 result:",
-            findError
+            "Student ID is missing."
         );
 
         return false;
@@ -869,90 +849,41 @@ h2{
        UPDATE EXISTING TEST 4 ROW
     ===================================== */
 
-    if (
-        existingResults &&
-        existingResults.length > 0
-    ) {
-
-        const existingId =
-            existingResults[0].id;
-
-
-        const { error: updateError } =
-            await supabaseClient
-                .from("test_results")
-                .update({
-                    student_name: studentName,
-                    test_date:
-                        new Date()
-                            .toISOString()
-                            .split("T")[0],
-                    reading_score: score,
-                    is_submitted: true
-                })
-                .eq("id", existingId);
-
-
-        if (updateError) {
-
-            console.error(
-                "Error updating Reading Test 4 result:",
-                updateError
-            );
-
-            return false;
-        }
-
-
-        console.log(
-            "Reading Test 4 score updated successfully:",
-            score
-        );
-
-        return true;
-    }
-
-
-    /* =====================================
-       NO EXISTING ROW
-       CREATE TEST 4 ROW
-    ===================================== */
-
-    const resultData = {
-
-        student_id:
-            Number(studentId),
-
-        student_name:
-            studentName,
-
-        test_name:
-            "Test 4",
-
-        test_date:
-            new Date()
-                .toISOString()
-                .split("T")[0],
-
-        reading_score:
-            score,
-
-        is_submitted:
-            true
-    };
-
-
-    const { error: insertError } =
+    const { error: updateError } =
         await supabaseClient
             .from("test_results")
-            .insert(resultData);
+            .update({
+
+                student_name:
+                    studentName,
+
+                test_date:
+                    new Date()
+                        .toISOString()
+                        .split("T")[0],
+
+                reading_score:
+                    score,
+
+                is_submitted:
+                    true
+
+            })
+            .eq(
+                "student_id",
+                Number(studentId)
+            )
+            .eq(
+                "test_name",
+                "Test 4"
+            );
 
 
-    if (insertError) {
+    if (updateError) {
 
         console.error(
-            "Error creating Reading Test 4 result:",
-            insertError
+            "Error updating Reading Test 4 result:",
+            updateError
         );
 
         return false;
@@ -960,12 +891,13 @@ h2{
 
 
     console.log(
-        "Reading Test 4 result created successfully:",
+        "Reading Test 4 score updated successfully:",
         score
     );
 
     return true;
 }
+
     /* =====================================
        START CALCULATION
     ===================================== */
