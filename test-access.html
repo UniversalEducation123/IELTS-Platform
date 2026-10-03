@@ -207,22 +207,31 @@
         ==========================================================
         */
 
-        async function checkTestAccessMode() {
+       async function checkTestAccessMode() {
 
-    console.log(
-        "Checking access mode for:",
-        testId
-    );
+        console.log(
+            "Checking access mode for:",
+            testId
+        );
 
-    const { data: accessStatus, error } =
-        await db
-            .from("test_access_codes")
-            .select("test_id, enabled");
+        const { data: accessStatus, error } =
+            await db
+                .from("test_access_codes")
+                .select("test_id, enabled");
 
-    console.log("ALL ACCESS ROWS:", accessStatus);
-    console.log("ACCESS ERROR:", error);
+        console.log("ALL ACCESS ROWS:", accessStatus);
+        console.log("ACCESS ERROR:", error);
 
-}
+        const listeningTest4Row =
+            accessStatus.find(
+                row => row.test_id === "listening-test-4"
+            );
+
+        console.log(
+            "LISTENING TEST 4 ROW:",
+            listeningTest4Row
+        );
+    }
 
 
         /*
