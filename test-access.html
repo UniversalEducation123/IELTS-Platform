@@ -218,13 +218,9 @@
             const { data: accessStatus, error } =
                 await db
                     .from("test_access_codes")
-                    .select("test_id, enabled")
-                    .eq("test_id", testId)
-                    .limit(1)
-                    .maybeSingle();
+                    .select("test_id, enabled");
 
-            console.log("TEST ID BEING QUERIED:", testId);
-            console.log("ACCESS ROW:", accessStatus);
+            console.log("ALL ACCESS ROWS:", accessStatus);
             console.log("ACCESS ERROR:", error);
 
 
