@@ -217,21 +217,61 @@
             const { data: accessStatus, error } =
                 await db
                     .from("test_access_codes")
-                    .select("test_id, enabled");
+                    .select("enabled")
+                    .eq("test_id", testId)
+                    .maybeSingle();
 
-            console.log("ALL ACCESS ROWS:", accessStatus);
-            console.log("ACCESS ERROR:", error);
+            console.log(
+                "ACCESS STATUS:",
+                accessStatus
+            );
 
-            accessStatus.forEach((row, index) => {
-                console.log(
-                    "ROW",
-                    index,
-                    "test_id =",
-                    JSON.stringify(row.test_id),
-                    "enabled =",
-                    row.enabled
+            console.log(
+                "ACCESS STATUS ERROR:",
+                error
+            );
+
+            if (error) {
+
+                console.error(
+                    "Access mode error:",
+                    error
                 );
-            });
+
+                message.textContent =
+                    "Unable to check test access.";
+
+                return;
+            }
+
+            if (!accessStatus) {
+
+                message.textContent =
+                    "Test access settings not found.";
+
+                return;
+            }
+
+            if (accessStatus.enabled === false) {
+
+                console.log(
+                    "Access code is OFF. Entering test directly."
+                );
+
+                sessionStorage.setItem(
+                    "access_" + testId,
+                    "true"
+                );
+
+                window.location.href =
+                    selectedTest.page;
+
+                return;
+            }
+
+            console.log(
+                "Access code is ON. Password required."
+            );
         }
 
         /*
