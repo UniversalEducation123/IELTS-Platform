@@ -579,28 +579,13 @@ function calculateOverallScore() {
     }
 
 
-    /*
-       IELTS Writing weighting:
-
-       Task 1 = 1/3
-       Task 2 = 2/3
-    */
-
-    const weightedScore =
-        (task1Score + (task2Score * 2)) / 3;
-
-
-    /*
-       IELTS band scores are reported
-       in whole or half bands.
-    */
-
-    const overallScore =
-        Math.round(weightedScore * 2) / 2;
+    const overall =
+        task1Score + task2Score;
 
 
     document.getElementById("overallScore").value =
-        overallScore;
+        overall;
+
 }
 
 async function downloadOriginalPDF() {
