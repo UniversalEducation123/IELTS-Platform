@@ -43,6 +43,34 @@
         color: #777;
     }
 
+    .student-search {
+        width: 100%;
+        max-width: 620px;
+        margin: 24px auto 20px;
+    }
+
+    .student-search input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 14px 18px;
+        border: 1px solid #d8cfc3;
+        border-radius: 12px;
+
+        background: #fcfaf7;
+        color: #333;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .student-search input:focus {
+        border-color: #8b9a6e;
+        box-shadow: 0 0 0 3px rgba(139, 154, 110, 0.12);
+    }
+
+    .student-search input::placeholder {
+        color: #999;
+    }
+
     @media (max-width: 900px) {
         .score-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -89,6 +117,17 @@
             <p class="dashboard-subtitle">
                 View student accounts and their test scores.
             </p>
+
+            <div class="student-search">
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="Search student by name..."
+                    oninput="showTestResults(selectedTest)"
+                >
+
+            </div>
 
             <!-- Test filter buttons -->
 <div class="test-filter-buttons">
@@ -366,12 +405,35 @@ allWritingSubmissions.forEach(submission => {
 
 const groupedResultList = Object.values(groupedResults);
 
+/* =========================================
+   SEARCH STUDENT BY NAME
+========================================= */
+
+const searchInput =
+    document.getElementById("studentSearch");
+
+const searchTerm =
+    searchInput
+        ? searchInput.value.trim().toLowerCase()
+        : "";
+
+const searchedResultList =
+    groupedResultList.filter(result => {
+
+        const studentName =
+            String(result.student_name || "")
+                .toLowerCase();
+
+        return studentName.includes(searchTerm);
+
+    });
+
 
 /* =========================================
    CALCULATE FINAL MOCK FROM CURRENT SCORES
 ========================================= */
 
-groupedResultList.forEach(result => {
+searchedResultList.forEach(result => {
 
     result.final_mock_score =
         calculateFinalMockScore(
@@ -388,25 +450,32 @@ groupedResultList.forEach(result => {
    NO RESULTS
 ================================= */
 
-if (groupedResultList.length === 0) {
+if (searchedResultList.length === 0) {
+
+    const searchMessage =
+        searchTerm
+            ? `No student found matching "${escapeHTML(searchTerm)}".`
+            : `
+                No results found for
+                ${
+                    testName === "ALL"
+                        ? "any test"
+                        : testName
+                }.
+              `;
+
 
     studentList.innerHTML = `
 
         <div class="no-students-message">
 
-            No results found for
-            ${
-                testName === "ALL"
-                    ? "any test"
-                    : testName
-            }.
+            ${searchMessage}
 
         </div>
 
     `;
 
     return;
-
 }
 
 studentList.innerHTML = "";
