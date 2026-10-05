@@ -76,7 +76,34 @@
         color: #999;
     }
 
-    /* Compact student cards */
+    .review-filter-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 8px auto 18px;
+    }
+
+    .review-filter-button {
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        background: #eee8df;
+        color: #555;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .review-filter-button:hover {
+        background: #e3ddd2;
+    }
+
+    .review-filter-button.active {
+        background: #8b9a6e;
+        color: white;
+    }
+
     .student-card {
         max-width: 760px;
         margin: 16px auto;
@@ -224,6 +251,32 @@
 
 </div>
 
+<!-- Review status filter buttons -->
+<div class="review-filter-buttons">
+
+    <button
+        type="button"
+        class="review-filter-button active"
+        onclick="showReviewStatus('ALL', this)">
+        All
+    </button>
+
+    <button
+        type="button"
+        class="review-filter-button"
+        onclick="showReviewStatus('PENDING', this)">
+        Pending Review
+    </button>
+
+    <button
+        type="button"
+        class="review-filter-button"
+        onclick="showReviewStatus('COMPLETED', this)">
+        Completed
+    </button>
+
+</div>
+
 <div id="loadingMessage">
     Loading students...
 </div>
@@ -247,6 +300,7 @@ let allStudents = [];
 let allResults = [];
 let allWritingSubmissions = [];
 let selectedTest = "Test 1";
+let selectedReviewStatus = "ALL";
 
 
 // Load students and test results
@@ -304,6 +358,22 @@ allWritingSubmissions = writingSubmissions || [];
     showTestResults(selectedTest);
 }
 
+function showReviewStatus(status, clickedButton = null) {
+
+    selectedReviewStatus = status;
+
+    document
+        .querySelectorAll(".review-filter-button")
+        .forEach(button => {
+            button.classList.remove("active");
+        });
+
+    if (clickedButton) {
+        clickedButton.classList.add("active");
+    }
+
+    showTestResults(selectedTest);
+}
 
 // Show results according to selected test
 function showTestResults(testName, clickedButton = null) {
@@ -483,12 +553,53 @@ const searchedResultList =
 
     });
 
+let finalResultList = searchedResultList;
+
+if (selectedReviewStatus !== "ALL") {
+
+    finalResultList = searchedResultList.filter(result => {
+
+        const writingTestId =
+            "writing-" +
+            String(result.test_name || "")
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "-");
+
+        const writingSubmission =
+            allWritingSubmissions.find(
+                submission =>
+                    String(submission.student_id) ===
+                        String(result.student_id)
+                    &&
+                    String(submission.test_id) ===
+                        writingTestId
+            );
+
+        const writingPending =
+            writingSubmission &&
+            writingSubmission.status === "submitted";
+
+        const speakingPending =
+            result.speaking_score === null ||
+            result.speaking_score === undefined ||
+            result.speaking_score === "";
+
+        const reviewStatus =
+            writingPending || speakingPending
+                ? "PENDING"
+                : "COMPLETED";
+
+        return reviewStatus === selectedReviewStatus;
+    });
+}
+
 
 /* =========================================
    CALCULATE FINAL MOCK FROM CURRENT SCORES
 ========================================= */
 
-searchedResultList.forEach(result => {
+finalResultList.forEach(result => {
 
     result.final_mock_score =
         calculateFinalMockScore(
@@ -505,7 +616,7 @@ searchedResultList.forEach(result => {
    NO RESULTS
 ================================= */
 
-if (searchedResultList.length === 0) {
+if (finalResultList.length === 0) {
 
     const searchMessage =
         searchTerm
@@ -539,7 +650,7 @@ studentList.innerHTML = "";
        CREATE ONE CARD PER TEST
     ================================= */
 
-    searchedResultList.forEach(result => {
+    finalResultList.forEach(result => {
 
 
         /* =============================
