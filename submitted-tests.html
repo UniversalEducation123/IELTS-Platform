@@ -959,14 +959,18 @@ if (data && data.length > 0) {
 
 
         /* Create test group if it doesn't exist */
-
         if (!groupedTests[testKey]) {
 
             groupedTests[testKey] = {
                 test_name: testName,
                 test_date: result.test_date || null,
+
                 listening_score: null,
+                listening_answers: null,
+
                 reading_score: null,
+                reading_answers: null,
+
                 speaking_score: null,
                 final_mock_score: null
             };
@@ -1010,6 +1014,16 @@ if (data && data.length > 0) {
 
             test.reading_score =
                 result.reading_score;
+
+        }
+
+        if (
+            result.reading_answers !== null &&
+            result.reading_answers !== undefined
+        ) {
+
+            test.reading_answers =
+                result.reading_answers;
 
         }
 
