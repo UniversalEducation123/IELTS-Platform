@@ -1166,6 +1166,14 @@ if (data && data.length > 0) {
             result.listening_answers !== null &&
             result.listening_answers !== undefined
         ) {
+            test.listening_answers =
+                result.listening_answers;
+        }
+
+        if (
+            result.listening_answers !== null &&
+            result.listening_answers !== undefined
+        ) {
 
             test.listening_answers =
                 result.listening_answers;
@@ -1400,7 +1408,7 @@ Object.values(groupedTests).forEach(result => {
                     <button
                         type="button"
                         class="answer-review-button"
-                        onclick='viewListeningReview(${JSON.stringify(result.listening_answers)})'>
+                        onclick="viewListeningReview(${escapeHTML(JSON.stringify(result.listening_answers))})">
                         View Answer Review
                     </button>
                 `
