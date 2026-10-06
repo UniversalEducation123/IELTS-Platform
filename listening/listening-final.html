@@ -25,10 +25,6 @@
                 #F7F2EB;
         }
 
-        /* =====================================
-        HEADER
-        ===================================== */
-
         .result-header{
             width:100%;
             max-width:980px;
@@ -45,7 +41,6 @@
 
             border:1px solid rgba(224,216,203,.9);
             border-radius:18px;
-
             box-shadow:0 8px 22px rgba(76,74,70,.05);
         }
 
@@ -72,23 +67,17 @@
             color:#8B9A6E;
         }
 
-        /* =====================================
-        MAIN CARD
-        ===================================== */
-
         .result-card{
             width:100%;
             max-width:760px;
             margin:auto;
 
             padding:38px 32px;
-
             background:rgba(255,255,255,.82);
             backdrop-filter:blur(14px);
 
             border:1px solid rgba(231,225,214,.9);
             border-radius:24px;
-
             box-shadow:0 14px 34px rgba(76,74,70,.06);
         }
 
@@ -105,10 +94,6 @@
             font-size:24px;
         }
 
-        /* =====================================
-        SCORE LINES
-        ===================================== */
-
         .result-line{
             display:flex;
             justify-content:space-between;
@@ -116,7 +101,6 @@
 
             padding:16px 4px;
             border-bottom:1px solid #E7DFD3;
-
             font-size:17px;
             color:#5F5B55;
         }
@@ -129,10 +113,8 @@
         .band-line{
             margin-top:12px;
             padding-top:22px;
-
             border-top:1px solid #DDD5C8;
             border-bottom:none;
-
             font-size:20px;
         }
 
@@ -141,10 +123,6 @@
             color:#8B9A6E;
         }
 
-        /* =====================================
-        ANSWER REVIEW
-        ===================================== */
-
         .answer-review-section{
             margin-top:34px;
         }
@@ -152,7 +130,6 @@
         .answer-review-item{
             margin-bottom:14px;
             padding:16px 18px;
-
             border-left:4px solid;
             border-radius:14px;
         }
@@ -198,20 +175,14 @@
             color:#4C4A46;
         }
 
-        /* =====================================
-        BUTTON
-        ===================================== */
-
         .home-button{
             display:block;
             width:fit-content;
-
             margin:34px auto 0;
             padding:13px 28px;
 
             border-radius:999px;
             border:1px solid #8B9A6E;
-
             background:#8B9A6E;
             color:#FFFFFF;
 
@@ -225,10 +196,6 @@
             transform:translateY(-2px);
             box-shadow:0 10px 22px rgba(139,154,110,.18);
         }
-
-        /* =====================================
-        MOBILE
-        ===================================== */
 
         @media (max-width:600px){
 
@@ -524,6 +491,11 @@
 
             if (!answerReview) return;
 
+                listeningAnswerReview["q" + questionNumber] = {
+                    userAnswer: studentAnswer || "",
+                    correctAnswer: correctAnswer
+                };
+
             const reviewItem =
                 document.createElement("div");
 
@@ -559,14 +531,15 @@
             answerReview.appendChild(reviewItem);
         }
 
+let listeningAnswerReview = {};
 
         /* ===============================
            MAIN SCORE CALCULATION
         =============================== */
 
-        async function calculateListeningScore() {
+async function calculateListeningScore() {
 
-            const part1 = (() => {
+    const part1 = (() => {
 
     /* First try the dedicated Part 1 storage */
     const dedicated =
@@ -1105,65 +1078,166 @@
 
         async function saveResultToSupabase(score) {
 
-            if (
-                sessionStorage.getItem(
-                    "listeningTest1ResultSaved"
-                ) === "true"
-            ) {
-                console.log("Listening result already saved.");
-                return;
-            }
-
             const studentId =
                 sessionStorage.getItem("studentId");
 
             const studentName =
                 sessionStorage.getItem("studentName");
 
-            const resultData = {
-                student_id: studentId
-                    ? Number(studentId)
-                    : null,
+            if (!studentId) {
+                console.error("Student ID not found.");
+                return;
+            }
 
-                student_name: studentName,
-
-                test_name: "Test 1",
-
-                test_date: new Date().toISOString().split("T")[0],
-
-                listening_score: score,
-
-                is_submitted: true
-            };
-
+            /*
+            * Make sure the complete answer review
+            * has been created before saving.
+            */
             console.log(
-                "Data being sent to Supabase:",
-                resultData
+                "LISTENING ANSWERS BEFORE SAVE:",
+                listeningAnswerReview
             );
 
-            const { error } = await supabaseClient
-                .from("test_results")
-                .insert(resultData);
+            /*
+            * Find the existing Test 1 result row.
+            *
+            * Reading may already have created it.
+            * If it exists, update that row.
+            * If it does not exist, create one.
+            */
 
-            if (error) {
+            const { data: existingRows, error: findError } =
+                await supabaseClient
+                    .from("test_results")
+                    .select("id")
+                    .eq("student_id", Number(studentId))
+                    .eq("test_name", "Test 1")
+                    .order("id", {
+                        ascending: false
+                    })
+                    .limit(1);
+
+            if (findError) {
+
                 console.error(
-                    "Error saving listening result:",
-                    error
+                    "Error finding Test 1 result:",
+                    findError
                 );
 
                 return;
             }
 
+
+            /*
+            * DATA TO SAVE
+            */
+
+            const updateData = {
+
+                student_id:
+                    Number(studentId),
+
+                student_name:
+                    studentName,
+
+                test_name:
+                    "Test 1",
+
+                test_date:
+                    new Date().toISOString().split("T")[0],
+
+                listening_score:
+                    score,
+
+                listening_answers:
+                    listeningAnswerReview,
+
+                is_submitted:
+                    true
+            };
+
+
+            /*
+            * EXISTING TEST 1 ROW
+            */
+
+            if (
+                existingRows &&
+                existingRows.length > 0
+            ) {
+
+                const existingId =
+                    existingRows[0].id;
+
+                const { error: updateError } =
+                    await supabaseClient
+                        .from("test_results")
+                        .update({
+                            listening_score:
+                                score,
+
+                            listening_answers:
+                                listeningAnswerReview,
+
+                            is_submitted:
+                                true
+                        })
+                        .eq("id", existingId);
+
+
+                if (updateError) {
+
+                    console.error(
+                        "Error updating Listening Test 1 result:",
+                        updateError
+                    );
+
+                    return;
+                }
+
+                console.log(
+                    "Listening Test 1 result updated successfully."
+                );
+
+            }
+
+            /*
+            * NO TEST 1 ROW YET
+            */
+
+            else {
+
+                const { error: insertError } =
+                    await supabaseClient
+                        .from("test_results")
+                        .insert(updateData);
+
+
+                if (insertError) {
+
+                    console.error(
+                        "Error inserting Listening Test 1 result:",
+                        insertError
+                    );
+
+                    return;
+                }
+
+                console.log(
+                    "Listening Test 1 result inserted successfully."
+                );
+            }
+
+
+            /*
+            * Prevent duplicate saving during this session.
+            */
+
             sessionStorage.setItem(
                 "listeningTest1ResultSaved",
                 "true"
             );
-
-            console.log(
-                "Listening result saved successfully."
-            );
         }
-
 
         /* ===============================
            START CALCULATION
