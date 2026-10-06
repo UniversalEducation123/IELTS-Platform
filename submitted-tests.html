@@ -819,6 +819,153 @@ function addSavedReadingReviewItem(
     container.appendChild(reviewItem);
 }
 
+function viewListeningReview(review) {
+
+    const modal =
+        document.getElementById("answerReviewModal");
+
+    const container =
+        document.getElementById(
+            "savedReadingReviewContainer"
+        );
+
+    const modalTitle =
+        modal.querySelector(
+            ".answer-review-modal-header h2"
+        );
+
+    if (!modal || !container) {
+        return;
+    }
+
+    modalTitle.textContent =
+        "Listening Answer Review";
+
+    container.innerHTML = "";
+
+    Object.keys(review).forEach(function(key) {
+
+        const item = review[key];
+
+        if (!item) {
+            return;
+        }
+
+        const questionNumber =
+            key.replace("q", "");
+
+        let userAnswer =
+            item.userAnswer;
+
+        let correctAnswer =
+            item.correctAnswer;
+
+        let isCorrect = false;
+
+        if (Array.isArray(correctAnswer)) {
+
+            const userAnswers =
+                Array.isArray(userAnswer)
+                    ? userAnswer
+                    : [userAnswer];
+
+            isCorrect =
+                userAnswers.length ===
+                correctAnswer.length &&
+                userAnswers
+                    .map(function(answer) {
+                        return String(answer)
+                            .trim()
+                            .toLowerCase();
+                    })
+                    .sort()
+                    .join(",") ===
+                correctAnswer
+                    .map(function(answer) {
+                        return String(answer)
+                            .trim()
+                            .toLowerCase();
+                    })
+                    .sort()
+                    .join(",");
+
+        } else {
+
+            isCorrect =
+                userAnswer !== null &&
+                userAnswer !== undefined &&
+                String(userAnswer)
+                    .trim() !== "" &&
+                String(userAnswer)
+                    .trim()
+                    .toLowerCase() ===
+                String(correctAnswer)
+                    .trim()
+                    .toLowerCase();
+
+        }
+
+        const displayedUserAnswer =
+            Array.isArray(userAnswer)
+                ? userAnswer.join(", ") || "Not answered"
+                : userAnswer || "Not answered";
+
+        const displayedCorrectAnswer =
+            Array.isArray(correctAnswer)
+                ? correctAnswer.join(" / ")
+                : correctAnswer;
+
+        const reviewItem =
+            document.createElement("div");
+
+        reviewItem.className =
+            "saved-review-item " +
+            (
+                isCorrect
+                    ? "correct"
+                    : "wrong"
+            );
+
+        reviewItem.innerHTML = `
+
+            <div class="saved-review-header">
+
+                <strong>
+                    Question ${escapeHTML(questionNumber)}
+                </strong>
+
+                <span class="saved-review-status">
+
+                    ${
+                        isCorrect
+                            ? "✓ Correct"
+                            : "✗ Incorrect"
+                    }
+
+                </span>
+
+            </div>
+
+            <p>
+                <strong>Your answer:</strong>
+                ${escapeHTML(displayedUserAnswer)}
+            </p>
+
+            <p>
+                <strong>Correct answer:</strong>
+                ${escapeHTML(displayedCorrectAnswer)}
+            </p>
+
+        `;
+
+        container.appendChild(reviewItem);
+
+    });
+
+    modal.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+}
 
 function closeReadingReview() {
 
@@ -1001,6 +1148,16 @@ if (data && data.length > 0) {
 
             test.listening_score =
                 result.listening_score;
+
+        }
+
+        if (
+            result.listening_answers !== null &&
+            result.listening_answers !== undefined
+        ) {
+
+            test.listening_answers =
+                result.listening_answers;
 
         }
 
@@ -1225,7 +1382,21 @@ Object.values(groupedTests).forEach(result => {
             }
         </small>
 
-    </div>
+        ${
+            listeningSubmitted &&
+            result.listening_answers
+                ? `
+                    <button
+                        type="button"
+                        class="answer-review-button"
+                        onclick='viewListeningReview(${JSON.stringify(result.listening_answers)})'>
+                        View Answer Review
+                    </button>
+                `
+                : ""
+        }
+
+        </div>
 
 
     <!-- =========================
