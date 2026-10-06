@@ -590,11 +590,11 @@
 
                     <span class="review-status">
 
-                        ${correct
-                        ? "✓ Correct"
+                       ${correct
+                        ? `✓ Correct · ${score}/${total} marks`
                         : partial
-                            ? "◐ Partially correct"
-                            : "✗ Wrong"}
+                            ? `◐ Partially correct · ${score}/${total} marks`
+                            : `✗ Wrong · ${score}/${total} marks`}
 
                     </span>
 
