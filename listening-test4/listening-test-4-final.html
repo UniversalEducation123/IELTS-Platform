@@ -143,6 +143,15 @@
             background:#FBF8F4;
             border-left-color:#B09A7D;
         }
+        
+        .answer-review-item.partial{
+            background:#F8F5EE;
+            border-left-color:#B09A7D;
+        }
+
+        .partial .review-status{
+            color:#9B8568;
+        }
 
         .review-header{
             display:flex;
@@ -549,6 +558,9 @@
             const correct =
                 score === total;
 
+            const partial =
+                score > 0 && score < total;
+
 
             const reviewItem =
                 document.createElement("div");
@@ -557,7 +569,9 @@
             reviewItem.className =
                 correct
                     ? "answer-review-item correct"
-                    : "answer-review-item wrong";
+                    : partial
+                        ? "answer-review-item partial"
+                        : "answer-review-item wrong";
 
 
             const displayedStudentAnswer =
@@ -577,7 +591,9 @@
                     <span class="review-status">
 
                         ${correct
-                            ? "✓ Correct"
+                        ? "✓ Correct"
+                        : partial
+                            ? "◐ Partially correct"
                             : "✗ Wrong"}
 
                     </span>
