@@ -3683,3 +3683,150 @@ body.listening-highlight-mode .listening-container {
     background: #F4F6F1;
     border-color: #8B9A6E;
 }
+
+/* =========================================
+   L2 - QUESTIONS 27–30
+   OPTIONS + TIMETABLE SIDE BY SIDE
+========================================= */
+
+.q27-30-layout {
+    display:grid;
+    grid-template-columns:
+        minmax(280px, 0.9fr)
+        minmax(500px, 1.5fr);
+
+    gap:24px;
+    align-items:start;
+    margin-top:20px;
+}
+
+
+/* =========================================
+   ANSWER OPTIONS
+========================================= */
+
+.q27-30-layout .answer-options-box {
+    margin:0;
+    padding:20px;
+
+    background:#F4EFE7;
+    border:1px solid #E3DCD1;
+    border-radius:14px;
+}
+
+
+.q27-30-layout .answer-options-box p {
+    margin:0 0 10px;
+    padding:10px 12px;
+    background:#FFFFFF;
+
+    border:1px solid #E3DCD1;
+    border-radius:8px;
+    cursor:grab;
+
+    user-select:none;
+    line-height:1.5;
+
+    transition:
+        background-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.q27-30-layout .answer-options-box p:last-child {
+    margin-bottom:0;
+}
+
+
+.q27-30-layout .answer-options-box p:active {
+    cursor:grabbing;
+}
+
+
+.q27-30-layout .answer-options-box p.dragging {
+    opacity:.5;
+    transform:translateX(3px);
+}
+
+
+.q27-30-layout .answer-options-box p:hover {
+    background:#F8FAF5;
+    box-shadow:
+        0 3px 8px rgba(76,74,70,.06);
+}
+
+
+.q27-30-layout .answer-options-box strong {
+    display:inline-block;
+    width:24px;
+    color:#72805A;
+
+}
+
+
+/* =========================================
+   TIMETABLE
+========================================= */
+
+.q27-30-table-wrapper {
+    min-width:0;
+}
+
+
+.q27-30-table-wrapper .timetable-title {
+    margin-top:0;
+}
+
+
+/* =========================================
+   DRAG AND DROP INPUTS
+========================================= */
+
+.drag-drop-answer {
+
+    width:46px !important;
+    min-width:46px;
+    height:36px;
+
+    padding:4px !important;
+    text-align:center;
+    font-weight:700;
+    text-transform:uppercase;
+
+    cursor:default;
+    background:#FFFFFF;
+    border:1px solid #D8CDBD;
+    border-radius:8px;
+
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.drag-drop-answer.drag-over {
+
+    border-color:#8B9A6E;
+    background:#F4F6F1;
+    box-shadow:
+        0 0 0 2px rgba(139,154,110,.15);
+
+}
+
+.drag-drop-answer.has-answer {
+
+    background:#F4F6F1;
+    border-color:#8B9A6E;
+    color:#4C4A46;
+
+}
+
+@media (max-width:900px) {
+
+    .q27-30-layout {
+        grid-template-columns:1fr;
+    }
+
+}
