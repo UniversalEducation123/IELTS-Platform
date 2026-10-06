@@ -3,7 +3,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
@@ -31,13 +30,8 @@ body{
             rgba(234,226,214,.45),
             transparent 35%),
         #F7F2EB;
-
     color:#5F5B55;
 }
-
-/* =====================================
-   HEADER
-===================================== */
 
 .result-header{
     width:100%;
@@ -55,7 +49,6 @@ body{
 
     border:1px solid #E8E1D6;
     border-radius:16px;
-
     box-shadow:0 8px 22px rgba(76,74,70,.05);
 }
 
@@ -83,10 +76,6 @@ body{
     color:#8B9A6E;
 }
 
-/* =====================================
-   RESULT CARD
-===================================== */
-
 .result-card{
     max-width:850px;
     margin:0 auto;
@@ -97,7 +86,6 @@ body{
 
     border:1px solid #ECE4D8;
     border-radius:24px;
-
     box-shadow:0 14px 34px rgba(76,74,70,.06);
 }
 
@@ -114,10 +102,6 @@ h2{
     margin:36px 0 20px;
 }
 
-/* =====================================
-   SCORE
-===================================== */
-
 .result-line{
     display:flex;
     justify-content:space-between;
@@ -125,7 +109,6 @@ h2{
 
     padding:15px 0;
     border-bottom:1px solid #ECE4D8;
-
     font-size:18px;
 }
 
@@ -140,7 +123,6 @@ h2{
 
     border-top:2px solid #DCE4D2;
     border-bottom:none;
-
     font-size:21px;
 }
 
@@ -149,10 +131,6 @@ h2{
     color:#72805A;
 }
 
-/* =====================================
-   ANSWER REVIEW
-===================================== */
-
 .answer-review-section{
     margin-top:34px;
 }
@@ -160,7 +138,6 @@ h2{
 .answer-review-item{
     margin-bottom:14px;
     padding:16px 18px;
-
     border-left:5px solid;
     border-radius:14px;
 }
@@ -204,14 +181,9 @@ h2{
     color:#5F5B55;
 }
 
-/* =====================================
-   BUTTON
-===================================== */
-
 .home-button{
     display:block;
     width:fit-content;
-
     margin:34px auto 0;
     padding:13px 28px;
 
@@ -231,10 +203,6 @@ h2{
     transform:translateY(-2px);
     box-shadow:0 10px 22px rgba(139,154,110,.18);
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:600px){
 
@@ -602,6 +570,8 @@ h2{
        ANSWER REVIEW
     ===================================== */
 
+    let readingAnswerReview = {};
+    
     function addReviewItem(
         questionNumber,
         studentAnswer,
@@ -620,6 +590,13 @@ h2{
             return;
 
         }
+
+        readingAnswerReview[
+            "q" + questionNumber
+        ] = {
+            userAnswer: studentAnswer || "",
+            correctAnswer: correctAnswer
+        };
 
 
         const reviewItem =
@@ -872,8 +849,9 @@ h2{
             test_name: "Test 2",
             test_date: new Date().toISOString().split("T")[0],
             reading_score: score,
+            reading_answers: readingAnswerReview,
             is_submitted: true
-        }
+        };
 
 
         console.log(
