@@ -891,20 +891,31 @@ function viewListeningReview(review) {
 
         } else {
 
-            isCorrect =
-                userAnswer !== null &&
-                userAnswer !== undefined &&
-                String(userAnswer)
-                    .trim() !== "" &&
-                String(userAnswer)
-                    .trim()
-                    .toLowerCase() ===
-                String(correctAnswer)
+            const studentAnswer =
+                String(userAnswer ?? "")
                     .trim()
                     .toLowerCase();
 
-        }
+            const correctAnswerText =
+                String(correctAnswer ?? "")
+                    .trim()
+                    .toLowerCase();
 
+            // Handle pair questions such as:
+            // Correct answer: B or E
+            const acceptedAnswers =
+                correctAnswerText
+                    .split(/\s+or\s+/)
+                    .map(function(answer) {
+                        return answer.trim();
+                    })
+                    .filter(Boolean);
+
+            isCorrect =
+                studentAnswer !== "" &&
+                acceptedAnswers.includes(studentAnswer);
+
+}
         const displayedUserAnswer =
             Array.isArray(userAnswer)
                 ? userAnswer.join(", ") || "Not answered"
