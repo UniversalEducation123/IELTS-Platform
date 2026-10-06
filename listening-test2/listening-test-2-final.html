@@ -462,6 +462,8 @@ h2{
            ANSWER REVIEW
         =============================== */
 
+        let listeningAnswerReview = {};
+
         function addReviewItem(
             questionNumber,
             studentAnswer,
@@ -477,6 +479,13 @@ h2{
             if (!answerReview) {
                 return;
             }
+
+            listeningAnswerReview[
+                "q" + questionNumber
+            ] = {
+                userAnswer: studentAnswer || "",
+                correctAnswer: correctAnswer
+            };
 
 
             const reviewItem =
@@ -914,6 +923,9 @@ h2{
 
                 listening_score:
                     score,
+
+                listening_answers:
+                    listeningAnswerReview,
 
                 is_submitted:
                     true
