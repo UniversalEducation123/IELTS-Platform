@@ -421,21 +421,121 @@ h2{
                 true
         };
 
-        db
+   async function saveReadingTest1Result() {
+
+    /*
+     * Find the existing Test 1 result row.
+     * Test 1 Listening and Reading should share
+     * the same test_results row.
+     */
+
+    const { data: existingResult, error: findError } =
+        await db
             .from("test_results")
-            .insert([resultData])
-            .then(function(response) {
-                if (response.error) {
-                    console.error(
-                        "Error saving Reading Test 1 result:",
-                        response.error
-                    );
-                } else {
-                    console.log(
-                        "Reading Test 1 result saved successfully."
-                    );
-                }
-            });
+            .select("id")
+            .eq("student_id", Number(studentId))
+            .eq("test_name", "Test 1")
+            .not("listening_score", "is", null)
+            .order("id", {
+                ascending: false
+            })
+            .limit(1)
+            .maybeSingle();
+
+
+    if (findError) {
+
+        console.error(
+            "Error finding existing Test 1 result:",
+            findError
+        );
+
+        return;
+    }
+
+
+    /*
+     * If a Test 1 row already exists,
+     * update that row with the Reading result.
+     */
+
+    if (existingResult) {
+
+        const { error: updateError } =
+            await db
+                .from("test_results")
+                .update({
+                    reading_score:
+                        correct,
+
+                    reading_answers:
+                        readingAnswers,
+
+                    student_name:
+                        studentName,
+
+                    test_date:
+                        new Date()
+                            .toISOString()
+                            .split("T")[0],
+
+                    is_submitted:
+                        true
+                })
+                .eq(
+                    "id",
+                    existingResult.id
+                );
+
+
+        if (updateError) {
+
+            console.error(
+                "Error updating Reading Test 1 result:",
+                updateError
+            );
+
+        } else {
+
+            console.log(
+                "Reading Test 1 result updated successfully."
+            );
+
+        }
+
+        return;
+    }
+
+
+    /*
+     * If no existing Test 1 row exists,
+     * create one.
+     */
+
+    const { error: insertError } =
+        await db
+            .from("test_results")
+            .insert([resultData]);
+
+
+    if (insertError) {
+
+        console.error(
+            "Error inserting Reading Test 1 result:",
+            insertError
+        );
+
+    } else {
+
+        console.log(
+            "Reading Test 1 result inserted successfully."
+        );
+
+    }
+
+}
+
+saveReadingTest1Result();
 
         document.getElementById("readingScore").textContent =
             correct + " / 40";
