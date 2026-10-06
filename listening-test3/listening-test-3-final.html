@@ -4,16 +4,14 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
     <title>Listening Test 3 Result</title>
 
-    <style>
-
-       *{
+<style>
+*{
     box-sizing:border-box;
 }
 
@@ -29,7 +27,6 @@ body{
         radial-gradient(circle at bottom right,
             rgba(234,226,214,.45), transparent 35%),
         #F7F2EB;
-
     color:#5F5B55;
 }
 
@@ -239,7 +236,6 @@ h2{
 }
 
     </style>
-
 </head>
 
 
@@ -247,19 +243,12 @@ h2{
 
     <header class="result-header">
 
-        <div class="result-logo">
-            IELTS Practice
-        </div>
+        <div class="result-logo"> IELTS Practice </div>
 
         <div class="result-header-links">
 
-            <a href="../student-dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="../index.html">
-                Logout
-            </a>
+            <a href="../student-dashboard.html"> Dashboard </a>
+            <a href="../index.html"> Logout </a>
 
         </div>
 
@@ -269,33 +258,20 @@ h2{
 <div class="result-card">
 
 
-    <h1>
-        Listening Test 3 Result
-    </h1>
-
+    <h1> Listening Test 3 Result </h1>
 
     <div class="result-line">
 
-        <strong>
-            Correct Answers:
-        </strong>
-
-        <span id="correctAnswers">
-            0
-        </span>
+        <strong> Correct Answers: </strong>
+        <span id="correctAnswers"> 0 </span>
 
     </div>
 
 
     <div class="result-line">
 
-        <strong>
-            Wrong Answers:
-        </strong>
-
-        <span id="wrongAnswers">
-            0
-        </span>
+        <strong> Wrong Answers: </strong>
+        <span id="wrongAnswers"> 0 </span>
 
     </div>
 
@@ -480,6 +456,7 @@ function readTest3Answers() {
    ANSWER REVIEW
 ========================================= */
 
+let listeningAnswerReview = {};
 
 function addReviewItem(
     questionNumber,
@@ -499,6 +476,13 @@ function addReviewItem(
         return;
 
     }
+
+    listeningAnswerReview[
+        "q" + questionNumber
+    ] = {
+        userAnswer: studentAnswer || "",
+        correctAnswer: correctAnswer
+    };
 
 
     const reviewItem =
@@ -1029,6 +1013,16 @@ async function calculateListeningScore() {
     const marks11to13 =
         checkQuestions11to13();
 
+        listeningAnswerReview["q11_13"] = {
+        userAnswer:
+            selected11to13.length > 0
+                ? selected11to13.join(", ")
+                : "",
+        correctAnswer: "B, D, E",
+        marks: marks11to13,
+        totalMarks: 3
+    };
+
     const review11to13 =
         document.createElement("div");
 
@@ -1216,6 +1210,9 @@ async function saveResultToSupabase(score) {
 
         listening_score:
             score,
+
+        listening_answers:
+            listeningAnswerReview,
 
         is_submitted:
             true
