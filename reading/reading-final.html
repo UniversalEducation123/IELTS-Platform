@@ -378,6 +378,22 @@ h2{
         const studentId =
             sessionStorage.getItem("studentId");
 
+        const savedReview =
+            sessionStorage.getItem("readingAnswerReview");
+
+        let readingAnswers = null;
+
+        if (savedReview) {
+            try {
+                readingAnswers = JSON.parse(savedReview);
+            } catch (error) {
+                console.error(
+                    "Error reading saved Reading answer review:",
+                    error
+                );
+            }
+        }
+
         const resultData = {
             student_id:
                 studentId
@@ -431,16 +447,13 @@ h2{
         document.getElementById("resultMessage").textContent =
             "Your Reading test result has been calculated successfully.";
 
-           const reviewContainer =
-    document.getElementById("reviewContainer");
+        const reviewContainer =
+            document.getElementById("reviewContainer");
 
-const savedReview =
-    sessionStorage.getItem("readingAnswerReview");
+        if (readingAnswers && reviewContainer) {
 
-if (savedReview && reviewContainer) {
-
-    const review =
-        JSON.parse(savedReview);
+            const review =
+                readingAnswers;
 
 
     /* =====================================
