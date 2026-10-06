@@ -244,6 +244,151 @@ header h1{
     background:#78875D;
 }
 
+.answer-review-button{
+    margin-top:14px;
+    width:100%;
+    padding:12px;
+
+    background:#FFFFFF;
+    color:#6F7B57;
+
+    border:1px solid #8B9A6E;
+    border-radius:10px;
+
+    font-weight:600;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.answer-review-button:hover{
+    background:#F4F6F1;
+    transform:translateY(-1px);
+}
+
+.answer-review-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:1000;
+
+    background:rgba(76,74,70,.45);
+    backdrop-filter:blur(5px);
+
+    padding:30px 16px;
+    overflow-y:auto;
+}
+
+.answer-review-modal-content{
+    width:100%;
+    max-width:760px;
+    margin:20px auto;
+
+    background:#FFFFFF;
+    border-radius:20px;
+    padding:30px;
+
+    box-shadow:0 20px 50px rgba(76,74,70,.18);
+}
+
+.answer-review-modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+
+    margin-bottom:24px;
+    padding-bottom:18px;
+
+    border-bottom:1px solid #E3DCD1;
+}
+
+.answer-review-modal-header h2{
+    margin:0;
+    color:#4C4A46;
+}
+
+.close-review-button{
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#F4EFE7;
+    color:#4C4A46;
+
+    font-size:22px;
+    cursor:pointer;
+}
+
+.close-review-button:hover{
+    background:#EAE2D6;
+}
+
+.saved-review-item{
+    margin-bottom:14px;
+    padding:16px 18px;
+
+    border-left:4px solid;
+    border-radius:14px;
+}
+
+.saved-review-item.correct{
+    background:#F4F6F1;
+    border-left-color:#8B9A6E;
+}
+
+.saved-review-item.wrong{
+    background:#FBF8F4;
+    border-left-color:#B09A7D;
+}
+
+.saved-review-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+
+    margin-bottom:8px;
+}
+
+.saved-review-status{
+    font-weight:700;
+    font-size:14px;
+}
+
+.saved-review-item.correct .saved-review-status{
+    color:#6F7B57;
+}
+
+.saved-review-item.wrong .saved-review-status{
+    color:#9B8568;
+}
+
+.saved-review-item p{
+    margin:6px 0;
+    color:#5F5B55;
+    line-height:1.6;
+}
+
+.saved-review-item strong{
+    color:#4C4A46;
+}
+
+@media (max-width:700px){
+
+    .answer-review-modal-content{
+        padding:22px;
+        margin:10px auto;
+    }
+
+    .saved-review-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
 @media (max-width:700px){
 
     header{
@@ -289,6 +434,33 @@ header h1{
 
 </header>
 
+<div
+    id="answerReviewModal"
+    class="answer-review-modal"
+    onclick="closeReviewOnBackground(event)">
+
+    <div class="answer-review-modal-content">
+
+        <div class="answer-review-modal-header">
+
+            <h2>
+                Reading Answer Review
+            </h2>
+
+            <button
+                type="button"
+                class="close-review-button"
+                onclick="closeReadingReview()">
+                ×
+            </button>
+
+        </div>
+
+        <div id="savedReadingReviewContainer"></div>
+
+    </div>
+
+</div>
 
 <div class="container">
 
@@ -354,6 +526,324 @@ async function viewReviewedPDF(pdfPath){
     }
 
     window.open(data.signedUrl, "_blank");
+
+}
+
+function viewReadingReview(review) {
+
+    const modal =
+        document.getElementById("answerReviewModal");
+
+    const container =
+        document.getElementById(
+            "savedReadingReviewContainer"
+        );
+
+    if (!modal || !container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    /* =====================================
+       QUESTIONS 1–19
+    ===================================== */
+
+    for (let i = 1; i <= 19; i++) {
+
+        const item =
+            review["q" + i];
+
+        if (!item) continue;
+
+        addSavedReadingReviewItem(
+            container,
+            "Question " + i,
+            item.userAnswer,
+            item.correctAnswer
+        );
+    }
+
+
+    /* =====================================
+       QUESTIONS 20–21
+    ===================================== */
+
+    const pairItem =
+        review.q20 || review.q21;
+
+    if (pairItem) {
+
+        const userAnswers =
+            Array.isArray(pairItem.userAnswer)
+                ? pairItem.userAnswer
+                : [];
+
+        const correctAnswers =
+            Array.isArray(pairItem.correctAnswer)
+                ? pairItem.correctAnswer
+                : [];
+
+        const normalizedUserAnswers =
+            userAnswers.map(function(answer) {
+                return String(answer)
+                    .trim()
+                    .toLowerCase();
+            });
+
+        const normalizedCorrectAnswers =
+            correctAnswers.map(function(answer) {
+                return String(answer)
+                    .trim()
+                    .toLowerCase();
+            });
+
+        let pairMarks = 0;
+
+        normalizedUserAnswers.forEach(function(answer) {
+
+            if (
+                normalizedCorrectAnswers
+                    .includes(answer)
+            ) {
+                pairMarks++;
+            }
+
+        });
+
+        const reviewItem =
+            document.createElement("div");
+
+        reviewItem.className =
+            "saved-review-item " +
+            (
+                pairMarks === 2
+                    ? "correct"
+                    : "wrong"
+            );
+
+        reviewItem.innerHTML = `
+            <div class="saved-review-header">
+
+                <strong>
+                    Questions 20–21
+                </strong>
+
+                <span class="saved-review-status">
+
+                    ${
+                        pairMarks === 2
+                            ? "✓ 2/2 marks"
+                            : pairMarks === 1
+                                ? "◐ 1/2 marks"
+                                : "✗ 0/2 marks"
+                    }
+
+                </span>
+
+            </div>
+
+            <p>
+                <strong>Your answer:</strong>
+                ${
+                    userAnswers.length > 0
+                        ? escapeHTML(
+                            userAnswers.join(", ")
+                          )
+                        : "Not answered"
+                }
+            </p>
+
+            <p>
+                <strong>Correct answer:</strong>
+                ${
+                    escapeHTML(
+                        correctAnswers.join(" / ")
+                    )
+                }
+            </p>
+        `;
+
+        container.appendChild(reviewItem);
+    }
+
+
+    /* =====================================
+       QUESTIONS 22–40
+    ===================================== */
+
+    for (let i = 22; i <= 40; i++) {
+
+        const item =
+            review["q" + i];
+
+        if (!item) continue;
+
+        addSavedReadingReviewItem(
+            container,
+            "Question " + i,
+            item.userAnswer,
+            item.correctAnswer
+        );
+    }
+
+
+    modal.style.display = "block";
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function addSavedReadingReviewItem(
+    container,
+    questionTitle,
+    userAnswer,
+    correctAnswer
+) {
+
+    let isCorrect = false;
+
+    if (Array.isArray(correctAnswer)) {
+
+        const userAnswers =
+            Array.isArray(userAnswer)
+                ? userAnswer
+                : [userAnswer];
+
+        isCorrect =
+            userAnswers.length ===
+            correctAnswer.length &&
+
+            userAnswers
+                .map(function(answer) {
+                    return String(answer)
+                        .trim()
+                        .toLowerCase();
+                })
+                .sort()
+                .join(",") ===
+
+            correctAnswer
+                .map(function(answer) {
+                    return String(answer)
+                        .trim()
+                        .toLowerCase();
+                })
+                .sort()
+                .join(",");
+
+    } else {
+
+        isCorrect =
+            userAnswer !== null &&
+            userAnswer !== undefined &&
+            String(userAnswer)
+                .trim() !== "" &&
+
+            String(userAnswer)
+                .trim()
+                .toLowerCase() ===
+
+            String(correctAnswer)
+                .trim()
+                .toLowerCase();
+
+    }
+
+
+    const displayedUserAnswer =
+        Array.isArray(userAnswer)
+            ? userAnswer.join(", ") || "Not answered"
+            : userAnswer || "Not answered";
+
+
+    const displayedCorrectAnswer =
+        Array.isArray(correctAnswer)
+            ? correctAnswer.join(" / ")
+            : correctAnswer;
+
+
+    const reviewItem =
+        document.createElement("div");
+
+    reviewItem.className =
+        "saved-review-item " +
+        (
+            isCorrect
+                ? "correct"
+                : "wrong"
+        );
+
+
+    reviewItem.innerHTML = `
+
+        <div class="saved-review-header">
+
+            <strong>
+                ${escapeHTML(questionTitle)}
+            </strong>
+
+            <span class="saved-review-status">
+
+                ${
+                    isCorrect
+                        ? "✓ Correct"
+                        : "✗ Incorrect"
+                }
+
+            </span>
+
+        </div>
+
+        <p>
+            <strong>Your answer:</strong>
+            ${
+                escapeHTML(
+                    displayedUserAnswer
+                )
+            }
+        </p>
+
+        <p>
+            <strong>Correct answer:</strong>
+            ${
+                escapeHTML(
+                    displayedCorrectAnswer
+                )
+            }
+        </p>
+
+    `;
+
+
+    container.appendChild(reviewItem);
+}
+
+
+function closeReadingReview() {
+
+    const modal =
+        document.getElementById(
+            "answerReviewModal"
+        );
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+    document.body.style.overflow = "";
+}
+
+
+function closeReviewOnBackground(event) {
+
+    if (
+        event.target &&
+        event.target.id ===
+            "answerReviewModal"
+    ) {
+        closeReadingReview();
+    }
 
 }
 
@@ -745,6 +1235,20 @@ Object.values(groupedTests).forEach(result => {
                     : ""
             }
         </small>
+
+        ${
+            readingSubmitted &&
+            result.reading_answers
+                ? `
+                    <button
+                        type="button"
+                        class="answer-review-button"
+                        onclick='viewReadingReview(${JSON.stringify(result.reading_answers)})'>
+                        View Answer Review
+                    </button>
+                `
+                : ""
+        }
 
     </div>
 
