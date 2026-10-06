@@ -38,7 +38,7 @@
             <h2>TEMPORARY HOTEL JOBS</h2>
 
             <p class="instruction">
-                Choose your answers from the box and write the appropriate
+                Choose your answers from the box and drag the appropriate
                 letters A–H next to questions 11–15.
             </p>
 
@@ -415,6 +415,166 @@ function updateQuestionProgress() {
     }
 }
 
+/* =========================================
+   DRAG AND DROP FOR QUESTIONS 11–15
+========================================= */
+
+function setupDragAndDropQuestions11to15() {
+
+    const optionElements =
+        document.querySelectorAll(
+            ".answer-options-box p"
+        );
+
+    const answerInputs =
+        document.querySelectorAll(
+            'input.inline-answer[name^="q"]'
+        );
+
+    /* -----------------------------------------
+       Make options A–H draggable
+    ----------------------------------------- */
+
+    optionElements.forEach(function(option) {
+
+        const strong =
+            option.querySelector("strong");
+
+        if (!strong) {
+            return;
+        }
+
+        const letter =
+            strong.textContent
+                .trim()
+                .toUpperCase();
+
+        if (!/^[A-H]$/.test(letter)) {
+            return;
+        }
+
+        option.setAttribute(
+            "draggable",
+            "true"
+        );
+
+        option.dataset.answer =
+            letter;
+
+        option.addEventListener(
+            "dragstart",
+            function(event) {
+
+                event.dataTransfer.setData(
+                    "text/plain",
+                    letter
+                );
+
+                event.dataTransfer.effectAllowed =
+                    "copy";
+
+                option.classList.add(
+                    "dragging"
+                );
+            }
+        );
+
+        option.addEventListener(
+            "dragend",
+            function() {
+
+                option.classList.remove(
+                    "dragging"
+                );
+            }
+        );
+
+    });
+
+
+    /* -----------------------------------------
+       Make Q11–Q15 answer boxes drop zones
+    ----------------------------------------- */
+
+    for (let i = 11; i <= 15; i++) {
+
+        const input =
+            document.querySelector(
+                'input.inline-answer[name="q' + i + '"]'
+            );
+
+        if (!input) {
+            continue;
+        }
+
+        input.classList.add(
+            "drag-drop-answer"
+        );
+
+        input.readOnly = true;
+
+        input.addEventListener(
+            "dragover",
+            function(event) {
+
+                event.preventDefault();
+
+                event.dataTransfer.dropEffect =
+                    "copy";
+
+                input.classList.add(
+                    "drag-over"
+                );
+            }
+        );
+
+        input.addEventListener(
+            "dragleave",
+            function() {
+
+                input.classList.remove(
+                    "drag-over"
+                );
+            }
+        );
+
+        input.addEventListener(
+            "drop",
+            function(event) {
+
+                event.preventDefault();
+
+                input.classList.remove(
+                    "drag-over"
+                );
+
+                const letter =
+                    event.dataTransfer.getData(
+                        "text/plain"
+                    );
+
+                if (!/^[A-H]$/.test(letter)) {
+                    return;
+                }
+
+                input.value =
+                    letter;
+
+                input.classList.add(
+                    "has-answer"
+                );
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+    }
+
+}
+
 document.querySelectorAll(
     ".inline-answer"
 ).forEach(function(input) {
@@ -426,7 +586,29 @@ document.querySelectorAll(
 
 });
 
+setupDragAndDropQuestions11to15();
+
 restoreAnswers();
+
+for (let i = 11; i <= 15; i++) {
+
+    const input =
+        document.querySelector(
+            'input.inline-answer[name="q' + i + '"]'
+        );
+
+    if (
+        input &&
+        input.value.trim() !== ""
+    ) {
+
+        input.classList.add(
+            "has-answer"
+        );
+
+    }
+}
+
 updateQuestionProgress();
 
 </script>

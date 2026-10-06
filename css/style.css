@@ -3652,3 +3652,46 @@ body.listening-highlight-mode .listening-container {
     }
 
 }
+
+/* =========================================
+   LISTENING TEST 2
+   DRAG AND DROP - QUESTIONS 11–15
+========================================= */
+
+.answer-options-box p[draggable="true"] {
+    cursor: grab;
+    user-select: none;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.answer-options-box p[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.answer-options-box p.dragging {
+    opacity: 0.5;
+    transform: translateX(3px);
+}
+
+.inline-answer.drag-drop-answer {
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: grab;
+    background: #fff;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.inline-answer.drag-drop-answer.drag-over {
+    border-color: #8B9A6E;
+    background: #F4F6F1;
+    box-shadow: 0 0 0 2px rgba(139, 154, 110, 0.15);
+}
+
+.inline-answer.drag-drop-answer.has-answer {
+    background: #F4F6F1;
+    border-color: #8B9A6E;
+}
