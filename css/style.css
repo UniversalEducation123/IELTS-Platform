@@ -1434,6 +1434,15 @@ body.listening-page{
    Question Cards & Navigation
 ===================================================== */
 
+.test3-diagram-image {
+    display: block;
+    width: 70%;
+    max-width: 750px;
+    height: auto;
+    margin: 20px auto;
+    object-fit: contain;
+}
+
 .listening-part{
     display:block;
 }
