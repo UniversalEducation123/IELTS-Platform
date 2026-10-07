@@ -578,44 +578,8 @@ saveReadingTest1Result();
         const correctAnswer =
             item.correctAnswer;
 
-        let isCorrect = false;
-
-        if (Array.isArray(correctAnswer)) {
-
-            const userAnswers =
-                Array.isArray(userAnswer)
-                    ? userAnswer
-                    : [userAnswer];
-
-            isCorrect =
-                userAnswers.length === correctAnswer.length &&
-                userAnswers
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",") ===
-                correctAnswer
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",");
-
-        } else {
-
-            isCorrect =
-                userAnswer !== null &&
-                userAnswer !== undefined &&
-                String(userAnswer).trim() !== "" &&
-                String(userAnswer).trim().toLowerCase() ===
-                String(correctAnswer).trim().toLowerCase();
-
-        }
+        const isCorrect =
+            item.isCorrect === true;
 
         const reviewItem =
             document.createElement("div");
@@ -691,18 +655,12 @@ saveReadingTest1Result();
                     .toLowerCase();
             });
 
-        let pairMarks = 0;
-
-        normalizedUserAnswers.forEach(function(answer) {
-
-            if (normalizedCorrectAnswers.includes(answer)) {
-                pairMarks++;
-            }
-
-        });
+        
+        const pairMarks =
+            pairItem.score ?? 0;
 
         const pairCorrect =
-            pairMarks === 2;
+            pairItem.isCorrect === true;
 
 
         const reviewItem =
@@ -760,44 +718,8 @@ saveReadingTest1Result();
         const correctAnswer =
             item.correctAnswer;
 
-        let isCorrect = false;
-
-        if (Array.isArray(correctAnswer)) {
-
-            const userAnswers =
-                Array.isArray(userAnswer)
-                    ? userAnswer
-                    : [userAnswer];
-
-            isCorrect =
-                userAnswers.length === correctAnswer.length &&
-                userAnswers
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",") ===
-                correctAnswer
-                    .map(function(answer) {
-                        return String(answer)
-                            .trim()
-                            .toLowerCase();
-                    })
-                    .sort()
-                    .join(",");
-
-        } else {
-
-            isCorrect =
-                userAnswer !== null &&
-                userAnswer !== undefined &&
-                String(userAnswer).trim() !== "" &&
-                String(userAnswer).trim().toLowerCase() ===
-                String(correctAnswer).trim().toLowerCase();
-
-        }
+        const isCorrect =
+            item.isCorrect === true;
 
         const reviewItem =
             document.createElement("div");

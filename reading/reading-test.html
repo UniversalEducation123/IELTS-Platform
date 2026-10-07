@@ -1286,9 +1286,17 @@ function saveReadingAnswerReview() {
 
     for (let i = 1; i <= 19; i++) {
 
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers["q" + i];
+
+        const isCorrect =
+            normalize(userAnswer) ===
+            normalize(correctAnswer);
+
         review["q" + i] = {
-            userAnswer: getAnswer(i),
-            correctAnswer: answers["q" + i]
+            userAnswer: userAnswer,
+            correctAnswer: correctAnswer,
+            isCorrect: isCorrect
         };
 
     }
@@ -1312,26 +1320,34 @@ function saveReadingAnswerReview() {
 
 
     /*
-     * Check whether BOTH correct answers
-     * were selected.
-     *
-     * Order does not matter.
+     * Each correct selected answer receives
+     * one mark, exactly as the scoring logic does.
      */
 
-    const pairIsFullyCorrect =
-        selected20_21.length === 2 &&
-        selected20_21
-            .map(function(answer) {
-                return normalize(answer);
-            })
-            .sort()
-            .join(",") ===
-        correct20_21
-            .map(function(answer) {
-                return normalize(answer);
-            })
-            .sort()
-            .join(",");
+    const normalizedSelected =
+        selected20_21.map(function(answer) {
+            return normalize(answer);
+        });
+
+    const normalizedCorrect =
+        correct20_21.map(function(answer) {
+            return normalize(answer);
+        });
+
+
+    let pairMarks = 0;
+
+    normalizedSelected.forEach(function(answer) {
+
+        if (normalizedCorrect.includes(answer)) {
+            pairMarks++;
+        }
+
+    });
+
+
+    const pairCorrect =
+        pairMarks === 2;
 
 
     review.q20 = {
@@ -1340,7 +1356,18 @@ function saveReadingAnswerReview() {
 
         correctAnswer: correct20_21,
 
-        pairCorrect: pairIsFullyCorrect
+        isCorrect: pairCorrect,
+
+        score: pairMarks,
+
+        total: 2,
+
+        status:
+            pairMarks === 2
+                ? "correct"
+                : pairMarks > 0
+                    ? "partial"
+                    : "wrong"
 
     };
 
@@ -1351,7 +1378,18 @@ function saveReadingAnswerReview() {
 
         correctAnswer: correct20_21,
 
-        pairCorrect: pairIsFullyCorrect
+        isCorrect: pairCorrect,
+
+        score: pairMarks,
+
+        total: 2,
+
+        status:
+            pairMarks === 2
+                ? "correct"
+                : pairMarks > 0
+                    ? "partial"
+                    : "wrong"
 
     };
 
@@ -1362,11 +1400,37 @@ function saveReadingAnswerReview() {
 
     for (let i = 22; i <= 40; i++) {
 
+        const userAnswer = getAnswer(i);
+        const correctAnswer = answers["q" + i];
+
+        let isCorrect = false;
+
+        if (Array.isArray(correctAnswer)) {
+
+            isCorrect =
+                correctAnswer.some(function(answer) {
+
+                    return normalize(answer) ===
+                        normalize(userAnswer);
+
+                });
+
+        } else {
+
+            isCorrect =
+                normalize(userAnswer) ===
+                normalize(correctAnswer);
+
+        }
+
+
         review["q" + i] = {
 
-            userAnswer: getAnswer(i),
+            userAnswer: userAnswer,
 
-            correctAnswer: answers["q" + i]
+            correctAnswer: correctAnswer,
+
+            isCorrect: isCorrect
 
         };
 
@@ -1384,6 +1448,7 @@ function saveReadingAnswerReview() {
         review
     );
 }
+
 
 function submitReadingTest() {
     if (submitted) return;
