@@ -35,7 +35,6 @@
             display:flex;
             justify-content:space-between;
             align-items:center;
-
             background:rgba(255,255,255,.72);
             backdrop-filter:blur(16px);
 
@@ -239,19 +238,11 @@
 
     <header class="result-header">
 
-        <div class="result-logo">
-            IELTS Practice
-        </div>
-
+        <div class="result-logo"> IELTS Practice </div>
         <div class="result-header-links">
 
-            <a href="../student-dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="../index.html">
-                Logout
-            </a>
+            <a href="../student-dashboard.html"> Dashboard </a>
+            <a href="../index.html">Logout </a>
 
         </div>
 
@@ -293,14 +284,9 @@
 
     </div>
 
-    <!-- Supabase Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-
-        /* ===============================
-           SUPABASE CONNECTION
-        =============================== */
 
         const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
@@ -493,7 +479,8 @@
 
                 listeningAnswerReview["q" + questionNumber] = {
                     userAnswer: studentAnswer || "",
-                    correctAnswer: correctAnswer
+                    correctAnswer: correctAnswer,
+                    isCorrect: correct
                 };
 
             const reviewItem =
