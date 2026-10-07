@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta
         name="viewport"
@@ -11,7 +10,6 @@
 
 
     <style>
-
        *{
     box-sizing:border-box;
 }
@@ -193,7 +191,6 @@ h2{
     text-decoration:none;
     font-size:15px;
     font-weight:600;
-
     border-radius:999px;
     transition:.25s;
 }
@@ -240,99 +237,61 @@ h2{
 }
 
     </style>
-
 </head>
-
 
 <body>
 
     <header class="result-header">
 
-        <div class="result-logo">
-            IELTS Practice
-        </div>
+        <div class="result-logo"> IELTS Practice </div>
 
         <div class="result-header-links">
 
-            <a href="../student-dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="../index.html">
-                Logout
-            </a>
+            <a href="../student-dashboard.html"> Dashboard </a>
+            <a href="../index.html">Logout </a>
 
         </div>
-
     </header>
 
 
 <div class="result-card">
 
-
-    <h1>
-        Reading Test 2 Result
-    </h1>
-
+    <h1> Reading Test 2 Result </h1>
 
     <div class="result-line">
 
-        <strong>
-            Correct Answers:
-        </strong>
+        <strong> Correct Answers: </strong>
+        <span id="correctAnswers"> 0 </span>
 
-        <span id="correctAnswers">
-            0
-        </span>
+    </div>
+
+    <div class="result-line">
+
+        <strong> Wrong Answers: </strong>
+        <span id="wrongAnswers"> 0 </span>
 
     </div>
 
 
     <div class="result-line">
 
-        <strong>
-            Wrong Answers:
-        </strong>
-
-        <span id="wrongAnswers">
-            0
-        </span>
-
-    </div>
-
-
-    <div class="result-line">
-
-        <strong>
-            Total Score:
-        </strong>
-
-        <span id="totalScore">
-            0 / 40
-        </span>
+        <strong> Total Score: </strong>
+        <span id="totalScore"> 0 / 40 </span>
 
     </div>
 
 
     <div class="result-line band-line">
 
-        <strong>
-            IELTS Band:
-        </strong>
-
-        <span id="bandScore">
-            2.0
-        </span>
+        <strong> IELTS Band: </strong>
+        <span id="bandScore"> 2.0 </span>
 
     </div>
 
 
     <div class="answer-review-section">
 
-        <h2>
-            Answer Review
-        </h2>
-
+        <h2> Answer Review </h2>
         <div id="answerReview"></div>
 
     </div>
@@ -348,17 +307,9 @@ h2{
 
 </div>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-
-    /* =====================================
-       SUPABASE CONNECTION
-    ===================================== */
 
     const SUPABASE_URL =
         "https://gehczgguwxqwfowmbedy.supabase.co";
@@ -421,11 +372,6 @@ h2{
     }
 
 
-
-    /* =====================================
-       BAND SCORE
-    ===================================== */
-
    function calculateBand(correctCount) {
 
     if (correctCount >= 39) return "9.0";
@@ -446,8 +392,6 @@ h2{
     return "2.0";
 }
     
-
-
 
     /* =====================================
        READING TEST 2 ANSWER KEY
@@ -584,87 +528,68 @@ h2{
                 "answerReview"
             );
 
-
         if (!answerReview) {
-
             return;
-
         }
 
+        // Save the final verdict calculated by
+        // the actual Reading Test 2 scoring logic.
         readingAnswerReview[
             "q" + questionNumber
         ] = {
             userAnswer: studentAnswer || "",
-            correctAnswer: correctAnswer
+            correctAnswer: correctAnswer,
+            isCorrect: correct === true
         };
-
 
         const reviewItem =
             document.createElement("div");
-
 
         reviewItem.className =
             correct
                 ? "answer-review-item correct"
                 : "answer-review-item wrong";
 
-
-
         const header =
             document.createElement("div");
-
 
         header.className =
             "review-header";
 
-
         const question =
             document.createElement("strong");
-
 
         question.textContent =
             "Question " + questionNumber;
 
-
         const status =
             document.createElement("span");
 
-
         status.className =
             "review-status";
-
 
         status.textContent =
             correct
                 ? "✓ Correct"
                 : "✗ Wrong";
 
-
         header.appendChild(question);
-
         header.appendChild(status);
 
-
         reviewItem.appendChild(header);
-
-
 
         const studentLine =
             document.createElement("p");
 
-
         const studentLabel =
             document.createElement("strong");
-
 
         studentLabel.textContent =
             "Your answer: ";
 
-
         studentLine.appendChild(
             studentLabel
         );
-
 
         studentLine.appendChild(
             document.createTextNode(
@@ -672,29 +597,22 @@ h2{
             )
         );
 
-
         reviewItem.appendChild(
             studentLine
         );
 
-
-
         const correctLine =
             document.createElement("p");
-
 
         const correctLabel =
             document.createElement("strong");
 
-
         correctLabel.textContent =
             "Correct answer: ";
-
 
         correctLine.appendChild(
             correctLabel
         );
-
 
         correctLine.appendChild(
             document.createTextNode(
@@ -702,16 +620,13 @@ h2{
             )
         );
 
-
         reviewItem.appendChild(
             correctLine
         );
 
-
         answerReview.appendChild(
             reviewItem
         );
-
     }
 
 
