@@ -124,39 +124,46 @@
         }
 
         .matching-headings-questions {
-            display: flex;
-            flex-direction: column;
+            height: 540px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px 20px;
+            background: #f8f8f8;
+            box-sizing: border-box;
+        }
+
+        .matching-headings-questions h3 {
+            margin: 0 0 15px 0;
         }
 
         .matching-heading-question {
-            margin: 4px 0;
-            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 8px 0;
+            padding: 10px 12px;
 
             background: white;
             border: 1px solid #ddd;
             border-radius: 6px;
-
-            flex: 1;
-            min-height: 0;
             box-sizing: border-box;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
+
         .matching-heading-question-label {
-            display: block;
-            margin-bottom: 6px;
+            flex: 1;
+            min-width: 0;
             font-weight: 600;
         }
 
         .matching-heading-answer {
-            width: 100%;
-            max-width: none;
+            flex: 0 0 120px;
 
+            width: 120px;
+            height: 38px;
             box-sizing: border-box;
-            padding: 8px 10px;
+            padding: 6px 10px;
 
             border: 1px solid #ccc;
             border-radius: 6px;
@@ -674,135 +681,144 @@
                             QUESTIONS 1-7
                             ================================= -->
 
-                        <div class="matching-headings-questions">
+                        <!-- Q1 -->
 
-                            <h3> Questions 1–7 </h3>
+                        <div class="matching-heading-question">
 
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">1.</span>
+                                Paragraph A
+                            </span>
 
-                            <div class="matching-heading-question">
+                            <input
+                                type="text"
+                                name="q1"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
 
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">1.</span>
-                                    Paragraph A
-                                </span>
-
-                                <input
-                                    type="text"
-                                    name="q1"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
-
-                            </div>
+                        </div>
 
 
-                            <div class="matching-heading-question">
+                        <!-- Q2 -->
 
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">2.</span>
-                                    Paragraph B
-                                </span>
+                        <div class="matching-heading-question">
 
-                                <input
-                                    type="text"
-                                    name="q2"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">2.</span>
+                                Paragraph B
+                            </span>
 
-                            </div>
+                            <input
+                                type="text"
+                                name="q2"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
 
-
-                            <div class="matching-heading-question">
-
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">3.</span>
-                                    Paragraph C
-                                </span>
-
-                                <input
-                                    type="text"
-                                    name="q3"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
-
-                            </div>
+                        </div>
 
 
-                            <div class="matching-heading-question">
+                        <!-- Q3 -->
 
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">4.</span>
-                                    Paragraph D
-                                </span>
+                        <div class="matching-heading-question">
 
-                                <input
-                                    type="text"
-                                    name="q4"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">3.</span>
+                                Paragraph C
+                            </span>
 
-                            </div>
+                            <input
+                                type="text"
+                                name="q3"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
 
-
-                            <div class="matching-heading-question">
-
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">5.</span>
-                                    Paragraph E
-                                </span>
-
-                                <input
-                                    type="text"
-                                    name="q5"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
-
-                            </div>
+                        </div>
 
 
-                            <div class="matching-heading-question">
+                        <!-- Q4 -->
 
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">6.</span>
-                                    Paragraph F
-                                </span>
+                        <div class="matching-heading-question">
 
-                                <input
-                                    type="text"
-                                    name="q6"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">4.</span>
+                                Paragraph D
+                            </span>
 
-                            </div>
+                            <input
+                                type="text"
+                                name="q4"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
+
+                        </div>
 
 
-                            <div class="matching-heading-question">
+                        <!-- Q5 -->
 
-                                <span class="matching-heading-question-label">
-                                    <span class="question-number">7.</span>
-                                    Paragraph G
-                                </span>
+                        <div class="matching-heading-question">
 
-                                <input
-                                    type="text"
-                                    name="q7"
-                                    class="matching-heading-answer"
-                                    placeholder="Drag heading here"
-                                    autocomplete="off"
-                                    readonly>
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">5.</span>
+                                Paragraph E
+                            </span>
 
-                            </div>
+                            <input
+                                type="text"
+                                name="q5"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
+
+                        </div>
+
+
+                        <!-- Q6 -->
+
+                        <div class="matching-heading-question">
+
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">6.</span>
+                                Paragraph F
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q6"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
+
+                        </div>
+
+
+                        <!-- Q7 -->
+
+                        <div class="matching-heading-question">
+
+                            <span class="matching-heading-question-label">
+                                <span class="question-number">7.</span>
+                                Paragraph G
+                            </span>
+
+                            <input
+                                type="text"
+                                name="q7"
+                                class="matching-heading-answer"
+                                placeholder=""
+                                autocomplete="off"
+                                readonly>
+
+                        </div>
 
                         </div>
 
