@@ -556,9 +556,8 @@ function viewReadingReview(review) {
 
         addSavedReadingReviewItem(
             container,
-            "Question " + i,
-            item.userAnswer,
-            item.correctAnswer
+            i,
+            item
         );
     }
 
@@ -582,32 +581,26 @@ function viewReadingReview(review) {
                 ? pairItem.correctAnswer
                 : [];
 
-        const normalizedUserAnswers =
-            userAnswers.map(function(answer) {
-                return String(answer)
-                    .trim()
-                    .toLowerCase();
-            });
+        // Use the saved result from the actual
+        // Reading Test instead of recalculating it.
+        const pairMarks =
+            pairItem.score ?? 0;
 
-        const normalizedCorrectAnswers =
-            correctAnswers.map(function(answer) {
-                return String(answer)
-                    .trim()
-                    .toLowerCase();
-            });
+        const pairTotal =
+            pairItem.total ?? 2;
 
-        let pairMarks = 0;
+        const pairCorrect =
+            pairItem.isCorrect === true;
 
-        normalizedUserAnswers.forEach(function(answer) {
-
-            if (
-                normalizedCorrectAnswers
-                    .includes(answer)
-            ) {
-                pairMarks++;
-            }
-
-        });
+        const pairStatus =
+            pairItem.status ||
+            (
+                pairMarks === pairTotal
+                    ? "correct"
+                    : pairMarks > 0
+                        ? "partial"
+                        : "wrong"
+            );
 
         const reviewItem =
             document.createElement("div");
@@ -615,10 +608,40 @@ function viewReadingReview(review) {
         reviewItem.className =
             "saved-review-item " +
             (
-                pairMarks === 2
+                pairCorrect
                     ? "correct"
                     : "wrong"
             );
+
+        let statusText = "";
+
+        if (pairStatus === "correct") {
+
+            statusText =
+                "✓ " +
+                pairMarks +
+                "/" +
+                pairTotal +
+                " marks";
+
+        } else if (pairStatus === "partial") {
+
+            statusText =
+                "◐ " +
+                pairMarks +
+                "/" +
+                pairTotal +
+                " marks";
+
+        } else {
+
+            statusText =
+                "✗ " +
+                pairMarks +
+                "/" +
+                pairTotal +
+                " marks";
+        }
 
         reviewItem.innerHTML = `
             <div class="saved-review-header">
@@ -628,15 +651,7 @@ function viewReadingReview(review) {
                 </strong>
 
                 <span class="saved-review-status">
-
-                    ${
-                        pairMarks === 2
-                            ? "✓ 2/2 marks"
-                            : pairMarks === 1
-                                ? "◐ 1/2 marks"
-                                : "✗ 0/2 marks"
-                    }
-
+                    ${statusText}
                 </span>
 
             </div>
@@ -679,9 +694,8 @@ function viewReadingReview(review) {
 
         addSavedReadingReviewItem(
             container,
-            "Question " + i,
-            item.userAnswer,
-            item.correctAnswer
+            i,
+            item
         );
     }
 
@@ -704,71 +718,34 @@ function normalizeAnswer(answer) {
 
 function addSavedReadingReviewItem(
     container,
-    questionTitle,
-    userAnswer,
-    correctAnswer
+    questionNumber,
+    item
 ) {
 
-    let isCorrect = false;
-
-    if (Array.isArray(correctAnswer)) {
-
-        const userAnswers =
-            Array.isArray(userAnswer)
-                ? userAnswer
-                : [userAnswer];
-
-        const normalizedUserAnswers =
-            userAnswers
-                .map(function(answer) {
-                    return normalizeAnswer(answer);
-                })
-                .filter(function(answer) {
-                    return answer !== "";
-                });
-
-        const normalizedCorrectAnswers =
-            correctAnswer
-                .map(function(answer) {
-                    return normalizeAnswer(answer);
-                });
-
-        isCorrect =
-            normalizedUserAnswers.length ===
-            normalizedCorrectAnswers.length &&
-
-            normalizedUserAnswers
-                .slice()
-                .sort()
-                .join(",") ===
-
-            normalizedCorrectAnswers
-                .slice()
-                .sort()
-                .join(",");
-
-    } else {
-
-        isCorrect =
-            normalizeAnswer(userAnswer) !== "" &&
-
-            normalizeAnswer(userAnswer) ===
-            normalizeAnswer(correctAnswer);
-
+    if (!item) {
+        return;
     }
 
+    const userAnswer =
+        item.userAnswer;
+
+    const correctAnswer =
+        item.correctAnswer;
+
+    // Use the verdict saved by the actual Reading test.
+    // Do not recalculate correctness here.
+    const isCorrect =
+        item.isCorrect === true;
 
     const displayedUserAnswer =
         Array.isArray(userAnswer)
             ? userAnswer.join(", ") || "Not answered"
             : userAnswer || "Not answered";
 
-
     const displayedCorrectAnswer =
         Array.isArray(correctAnswer)
             ? correctAnswer.join(" / ")
             : correctAnswer;
-
 
     const reviewItem =
         document.createElement("div");
@@ -781,13 +758,12 @@ function addSavedReadingReviewItem(
                 : "wrong"
         );
 
-
     reviewItem.innerHTML = `
 
         <div class="saved-review-header">
 
             <strong>
-                ${escapeHTML(questionTitle)}
+                Question ${escapeHTML(questionNumber)}
             </strong>
 
             <span class="saved-review-status">
@@ -804,27 +780,19 @@ function addSavedReadingReviewItem(
 
         <p>
             <strong>Your answer:</strong>
-            ${
-                escapeHTML(
-                    displayedUserAnswer
-                )
-            }
+            ${escapeHTML(displayedUserAnswer)}
         </p>
 
         <p>
             <strong>Correct answer:</strong>
-            ${
-                escapeHTML(
-                    displayedCorrectAnswer
-                )
-            }
+            ${escapeHTML(displayedCorrectAnswer)}
         </p>
 
     `;
 
-
     container.appendChild(reviewItem);
 }
+
 
 function viewListeningReview(review) {
 
