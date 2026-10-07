@@ -460,6 +460,8 @@
            ANSWER REVIEW ITEM
         =============================== */
 
+        let listeningAnswerReview = {};
+
         function addReviewItem(
             questionNumber,
             studentAnswer,
@@ -473,6 +475,15 @@
                 );
 
             if (!answerReview) return;
+
+            listeningAnswerReview[
+                "q" + questionNumber
+            ] = {
+                userAnswer:
+                    studentAnswer || "",
+                correctAnswer:
+                    correctAnswer
+            };
 
 
             const reviewItem =
@@ -553,6 +564,19 @@
                 document.getElementById(
                     "answerReview"
                 );
+
+            listeningAnswerReview[
+                "q5_q7"
+            ] = {
+                userAnswer:
+                    studentAnswers || [],
+                correctAnswer:
+                    correctAnswers || [],
+                score:
+                    score,
+                total:
+                    total
+            };
 
 
             const correct =
@@ -646,6 +670,15 @@
 
             const reviewItem =
                 document.createElement("div");
+
+            listeningAnswerReview[
+                "q" + questionNumber
+            ] = {
+                userAnswer:
+                    studentAnswers || [],
+                correctAnswer:
+                    correctAnswers || []
+            };
 
 
             reviewItem.className =
@@ -1347,6 +1380,9 @@
 
                 listening_score:
                     score,
+
+                listening_answers:
+                    listeningAnswerReview,
 
                 is_submitted:
                     true

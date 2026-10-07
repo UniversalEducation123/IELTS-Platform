@@ -3,16 +3,13 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
     <title>Reading Test 3 Result</title>
 
-
     <style>
-
        *{
     box-sizing:border-box;
 }
@@ -29,13 +26,8 @@ body{
         radial-gradient(circle at bottom right,
             rgba(234,226,214,.45), transparent 35%),
         #F7F2EB;
-
     color:#5F5B55;
 }
-
-/* =====================================
-   HEADER
-===================================== */
 
 .result-header{
     width:100%;
@@ -53,7 +45,6 @@ body{
 
     border:1px solid #E8E1D6;
     border-radius:16px;
-
     box-shadow:0 8px 22px rgba(76,74,70,.05);
 }
 
@@ -81,10 +72,6 @@ body{
     color:#8B9A6E;
 }
 
-/* =====================================
-   RESULT CARD
-===================================== */
-
 .result-card{
     max-width:850px;
     margin:0 auto;
@@ -95,7 +82,6 @@ body{
 
     border:1px solid #ECE4D8;
     border-radius:22px;
-
     box-shadow:0 14px 34px rgba(76,74,70,.06);
 }
 
@@ -112,10 +98,6 @@ h2{
     font-size:24px;
 }
 
-/* =====================================
-   SCORE
-===================================== */
-
 .result-line{
     display:flex;
     justify-content:space-between;
@@ -123,7 +105,6 @@ h2{
 
     padding:14px 0;
     border-bottom:1px solid #E8E1D6;
-
     font-size:18px;
 }
 
@@ -138,7 +119,6 @@ h2{
 
     border-top:2px solid #D9E2D0;
     border-bottom:none;
-
     font-size:21px;
 }
 
@@ -147,10 +127,6 @@ h2{
     color:#8B9A6E;
 }
 
-/* =====================================
-   ANSWER REVIEW
-===================================== */
-
 .answer-review-section{
     margin-top:35px;
 }
@@ -158,7 +134,6 @@ h2{
 .answer-review-item{
     margin-bottom:14px;
     padding:16px 18px;
-
     border-left:5px solid;
     border-radius:12px;
 }
@@ -202,10 +177,6 @@ h2{
     color:#4C4A46;
 }
 
-/* =====================================
-   BUTTON
-===================================== */
-
 .home-button{
     display:block;
     width:fit-content;
@@ -229,10 +200,6 @@ h2{
     transform:translateY(-2px);
     box-shadow:0 10px 20px rgba(139,154,110,.18);
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:600px){
 
@@ -279,19 +246,12 @@ h2{
 
     <header class="result-header">
 
-        <div class="result-logo">
-            IELTS Practice
-        </div>
+        <div class="result-logo"> IELTS Practice </div>
 
         <div class="result-header-links">
 
-            <a href="../student-dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="../index.html">
-                Logout
-            </a>
+            <a href="../student-dashboard.html"> Dashboard </a>
+            <a href="../index.html"> Logout </a>
 
         </div>
 
@@ -301,69 +261,44 @@ h2{
 <div class="result-card">
 
 
-    <h1>
-        Reading Test 3 Result
-    </h1>
+    <h1> Reading Test 3 Result </h1>
 
 
     <div class="result-line">
 
-        <strong>
-            Correct Answers:
-        </strong>
-
-        <span id="correctAnswers">
-            0
-        </span>
+        <strong> Correct Answers: </strong>
+        <span id="correctAnswers"> 0 </span>
 
     </div>
 
 
     <div class="result-line">
 
-        <strong>
-            Wrong Answers:
-        </strong>
-
-        <span id="wrongAnswers">
-            0
-        </span>
+        <strong> Wrong Answers: </strong>
+        <span id="wrongAnswers"> 0 </span>
 
     </div>
 
 
     <div class="result-line">
 
-        <strong>
-            Total Score:
-        </strong>
-
-        <span id="totalScore">
-            0 / 40
-        </span>
+        <strong> Total Score: </strong>
+        <span id="totalScore"> 0 / 40 </span>
 
     </div>
 
 
     <div class="result-line band-line">
 
-        <strong>
-            IELTS Band:
-        </strong>
-
-        <span id="bandScore">
-            2.0
-        </span>
+        <strong> IELTS Band: </strong>
+        <span id="bandScore"> 2.0 </span>
 
     </div>
 
 
     <div class="answer-review-section">
 
-        <h2>
-            Answer Review
-        </h2>
-
+        <h2> Answer Review </h2>
         <div id="answerReview"></div>
 
     </div>
@@ -385,10 +320,6 @@ h2{
 
 
 <script>
-
-    /* =====================================
-       SUPABASE CONNECTION
-    ===================================== */
 
     const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
@@ -443,11 +374,6 @@ h2{
     }
 
 
-
-    /* =====================================
-       BAND SCORE
-    ===================================== */
-
     function calculateBand(correctCount) {
 
         if (correctCount >= 39) return "9.0";
@@ -468,10 +394,6 @@ h2{
         return "2.0";
     }
 
-
-    /* =====================================
-       READING TEST 3 ANSWER KEY
-    ===================================== */
 
     const answerKey = {
 
@@ -566,6 +488,8 @@ h2{
     /* =====================================
        ANSWER REVIEW
     ===================================== */
+    
+    let readingAnswerReview = {};
 
     function addReviewItem(
         questionNumber,
@@ -585,6 +509,13 @@ h2{
             return;
 
         }
+
+        readingAnswerReview[
+            "q" + questionNumber
+        ] = {
+            userAnswer: studentAnswer || "",
+            correctAnswer: correctAnswer
+        };
 
 
         const reviewItem =
@@ -797,6 +728,7 @@ h2{
             test_name: "Test 3",
             test_date: new Date().toISOString().split("T")[0],
             reading_score: score,
+            reading_answers: readingAnswerReview,
             is_submitted: true
         }
 

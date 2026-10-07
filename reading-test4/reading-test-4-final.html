@@ -550,6 +550,8 @@ h2{
        ANSWER REVIEW
     ===================================== */
 
+    let readingAnswerReview = {};
+
     function addReviewItem(
         questionNumber,
         studentAnswer,
@@ -568,6 +570,13 @@ h2{
             return;
 
         }
+
+        readingAnswerReview[
+            "q" + questionNumber
+        ] = {
+            userAnswer: studentAnswer || "",
+            correctAnswer: correctAnswer
+        };
 
 
         const reviewItem =
@@ -822,19 +831,11 @@ h2{
             .from("test_results")
             .update({
 
-                student_name:
-                    studentName,
-
-                test_date:
-                    new Date()
-                        .toISOString()
-                        .split("T")[0],
-
-                reading_score:
-                    score,
-
-                is_submitted:
-                    true
+                student_name: studentName,
+                test_date: new Date() .toISOString() .split("T")[0],
+                reading_score: score,
+                reading_answers: readingAnswerReview,
+                is_submitted: true
 
             })
             .eq(
