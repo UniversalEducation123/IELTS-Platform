@@ -471,6 +471,12 @@ h2{
             correct
         ) {
 
+                listeningAnswerReview["q" + questionNumber] = {
+                    userAnswer: studentAnswer || "",
+                    correctAnswer: correctAnswer,
+                    isCorrect: correct
+                };
+
             const answerReview =
                 document.getElementById(
                     "answerReview"
@@ -479,13 +485,6 @@ h2{
             if (!answerReview) {
                 return;
             }
-
-            listeningAnswerReview[
-                "q" + questionNumber
-            ] = {
-                userAnswer: studentAnswer || "",
-                correctAnswer: correctAnswer
-            };
 
 
             const reviewItem =
