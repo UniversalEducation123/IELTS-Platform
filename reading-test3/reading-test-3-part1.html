@@ -50,17 +50,148 @@
             margin-right: 8px;
         }
 
+        .heading-drag-drop-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: stretch;
+            margin-top: 20px;
+        }
+
+        /* LEFT: LIST OF HEADINGS */
+
         .heading-options {
             background: #f8f8f8;
             border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 15px 20px;
-            margin: 20px 0;
+            padding: 12px;
+            margin: 0;
+
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
         }
 
-        .heading-options p {
-            margin: 8px 0;
+        .heading-options h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
         }
+
+        /* All 10 headings fit inside the same box */
+
+        .heading-options p {
+            margin: 3px 0;
+            padding: 7px 10px;
+
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+
+            cursor: grab;
+            user-select: none;
+
+            flex: 1;
+            min-height: 0;
+
+            display: flex;
+            align-items: center;
+
+            box-sizing: border-box;
+
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .heading-options p:active {
+            cursor: grabbing;
+        }
+
+        .heading-options p.dragging {
+            opacity: 0.5;
+            transform: translateX(3px);
+        }
+
+
+        /* RIGHT: QUESTIONS */
+
+        .heading-question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            padding: 12px;
+
+            box-sizing: border-box;
+        }
+
+        .heading-question {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 10px;
+
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+
+            min-height: 42px;
+
+            box-sizing: border-box;
+        }
+
+        .heading-question .question-number {
+            flex-shrink: 0;
+        }
+
+        .heading-question strong {
+            white-space: nowrap;
+        }
+
+
+        /* DROP BOX */
+
+        .heading-drop-zone {
+            width: 110px;
+            height: 36px;
+
+            padding: 5px 8px;
+
+            border: 1px solid #ccc;
+            border-radius: 6px;
+
+            background: white;
+
+            box-sizing: border-box;
+
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+
+            margin-left: auto;
+
+            cursor: grab;
+        }
+
+        .heading-drop-zone.drag-over {
+            border-color: #8B9A6E;
+            background: #F4F6F1;
+
+            box-shadow:
+                0 0 0 2px rgba(139, 154, 110, 0.15);
+        }
+
+        .heading-drop-zone.has-answer {
+            background: #F4F6F1;
+            border-color: #8B9A6E;
+        }
+
 
         .matching-headings-layout {
             display: grid;
@@ -222,6 +353,14 @@
             .matching-headings-options,
             .matching-headings-questions {
                 height: auto;
+            }
+
+             .heading-drag-drop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .heading-options p {
+                flex: none;
             }
 
         }
@@ -559,266 +698,182 @@
                     </p>
 
 
-                    <div class="matching-headings-layout">
+                    <div class="heading-drag-drop-layout">
 
-                        <div class="matching-headings-options">
+                        <!-- =================================
+                            LIST OF HEADINGS
+                            ================================= -->
 
-                            <h3> List of Headings </h3>
+                        <div class="heading-options">
 
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="i">
+                            <h3>List of Headings</h3>
 
-                                <strong>i</strong>
-                                Vulnerable Buildings
-
+                            <p draggable="true" data-answer="i">
+                                <strong>i</strong> Vulnerable Buildings
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="ii">
-
-                                <strong>ii</strong>
-                                The Effect on Trade
-
+                            <p draggable="true" data-answer="ii">
+                                <strong>ii</strong> The Effect on Trade
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="iii">
-
-                                <strong>iii</strong>
-                                How it Started
-
+                            <p draggable="true" data-answer="iii">
+                                <strong>iii</strong> How it Started
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="iv">
-
-                                <strong>iv</strong>
-                                A Positive from the Ashes
-
+                            <p draggable="true" data-answer="iv">
+                                <strong>iv</strong> A Positive from the Ashes
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="v">
-
-                                <strong>v</strong>
-                                Food Shortages
-
+                            <p draggable="true" data-answer="v">
+                                <strong>v</strong> Food Shortages
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="vi">
-
-                                <strong>vi</strong>
-                                The Movement of the Fire
-
+                            <p draggable="true" data-answer="vi">
+                                <strong>vi</strong> The Movement of the Fire
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="vii">
-
-                                <strong>vii</strong>
-                                The Effects of the Smoke
-
+                            <p draggable="true" data-answer="vii">
+                                <strong>vii</strong> The Effects of the Smoke
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="viii">
-
-                                <strong>viii</strong>
-                                Extinguishing the Fire
-
+                            <p draggable="true" data-answer="viii">
+                                <strong>viii</strong> Extinguishing the Fire
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="ix">
-
-                                <strong>ix</strong>
-                                The Costs
-
+                            <p draggable="true" data-answer="ix">
+                                <strong>ix</strong> The Costs
                             </p>
 
-
-                            <p
-                                class="matching-heading-option"
-                                draggable="true"
-                                data-answer="x">
-
-                                <strong>x</strong>
-                                A New London
-
+                            <p draggable="true" data-answer="x">
+                                <strong>x</strong> A New London
                             </p>
 
                         </div>
 
 
                         <!-- =================================
-                            QUESTIONS 1-7
+                            QUESTIONS 1–7
                             ================================= -->
 
-                        <!-- Q1 -->
+                        <div class="heading-question-list">
 
-                        <div class="matching-heading-question">
+                            <div class="heading-question">
 
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">1.</span>
-                                Paragraph A
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q1"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph A</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q1"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q2 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">2.</span>
-                                Paragraph B
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q2"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph B</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q2"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q3 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">3.</span>
-                                Paragraph C
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q3"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph C</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q3"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q4 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">4.</span>
-                                Paragraph D
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q4"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph D</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q4"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q5 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">5.</span>
-                                Paragraph E
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q5"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph E</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q5"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q6 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">6.</span>
-                                Paragraph F
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q6"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph F</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q6"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
 
-                        <!-- Q7 -->
+                            <div class="heading-question">
 
-                        <div class="matching-heading-question">
-
-                            <span class="matching-heading-question-label">
                                 <span class="question-number">7.</span>
-                                Paragraph G
-                            </span>
 
-                            <input
-                                type="text"
-                                name="q7"
-                                class="matching-heading-answer"
-                                placeholder=""
-                                autocomplete="off"
-                                readonly>
+                                <strong>Paragraph G</strong>
 
-                        </div>
+                                <input
+                                    type="text"
+                                    name="q7"
+                                    class="heading-drop-zone"
+                                    placeholder="Drag heading here"
+                                    readonly
+                                    autocomplete="off">
+
+                            </div>
 
                         </div>
 
@@ -1495,7 +1550,7 @@ restoreAnswers();
 
 document
     .querySelectorAll(
-        ".matching-heading-answer"
+        ".heading-drop-zone"
     )
     .forEach(function(input) {
 
@@ -1519,19 +1574,27 @@ updateQuestionProgress();
    QUESTIONS 1-7 DRAG AND DROP
    ========================================= */
 
+/* =========================================
+   QUESTIONS 1-7 DRAG AND DROP
+   ========================================= */
+
 function setupMatchingHeadingsDragAndDrop() {
 
     const headingOptions =
         document.querySelectorAll(
-            ".matching-heading-option"
+            ".heading-options p[draggable='true']"
         );
 
 
     const answerInputs =
         document.querySelectorAll(
-            ".matching-heading-answer"
+            ".heading-drop-zone"
         );
 
+
+    /* =========================================
+       DRAG THE HEADING
+       ========================================= */
 
     headingOptions.forEach(function(option) {
 
@@ -1571,6 +1634,10 @@ function setupMatchingHeadingsDragAndDrop() {
 
     });
 
+
+    /* =========================================
+       DROP INTO QUESTION BOX
+       ========================================= */
 
     answerInputs.forEach(function(input) {
 
