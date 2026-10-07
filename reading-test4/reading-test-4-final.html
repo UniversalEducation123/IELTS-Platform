@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading Test 4 Result</title>
 
-    <style>
+<style>
 
-       *{
+*{
     box-sizing:border-box;
 }
 
@@ -100,7 +100,6 @@ h2{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:15px 0;
     border-bottom:1px solid #ECE4D8;
     font-size:18px;
@@ -114,7 +113,6 @@ h2{
 .band-line{
     margin-top:12px;
     padding-top:22px;
-
     border-top:2px solid #DCE4D2;
     border-bottom:none;
     font-size:21px;
@@ -233,16 +231,13 @@ h2{
 }
 
     </style>
-
 </head>
 
 
 <body>
 
     <header class="result-header">
-
         <div class="result-logo"> IELTS Practice </div>
-
         <div class="result-header-links">
 
             <a href="../student-dashboard.html"> Dashboard </a>
@@ -255,9 +250,7 @@ h2{
 
 <div class="result-card">
 
-
     <h1> Reading Test 4 Result </h1>
-
 
     <div class="result-line">
 
@@ -310,9 +303,7 @@ h2{
 </div>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -575,7 +566,8 @@ h2{
             "q" + questionNumber
         ] = {
             userAnswer: studentAnswer || "",
-            correctAnswer: correctAnswer
+            correctAnswer: correctAnswer,
+            isCorrect: correct === true
         };
 
 

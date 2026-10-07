@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
     <meta
         name="viewport"
@@ -39,7 +38,6 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     background:rgba(255,255,255,.75);
     backdrop-filter:blur(14px);
 
@@ -102,7 +100,6 @@ h2{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:14px 0;
     border-bottom:1px solid #E8E1D6;
     font-size:18px;
@@ -116,7 +113,6 @@ h2{
 .band-line{
     margin-top:12px;
     padding-top:22px;
-
     border-top:2px solid #D9E2D0;
     border-bottom:none;
     font-size:21px;
@@ -183,14 +179,12 @@ h2{
 
     margin:35px auto 0;
     padding:13px 28px;
-
     background:#8B9A6E;
     color:#FFFFFF;
 
     text-decoration:none;
     font-size:15px;
     font-weight:600;
-
     border-radius:999px;
     transition:.25s;
 }
@@ -238,31 +232,25 @@ h2{
 }
 
     </style>
-
 </head>
 
 
 <body>
 
     <header class="result-header">
-
         <div class="result-logo"> IELTS Practice </div>
-
         <div class="result-header-links">
 
             <a href="../student-dashboard.html"> Dashboard </a>
             <a href="../index.html"> Logout </a>
 
         </div>
-
     </header>
 
 
 <div class="result-card">
 
-
     <h1> Reading Test 3 Result </h1>
-
 
     <div class="result-line">
 
@@ -271,14 +259,12 @@ h2{
 
     </div>
 
-
     <div class="result-line">
 
         <strong> Wrong Answers: </strong>
         <span id="wrongAnswers"> 0 </span>
 
     </div>
-
 
     <div class="result-line">
 
@@ -287,7 +273,6 @@ h2{
 
     </div>
 
-
     <div class="result-line band-line">
 
         <strong> IELTS Band: </strong>
@@ -295,14 +280,12 @@ h2{
 
     </div>
 
-
     <div class="answer-review-section">
 
         <h2> Answer Review </h2>
         <div id="answerReview"></div>
 
     </div>
-
 
     <a
         href="../submitted-tests.html"
@@ -317,7 +300,6 @@ h2{
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -514,7 +496,8 @@ h2{
             "q" + questionNumber
         ] = {
             userAnswer: studentAnswer || "",
-            correctAnswer: correctAnswer
+            correctAnswer: correctAnswer,
+            isCorrect: correct === true
         };
 
 

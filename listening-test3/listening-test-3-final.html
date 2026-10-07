@@ -278,43 +278,26 @@ h2{
 
     <div class="result-line">
 
-        <strong>
-            Total Score:
-        </strong>
-
-        <span id="totalScore">
-            0 / 40
-        </span>
+        <strong> Total Score: </strong>
+        <span id="totalScore"> 0 / 40 </span>
 
     </div>
 
 
     <div class="result-line band-line">
 
-        <strong>
-            IELTS Band:
-        </strong>
-
-        <span id="bandScore">
-            2.0
-        </span>
+        <strong> IELTS Band: </strong>
+        <span id="bandScore"> 2.0 </span>
 
     </div>
 
 
     <div class="answer-review-section">
 
-
-        <h2>
-            Answer Review
-        </h2>
-
-
+        <h2> Answer Review </h2>
         <div id="answerReview"></div>
 
-
     </div>
-
 
     <a
         href="../submitted-tests.html"
@@ -328,7 +311,6 @@ h2{
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <script>
 
@@ -481,7 +463,8 @@ function addReviewItem(
         "q" + questionNumber
     ] = {
         userAnswer: studentAnswer || "",
-        correctAnswer: correctAnswer
+        correctAnswer: correctAnswer,
+        isCorrect: correct === true
     };
 
 
@@ -985,9 +968,6 @@ async function calculateListeningScore() {
     correctCount += groupScore;
 
 
-    /* ===============================
-       QUESTIONS 14-40
-    =============================== */
 
     /* =========================================
     ANSWER REVIEW: QUESTIONS 11-13
@@ -1020,7 +1000,8 @@ async function calculateListeningScore() {
                 : "",
         correctAnswer: "B, D, E",
         marks: marks11to13,
-        totalMarks: 3
+        totalMarks: 3,
+        isCorrect: marks11to13 === 3
     };
 
     const review11to13 =
@@ -1266,10 +1247,6 @@ async function saveResultToSupabase(score) {
 
 }
 
-
-/* =========================================
-   START
-========================================= */
 
 
 document.addEventListener(
