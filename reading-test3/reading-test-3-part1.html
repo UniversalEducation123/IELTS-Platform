@@ -79,7 +79,7 @@
 
         /* All 10 headings fit inside the same box */
 
-        .heading-options p {
+        .heading-options p[draggable="true"] {
             margin: 3px 0;
             padding: 7px 10px;
 
@@ -104,11 +104,11 @@
                 transform 0.2s ease;
         }
 
-        .heading-options p:active {
+        .heading-options p[draggable="true"]:active {
             cursor: grabbing;
         }
 
-        .heading-options p.dragging {
+        .heading-options p[draggable="true"].dragging {
             opacity: 0.5;
             transform: translateX(3px);
         }
@@ -359,7 +359,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .heading-options p {
+            .heading-options p[draggable="true"] {
                 flex: none;
             }
 
