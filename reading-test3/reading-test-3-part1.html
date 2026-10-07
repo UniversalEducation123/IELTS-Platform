@@ -62,6 +62,94 @@
             margin: 8px 0;
         }
 
+        .matching-headings-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: start;
+        }
+
+        .matching-headings-options,
+        .matching-headings-questions {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px 20px;
+            background: #f8f8f8;
+        }
+
+        .matching-headings-options h3,
+        .matching-headings-questions h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .matching-heading-option {
+            margin: 8px 0;
+            padding: 10px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: grab;
+            user-select: none;
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .matching-heading-option:active {
+            cursor: grabbing;
+        }
+
+        .matching-heading-option.dragging {
+            opacity: 0.5;
+            transform: translateX(3px);
+        }
+
+        .matching-heading-question {
+            margin: 0 0 12px 0;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .matching-heading-question:last-child {
+            margin-bottom: 0;
+        }
+
+        .matching-heading-question-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .matching-heading-answer {
+            width: 100%;
+            max-width: none;
+            box-sizing: border-box;
+            padding: 9px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background: white;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 700;
+            cursor: grab;
+        }
+
+        .matching-heading-answer.drag-over {
+            border-color: #8B9A6E;
+            background: #F4F6F1;
+            box-shadow: 0 0 0 2px rgba(139, 154, 110, 0.15);
+        }
+
+        .matching-heading-answer.has-answer {
+            background: #F4F6F1;
+            border-color: #8B9A6E;
+        }
+
         .effect-answer-row {
             display: flex;
             align-items: center;
@@ -90,6 +178,10 @@
                 flex-wrap: wrap;
             }
 
+            .matching-headings-layout {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -98,11 +190,6 @@
 
 
 <body>
-
-
-<!-- =========================================
-     ACCESS CHECK
-     ========================================= -->
 
 <script>
 
@@ -126,39 +213,26 @@
 <script src="../js/exam-inputs.js"></script>
 <script src="../js/reading-highlight.js"></script>
 
-<!-- =========================================
-     HEADER
-     ========================================= -->
 
 <header class="navbar">
 
     <a href="../index.html" class="logo">
-
     <img src="../assets/logo.png" alt="Universal Education Logo">
 
     </a>
 
-
-    <h3> IELTS Academic Reading Test 3</h3>
+    <h3> IELTS Academic Reading Test 3 </h3>
 
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
 </header>
 
-<!-- =========================================
-     QUESTION PROGRESS
-     ========================================= -->
 
 <div class="reading-question-progress">
 
@@ -215,36 +289,15 @@
 
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
-            60:00
-        </div>
+        <div class="timer" id="timer"> 60:00 </div>
 
     </div>
 
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
-
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
@@ -464,288 +517,259 @@
                     </p>
 
 
-                    <div class="heading-options">
+                    <div class="matching-headings-layout">
 
-                        <p>
-                            <strong>i</strong>
-                            Vulnerable Buildings
-                        </p>
+                        <div class="matching-headings-options">
 
-                        <p>
-                            <strong>ii</strong>
-                            The Effect on Trade
-                        </p>
-
-                        <p>
-                            <strong>iii</strong>
-                            How it Started
-                        </p>
-
-                        <p>
-                            <strong>iv</strong>
-                            A Positive from the Ashes
-                        </p>
+                            <h3> List of Headings </h3>
 
-                        <p>
-                            <strong>v</strong>
-                            Food Shortages
-                        </p>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="i">
 
-                        <p>
-                            <strong>vi</strong>
-                            The Movement of the Fire
-                        </p>
+                                <strong>i</strong>
+                                Vulnerable Buildings
 
-                        <p>
-                            <strong>vii</strong>
-                            The Effects of the Smoke
-                        </p>
+                            </p>
 
-                        <p>
-                            <strong>viii</strong>
-                            Extinguishing the Fire
-                        </p>
 
-                        <p>
-                            <strong>ix</strong>
-                            The Costs
-                        </p>
-
-                        <p>
-                            <strong>x</strong>
-                            A New London
-                        </p>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="ii">
 
-                    </div>
+                                <strong>ii</strong>
+                                The Effect on Trade
 
+                            </p>
 
-                    <!-- Q1 -->
 
-                    <div class="question">
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="iii">
 
-                        <p>
-                            <span class="question-number">1.</span>
-                            Paragraph A
-                        </p>
+                                <strong>iii</strong>
+                                How it Started
 
-                        <select
-                            name="q1"
-                            autocomplete="off">
+                            </p>
 
-                            <option value="">
-                                Select heading
-                            </option>
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="iv">
 
-                        </select>
+                                <strong>iv</strong>
+                                A Positive from the Ashes
 
-                    </div>
+                            </p>
 
 
-                    <!-- Q2 -->
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="v">
 
-                    <div class="question">
+                                <strong>v</strong>
+                                Food Shortages
 
-                        <p>
-                            <span class="question-number">2.</span>
-                            Paragraph B
-                        </p>
+                            </p>
 
-                        <select
-                            name="q2"
-                            autocomplete="off">
 
-                            <option value="">
-                                Select heading
-                            </option>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="vi">
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                                <strong>vi</strong>
+                                The Movement of the Fire
 
-                        </select>
+                            </p>
 
-                    </div>
 
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="vii">
 
-                    <!-- Q3 -->
+                                <strong>vii</strong>
+                                The Effects of the Smoke
 
-                    <div class="question">
+                            </p>
 
-                        <p>
-                            <span class="question-number">3.</span>
-                            Paragraph C
-                        </p>
 
-                        <select
-                            name="q3"
-                            autocomplete="off">
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="viii">
 
-                            <option value="">
-                                Select heading
-                            </option>
+                                <strong>viii</strong>
+                                Extinguishing the Fire
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                            </p>
 
-                        </select>
 
-                    </div>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="ix">
 
+                                <strong>ix</strong>
+                                The Costs
 
-                    <!-- Q4 -->
+                            </p>
 
-                    <div class="question">
 
-                        <p>
-                            <span class="question-number">4.</span>
-                            Paragraph D
-                        </p>
+                            <p
+                                class="matching-heading-option"
+                                draggable="true"
+                                data-answer="x">
 
-                        <select
-                            name="q4"
-                            autocomplete="off">
+                                <strong>x</strong>
+                                A New London
 
-                            <option value="">
-                                Select heading
-                            </option>
+                            </p>
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                        </div>
 
-                        </select>
 
-                    </div>
+                        <!-- =================================
+                            QUESTIONS 1-7
+                            ================================= -->
 
+                        <div class="matching-headings-questions">
 
-                    <!-- Q5 -->
+                            <h3> Questions 1–7 </h3>
 
-                    <div class="question">
 
-                        <p>
-                            <span class="question-number">5.</span>
-                            Paragraph E
-                        </p>
+                            <div class="matching-heading-question">
 
-                        <select
-                            name="q5"
-                            autocomplete="off">
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">1.</span>
+                                    Paragraph A
+                                </span>
 
-                            <option value="">
-                                Select heading
-                            </option>
+                                <input
+                                    type="text"
+                                    name="q1"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                            </div>
 
-                        </select>
 
-                    </div>
+                            <div class="matching-heading-question">
 
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">2.</span>
+                                    Paragraph B
+                                </span>
 
-                    <!-- Q6 -->
+                                <input
+                                    type="text"
+                                    name="q2"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
 
-                    <div class="question">
+                            </div>
 
-                        <p>
-                            <span class="question-number">6.</span>
-                            Paragraph F
-                        </p>
 
-                        <select
-                            name="q6"
-                            autocomplete="off">
+                            <div class="matching-heading-question">
 
-                            <option value="">
-                                Select heading
-                            </option>
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">3.</span>
+                                    Paragraph C
+                                </span>
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                                <input
+                                    type="text"
+                                    name="q3"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
 
-                        </select>
+                            </div>
 
-                    </div>
 
+                            <div class="matching-heading-question">
 
-                    <!-- Q7 -->
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">4.</span>
+                                    Paragraph D
+                                </span>
 
-                    <div class="question">
+                                <input
+                                    type="text"
+                                    name="q4"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
 
-                        <p>
-                            <span class="question-number">7.</span>
-                            Paragraph G
-                        </p>
+                            </div>
 
-                        <select
-                            name="q7"
-                            autocomplete="off">
 
-                            <option value="">
-                                Select heading
-                            </option>
+                            <div class="matching-heading-question">
 
-                            <option value="i">i</option>
-                            <option value="ii">ii</option>
-                            <option value="iii">iii</option>
-                            <option value="iv">iv</option>
-                            <option value="v">v</option>
-                            <option value="vi">vi</option>
-                            <option value="vii">vii</option>
-                            <option value="viii">viii</option>
-                            <option value="ix">ix</option>
-                            <option value="x">x</option>
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">5.</span>
+                                    Paragraph E
+                                </span>
 
-                        </select>
+                                <input
+                                    type="text"
+                                    name="q5"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
+
+                            </div>
+
+
+                            <div class="matching-heading-question">
+
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">6.</span>
+                                    Paragraph F
+                                </span>
+
+                                <input
+                                    type="text"
+                                    name="q6"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
+
+                            </div>
+
+
+                            <div class="matching-heading-question">
+
+                                <span class="matching-heading-question-label">
+                                    <span class="question-number">7.</span>
+                                    Paragraph G
+                                </span>
+
+                                <input
+                                    type="text"
+                                    name="q7"
+                                    class="matching-heading-answer"
+                                    placeholder="Drag heading here"
+                                    autocomplete="off"
+                                    readonly>
+
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -1418,8 +1442,157 @@ document
 
 restoreAnswers();
 
+document
+    .querySelectorAll(
+        ".matching-heading-answer"
+    )
+    .forEach(function(input) {
+
+        if (
+            input.value.trim() !== ""
+        ) {
+
+            input.classList.add(
+                "has-answer"
+            );
+
+        }
+
+    });
+
+setupMatchingHeadingsDragAndDrop();
+
 updateQuestionProgress();
 
+/* =========================================
+   QUESTIONS 1-7 DRAG AND DROP
+   ========================================= */
+
+function setupMatchingHeadingsDragAndDrop() {
+
+    const headingOptions =
+        document.querySelectorAll(
+            ".matching-heading-option"
+        );
+
+
+    const answerInputs =
+        document.querySelectorAll(
+            ".matching-heading-answer"
+        );
+
+
+    headingOptions.forEach(function(option) {
+
+        option.addEventListener(
+            "dragstart",
+            function(event) {
+
+                const answer =
+                    option.dataset.answer;
+
+                event.dataTransfer.setData(
+                    "text/plain",
+                    answer
+                );
+
+                event.dataTransfer.effectAllowed =
+                    "copy";
+
+                option.classList.add(
+                    "dragging"
+                );
+
+            }
+        );
+
+
+        option.addEventListener(
+            "dragend",
+            function() {
+
+                option.classList.remove(
+                    "dragging"
+                );
+
+            }
+        );
+
+    });
+
+
+    answerInputs.forEach(function(input) {
+
+        input.addEventListener(
+            "dragover",
+            function(event) {
+
+                event.preventDefault();
+
+                event.dataTransfer.dropEffect =
+                    "copy";
+
+                input.classList.add(
+                    "drag-over"
+                );
+
+            }
+        );
+
+
+        input.addEventListener(
+            "dragleave",
+            function() {
+
+                input.classList.remove(
+                    "drag-over"
+                );
+
+            }
+        );
+
+
+        input.addEventListener(
+            "drop",
+            function(event) {
+
+                event.preventDefault();
+
+                input.classList.remove(
+                    "drag-over"
+                );
+
+
+                const answer =
+                    event.dataTransfer.getData(
+                        "text/plain"
+                    );
+
+
+                if (!answer) {
+                    return;
+                }
+
+
+                input.value =
+                    answer;
+
+
+                input.classList.add(
+                    "has-answer"
+                );
+
+
+                saveAnswers();
+
+                updateQuestionProgress();
+
+            }
+        );
+
+    });
+
+}
 
 /* =========================================
    PART NAVIGATION
