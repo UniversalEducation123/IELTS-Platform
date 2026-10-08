@@ -35,16 +35,40 @@
             margin-right: 8px;
         }
 
-        .reading-passage + .reading-passage {
-            margin-top: 18px;
+        .passage-panel h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
         }
 
-        .reading-passage h3 {
-            margin-top: 24px;
+        .passage-panel h3 {
+            margin-top: 28px;
+            margin-bottom: 12px;
         }
 
-        .reading-passage p {
-            margin-bottom: 16px;
+        .passage-panel p {
+            margin-top: 0;
+            margin-bottom: 18px;
+            line-height: 1.65;
+        }
+
+        /* Space between Passage 1 and Passage 2 */
+        .reading-part .reading-split-layout + .reading-split-layout {
+            margin-top: 32px;
+        }
+
+        /* Give the second passage a little breathing room */
+        .reading-part .reading-split-layout + .reading-split-layout .passage-panel {
+            padding-top: 4px;
+        }
+
+        /* Space before lists */
+        .passage-panel ul {
+            margin-top: 14px;
+            margin-bottom: 20px;
+        }
+
+        .passage-panel li {
+            margin-bottom: 10px;
         }
 
     </style>
@@ -81,9 +105,7 @@
 
     <a href="../index.html" class="logo">
 
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
 
     </a>
 
@@ -160,28 +182,11 @@
 
     </div>
 
-
-
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
-
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
