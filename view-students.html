@@ -158,6 +158,16 @@
         font-size: 12px;
     }
 
+    .student-profile-link {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .student-profile-link:hover {
+        color: #8b9a6e;
+        text-decoration: underline;
+    }
+
     @media (max-width: 900px) {
         .score-grid {
             grid-template-columns: repeat(2, 1fr);
@@ -297,7 +307,7 @@
 
     </main>
 
-    <script>
+<script>
         const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
@@ -781,7 +791,12 @@ studentList.innerHTML = "";
                 <div>
 
                     <h2>
-                        ${escapeHTML(studentName)}
+                        <a
+                            href="faculty-student-profile.html?student=${encodeURIComponent(result.student_id)}"
+                            class="student-profile-link"
+                        >
+                            ${escapeHTML(studentName)}
+                        </a>
                     </h2>
 
                     <p>

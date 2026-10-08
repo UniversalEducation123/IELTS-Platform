@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Profile - IELTS Practice</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        body {
+            background: #f7f4ef;
+        }
+
+        .profile-page {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #6f7f55;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .profile-header {
+            background: #ffffff;
+            border: 1px solid #ddd4c8;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .profile-header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            color: #666;
+        }
+
+        .profile-details p {
+            margin: 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .overview-card {
+            background: #ffffff;
+            border: 1px solid #ddd4c8;
+            border-radius: 16px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .overview-card strong {
+            display: block;
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .overview-card span {
+            display: block;
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .section-title {
+            margin: 35px 0 15px;
+            color: #333;
+        }
+
+        .performance-card {
+            background: #ffffff;
+            border: 1px solid #ddd4c8;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .performance-header {
+            padding: 18px 20px;
+            background: #faf8f4;
+            border-bottom: 1px solid #ddd4c8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .performance-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .test-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .score-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .score-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        .score-table th,
+        .score-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee7df;
+        }
+
+        .score-table th {
+            background: #fff;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .score-table td {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .pending {
+            color: #999;
+            font-weight: 500;
+        }
+
+        .overall-score {
+            color: #6f7f55;
+            font-size: 18px;
+        }
+
+        .no-tests {
+            background: #ffffff;
+            border: 1px solid #ddd4c8;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            color: #777;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+
+            .profile-page {
+                margin: 25px auto;
+                padding: 0 15px 40px;
+            }
+
+            .profile-header {
+                padding: 22px;
+            }
+
+            .profile-header h1 {
+                font-size: 25px;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-details {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .performance-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="profile-page">
+
+    <a
+        href="view-students.html"
+        class="back-link"
+    >
+        ← Back to View Students
+    </a>
+
+
+    <div
+        id="loadingMessage"
+        class="loading"
+    >
+        Loading student profile...
+    </div>
+
+
+    <div
+        id="profileContent"
+        style="display:none;"
+    >
+
+        <!-- STUDENT HEADER -->
+
+        <div class="profile-header">
+
+            <h1 id="studentName">
+                Student
+            </h1>
+
+            <div class="profile-details">
+
+                <p>
+                    <strong>Student ID:</strong>
+                    <span id="studentId"></span>
+                </p>
+
+                <p>
+                    <strong>Username:</strong>
+                    <span id="studentUsername"></span>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- OVERVIEW -->
+
+        <div class="overview-grid">
+
+            <div class="overview-card">
+
+                <strong>
+                    Tests Completed
+                </strong>
+
+                <span id="testsCompleted">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <strong>
+                    Average Overall Band
+                </strong>
+
+                <span id="averageBand">
+                    —
+                </span>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <strong>
+                    Best Overall Band
+                </strong>
+
+                <span id="bestBand">
+                    —
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PERFORMANCE -->
+
+        <h2 class="section-title">
+            Test Performance
+        </h2>
+
+        <div id="performanceContainer"></div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+    "https://gehczgguwxqwfowmbedy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =========================================
+   GET STUDENT ID FROM URL
+========================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const studentId =
+    urlParams.get("student");
+
+
+/* =========================================
+   IELTS BAND FUNCTIONS
+   Same as View Students
+========================================= */
+
+function getListeningBand(score) {
+
+    score = Number(score);
+
+    if (score >= 39) return "9.0";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8.0";
+    if (score >= 32) return "7.5";
+    if (score >= 30) return "7.0";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6.0";
+    if (score >= 20) return "5.5";
+    if (score >= 16) return "5.0";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4.0";
+    if (score >= 8) return "3.5";
+    if (score >= 6) return "3.0";
+    if (score >= 4) return "2.5";
+    if (score >= 1) return "2.0";
+
+    return "0.0";
+}
+
+
+function getReadingBand(score) {
+
+    score = Number(score);
+
+    if (score >= 39) return "9.0";
+    if (score >= 37) return "8.5";
+    if (score >= 35) return "8.0";
+    if (score >= 33) return "7.5";
+    if (score >= 30) return "7.0";
+    if (score >= 27) return "6.5";
+    if (score >= 23) return "6.0";
+    if (score >= 19) return "5.5";
+    if (score >= 15) return "5.0";
+    if (score >= 13) return "4.5";
+    if (score >= 10) return "4.0";
+    if (score >= 8) return "3.5";
+    if (score >= 6) return "3.0";
+    if (score >= 4) return "2.5";
+    if (score >= 1) return "2.0";
+
+    return "0.0";
+}
+
+
+/* =========================================
+   CALCULATE FINAL MOCK
+   Same logic as View Students
+========================================= */
+
+function calculateFinalMockScore(
+    listeningScore,
+    readingScore,
+    writingScore,
+    speakingScore
+) {
+
+    const values = [
+        listeningScore,
+        readingScore,
+        writingScore,
+        speakingScore
+    ];
+
+
+    if (
+        values.some(value =>
+            value === null ||
+            value === undefined ||
+            value === ""
+        )
+    ) {
+        return null;
+    }
+
+
+    const listeningBand =
+        Number(
+            getListeningBand(
+                listeningScore
+            )
+        );
+
+
+    const readingBand =
+        Number(
+            getReadingBand(
+                readingScore
+            )
+        );
+
+
+    const writingBand =
+        Number(writingScore);
+
+
+    const speakingBand =
+        Number(speakingScore);
+
+
+    const bands = [
+        listeningBand,
+        readingBand,
+        writingBand,
+        speakingBand
+    ];
+
+
+    if (
+        bands.some(
+            band =>
+                !Number.isFinite(band) ||
+                band < 1 ||
+                band > 9
+        )
+    ) {
+        return null;
+    }
+
+
+    const average =
+        (
+            listeningBand +
+            readingBand +
+            writingBand +
+            speakingBand
+        ) / 4;
+
+
+    const rounded =
+        Math.round(
+            (average + Number.EPSILON) * 2
+        ) / 2;
+
+
+    return Number(
+        rounded.toFixed(1)
+    );
+}
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return "Date not available";
+    }
+
+    return new Date(
+        dateString + "T00:00:00"
+    ).toLocaleDateString();
+
+}
+
+
+/* =========================================
+   LOAD STUDENT PROFILE
+========================================= */
+
+async function loadStudentProfile() {
+
+    const loadingMessage =
+        document.getElementById(
+            "loadingMessage"
+        );
+
+    const profileContent =
+        document.getElementById(
+            "profileContent"
+        );
+
+
+    if (!studentId) {
+
+        loadingMessage.textContent =
+            "No student was selected.";
+
+        return;
+    }
+
+
+    /* =========================================
+       LOAD STUDENT
+    ========================================= */
+
+    const {
+        data: student,
+        error: studentError
+    } =
+        await supabaseClient
+            .from("students")
+            .select("*")
+            .eq("id", Number(studentId))
+            .maybeSingle();
+
+
+    if (studentError) {
+
+        console.error(studentError);
+
+        loadingMessage.textContent =
+            "Error loading student: " +
+            studentError.message;
+
+        return;
+    }
+
+
+    if (!student) {
+
+        loadingMessage.textContent =
+            "Student not found.";
+
+        return;
+    }
+
+
+    /* =========================================
+       LOAD TEST RESULTS
+    ========================================= */
+
+    const {
+        data: results,
+        error: resultsError
+    } =
+        await supabaseClient
+            .from("test_results")
+            .select("*")
+            .eq(
+                "student_id",
+                Number(studentId)
+            )
+            .eq(
+                "is_submitted",
+                true
+            )
+            .order(
+                "id",
+                {
+                    ascending: true
+                }
+            );
+
+
+    if (resultsError) {
+
+        console.error(resultsError);
+
+        loadingMessage.textContent =
+            "Error loading test results: " +
+            resultsError.message;
+
+        return;
+    }
+
+
+    /* =========================================
+       LOAD WRITING SUBMISSIONS
+    ========================================= */
+
+    const {
+        data: writingSubmissions,
+        error: writingError
+    } =
+        await supabaseClient
+            .from("writing_submissions")
+            .select("*")
+            .eq(
+                "student_id",
+                Number(studentId)
+            )
+            .order(
+                "submitted_at",
+                {
+                    ascending: false
+                }
+            );
+
+
+    if (writingError) {
+
+        console.error(writingError);
+
+        loadingMessage.textContent =
+            "Error loading Writing submissions: " +
+            writingError.message;
+
+        return;
+    }
+
+
+    /* =========================================
+       DISPLAY STUDENT DETAILS
+    ========================================= */
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        student.full_name ||
+        "Unknown Student";
+
+
+    document.getElementById(
+        "studentId"
+    ).textContent =
+        student.id;
+
+
+    document.getElementById(
+        "studentUsername"
+    ).textContent =
+        student.username ||
+        "N/A";
+
+
+    /* =========================================
+       GROUP TEST RESULTS
+    ========================================= */
+
+    const groupedResults = {};
+
+
+    /* ---------- LISTENING / READING / SPEAKING ---------- */
+
+    (results || []).forEach(result => {
+
+        const testName =
+            result.test_name ||
+            "Unnamed Test";
+
+
+        const key =
+            testName;
+
+
+        if (!groupedResults[key]) {
+
+            groupedResults[key] = {
+
+                test_name:
+                    testName,
+
+                test_date:
+                    result.test_date ||
+                    null,
+
+                listening_score:
+                    null,
+
+                reading_score:
+                    null,
+
+                writing_score:
+                    null,
+
+                speaking_score:
+                    null,
+
+                final_mock_score:
+                    null
+
+            };
+
+        }
+
+
+        const grouped =
+            groupedResults[key];
+
+
+        if (
+            !grouped.test_date &&
+            result.test_date
+        ) {
+
+            grouped.test_date =
+                result.test_date;
+
+        }
+
+
+        if (
+            result.listening_score !== null &&
+            result.listening_score !== undefined
+        ) {
+
+            grouped.listening_score =
+                result.listening_score;
+
+        }
+
+
+        if (
+            result.reading_score !== null &&
+            result.reading_score !== undefined
+        ) {
+
+            grouped.reading_score =
+                result.reading_score;
+
+        }
+
+
+        if (
+            result.speaking_score !== null &&
+            result.speaking_score !== undefined
+        ) {
+
+            grouped.speaking_score =
+                result.speaking_score;
+
+        }
+
+
+        if (
+            result.final_mock_score !== null &&
+            result.final_mock_score !== undefined
+        ) {
+
+            grouped.final_mock_score =
+                result.final_mock_score;
+
+        }
+
+    });
+
+
+    /* =========================================
+       MERGE WRITING
+    ========================================= */
+
+    (writingSubmissions || []).forEach(
+        submission => {
+
+            const currentTest =
+                submission.test_id
+                    .replace("writing-", "")
+                    .replace(
+                        /-/g,
+                        " "
+                    )
+                    .replace(
+                        /\b\w/g,
+                        c =>
+                            c.toUpperCase()
+                    );
+
+
+            const key =
+                currentTest;
+
+
+            if (!groupedResults[key]) {
+
+                groupedResults[key] = {
+
+                    test_name:
+                        currentTest,
+
+                    test_date:
+                        submission.submitted_at
+                            ? submission
+                                .submitted_at
+                                .substring(
+                                    0,
+                                    10
+                                )
+                            : null,
+
+                    listening_score:
+                        null,
+
+                    reading_score:
+                        null,
+
+                    writing_score:
+                        null,
+
+                    speaking_score:
+                        null,
+
+                    final_mock_score:
+                        null
+
+                };
+
+            }
+
+
+            groupedResults[key]
+                .writing_score =
+                    submission.overall_score;
+
+
+            if (
+                !groupedResults[key]
+                    .test_date &&
+                submission.submitted_at
+            ) {
+
+                groupedResults[key]
+                    .test_date =
+                        submission.submitted_at
+                            .substring(
+                                0,
+                                10
+                            );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       ORDER TESTS
+    ========================================= */
+
+    const testOrder = [
+        "Test 1",
+        "Test 2",
+        "Test 3",
+        "Test 4"
+    ];
+
+
+    const tests =
+        testOrder
+            .map(testName =>
+                groupedResults[testName]
+            )
+            .filter(Boolean);
+
+
+    /* =========================================
+       CALCULATE OVERALL SCORES
+    ========================================= */
+
+    tests.forEach(test => {
+
+        const calculatedScore =
+            calculateFinalMockScore(
+                test.listening_score,
+                test.reading_score,
+                test.writing_score,
+                test.speaking_score
+            );
+
+
+        /*
+         * Prefer the stored Final Mock score
+         * when it exists.
+         *
+         * Otherwise use the same calculation
+         * as View Students.
+         */
+
+        if (
+            test.final_mock_score !== null &&
+            test.final_mock_score !== undefined
+        ) {
+
+            test.final_mock_score =
+                Number(
+                    test.final_mock_score
+                );
+
+        } else {
+
+            test.final_mock_score =
+                calculatedScore;
+
+        }
+
+    });
+
+
+    /* =========================================
+       OVERVIEW NUMBERS
+    ========================================= */
+
+    const completedTests =
+        tests.filter(
+            test =>
+                test.final_mock_score !== null
+        );
+
+
+    const overallScores =
+        completedTests.map(
+            test =>
+                Number(
+                    test.final_mock_score
+                )
+        );
+
+
+    document.getElementById(
+        "testsCompleted"
+    ).textContent =
+        tests.length;
+
+
+    if (overallScores.length > 0) {
+
+        const average =
+            overallScores.reduce(
+                (sum, value) =>
+                    sum + value,
+                0
+            ) /
+            overallScores.length;
+
+
+        document.getElementById(
+            "averageBand"
+        ).textContent =
+            average.toFixed(1);
+
+
+        document.getElementById(
+            "bestBand"
+        ).textContent =
+            Math.max(
+                ...overallScores
+            ).toFixed(1);
+
+    }
+
+
+    /* =========================================
+       RENDER TESTS
+    ========================================= */
+
+    const performanceContainer =
+        document.getElementById(
+            "performanceContainer"
+        );
+
+
+    if (tests.length === 0) {
+
+        performanceContainer.innerHTML = `
+
+            <div class="no-tests">
+
+                No submitted tests found
+                for this student.
+
+            </div>
+
+        `;
+
+    } else {
+
+        performanceContainer.innerHTML =
+            tests.map(test => {
+
+                const listeningBand =
+                    test.listening_score !== null
+                        ? getListeningBand(
+                            test.listening_score
+                        )
+                        : null;
+
+
+                const readingBand =
+                    test.reading_score !== null
+                        ? getReadingBand(
+                            test.reading_score
+                        )
+                        : null;
+
+
+                const writingBand =
+                    test.writing_score !== null &&
+                    test.writing_score !== undefined
+                        ? Number(
+                            test.writing_score
+                        ).toFixed(1)
+                        : null;
+
+
+                const speakingBand =
+                    test.speaking_score !== null &&
+                    test.speaking_score !== undefined
+                        ? Number(
+                            test.speaking_score
+                        ).toFixed(1)
+                        : null;
+
+
+                const overallBand =
+                    test.final_mock_score !== null
+                        ? Number(
+                            test.final_mock_score
+                        ).toFixed(1)
+                        : null;
+
+
+                return `
+
+                    <div
+                        class="performance-card"
+                    >
+
+                        <div
+                            class="performance-header"
+                        >
+
+                            <h3>
+                                ${test.test_name}
+                            </h3>
+
+                            <span
+                                class="test-date"
+                            >
+                                ${formatDate(
+                                    test.test_date
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="score-table-wrapper"
+                        >
+
+                            <table
+                                class="score-table"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th>
+                                            Listening
+                                        </th>
+
+                                        <th>
+                                            Reading
+                                        </th>
+
+                                        <th>
+                                            Writing
+                                        </th>
+
+                                        <th>
+                                            Speaking
+                                        </th>
+
+                                        <th>
+                                            Overall
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+
+                                            ${
+                                                listeningBand
+                                                    ? listeningBand
+                                                    : `<span class="pending">Pending</span>`
+                                            }
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${
+                                                readingBand
+                                                    ? readingBand
+                                                    : `<span class="pending">Pending</span>`
+                                            }
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${
+                                                writingBand
+                                                    ? writingBand
+                                                    : `<span class="pending">Pending</span>`
+                                            }
+
+                                        </td>
+
+
+                                        <td>
+
+                                            ${
+                                                speakingBand
+                                                    ? speakingBand
+                                                    : `<span class="pending">Pending</span>`
+                                            }
+
+                                        </td>
+
+
+                                        <td
+                                            class="overall-score"
+                                        >
+
+                                            ${
+                                                overallBand
+                                                    ? overallBand
+                                                    : `<span class="pending">Pending</span>`
+                                            }
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+    loadingMessage.style.display =
+        "none";
+
+    profileContent.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+loadStudentProfile();
+
+</script>
+
+</body>
+</html>
