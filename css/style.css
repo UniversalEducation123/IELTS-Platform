@@ -37,7 +37,6 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-
     padding:18px 8%;
 
     background:rgba(247,242,235,.78);
@@ -353,10 +352,6 @@ p{
     background-size:24px 24px;
 }
 
-/* =====================================
-   RESPONSIVE
-===================================== */
-
 @media (max-width:768px){
 
     .hero{
@@ -435,7 +430,6 @@ p{
 .login-subtitle{
     max-width:520px;
     margin:0 auto 42px;
-
     color:#5F5B55;
     font-size:17px;
     line-height:1.8;
@@ -465,7 +459,7 @@ a.login-card{
 
     text-decoration:none;
     color:#5F5B55;
-    height:320px;              /* Both cards are identical height */
+    height:320px;             
     transition:all .28s ease;
 }
 
@@ -487,13 +481,13 @@ a.login-card:hover{
     line-height:1.7;
     color:#6B6A63;
 
-    flex:1;                    /* Takes remaining space */
+    flex:1;                   
     display:flex;
-    align-items:center;         /* Centers the description vertically */
+    align-items:center;         
 }
 
 .login-card span{
-    margin-top:auto;            /* Always stays at the bottom */
+    margin-top:auto;           
     font-weight:600;
     color:#8B9A6E;
 }
@@ -552,7 +546,6 @@ a.login-card:hover{
     flex: 1;
     max-width:240px;
     margin:14px 0 24px;
-
     text-align:center;
     color:#6A665F;
     line-height:1.7;
@@ -565,10 +558,6 @@ a.login-card:hover{
     font-size:14px;
     font-weight:600;
 }
-
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:768px){
 
@@ -827,7 +816,6 @@ a.login-card:hover{
 
     padding:22px 26px;
     margin-bottom:14px;
-
     background:#FFFFFF;
     border:1px solid #ECE6DB;
     border-radius:18px;
@@ -880,15 +868,11 @@ a.login-card:hover{
     background:#FFFFFF;
     border:1px solid #ECE6DB;
     border-radius:18px;
-
     padding:26px;
     color:#5F5B55;
     box-shadow:0 10px 24px rgba(76,74,70,.05);
 }
 
-/* =====================================
-   MOBILE
-===================================== */
 
 @media (max-width:900px){
 
@@ -947,17 +931,12 @@ body{
         radial-gradient(circle at 10% 14%, rgba(139,154,110,.10), transparent 28%),
         radial-gradient(circle at 88% 16%, rgba(234,226,214,.65), transparent 26%),
         linear-gradient(180deg,#DCE7D4 0%, #F7F2EB 72%, #EAE2D6 100%);
-
     background-attachment:fixed;
 }
 
 body.listening-page{
     padding-top:128px;
 }
-
-/* =====================================================
-   LISTENING PAGE CONTAINER
-===================================================== */
 
 .listening-page{
     min-height:100vh;
@@ -986,7 +965,6 @@ body.listening-page{
     padding:10px 18px;
     background:rgba(247,242,235,.88);
     backdrop-filter:blur(18px);
-
     border-bottom:1px solid #E5DDD1;
     box-shadow:0 6px 18px rgba(76,74,70,.05);
 }
@@ -1102,7 +1080,6 @@ body.listening-page{
     align-items:center;
     gap:8px;
     padding:8px 14px;
-
     background:#F7F2EB;
     border:1px solid #E4DBCF;
     border-radius:999px;
@@ -1224,7 +1201,6 @@ body.listening-page{
 
     margin-bottom:28px;
     padding:30px;
-
     background:rgba(247,242,235,.82);
     backdrop-filter:blur(12px);
 
@@ -1544,7 +1520,6 @@ body.listening-page{
     justify-content:space-between;
     align-items:center;
     gap:12px;
-
     margin-top:26px;
     padding-top:22px;
     border-top:1px solid #E5DDD2;
@@ -1619,7 +1594,6 @@ body.listening-page{
 .table-row > div{
     padding:18px 14px;
     border-right:1px solid #E6DED2;
-
     color:#5F5B55;
     font-size:14px;
     line-height:1.7;
@@ -1716,7 +1690,6 @@ body.listening-page{
 .multiple-choice-question{
     margin-bottom:35px;
     padding:28px;
-
     background:#F7F2EB;
     border:1px solid #E3DBCF;
     border-radius:18px;
@@ -1786,7 +1759,6 @@ body.listening-page{
     width:100%;
     max-width:900px;
     height:auto;
-
     margin:0 auto;
     border-radius:12px;
     box-shadow:0 8px 20px rgba(76,74,70,.08);
@@ -1814,7 +1786,6 @@ body.listening-page{
     background:#FCFAF7;
     border:1px solid #E5DDD2;
     border-radius:14px;
-
     color:#5F5B55;
     transition:.2s ease;
 }
@@ -1869,7 +1840,6 @@ body.listening-page{
 .answer-box{
     margin:22px 0;
     padding:20px 22px;
-
     background:#F2F4EE;
     border:1px solid #D8E0D0;
     border-radius:16px;
@@ -1900,7 +1870,6 @@ body.listening-page{
     background:#FCFAF7;
     border:1px solid #E3DBCF;
     border-radius:14px;
-
     text-align:center;
     box-shadow:0 6px 16px rgba(76,74,70,.04);
 }
@@ -1939,7 +1908,6 @@ body.listening-page{
     background:#F7F2EB;
     border:1px solid #E3DBCF;
     border-radius:18px;
-
     font-size:17px;
     line-height:2;
 }
@@ -1998,7 +1966,6 @@ body.listening-page{
     padding:14px 24px;
     background:#8B9A6E;
     color:#FFFFFF;
-
     border:none;
     border-radius:14px;
 
@@ -2060,10 +2027,6 @@ body.listening-page{
     width:auto;
 }
 
-
-/* =====================================================
-   MOBILE RESPONSIVENESS
-===================================================== */
 
 @media (max-width:800px){
 
@@ -2273,7 +2236,6 @@ body.listening-page{
     align-items:center;
     gap:12px;
     flex-wrap:wrap;
-
     padding:8px 0 14px;
     margin-bottom:8px;
 }
@@ -2395,7 +2357,6 @@ body.listening-page{
 .passage{
     background:var(--reading-cream);
     border:1px solid var(--reading-beige);
-
     padding:22px;
     border-radius:16px;
     line-height:1.9;
@@ -2416,7 +2377,6 @@ body.listening-page{
     margin:14px 0;
     padding:18px;
     background:#FCFAF7;
-
     border:1px solid var(--reading-border);
     border-radius:14px;
     box-shadow:0 4px 10px rgba(76,74,70,.04);
@@ -2515,9 +2475,6 @@ body.listening-page{
     color:#FFFFFF;
 }
 
-/* ==============================
-   MOBILE
-============================== */
 
 @media (max-width:900px){
 
@@ -2554,7 +2511,6 @@ body.listening-page{
     width:100%;
     overflow-x:auto;
     margin-top:18px;
-
     border:1px solid var(--reading-border);
     border-radius:16px;
     background:#FFFFFF;
@@ -2563,7 +2519,6 @@ body.listening-page{
 .reading-answer-table{
     width:100%;
     border-collapse:collapse;
-
     background:#FFFFFF;
     font-size:15px;
     line-height:1.8;
@@ -2647,7 +2602,6 @@ body.listening-page{
     background:#F7F2EB;
     border:1px solid #E3DBCF;
     border-radius:18px;
-
     line-height:2;
     font-size:15px;
 }
@@ -2744,7 +2698,6 @@ body.listening-page{
     border:none;
     border-bottom:2px solid #CFC5B7;
     background:transparent;
-
     color:#5F5B55;
     font-size:15px;
 }
@@ -2762,10 +2715,8 @@ body.listening-page{
 .word-list{
     margin-top:20px;
     padding-top:14px;
-
     border-top:1px solid #E3DBCF;
     color:#6B675F;
-
     line-height:2;
     word-spacing:10px;
     font-size:14px;
@@ -2818,10 +2769,6 @@ body.listening-page{
     color:#FFFFFF;
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media (max-width:900px){
 
@@ -2941,7 +2888,6 @@ body.listening-page{
     background:#F7F2EB;
     border:1px solid #E3DBCF;
     border-radius:14px;
-
     padding:18px;
     display:flex;
     flex-direction:column;
@@ -3072,7 +3018,6 @@ body.listening-page{
     border-collapse:separate;
     border-spacing:0;
     overflow:hidden;
-
     border:1px solid #E3DCD1;
     border-radius:14px;
     font-size:15px;
@@ -3084,7 +3029,6 @@ body.listening-page{
 .listening-question-table th,
 .listening-question-table td{
     padding:18px 16px;
-
     border-bottom:1px solid #E8E1D6;
     border-right:1px solid #E8E1D6;
     vertical-align:top;
@@ -3145,7 +3089,6 @@ body.listening-page{
     background:transparent;
     border:none;
     border-bottom:2px solid #CFC5B7;
-
     color:#5F6558;
     font-size:15px;
     transition:.2s ease;
@@ -3169,10 +3112,6 @@ body.listening-page{
     background:#FCFAF7;
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media (max-width:768px){
 
