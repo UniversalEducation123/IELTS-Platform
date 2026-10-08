@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS General Training Reading Test 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        /* =========================================
+           PASSAGE SPACING
+        ========================================= */
+
+        .passage-panel h2 {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        .passage-panel h3 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+
+        .passage-panel p {
+            margin-top: 0;
+            margin-bottom: 18px;
+            line-height: 1.65;
+        }
+
+        .passage-panel .passage-introduction {
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+
+        /* =========================================
+           QUESTION SPACING
+        ========================================= */
+
+        .question {
+            margin-bottom: 24px;
+        }
+
+        .question label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .question label input[type="radio"],
+        .question label input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+
+        /* =========================================
+           TEXT INPUTS
+        ========================================= */
+
+        .question input[type="text"] {
+            display: block;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 10px;
+            padding: 9px 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+           SELECT INPUTS
+        ========================================= */
+
+        .question select {
+            margin-top: 8px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            background: #fff;
+        }
+
+
+        /* =========================================
+           ANSWER WORD BOX
+        ========================================= */
+
+        .answer-word-box {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px 20px;
+            padding: 18px;
+            margin: 20px 0 26px;
+            background: #faf8f4;
+            border: 1px solid #ddd4c8;
+            border-radius: 10px;
+        }
+
+        .answer-word {
+            font-weight: 500;
+        }
+
+
+        @media (max-width: 700px) {
+
+            .answer-word-box {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<script>
+
+    const readingAccessKey =
+        "access_reading-gt-test-1";
+
+    const readingAccessGranted =
+        sessionStorage.getItem(readingAccessKey);
+
+    if (readingAccessGranted !== "true") {
+
+        window.location.href =
+            "../test-access.html?test=reading-gt-test-1";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="navbar">
+
+    <a href="../index.html" class="logo">
+
+        <img
+            src="../assets/logo.png"
+            alt="Universal Education Logo">
+
+    </a>
+
+
+    <h3>
+        IELTS General Training Reading Test 1
+    </h3>
+
+
+    <nav>
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../student-login.html">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     QUESTION PROGRESS
+========================================= -->
+
+<div class="reading-question-progress">
+
+    <strong>Questions:</strong>
+
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+
+</div>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="reading-wrapper">
+
+
+    <!-- TIMER -->
+
+    <div class="reading-top">
+
+        <div
+            class="timer"
+            id="timer">
+
+            60:00
+
+        </div>
+
+    </div>
+
+
+
+    <!-- PART NAVIGATION -->
+
+    <div class="part-buttons">
+
+        <button
+            type="button"
+            onclick="goToPart(1)">
+
+            Part 1
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(2)">
+
+            Part 2
+
+        </button>
+
+
+        <button
+            type="button"
+            onclick="goToPart(3)">
+
+            Part 3
+
+        </button>
+
+
+        <div class="submit-reading-container">
+
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+
+                Submit Reading Test
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+<form id="readingForm">
+
+
+<section
+    id="part3"
+    class="reading-part active reading-gt-test-1-part">
+
+
+<div class="reading-split-layout">
+
+
+
+<!-- =====================================================
+     LEFT: PASSAGE
+====================================================== -->
+
+<section class="passage-panel">
+
+
+    <h2>
+        THE PANDA'S LAST CHANCE
+    </h2>
+
+
+    <p class="passage-introduction">
+
+        Chinese authorities have devised an ambitious plan to save
+        the giant panda from the ravages of deforestation.
+        Martin Williams assesses the creature's chances of avoiding
+        extinction.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH A
+    ========================== -->
+
+    <h3>A</h3>
+
+    <p>
+
+        The giant panda, the creature that has become a symbol of
+        conservation, is facing extinction. The major reason is loss
+        of habitat, which has continued despite the establishment,
+        since 1963, of 14 panda reserves. Deforestation, mainly
+        carried out by farmers clearing land to make way for fields
+        as they move higher into the mountains, has drastically
+        contracted the mammal's range. The panda has disappeared
+        from much of central and eastern China, and is now
+        restricted to the eastern flank of the Himalayas in
+        Sichuan and Gansu provinces, and the Qinling Mountains in
+        Shaanxi province. Fewer than 1400 of the animals are
+        believed to remain in the wild.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH B
+    ========================== -->
+
+    <h3>B</h3>
+
+    <p>
+
+        Satellite imagery has shown the seriousness of the
+        situation; almost half of the panda's habitat has been
+        cut or degraded since 1975. Worse, the surviving panda
+        population has also become fragmented; a combination of
+        satellite imagery and ground surveys reveals panda
+        'islands' in patches of forest separated by cleared land.
+
+    </p>
+
+
+    <p>
+
+        The population of these islands, ranging from fewer than
+        ten to more than 50 pandas, has become isolated because
+        the animals are loath to cross open areas. Just putting
+        a road through panda habitat may be enough to split a
+        population in two.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH C
+    ========================== -->
+
+    <h3>C</h3>
+
+    <p>
+
+        The minuscule size of the panda populations worries
+        conservationists. The smallest groups have too few
+        animals to be viable, and will inevitably die out.
+        The larger populations may be viable in the short term,
+        but will be susceptible to genetic defects as a result
+        of inbreeding.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH D
+    ========================== -->
+
+    <h3>D</h3>
+
+    <p>
+
+        In these circumstances, a more traditional threat to
+        pandas—the cycle of flowering and subsequent withering
+        of the bamboo that is their staple food—can become
+        literally species-threatening. The flowerings prompt
+        pandas to move from one area to another, thus preventing
+        inbreeding in otherwise sedentary populations. In panda
+        islands, however, bamboo flowering could prove
+        catastrophic because the pandas are unable to emigrate.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH E
+    ========================== -->
+
+    <h3>E</h3>
+
+    <p>
+
+        The latest conservation management plan for the panda,
+        prepared by China's Ministry of Forestry and the World
+        Wide Fund for Nature, aims primarily to maintain panda
+        habitats and to ensure that populations are linked
+        wherever possible.
+
+    </p>
+
+
+    <p>
+
+        The plan will change some existing reserve boundaries,
+        establish 14 new reserves and protect or replant
+        corridors of forest between panda islands.
+
+    </p>
+
+
+    <p>
+
+        Other measures include better control of poaching,
+        which remains a problem despite strict laws, as panda
+        skins fetch high prices; reducing the degradation of
+        habitats outside reserves; and reforestation.
+
+    </p>
+
+
+
+    <!-- =========================
+         PARAGRAPH F
+    ========================== -->
+
+    <h3>F</h3>
+
+    <p>
+
+        The plan is ambitious. Implementation will be expensive—
+        Yuan 56.6 million (US$ 12.5 million) will be needed for
+        the development of the panda reserves—and will require
+        participation by individuals ranging from villagers to
+        government officials.
+
+    </p>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RIGHT: QUESTIONS
+====================================================== -->
+
+<section class="questions-panel">
+
+
+
+    <!-- =========================
+         QUESTIONS 28–31
+    ========================== -->
+
+    <h2>
+        Questions 28–31
+    </h2>
+
+
+    <p>
+
+        The passage <em>The Panda's Last Chance</em> has
+        6 paragraphs labelled A–F.
+
+    </p>
+
+
+    <p>
+
+        Which paragraphs contain the following information?
+
+    </p>
+
+
+    <p>
+
+        Write the appropriate letters A–F.
+
+        You only need ONE letter for each answer.
+
+    </p>
+
+
+    <p>
+        <strong>
+            Note: You may use each letter more than once.
+        </strong>
+    </p>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">28.</span>
+            The separation of panda groups.
+        </p>
+
+        <select
+            name="q28"
+            aria-label="Question 28">
+
+            <option value="">Select</option>
+
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+
+        </select>
+
+    </div>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">29.</span>
+            The panda's diet.
+        </p>
+
+        <select
+            name="q29"
+            aria-label="Question 29">
+
+            <option value="">Select</option>
+
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+
+        </select>
+
+    </div>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">30.</span>
+            The illegal killing of pandas.
+        </p>
+
+        <select
+            name="q30"
+            aria-label="Question 30">
+
+            <option value="">Select</option>
+
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+
+        </select>
+
+    </div>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">31.</span>
+            Why pandas' living areas have been reduced.
+        </p>
+
+        <select
+            name="q31"
+            aria-label="Question 31">
+
+            <option value="">Select</option>
+
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+
+        </select>
+
+    </div>
+
+
+
+    <!-- =========================
+         QUESTIONS 32–33
+    ========================== -->
+
+    <h2>
+        Questions 32–33
+    </h2>
+
+
+    <p>
+
+        There are several problems affecting the panda.
+        From the list below, choose <strong>TWO</strong> more
+        problems which are mentioned in the reading passage.
+
+    </p>
+
+
+    <p>
+
+        Write the appropriate numbers (i–vi).
+
+    </p>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">32.</span>
+            Choose one problem:
+        </p>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="i">
+
+            i. pandas prefer to inbreed
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="ii">
+
+            ii. panda groups are getting too small
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="iii">
+
+            iii. panda habitats have shrunk
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="iv">
+
+            iv. pandas move to other countries
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="v">
+
+            v. more bamboo is withering
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q32"
+                value="vi">
+
+            vi. panda groups are isolated
+
+        </label>
+
+    </div>
+
+
+
+    <div class="question">
+
+        <p>
+            <span class="question-number">33.</span>
+            Choose one problem:
+        </p>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="i">
+
+            i. pandas prefer to inbreed
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="ii">
+
+            ii. panda groups are getting too small
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="iii">
+
+            iii. panda habitats have shrunk
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="iv">
+
+            iv. pandas move to other countries
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="v">
+
+            v. more bamboo is withering
+
+        </label>
+
+
+        <label>
+            <input
+                type="radio"
+                name="q33"
+                value="vi">
+
+            vi. panda groups are isolated
+
+        </label>
+
+    </div>
+
+
+
+    <!-- =========================
+         QUESTIONS 34–40
+    ========================== -->
+
+    <h2>
+        Questions 34–40
+    </h2>
+
+
+    <p>
+
+        Below is a summary of the reading passage
+        <em>The Panda's Last Chance</em>.
+
+        Complete the summary by choosing words from the box
+        following the summary.
+
+    </p>
+
+
+    <p>
+
+        Write your answers in boxes 34–40 on your answer sheet.
+
+    </p>
+
+
+    <p>
+        <strong>
+            Note: There are more words than spaces so you will
+            not use them all. You may use any word more than once.
+        </strong>
+    </p>
+
+
+
+    <!-- ANSWER WORDS -->
+
+    <div class="answer-word-box">
+
+        <div class="answer-word">
+            survival
+        </div>
+
+        <div class="answer-word">
+            disconnected
+        </div>
+
+        <div class="answer-word">
+            dominated
+        </div>
+
+        <div class="answer-word">
+            decreased
+        </div>
+
+        <div class="answer-word">
+            problems
+        </div>
+
+        <div class="answer-word">
+            join
+        </div>
+
+        <div class="answer-word">
+            increased
+        </div>
+
+        <div class="answer-word">
+            growth
+        </div>
+
+        <div class="answer-word">
+            reserves
+        </div>
+
+        <div class="answer-word">
+            food
+        </div>
+
+        <div class="answer-word">
+            cooperate
+        </div>
+
+        <div class="answer-word">
+            disconnect
+        </div>
+
+    </div>
+
+
+
+    <!-- SUMMARY -->
+
+    <div class="question">
+
+        <p>
+
+            The survival of the giant panda is being seriously
+            threatened. Panda numbers have already seriously
+
+            <strong>34.</strong>
+
+            <select
+                name="q34"
+                aria-label="Question 34">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+        </p>
+
+
+        <p>
+
+            This is largely because the overall size of their
+            habitat has been reduced and habitable areas are now
+
+            <strong>35.</strong>
+
+            <select
+                name="q35"
+                aria-label="Question 35">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+            from each other.
+
+        </p>
+
+
+        <p>
+
+            Two results are that pandas are more prone to genetic
+
+            <strong>36.</strong>
+
+            <select
+                name="q36"
+                aria-label="Question 36">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+            and are unable to move around freely to follow the
+
+            <strong>37.</strong>
+
+            <select
+                name="q37"
+                aria-label="Question 37">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+            cycles of the bamboo that they eat.
+
+        </p>
+
+
+        <p>
+
+            A new plan is aiming to protect the existing panda
+            habitats and to
+
+            <strong>38.</strong>
+
+            <select
+                name="q38"
+                aria-label="Question 38">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+            many of them.
+
+        </p>
+
+
+        <p>
+
+            This plan also includes reforestation and the creation
+            of new
+
+            <strong>39.</strong>
+
+            <select
+                name="q39"
+                aria-label="Question 39">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+        </p>
+
+
+        <p>
+
+            To succeed, everyone, including both the government
+            and individuals, will have to
+
+            <strong>40.</strong>
+
+            <select
+                name="q40"
+                aria-label="Question 40">
+
+                <option value="">Select</option>
+
+                <option value="survival">survival</option>
+                <option value="disconnected">disconnected</option>
+                <option value="dominated">dominated</option>
+                <option value="decreased">decreased</option>
+                <option value="problems">problems</option>
+                <option value="join">join</option>
+                <option value="increased">increased</option>
+                <option value="growth">growth</option>
+                <option value="reserves">reserves</option>
+                <option value="food">food</option>
+                <option value="cooperate">cooperate</option>
+                <option value="disconnect">disconnect</option>
+
+            </select>
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+</div>
+
+
+</section>
+
+
+</form>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+let timeLeft = parseInt(
+    sessionStorage.getItem("readingGT1TimeLeft")
+);
+
+
+if (isNaN(timeLeft)) {
+
+    timeLeft = 60 * 60;
+
+    sessionStorage.setItem(
+        "readingGT1TimeLeft",
+        timeLeft
+    );
+
+}
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+    document.getElementById("timer").textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+}
+
+
+updateTimer();
+
+
+const timerInterval =
+    setInterval(function() {
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            sessionStorage.setItem(
+                "readingGT1TimeLeft",
+                0
+            );
+
+            submitReadingTest();
+
+            return;
+
+        }
+
+
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "readingGT1TimeLeft",
+            timeLeft
+        );
+
+        updateTimer();
+
+    }, 1000);
+
+
+
+/* =========================================
+   SAVE ANSWERS
+========================================= */
+
+function saveAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input, #readingForm select"
+    ).forEach(function(input) {
+
+
+        if (
+            input.type === "radio" ||
+            input.type === "checkbox"
+        ) {
+
+            if (input.checked) {
+
+                sessionStorage.setItem(
+                    "readingGT1_" + input.name,
+                    input.value
+                );
+
+            }
+
+        } else {
+
+            sessionStorage.setItem(
+                "readingGT1_" + input.name,
+                input.value
+            );
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================
+   RESTORE ANSWERS
+========================================= */
+
+function restoreAnswers() {
+
+    document.querySelectorAll(
+        "#readingForm input, #readingForm select"
+    ).forEach(function(input) {
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingGT1_" + input.name
+            );
+
+
+        if (savedAnswer === null) {
+            return;
+        }
+
+
+        if (
+            input.type === "radio" ||
+            input.type === "checkbox"
+        ) {
+
+            input.checked =
+                input.value === savedAnswer;
+
+        } else {
+
+            input.value = savedAnswer;
+
+        }
+
+    });
+
+}
+
+
+
+/* =========================================
+   QUESTION PROGRESS
+========================================= */
+
+function updateQuestionProgress() {
+
+    for (let i = 1; i <= 40; i++) {
+
+        const button =
+            document.querySelector(
+                `.reading-question-progress button[data-question="${i}"]`
+            );
+
+
+        if (!button) {
+            continue;
+        }
+
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                `readingGT1_q${i}`
+            );
+
+
+        if (
+            savedAnswer !== null &&
+            savedAnswer.trim() !== ""
+        ) {
+
+            button.classList.add("answered");
+
+        } else {
+
+            button.classList.remove("answered");
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================
+   INPUT LISTENERS
+========================================= */
+
+document.querySelectorAll(
+    "#readingForm input, #readingForm select"
+).forEach(function(input) {
+
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+
+    input.addEventListener(
+        "change",
+        function() {
+
+            saveAnswers();
+
+            updateQuestionProgress();
+
+        }
+    );
+
+});
+
+
+
+/* =========================================
+   PART NAVIGATION
+========================================= */
+
+function goToPart(partNumber) {
+
+    saveAnswers();
+
+
+    if (partNumber === 1) {
+
+        window.location.href =
+            "reading_gt_1_part1.html";
+
+    }
+
+
+    if (partNumber === 2) {
+
+        window.location.href =
+            "reading_gt_1_part2.html";
+
+    }
+
+
+    if (partNumber === 3) {
+
+        window.location.href =
+            "reading_gt_1_part3.html";
+
+    }
+
+}
+
+
+
+/* =========================================
+   SUBMIT
+========================================= */
+
+function submitReadingTest() {
+
+    saveAnswers();
+
+    window.location.href =
+        "reading_gt_1_final.html";
+
+}
+
+
+
+/* =========================================
+   RESET AFTER COMPLETION
+========================================= */
+
+if (
+    sessionStorage.getItem("readingGT1Submitted") === "true"
+) {
+
+    for (let i = 1; i <= 40; i++) {
+
+        sessionStorage.removeItem(
+            `readingGT1_q${i}`
+        );
+
+    }
+
+    sessionStorage.removeItem(
+        "readingGT1TimeLeft"
+    );
+
+    sessionStorage.removeItem(
+        "readingGT1TimeStarted"
+    );
+
+    sessionStorage.removeItem(
+        "readingGT1Submitted"
+    );
+
+}
+
+
+
+/* =========================================
+   INITIALISE
+========================================= */
+
+restoreAnswers();
+
+updateQuestionProgress();
+
+
+</script>
+
+
+</body>
+
+</html>

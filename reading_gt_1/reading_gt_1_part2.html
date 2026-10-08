@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
@@ -81,30 +80,20 @@
 <script src="../js/reading-highlight.js"></script>
 
 
-
 <header class="navbar">
 
     <a href="../index.html" class="logo">
 
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
 
     </a>
 
-
     <h3>IELTS General Training Reading Test 1</h3>
-
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
@@ -163,37 +152,16 @@
 
 <main class="reading-wrapper">
 
-
     <div class="reading-top">
-
-        <div class="timer" id="timer">
-            60:00
-        </div>
-
+        <div class="timer" id="timer"> 60:00 </div>
     </div>
-
 
 
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
-
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
@@ -214,26 +182,14 @@
 
 <form id="readingForm">
 
-
-<section
-    id="part2"
-    class="reading-part active reading-gt-test-1-part">
+<section id="part2" class="reading-part active reading-gt-test-1-part">
 
 
 <div class="reading-split-layout">
 
 
-
-    <!-- =====================================
-         LEFT SIDE: PASSAGES
-    ====================================== -->
-
     <section class="passage-panel">
 
-
-        <!-- =====================================
-             PASSAGE 1
-        ====================================== -->
 
         <div class="passage-section">
 
@@ -316,16 +272,9 @@
         </div>
 
 
-
-        <!-- =====================================
-             PASSAGE 2
-        ====================================== -->
-
         <div class="passage-section">
 
-            <h2>
-                Terms and Conditions of Enrolment
-            </h2>
+            <h2> Terms and Conditions of Enrolment </h2>
 
 
             <div class="reading-passage">
@@ -795,9 +744,7 @@
 
 </section>
 
-
 </form>
-
 
 </main>
 
@@ -806,9 +753,6 @@
 <script>
 
 
-/* =========================================
-   TIMER
-========================================= */
 
 let timeLeft = parseInt(
     sessionStorage.getItem("readingGT1TimeLeft")
@@ -957,11 +901,6 @@ function restoreAnswers() {
 
 }
 
-
-
-/* =========================================
-   QUESTION PROGRESS
-========================================= */
 
 function updateQuestionProgress() {
 
