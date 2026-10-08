@@ -182,6 +182,78 @@
             color: #777;
         }
 
+        .test-history-card {
+            background: #ffffff;
+            border: 1px solid #ddd4c8;
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 16px;
+        }
+
+        .test-history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .test-history-header h3 {
+            margin: 0;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .test-history-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .test-history-scores {
+            display: grid;
+            grid-template-columns:
+                repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .test-history-score {
+            background: #faf8f4;
+            border-radius: 10px;
+            padding: 13px;
+            text-align: center;
+        }
+
+        .test-history-score strong {
+            display: block;
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .test-history-score span {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .test-history-overall {
+            border: 1px solid #d8dfce;
+            background: #f3f6ef;
+        }
+
+        .test-history-overall span {
+            color: #6f7f55;
+        }
+
+        @media (max-width: 700px) {
+
+            .test-history-scores {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
         @media (max-width: 700px) {
 
             .profile-page {
@@ -320,6 +392,15 @@
         </h2>
 
         <div id="performanceContainer"></div>
+
+
+        <!-- TEST HISTORY -->
+
+        <h2 class="section-title">
+            Test History
+        </h2>
+
+        <div id="testHistoryContainer"></div>
 
     </div>
 
@@ -1205,6 +1286,189 @@ async function loadStudentProfile() {
             }).join("");
 
     }
+
+    /* =========================================
+    TEST HISTORY
+    ========================================= */
+
+    const testHistoryContainer =
+        document.getElementById(
+            "testHistoryContainer"
+        );
+
+    if (testHistoryContainer) {
+
+        testHistoryContainer.innerHTML =
+            tests
+                .slice()
+                .reverse()
+                .map(test => {
+
+                    const listeningBand =
+                        test.listening_score !== null
+                            ? getListeningBand(
+                                test.listening_score
+                            )
+                            : null;
+
+                    const readingBand =
+                        test.reading_score !== null
+                            ? getReadingBand(
+                                test.reading_score
+                            )
+                            : null;
+
+                    const writingBand =
+                        test.writing_score !== null &&
+                        test.writing_score !== undefined
+                            ? Number(
+                                test.writing_score
+                            ).toFixed(1)
+                            : null;
+
+                    const speakingBand =
+                        test.speaking_score !== null &&
+                        test.speaking_score !== undefined
+                            ? Number(
+                                test.speaking_score
+                            ).toFixed(1)
+                            : null;
+
+                    const overallBand =
+                        test.final_mock_score !== null
+                            ? Number(
+                                test.final_mock_score
+                            ).toFixed(1)
+                            : null;
+
+                    return `
+
+                        <div class="test-history-card">
+
+                            <div class="test-history-header">
+
+                                <h3>
+                                    ${test.test_name}
+                                </h3>
+
+                                <span class="test-history-date">
+                                    ${formatDate(
+                                        test.test_date
+                                    )}
+                                </span>
+
+                            </div>
+
+
+                            <div class="test-history-scores">
+
+                                <div class="test-history-score">
+
+                                    <strong>
+                                        Listening
+                                    </strong>
+
+                                    <span>
+                                        ${
+                                            listeningBand ||
+                                            "Pending"
+                                        }
+                                    </span>
+
+                                </div>
+
+
+                                <div class="test-history-score">
+
+                                    <strong>
+                                        Reading
+                                    </strong>
+
+                                    <span>
+                                        ${
+                                            readingBand ||
+                                            "Pending"
+                                        }
+                                    </span>
+
+                                </div>
+
+
+                                <div class="test-history-score">
+
+                                    <strong>
+                                        Writing
+                                    </strong>
+
+                                    <span>
+                                        ${
+                                            writingBand ||
+                                            "Pending"
+                                        }
+                                    </span>
+
+                                </div>
+
+
+                                <div class="test-history-score">
+
+                                    <strong>
+                                        Speaking
+                                    </strong>
+
+                                    <span>
+                                        ${
+                                            speakingBand ||
+                                            "Pending"
+                                        }
+                                    </span>
+
+                                </div>
+
+
+                                <div class="
+                                    test-history-score
+                                    test-history-overall
+                                ">
+
+                                    <strong>
+                                        Overall
+                                    </strong>
+
+                                    <span>
+                                        ${
+                                            overallBand ||
+                                            "Pending"
+                                        }
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                })
+                .join("");
+
+
+        if (tests.length === 0) {
+
+            testHistoryContainer.innerHTML = `
+
+                <div class="no-tests">
+
+                    No test history available.
+
+                </div>
+
+            `;
+
+        }
+
+}
 
 
     loadingMessage.style.display =
