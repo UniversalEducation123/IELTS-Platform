@@ -266,6 +266,35 @@ function showGeneralTrainingTests() {
             'a[href*="reading-test"]'
         );
 
+    const readingTest1 =
+        dashboardOptions.querySelector(
+            'a[href="reading/reading-test.html"]'
+        );
+
+    if (readingTest1) {
+
+        readingTest1.setAttribute(
+            "href",
+            "test-access.html?test=reading-gt-test-1"
+        );
+
+        const heading =
+            readingTest1.querySelector("h2");
+
+        const description =
+            readingTest1.querySelector("p");
+
+        if (heading) {
+            heading.textContent =
+                "General Training Reading Test 1";
+        }
+
+        if (description) {
+            description.textContent =
+                "Practice IELTS General Training Reading and check your score.";
+        }
+    }
+
     const writingCards =
         dashboardOptions.querySelectorAll(
             'a[href*="writing-test"]'
