@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>View Students - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
 
-    <style>
+<style>
+
     .score-grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -166,28 +169,37 @@
             grid-template-columns: 1fr;
         }
     }
+
 </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
+    
+<script>
+
     const facultyId = sessionStorage.getItem("facultyId");
 
     if (!facultyId) {
         window.location.href = "faculty-login.html";
     }
+
 </script>
+
 </head>
+
+
 <body>
 
     <header class="navbar">
+
         <a href="index.html" class="logo">
-    <img src="assets/logo.png" alt="Universal Education Logo">
-</a>
+            <img src="assets/logo.png" alt="Universal Education Logo">
+        </a>
 
         <nav>
             <a href="faculty-dashboard.html">Dashboard</a>
             <a href="login.html">Logout</a>
         </nav>
+
     </header>
 
     <main class="dashboard-page">
@@ -210,7 +222,6 @@
 
             </div>
 
-            <!-- Test filter buttons -->
 <div class="test-filter-buttons">
 
     <button
@@ -1500,6 +1511,7 @@ function escapeHTML(value) {
 
 // Start loading
 loadStudentsAndResults();
+
 </script>
 
 </body>

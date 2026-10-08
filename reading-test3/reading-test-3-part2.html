@@ -4,16 +4,12 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0">
-
     <title>IELTS Academic Reading Test 3</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <style>
 
@@ -111,16 +107,10 @@
         }
 
     </style>
-
 </head>
 
 
 <body>
-
-
-<!-- =========================================
-     ACCESS CHECK
-     ========================================= -->
 
 <script>
 
@@ -145,46 +135,26 @@
 <script src="../js/exam-inputs.js"></script>
 <script src="../js/reading-highlight.js"></script>
 
-<!-- =========================================
-     HEADER
-     ========================================= -->
+
 
 <header class="navbar">
 
-    <a
-        href="../index.html"
-        class="logo">
-
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
-
+    <a href="../index.html" class="logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
     </a>
 
 
-    <h3>
-        IELTS Academic Reading Test 3
-    </h3>
-
+    <h3> IELTS Academic Reading Test 3 </h3>
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
 </header>
 
-
-<!-- =========================================
-     QUESTION PROGRESS
-     ========================================= -->
 
 <div class="reading-question-progress">
 
@@ -238,10 +208,6 @@
 </div>
 
 
-<!-- =========================================
-     MAIN
-     ========================================= -->
-
 <main class="reading-wrapper">
 
 
@@ -249,12 +215,8 @@
 
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
-
+        <div class="timer" id="timer">
             60:00
-
         </div>
 
     </div>
@@ -264,31 +226,9 @@
 
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-
-            Part 1
-
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-
-            Part 2
-
-        </button>
-
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-
-            Part 3
-
-        </button>
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
 
         <div class="submit-reading-container">
@@ -307,10 +247,7 @@
     </div>
 
 
-    <!-- =========================================
-         READING FORM
-         ========================================= -->
-
+ 
     <form
         id="readingForm"
         autocomplete="off">
@@ -330,9 +267,7 @@
 
                 <section class="passage-panel">
 
-                    <h2>
-                        Passage 2: A New Threat in Yellowstone
-                    </h2>
+                    <h2> Passage 2: A New Threat in Yellowstone </h2>
 
 
                     <p>
@@ -489,9 +424,7 @@
                          QUESTIONS 14-20
                          ================================= -->
 
-                    <h2>
-                        Questions 14–20
-                    </h2>
+                    <h2> Questions 14–20 </h2>
 
 
                     <p>
@@ -764,14 +697,10 @@
                          QUESTIONS 21-23
                          ================================= -->
 
-                    <h2>
-                        Questions 21–23
-                    </h2>
+                    <h2> Questions 21–23 </h2>
 
 
-                    <p>
-                        Label the diagram below.
-                    </p>
+                    <p> Label the diagram below. </p>
 
 
                     <p>
@@ -838,9 +767,7 @@
                          QUESTIONS 24-26
                          ================================= -->
 
-                    <h2>
-                        Questions 24–26
-                    </h2>
+                    <h2> Questions 24–26 </h2>
 
 
                     <p>
@@ -1050,9 +977,6 @@
 
 <script>
 
-/* =========================================
-   READING TEST 3 TIMER
-   ========================================= */
 
 let timeLeftStorage =
     sessionStorage.getItem(

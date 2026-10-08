@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Test 1 - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
 
     <header class="navbar">
+
         <a href="index.html" class="logo">
-    <img src="assets/logo.png" alt="Universal Education Logo">
-</a>
+            <img src="assets/logo.png" alt="Universal Education Logo">
+        </a>
 
         <nav>
             <a href="student-dashboard.html">Dashboard</a>
             <a href="student-login.html">Logout</a>
         </nav>
+
     </header>
 
     <main class="dashboard-page">
@@ -45,11 +50,11 @@
                 <br>
 
                 <button
-    type="button"
-    class="primary-btn"
-    onclick="startFreshListeningTest();">
-    Begin Test
-</button>
+                    type="button"
+                    class="primary-btn"
+                    onclick="startFreshListeningTest();">
+                    Begin Test
+                </button>
 
             </div>
 
@@ -57,16 +62,17 @@
 
     </main>
 
+
 <script>
+
 function startFreshListeningTest() {
-    // Clear timer
+
     sessionStorage.removeItem("listeningTimeLeft");
     sessionStorage.removeItem("listeningTimerStarted");
 
     localStorage.removeItem("listeningTimeLeft");
     localStorage.removeItem("listeningTimerStarted");
 
-    // Clear saved answers
     sessionStorage.removeItem("listeningPart1Answers");
     sessionStorage.removeItem("listeningPart2Answers");
     sessionStorage.removeItem("listeningPart3Answers");
@@ -103,6 +109,7 @@ function startFreshListeningTest() {
     // Open actual Listening test
     window.location.href = "listening/listening-test-1.html";
 }
+
 </script>
 
 </body>

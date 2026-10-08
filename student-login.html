@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Student Login - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 
 <body>
@@ -14,13 +17,16 @@
     <script src="../js/exam-inputs.js"></script>
 
     <header class="navbar">
+
         <a href="index.html" class="logo">
-    <img src="assets/logo.png" alt="Universal Education Logo">
-</a>
+            <img src="assets/logo.png" alt="Universal Education Logo">
+        </a>
+
         <nav>
             <a href="index.html">Home</a>
             <a href="login.html">Back to Login</a>
         </nav>
+
     </header>
 
     <main class="login-page">
@@ -61,11 +67,12 @@
 
 </form>
 
-        </div>
+    </div>
 
     </main>
 
     <script>
+
     const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
@@ -115,6 +122,7 @@ if (!data) {
 
         window.location.href = "student-dashboard.html";
     });
+    
 </script>
 
 </body>

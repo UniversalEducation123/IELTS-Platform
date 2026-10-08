@@ -4,28 +4,36 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Faculty Dashboard - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <script>
+    
+<script>
+
     const facultyId = sessionStorage.getItem("facultyId");
 
     if (!facultyId) {
         window.location.href = "faculty-login.html";
     }
+
 </script>
 
 </head>
+
 <body>
 
     <header class="navbar">
+
         <a href="index.html" class="logo">
-    <img src="assets/logo.png" alt="Universal Education Logo">
-</a>
+            <img src="assets/logo.png" alt="Universal Education Logo">
+        </a>
+
         <nav>
             <a href="index.html">Home</a>
             <a href="login.html">Logout</a>
         </nav>
+
     </header>
 
     <main class="dashboard-page">
@@ -95,4 +103,5 @@
     </main>
 
 </body>
+
 </html>

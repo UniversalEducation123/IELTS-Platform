@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 ```
-<title>IELTS Writing Test 1 - Task 2</title>
+    <title>IELTS Writing Test 1 - Task 2</title>
 
-<link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -161,7 +161,6 @@
 
         display: flex;
         flex-direction: column;
-
         min-height: 0;
     }
 
@@ -175,15 +174,11 @@
         flex: 1;
 
         min-height: 0;
-
         box-sizing: border-box;
-
         resize: none;
-
         overflow-y: auto;
 
         padding: 16px;
-
         font: inherit;
         font-size: 16px;
         line-height: 1.6;
@@ -246,11 +241,9 @@
 <body>
 
 ```
-<!-- ================================
-     ACCESS PROTECTION
-================================= -->
 
 <script>
+
     const accessKey = "access_writing-test-1";
 
     const writingAccessGranted =
@@ -260,58 +253,39 @@
         window.location.href =
             "../test-access.html?test=writing-test-1";
     }
+
 </script>
+
 <script src="../js/exam-inputs.js"></script>
 
-<!-- ================================
-     HEADER
-================================= -->
 
 <header class="main-header">
 
-    <div class="logo">
-        IELTS Practice
-    </div>
+    <div class="logo"> IELTS Practice </div>
 
     <div class="header-right">
 
         <div class="header-timer">
 
-            <span>
-                Time Remaining
-            </span>
+            <span> Time Remaining </span>
 
-            <strong id="timer">
-                --:--
-            </strong>
+            <strong id="timer"> --:-- </strong>
 
         </div>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../index.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../index.html"> Logout </a>
 
     </div>
 
 </header>
 
 
-<!-- ================================
-     PAGE HEADER
-================================= -->
 
 <section class="listening-header">
     <div></div>
 </section>
 
-
-<!-- ================================
-     MAIN CONTENT
-================================= -->
 
 <main class="listening-container">
 
@@ -322,9 +296,7 @@
 
         <div class="writing-task2-heading">
 
-            <h2>
-                Writing Task 2
-            </h2>
+            <h2> Writing Task 2 </h2>
 
             <p class="instruction">
                 You should spend about 20 minutes on this task.
@@ -372,9 +344,7 @@
 
     <div class="writing-task2-answer-panel">
 
-        <h3>
-            Your Answer
-        </h3>
+        <h3> Your Answer </h3>
 
         <textarea
             id="answer"
@@ -384,9 +354,7 @@
 
         <div class="writing-task2-meta">
 
-            <span>
-                Minimum: 250 words
-            </span>
+            <span> Minimum: 250 words </span>
 
             <span class="writing-task2-word-count">
                 Words:
@@ -425,10 +393,6 @@
 
 </main>
 
-
-<!-- ================================
-     JAVASCRIPT
-================================= -->
 
 <script>
 
@@ -696,9 +660,12 @@ function saveBeforeBack() {
         answerBox.value
     );
 }
-    /* =================================
-   FINISH TEST
+
+
+/* =================================
+FINISH TEST
 ================================= */
+
 
 async function finishWritingTest() {
 
@@ -805,8 +772,11 @@ if (error) {
 
 clearInterval(timerInterval);
 
+
 window.location.href = "writing-final.html";
 }
+
+
 </script>
 ```
 

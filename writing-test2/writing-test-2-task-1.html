@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Writing Test 2 - Task 1</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <style>
 
@@ -23,15 +17,9 @@
         gap: 30px;
         align-items: stretch;
 
-        /* Keeps both panels within the screen */
         height: 65vh;
         min-height: 500px;
     }
-
-
-    /* =========================================
-       LEFT: QUESTION PANEL
-    ========================================= */
 
     .writing-question-panel {
         background: #fff;
@@ -40,11 +28,9 @@
         padding: 20px;
         box-sizing: border-box;
 
-        /* Individual scrolling */
         overflow-y: auto;
         min-height: 0;
     }
-
 
     .writing-question-panel img {
         width: 100%;
@@ -57,11 +43,6 @@
         color: rgb(19, 18, 18);
     }
 
-
-    /* =========================================
-       RIGHT: ANSWER PANEL
-    ========================================= */
-
     .writing-answer-panel {
         background: #fff;
         border: 1px solid #ddd;
@@ -69,22 +50,17 @@
         padding: 20px;
         box-sizing: border-box;
 
-        /* Individual scrolling */
         overflow-y: auto;
         min-height: 0;
-
         display: flex;
         flex-direction: column;
     }
 
-
     .writing-answer-panel textarea {
         width: 100%;
 
-        /* Fills the available answer panel */
         flex: 1;
         min-height: 0;
-
         box-sizing: border-box;
         resize: none;
 
@@ -96,18 +72,14 @@
         border: 1px solid #ccc;
         border-radius: 8px;
         outline: none;
-
         overflow-y: auto;
     }
 
-
     .writing-answer-panel textarea:focus {
         border-color: #3b0f12;
-
         box-shadow:
             0 0 0 3px rgba(59, 15, 18, 0.1);
     }
-
 
     .writing-word-count {
         margin-top: 10px;
@@ -117,23 +89,16 @@
         flex-shrink: 0;
     }
 
-
     .writing-navigation {
         display: flex;
         justify-content: flex-end;
         margin-top: 24px;
     }
 
-
-    /* =========================================
-       MOBILE
-    ========================================= */
-
     @media (max-width: 900px) {
 
         .writing-task-layout {
             grid-template-columns: 1fr;
-
             height: auto;
             min-height: 0;
         }
@@ -161,34 +126,19 @@
 
 <header class="main-header">
 
-    <div class="logo">
-        IELTS Practice
-    </div>
-
+    <div class="logo"> IELTS Practice </div>
 
     <div class="header-right">
 
         <div class="header-timer">
 
-            <span>
-                Time Remaining
-            </span>
-
-            <strong id="timer">
-                60:00
-            </strong>
+            <span> Time Remaining </span>
+            <strong id="timer"> 60:00 </strong>
 
         </div>
 
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-
-        <a href="../index.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../index.html"> Logout </a>
 
     </div>
 
@@ -211,9 +161,7 @@
 
         <div class="question-heading">
 
-            <h2>
-                Writing Task 1
-            </h2>
+            <h2> Writing Task 1 </h2>
 
             <p class="instruction">
                 You should spend about 20 minutes on this task.
@@ -262,9 +210,7 @@
 
             <div class="writing-answer-panel">
 
-                <h3>
-                    Your Answer
-                </h3>
+                <h3> Your Answer </h3>
 
 
                 <textarea
@@ -306,9 +252,6 @@
 
 <script>
 
-    /* =========================================
-       ACCESS CHECK
-    ========================================= */
 
     const accessKey =
         "access_writing-test-2";

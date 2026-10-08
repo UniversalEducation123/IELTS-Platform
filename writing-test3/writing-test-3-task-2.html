@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>IELTS Writing Test 3 - Task 2</title>
 
-    <link
-        rel="stylesheet"
-        href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -214,12 +207,14 @@
 <body>
 
     <script>
+
         const accessKey = "access_writing-test-3";
 
         if (sessionStorage.getItem(accessKey) !== "true") {
             window.location.href =
                 "../test-access.html?test=writing-test-3";
         }
+
     </script>
 
 
@@ -227,34 +222,19 @@
 
 <header class="main-header">
 
-    <div class="logo">
-        IELTS Practice
-    </div>
-
+    <div class="logo"> IELTS Practice </div>
 
     <div class="header-right">
 
         <div class="header-timer">
 
-            <span>
-                Time Remaining
-            </span>
-
-            <strong id="timer">
-                --:--
-            </strong>
+            <span> Time Remaining </span>
+            <strong id="timer"> --:-- </strong>
 
         </div>
 
-
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-
-        <a href="../index.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../index.html"> Logout </a>
 
     </div>
 
@@ -277,9 +257,7 @@
 
         <div class="writing-task2-heading">
 
-            <h2>
-                Writing Task 2
-            </h2>
+            <h2> Writing Task 2 </h2>
 
             <p class="instruction">
                 You should spend about 40 minutes on this task.
@@ -331,9 +309,7 @@
 
     <div class="writing-task2-answer-panel">
 
-        <h3>
-            Your Answer
-        </h3>
+        <h3> Your Answer </h3>
 
 
         <textarea
@@ -393,10 +369,6 @@
 
 <script>
 
-
-    /* =================================
-       SUPABASE
-    ================================= */
 
      const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
      const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";

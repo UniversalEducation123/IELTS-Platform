@@ -95,9 +95,7 @@
 <header class="navbar">
 
     <a href="../index.html" class="logo">
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
     </a>
 
     <h3>IELTS Academic Reading Test 2</h3>
@@ -110,9 +108,6 @@
 </header>
 
 
-<!-- ================================
-     QUESTION PROGRESS
-     ================================ -->
 
 <div class="reading-question-progress">
 
@@ -167,44 +162,22 @@
 
 <main class="reading-wrapper">
 
-    <!-- ================================
-         TIMER
-         ================================ -->
 
     <div class="reading-top">
 
-        <div
-            class="timer"
-            id="timer">
+        <div class="timer" id="timer">
             60:00
         </div>
 
     </div>
 
 
-    <!-- ================================
-         PART BUTTONS
-         ================================ -->
 
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
         <div class="submit-reading-container">
 
@@ -220,9 +193,6 @@
     </div>
 
 
-    <!-- ================================
-         READING FORM
-         ================================ -->
 
     <form id="readingForm">
 
@@ -244,9 +214,7 @@
 
                 <section class="passage-panel">
 
-                    <h2>
-                        Passage 1: HOT AIR BALLOONING
-                    </h2>
+                    <h2> Passage 1: HOT AIR BALLOONING </h2>
 
 
                     <p>
@@ -679,9 +647,7 @@
 
 <script>
 
-/* =========================================
-   READING TEST 2 TIMER
-   ========================================= */
+
 
 let timeLeftStorage =
     sessionStorage.getItem("readingTest2TimeLeft");
