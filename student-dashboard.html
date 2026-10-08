@@ -8,6 +8,7 @@
     <title>Student Dashboard - IELTS Practice</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
 
@@ -42,7 +43,8 @@
                 Welcome back. Choose a test to begin your practice.
             </p>
 
-            <div class="dashboard-options">
+
+<div class="dashboard-options" id="dashboardOptions">
 
 
 <!-- Listening Test 1 -->
@@ -190,6 +192,183 @@
 </main>
 
 <script>
+
+const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+async function loadStudentTestType() {
+
+    const studentId =
+        sessionStorage.getItem("studentId");
+
+    if (!studentId) {
+        window.location.href =
+            "student-login.html";
+        return;
+    }
+
+    const { data, error } =
+        await supabaseClient
+            .from("students")
+            .select("test_type")
+            .eq("id", studentId)
+            .single();
+
+    if (error) {
+        console.error(
+            "Unable to load student test type:",
+            error
+        );
+        return;
+    }
+
+    if (!data) {
+        return;
+    }
+
+    const testType =
+        data.test_type || "academic";
+
+    if (testType === "general_training") {
+        showGeneralTrainingTests();
+    }
+}
+
+
+function showGeneralTrainingTests() {
+
+    const dashboardOptions =
+        document.getElementById(
+            "dashboardOptions"
+        );
+
+    if (!dashboardOptions) {
+        return;
+    }
+
+    /*
+     * Only Reading and Writing change
+     * for General Training students.
+     *
+     * Listening cards remain exactly
+     * the same.
+     */
+
+    const readingCards =
+        dashboardOptions.querySelectorAll(
+            'a[href*="reading-test"]'
+        );
+
+    const writingCards =
+        dashboardOptions.querySelectorAll(
+            'a[href*="writing-test"]'
+        );
+
+    readingCards.forEach(function(card) {
+
+        const href =
+            card.getAttribute("href");
+
+        if (!href) {
+            return;
+        }
+
+        const match =
+            href.match(
+                /reading-test-(\d+)/
+            );
+
+        if (!match) {
+            return;
+        }
+
+        const testNumber =
+            match[1];
+
+        card.setAttribute(
+            "href",
+            "test-access.html?test=reading-gt-test-" +
+            testNumber
+        );
+
+        const heading =
+            card.querySelector("h2");
+
+        const description =
+            card.querySelector("p");
+
+        if (heading) {
+            heading.textContent =
+                "General Training Reading Test " +
+                testNumber;
+        }
+
+        if (description) {
+            description.textContent =
+                "Practice IELTS General Training Reading and check your score.";
+        }
+
+    });
+
+
+    writingCards.forEach(function(card) {
+
+        const href =
+            card.getAttribute("href");
+
+        if (!href) {
+            return;
+        }
+
+        const match =
+            href.match(
+                /writing-test-(\d+)/
+            );
+
+        if (!match) {
+            return;
+        }
+
+        const testNumber =
+            match[1];
+
+        card.setAttribute(
+            "href",
+            "test-access.html?test=writing-gt-test-" +
+            testNumber
+        );
+
+        const heading =
+            card.querySelector("h2");
+
+        const description =
+            card.querySelector("p");
+
+        if (heading) {
+            heading.textContent =
+                "General Training Writing Test " +
+                testNumber;
+        }
+
+        if (description) {
+            description.textContent =
+                "Practice IELTS General Training Writing Task 1 and Task 2.";
+        }
+
+    });
+
+}
+
+
+loadStudentTestType();
+
 
 function startFreshListeningTest() {
     clearListeningProgress();
