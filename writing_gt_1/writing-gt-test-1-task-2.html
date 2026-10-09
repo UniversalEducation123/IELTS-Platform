@@ -1,0 +1,599 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS General Training Writing Test 1 - Task 2</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        .writing-task2-heading {
+            margin-bottom: 24px;
+        }
+
+        .writing-task2-heading h2 {
+            margin: 0 0 10px;
+            font-size: 26px;
+            line-height: 1.3;
+        }
+
+        .writing-task2-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            height: 65vh;
+            margin-top: 24px;
+        }
+
+        .writing-task2-question-panel,
+        .writing-task2-answer-panel {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            min-height: 0;
+        }
+
+        .writing-task2-question-panel {
+            overflow-y: auto;
+        }
+
+        .writing-task2-question {
+            background: #f8f9fb;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 22px;
+            margin: 0 0 24px;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.7;
+            color: #222;
+        }
+
+        .writing-task2-instruction {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0 0 18px;
+        }
+
+        .writing-task2-answer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-task2-answer-panel h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .writing-task2-answer-panel textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            box-sizing: border-box;
+            resize: none;
+            overflow-y: auto;
+            padding: 16px;
+            font: inherit;
+            font-size: 16px;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .writing-task2-answer-panel textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .writing-task2-meta {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .writing-task2-word-count {
+            font-weight: 600;
+        }
+
+        .writing-task2-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .writing-task2-navigation .secondary-btn,
+        .writing-task2-navigation .primary-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .writing-task2-navigation .secondary-btn {
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .writing-task2-navigation .secondary-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .writing-task2-navigation .primary-btn {
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .writing-task2-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .writing-task2-question-panel {
+                min-height: auto;
+            }
+
+            .writing-task2-answer-panel {
+                height: 500px;
+            }
+
+            .writing-task2-question {
+                font-size: 18px;
+            }
+
+            .writing-task2-navigation {
+                flex-direction: column;
+            }
+
+            .writing-task2-navigation .secondary-btn,
+            .writing-task2-navigation .primary-btn {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+    const accessKey = "access_writing-gt-test-1";
+
+    if (sessionStorage.getItem(accessKey) !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-gt-test-1";
+    }
+</script>
+
+<script src="../js/exam-inputs.js"></script>
+
+<header class="main-header">
+    <div class="logo">IELTS Practice</div>
+
+    <div class="header-right">
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">60:00</strong>
+        </div>
+
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../index.html">Logout</a>
+    </div>
+</header>
+
+<section class="listening-header">
+    <div></div>
+</section>
+
+<main class="listening-container">
+    <section class="listening-card question-section">
+
+        <div class="writing-task2-heading">
+            <h2>Writing Task 2</h2>
+
+            <p class="instruction">
+                You should spend about 40 minutes on this task.
+            </p>
+        </div>
+
+        <div class="writing-task2-layout">
+
+            <!-- LEFT SIDE: QUESTION -->
+
+            <div class="writing-task2-question-panel">
+
+                <p class="writing-task2-instruction">
+                    Write about the following topic:
+                </p>
+
+                <div class="writing-task2-question">
+                    There is a problem today that copyright materials
+                    such as music, films and books are freely available
+                    on the internet with the result that the owners of
+                    the works lose money.
+                    <br><br>
+                    Do you feel that this is a good or bad thing?
+                </div>
+
+                <p class="writing-task2-instruction">
+                    Give reasons for your answer and include any relevant
+                    examples from your knowledge or experience.
+                </p>
+
+                <p class="writing-task2-instruction">
+                    <strong>You should write at least 250 words.</strong>
+                </p>
+
+            </div>
+
+            <!-- RIGHT SIDE: ANSWER -->
+
+            <div class="writing-task2-answer-panel">
+                <h3>Your Answer</h3>
+
+                <textarea
+                    id="answer"
+                    placeholder="Write your answer here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div class="writing-task2-meta">
+                    <span>Minimum: 250 words</span>
+
+                    <span class="writing-task2-word-count">
+                        Words: <strong id="wordCount">0</strong>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- NAVIGATION -->
+
+        <div class="writing-task2-navigation">
+
+            <a
+                href="writing-gt-test-1-task-1.html"
+                class="secondary-btn"
+                id="backButton"
+            >
+                ← Back to Task 1
+            </a>
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="finishButton"
+                onclick="finishWritingTest()"
+            >
+                Finish Writing Test
+            </button>
+
+        </div>
+
+    </section>
+</main>
+
+<script>
+    /* =================================
+       SUPABASE
+    ================================= */
+
+    const SUPABASE_URL =
+        "https://gehczgguwxqwfowmbedy.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+    const supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+    /* =================================
+       SHARED 60-MINUTE TIMER
+    ================================= */
+
+    const timerElement = document.getElementById("timer");
+    const timeKey = "writingGTTest1TimeLeft";
+
+    let timeLeft = Number(sessionStorage.getItem(timeKey));
+
+    if (!Number.isFinite(timeLeft) || timeLeft <= 0) {
+        timeLeft = 60 * 60;
+        sessionStorage.setItem(timeKey, String(timeLeft));
+    }
+
+    let isFinishing = false;
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        timerElement.textContent =
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+
+        sessionStorage.setItem(timeKey, String(timeLeft));
+    }
+
+    updateTimer();
+
+    const timerInterval = setInterval(function () {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            sessionStorage.setItem(timeKey, "0");
+
+            alert("Your General Training Writing test time is over.");
+            finishWritingTest();
+            return;
+        }
+
+        timeLeft--;
+        updateTimer();
+    }, 1000);
+
+    /* =================================
+       LOAD AND SAVE TASK 2 ANSWER
+    ================================= */
+
+    const answerBox = document.getElementById("answer");
+    const wordCountElement = document.getElementById("wordCount");
+
+    const task2Key = "writingGTTest1Task2Answer";
+    const savedAnswer = sessionStorage.getItem(task2Key);
+
+    if (savedAnswer !== null) {
+        answerBox.value = savedAnswer;
+    }
+
+    function saveTask2Answer() {
+        sessionStorage.setItem(task2Key, answerBox.value);
+    }
+
+    /* =================================
+       WORD COUNT
+    ================================= */
+
+    function updateWordCount() {
+        const text = answerBox.value.trim();
+
+        const words = text
+            ? text.split(/\s+/).filter(Boolean)
+            : [];
+
+        wordCountElement.textContent = String(words.length);
+        saveTask2Answer();
+    }
+
+    answerBox.addEventListener("input", updateWordCount);
+    updateWordCount();
+
+    /* =================================
+       BACK TO TASK 1
+    ================================= */
+
+    document.getElementById("backButton").addEventListener(
+        "click",
+        saveTask2Answer
+    );
+
+    /* =================================
+       GENERATE WRITING PDF
+    ================================= */
+
+    async function generateWritingPDF() {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const studentName =
+            sessionStorage.getItem("studentName") || "Student";
+
+        const studentId =
+            sessionStorage.getItem("studentId") || "";
+
+        const task1 =
+            sessionStorage.getItem("writingGTTest1Task1Answer") || "";
+
+        const task2 =
+            sessionStorage.getItem(task2Key) || "";
+
+        const today = new Date().toLocaleDateString("en-GB");
+
+        let y = 18;
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(18);
+        pdf.text("IELTS GENERAL TRAINING WRITING TEST 1", 105, y, {
+            align: "center",
+            maxWidth: 180
+        });
+
+        y += 12;
+
+        pdf.setFontSize(11);
+        pdf.setFont("helvetica", "normal");
+
+        pdf.text(`Student: ${studentName}`, 15, y);
+        pdf.text(`ID: ${studentId}`, 140, y);
+
+        y += 7;
+        pdf.text(`Date: ${today}`, 15, y);
+
+        /* TASK 1 */
+
+        y += 12;
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(14);
+        pdf.text("Writing Task 1", 15, y);
+
+        y += 8;
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(11);
+
+        const task1Lines = pdf.splitTextToSize(task1 || "(No answer provided)", 180);
+
+        task1Lines.forEach(function (line) {
+            if (y > 280) {
+                pdf.addPage();
+                y = 20;
+            }
+
+            pdf.text(line, 15, y);
+            y += 5;
+        });
+
+        /* TASK 2 */
+
+        y += 10;
+
+        if (y > 260) {
+            pdf.addPage();
+            y = 20;
+        }
+
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(14);
+        pdf.text("Writing Task 2", 15, y);
+
+        y += 8;
+
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(11);
+
+        const task2Lines = pdf.splitTextToSize(task2 || "(No answer provided)", 180);
+
+        task2Lines.forEach(function (line) {
+            if (y > 280) {
+                pdf.addPage();
+                y = 20;
+            }
+
+            pdf.text(line, 15, y);
+            y += 5;
+        });
+
+        return pdf;
+    }
+
+    /* =================================
+       FINISH AND SUBMIT TEST
+    ================================= */
+
+    async function finishWritingTest() {
+        if (isFinishing) return;
+
+        const studentId = sessionStorage.getItem("studentId");
+
+        if (!studentId) {
+            alert("Student information was not found. Please log in again.");
+            return;
+        }
+
+        isFinishing = true;
+
+        const finishButton = document.getElementById("finishButton");
+        finishButton.disabled = true;
+        finishButton.textContent = "Submitting...";
+
+        saveTask2Answer();
+
+        sessionStorage.setItem("writingGTTest1Completed", "true");
+
+        const studentName =
+            sessionStorage.getItem("studentName") || "";
+
+        const task1Answer =
+            sessionStorage.getItem("writingGTTest1Task1Answer") || "";
+
+        const task2Answer =
+            sessionStorage.getItem(task2Key) || "";
+
+        try {
+            const pdf = await generateWritingPDF();
+            const pdfBlob = pdf.output("blob");
+
+            const safeName = studentName
+                .replace(/[^a-zA-Z0-9 ]/g, "")
+                .trim()
+                .replace(/\s+/g, "_") || "Student";
+
+            const fileName = `${safeName}_Writing_GT_Test_1.pdf`;
+            const pdfFile = new File(
+                [pdfBlob],
+                fileName,
+                { type: "application/pdf" }
+            );
+
+            const pdfPath = `${studentId}/${fileName}`;
+
+            const { error: uploadError } = await supabaseClient
+                .storage
+                .from("writing-pdfs")
+                .upload(pdfPath, pdfFile, { upsert: true });
+
+            if (uploadError) {
+                throw uploadError;
+            }
+
+            const { error: submissionError } = await supabaseClient
+                .from("writing_submissions")
+                .upsert([{
+                    student_id: String(studentId),
+                    student_name: studentName,
+                    test_id: "writing-gt-test-1",
+                    task1_answer: task1Answer,
+                    task2_answer: task2Answer,
+                    original_pdf: pdfPath,
+                    status: "submitted",
+                    submitted_at: new Date().toISOString()
+                }], {
+                    onConflict: "student_id,test_id"
+                });
+
+            if (submissionError) {
+                throw submissionError;
+            }
+
+            clearInterval(timerInterval);
+
+            window.location.href = "../writing-final.html";
+
+        } catch (error) {
+            console.error("General Training Writing submission error:", error);
+
+            alert(
+                "There was a problem submitting your test: " +
+                (error.message || "Please try again.")
+            );
+
+            isFinishing = false;
+            finishButton.disabled = false;
+            finishButton.textContent = "Finish Writing Test";
+        }
+    }
+    
+</script>
+
+</body>
+</html>
+```

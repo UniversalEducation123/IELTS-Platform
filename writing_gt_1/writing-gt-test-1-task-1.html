@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS General Training Writing Test 1 - Task 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .writing-task-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+            height: 65vh;
+        }
+
+        .writing-question-panel,
+        .writing-answer-panel {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .writing-answer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-answer-panel textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            box-sizing: border-box;
+            resize: none;
+            padding: 16px;
+            font: inherit;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .writing-word-count {
+            margin-top: 10px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .writing-navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .writing-question-panel p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .letter-prompt {
+            background: #f8f9fb;
+            border: 1px solid #e2e5e9;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+        }
+
+        .letter-prompt ul {
+            padding-left: 24px;
+            line-height: 1.8;
+        }
+
+        .letter-opening {
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .writing-task-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .writing-question-panel,
+            .writing-answer-panel {
+                max-height: 500px;
+            }
+
+            .writing-answer-panel {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<script>
+
+    const accessKey = "access_writing-gt-test-1";
+
+    if (sessionStorage.getItem(accessKey) !== "true") {
+        window.location.href =
+            "../test-access.html?test=writing-gt-test-1";
+    }
+
+</script>
+
+<script src="../js/exam-inputs.js"></script>
+
+<header class="main-header">
+    <div class="logo">IELTS Practice</div>
+
+    <div class="header-right">
+        <div class="header-timer">
+            <span>Time Remaining</span>
+            <strong id="timer">60:00</strong>
+        </div>
+
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../index.html">Logout</a>
+    </div>
+</header>
+
+<section class="listening-header">
+    <div></div>
+</section>
+
+<main class="listening-container">
+    <section class="listening-card question-section">
+
+        <div class="question-heading">
+            <h2>Writing Task 1</h2>
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+        </div>
+
+        <div class="writing-task-layout">
+
+            <!-- LEFT SIDE: QUESTION -->
+
+            <div class="writing-question-panel">
+
+                <p>
+                    You recently received a letter from your bank that
+                    should have contained a new credit card. Unfortunately,
+                    the card was not in the letter.
+                </p>
+
+                <p><strong>Write a letter to your bank manager. In your letter,</strong></p>
+
+                <div class="letter-prompt">
+                    <ul>
+                        <li>explain what has happened</li>
+                        <li>suggest the credit card should be cancelled for security reasons</li>
+                        <li>ask when a new credit card can be sent to you</li>
+                    </ul>
+                </div>
+
+                <p>
+                    <strong>You should write at least 150 words.</strong>
+                </p>
+
+                <p>
+                    You do NOT need to write any addresses.
+                    Begin your letter as follows:
+                </p>
+
+                <p class="letter-opening">Dear Sir/Madam,</p>
+
+            </div>
+
+            <!-- RIGHT SIDE: ANSWER -->
+
+            <div class="writing-answer-panel">
+                <h3>Your Answer</h3>
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Dear Sir/Madam,&#10;&#10;Write your letter here..."
+                    spellcheck="true"
+                ></textarea>
+
+                <div id="task1WordCount" class="writing-word-count">
+                    Word count: 0
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CONTINUE BUTTON -->
+
+        <div class="writing-navigation">
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()"
+            >
+                Continue to Task 2
+            </button>
+        </div>
+
+    </section>
+</main>
+
+<script>
+    /* =================================
+       GENERAL TRAINING TIMER
+    ================================= */
+
+    const timeKey = "writingGTTest1TimeLeft";
+    let timeLeft = Number(sessionStorage.getItem(timeKey));
+
+    if (!Number.isFinite(timeLeft) || timeLeft <= 0) {
+        timeLeft = 60 * 60;
+        sessionStorage.setItem(timeKey, String(timeLeft));
+    }
+
+    function updateTimer() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        document.getElementById("timer").textContent =
+            String(minutes).padStart(2, "0") + ":" +
+            String(seconds).padStart(2, "0");
+
+        sessionStorage.setItem(timeKey, String(timeLeft));
+    }
+
+    updateTimer();
+
+    const timerInterval = setInterval(function () {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            sessionStorage.setItem(timeKey, "0");
+
+            window.location.href = "writing-gt-test-1-task-2.html";
+            return;
+        }
+
+        timeLeft--;
+        updateTimer();
+    }, 1000);
+
+    /* =================================
+       SAVE AND RESTORE TASK 1 ANSWER
+    ================================= */
+
+    const answerBox = document.getElementById("task1Answer");
+    const wordCountElement = document.getElementById("task1WordCount");
+    const answerKey = "writingGTTest1Task1Answer";
+
+    const savedAnswer = sessionStorage.getItem(answerKey);
+
+    if (savedAnswer !== null) {
+        answerBox.value = savedAnswer;
+    }
+
+    function saveTask1Answer() {
+        sessionStorage.setItem(answerKey, answerBox.value);
+    }
+
+    /* =================================
+       WORD COUNT
+    ================================= */
+
+    function updateWordCount() {
+        const text = answerBox.value.trim();
+
+        const words = text
+            ? text.split(/\s+/).filter(Boolean)
+            : [];
+
+        wordCountElement.textContent = "Word count: " + words.length;
+        saveTask1Answer();
+    }
+
+    answerBox.addEventListener("input", updateWordCount);
+    updateWordCount();
+
+    /* =================================
+       CONTINUE TO TASK 2
+    ================================= */
+
+    function goToTask2() {
+        saveTask1Answer();
+        window.location.href = "writing-gt-test-1-task-2.html";
+    }
+
+</script>
+
+</body>
+</html>
