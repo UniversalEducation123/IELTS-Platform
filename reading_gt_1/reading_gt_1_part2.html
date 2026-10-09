@@ -51,19 +51,70 @@
             margin-right: 8px;
         }
 
-        
-        /* Drag-and-drop matching: Questions 15–20 */
+    
+        .matching-layout {
+            display: grid;
+            grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.5fr);
+            gap: 22px;
+            align-items: start;
+            margin: 20px 0 30px;
+        }
+
+        .matching-options,
+        .matching-questions {
+            min-width: 0;
+        }
 
         .matching-options {
+            padding: 18px;
+            background: #f5f0e7;
+            border: 1px solid #e1d4c3;
+            border-radius: 12px;
+        }
+
+        .matching-options h3 {
+            margin-top: 0;
+        }
+
+        .matching-option {
+            padding: 9px 12px;
+            margin-bottom: 8px;
+            background: #fff;
+            border: 1px solid #ddcbb6;
+            border-radius: 8px;
+        }
+
+        .matching-questions .question {
+            padding: 16px;
+            margin-bottom: 14px;
+            background: #fffdfa;
+            border: 1px solid #e5d9ca;
+            border-radius: 12px;
+        }
+
+                
+        @media (max-width: 700px) {
+            .matching-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .matching-layout .matching-options {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 18px 0;
-            padding: 14px;
-            border: 1px solid #ded4c6;
-            border-radius: 12px;
-            background: #f4f0e8;
+            align-content: flex-start;
+            gap: 8px;
         }
+
+        .matching-layout .matching-options h3 {
+            width: 100%;
+        }
+
+        .matching-layout .matching-questions .question {
+            margin-bottom: 14px;
+        }
+
+
 
         .matching-letter {
             display: inline-flex;
@@ -509,7 +560,10 @@
 
     <section class="questions-panel">
 
+        
+    <div class="matching-layout">
 
+    <div class="matching-options-column">
                 
         <h2>Questions 15–20</h2>
 
@@ -539,6 +593,8 @@
             <button type="button" class="matching-letter" draggable="true" data-letter="F">F</button>
             <button type="button" class="matching-letter" draggable="true" data-letter="G">G</button>
         </div>
+
+        <div class="matching-questions">
 
         <div class="question">
             <p><span class="question-number">15.</span> Which course should I apply for?</p>
@@ -622,6 +678,7 @@
                 <option>A</option><option>B</option><option>C</option>
                 <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
+        </div>
         </div>
 
 

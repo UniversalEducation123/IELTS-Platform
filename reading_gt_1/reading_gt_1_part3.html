@@ -88,6 +88,48 @@
         }
 
 
+        .paragraph-matching-layout {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: 24px;
+            align-items: start;
+            margin: 20px 0 30px;
+        }
+
+        .paragraph-options-panel,
+        .paragraph-questions-panel {
+            min-width: 0;
+        }
+
+        .paragraph-options-panel h3,
+        .paragraph-questions-panel h3 {
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+
+        .paragraph-options-panel .paragraph-letter-bank {
+            display: grid;
+            grid-template-columns: repeat(3, 44px);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .paragraph-questions-panel .question {
+            margin-bottom: 16px;
+        }
+
+        .paragraph-questions-panel .paragraph-drop-zone {
+            margin-top: 8px;
+        }
+
+        @media (max-width: 700px) {
+            .paragraph-matching-layout {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+        }
+
+
         /* =========================================
            ANSWER WORD BOX
         ========================================= */
@@ -588,10 +630,7 @@
 
 
 
-    
-    <!-- =========================
-         QUESTIONS 28–31
-    ========================== -->
+    <!-- QUESTIONS 28–31 -->
 
     <h2>Questions 28–31</h2>
 
@@ -600,112 +639,132 @@
         6 paragraphs labelled A–F.
     </p>
 
-    <p>
-        Which paragraphs contain the following information?
-    </p>
-
-    <p>Drag the correct paragraph letter into each answer box.</p>
+    <p>Which paragraphs contain the following information?</p>
 
     <p><strong>Each letter may be used more than once.</strong></p>
 
-    <div class="paragraph-letter-bank" id="paragraphLetterBank"
-         aria-label="Available paragraph letters">
+    <div class="paragraph-matching-layout">
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="A" aria-label="Paragraph A">A</div>
+        <!-- LEFT: OPTIONS -->
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="B" aria-label="Paragraph B">B</div>
+        <div class="paragraph-options-panel">
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="C" aria-label="Paragraph C">C</div>
+            <h3>Paragraphs</h3>
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="D" aria-label="Paragraph D">D</div>
+            <div class="paragraph-letter-bank"
+                id="paragraphLetterBank"
+                aria-label="Available paragraph letters">
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="E" aria-label="Paragraph E">E</div>
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="A" aria-label="Paragraph A">A</div>
 
-        <div class="draggable-paragraph-letter"
-             draggable="true" tabindex="0" role="button"
-             data-letter="F" aria-label="Paragraph F">F</div>
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="B" aria-label="Paragraph B">B</div>
 
-    </div>
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="C" aria-label="Paragraph C">C</div>
 
-    <div class="question">
-        <p>
-            <span class="question-number">28.</span>
-            The separation of panda groups.
-        </p>
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="D" aria-label="Paragraph D">D</div>
 
-        <div class="paragraph-drop-zone"
-             data-question="q28"
-             tabindex="0"
-             role="group"
-             aria-label="Drop answer for question 28">
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="E" aria-label="Paragraph E">E</div>
 
-            <span class="drop-hint">Drop letter here</span>
+                <div class="draggable-paragraph-letter"
+                    draggable="true" tabindex="0" role="button"
+                    data-letter="F" aria-label="Paragraph F">F</div>
 
-        </div>
-    </div>
+            </div>
 
-    <div class="question">
-        <p>
-            <span class="question-number">29.</span>
-            The panda's diet.
-        </p>
-
-        <div class="paragraph-drop-zone"
-             data-question="q29"
-             tabindex="0"
-             role="group"
-             aria-label="Drop answer for question 29">
-
-            <span class="drop-hint">Drop letter here</span>
+            <p class="drop-hint">
+                Drag a letter into an answer box.
+            </p>
 
         </div>
-    </div>
 
-    <div class="question">
-        <p>
-            <span class="question-number">30.</span>
-            The illegal killing of pandas.
-        </p>
 
-        <div class="paragraph-drop-zone"
-             data-question="q30"
-             tabindex="0"
-             role="group"
-             aria-label="Drop answer for question 30">
+        <!-- RIGHT: QUESTIONS -->
 
-            <span class="drop-hint">Drop letter here</span>
+        <div class="paragraph-questions-panel">
+
+            <h3>Information</h3>
+
+            <div class="question">
+                <p>
+                    <span class="question-number">28.</span>
+                    The separation of panda groups.
+                </p>
+
+                <div class="paragraph-drop-zone"
+                    data-question="q28"
+                    tabindex="0"
+                    role="group"
+                    aria-label="Drop answer for question 28">
+
+                    <span class="drop-hint">Drop letter here</span>
+
+                </div>
+            </div>
+
+            <div class="question">
+                <p>
+                    <span class="question-number">29.</span>
+                    The panda's diet.
+                </p>
+
+                <div class="paragraph-drop-zone"
+                    data-question="q29"
+                    tabindex="0"
+                    role="group"
+                    aria-label="Drop answer for question 29">
+
+                    <span class="drop-hint">Drop letter here</span>
+
+                </div>
+            </div>
+
+            <div class="question">
+                <p>
+                    <span class="question-number">30.</span>
+                    The illegal killing of pandas.
+                </p>
+
+                <div class="paragraph-drop-zone"
+                    data-question="q30"
+                    tabindex="0"
+                    role="group"
+                    aria-label="Drop answer for question 30">
+
+                    <span class="drop-hint">Drop letter here</span>
+
+                </div>
+            </div>
+
+            <div class="question">
+                <p>
+                    <span class="question-number">31.</span>
+                    Why pandas' living areas have been reduced.
+                </p>
+
+                <div class="paragraph-drop-zone"
+                    data-question="q31"
+                    tabindex="0"
+                    role="group"
+                    aria-label="Drop answer for question 31">
+
+                    <span class="drop-hint">Drop letter here</span>
+
+                </div>
+            </div>
 
         </div>
+
     </div>
-
-    <div class="question">
-        <p>
-            <span class="question-number">31.</span>
-            Why pandas' living areas have been reduced.
-        </p>
-
-        <div class="paragraph-drop-zone"
-             data-question="q31"
-             tabindex="0"
-             role="group"
-             aria-label="Drop answer for question 31">
-
-            <span class="drop-hint">Drop letter here</span>
-
-        </div>
-    </div>
-
-
 
 
     
