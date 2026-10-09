@@ -470,6 +470,7 @@ function calculateBand(correctCount) {
 ===================================== */
 
 
+
 function readGTReadingAnswers() {
     const answers = {};
 
@@ -478,26 +479,21 @@ function readGTReadingAnswers() {
             sessionStorage.getItem("readingGT1_q" + i) || "";
     }
 
-    // Questions 32–33 are a shared two-answer question.
-    // Support answers saved as separate values or together in q32.
-    const saved32 = sessionStorage.getItem("readingGT1_q32") || "";
-    const saved33 = sessionStorage.getItem("readingGT1_q33") || "";
+    // Questions 32–33 are saved together in Part 3.
+    const combinedAnswer =
+        sessionStorage.getItem("readingGT1_q32_33") || "";
 
-    if (saved33.trim() !== "") {
-        answers.q32 = saved32;
-        answers.q33 = saved33;
-    } else {
-        const combined = saved32
-            .split(",")
-            .map(answer => answer.trim())
-            .filter(Boolean);
+    const selectedAnswers = combinedAnswer
+        .split(",")
+        .map(answer => answer.trim())
+        .filter(Boolean);
 
-        answers.q32 = combined[0] || "";
-        answers.q33 = combined[1] || "";
-    }
+    answers.q32 = selectedAnswers[0] || "";
+    answers.q33 = selectedAnswers[1] || "";
 
     return answers;
 }
+
 
 
 
