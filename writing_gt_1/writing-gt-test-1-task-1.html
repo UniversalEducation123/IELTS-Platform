@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
+
         .writing-task-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             align-items: stretch;
-            height: 65vh;
+            height: calc(100vh - 260px);
+            min-height: 350px;
+            overflow: hidden;
         }
 
         .writing-question-panel,
@@ -24,8 +27,12 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             padding: 20px;
-            overflow-y: auto;
             box-sizing: border-box;
+            min-width: 0;
+            min-height: 0;
+            height: 100%;
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
 
         .writing-answer-panel {
@@ -50,6 +57,7 @@
             margin-top: 10px;
             text-align: right;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .writing-navigation {
@@ -85,17 +93,19 @@
             .writing-task-layout {
                 grid-template-columns: 1fr;
                 height: auto;
+                min-height: 0;
+                overflow: visible;
             }
 
-            .writing-question-panel,
-            .writing-answer-panel {
-                max-height: 500px;
+            .writing-question-panel {
+                height: 350px;
             }
 
             .writing-answer-panel {
-                height: 500px;
+                height: 450px;
             }
         }
+        
     </style>
 </head>
 
