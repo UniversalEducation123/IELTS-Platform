@@ -575,45 +575,6 @@ const searchedResultList =
 
 let finalResultList = searchedResultList;
 
-if (selectedReviewStatus !== "ALL") {
-
-    finalResultList = searchedResultList.filter(result => {
-
-        const writingTestId =
-            "writing-" +
-            String(result.test_name || "")
-                .trim()
-                .toLowerCase()
-                .replace(/\s+/g, "-");
-
-        const writingSubmission =
-            allWritingSubmissions.find(
-                submission =>
-                    String(submission.student_id) ===
-                        String(result.student_id)
-                    &&
-                    String(submission.test_id) ===
-                        writingTestId
-            );
-
-        const writingPending =
-            writingSubmission &&
-            writingSubmission.status === "submitted";
-
-        const speakingPending =
-            result.speaking_score === null ||
-            result.speaking_score === undefined ||
-            result.speaking_score === "";
-
-        const reviewStatus =
-            writingPending || speakingPending
-                ? "PENDING"
-                : "COMPLETED";
-
-        return reviewStatus === selectedReviewStatus;
-    });
-}
-
 
 /* =========================================
    CALCULATE FINAL MOCK FROM CURRENT SCORES
@@ -630,6 +591,33 @@ finalResultList.forEach(result => {
         );
 
 });
+
+
+if (selectedReviewStatus !== "ALL") {
+
+    finalResultList = searchedResultList.filter(result => {
+
+        // Check whether the Final Mock score exists.
+        const hasFinalMockScore =
+            result.final_mock_score !== null &&
+            result.final_mock_score !== undefined &&
+            result.final_mock_score !== "";
+
+        if (selectedReviewStatus === "PENDING") {
+            return !hasFinalMockScore;
+        }
+
+        if (selectedReviewStatus === "COMPLETED") {
+            return hasFinalMockScore;
+        }
+
+        return true;
+    });
+}
+
+
+
+
 
 
 /* =================================
