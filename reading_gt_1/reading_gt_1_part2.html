@@ -52,152 +52,91 @@
         }
 
     
+
         .matching-layout {
             display: grid;
-            grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.5fr);
-            gap: 22px;
+            grid-template-columns: minmax(130px, 0.55fr) minmax(0, 1.8fr);
+            gap: 16px;
             align-items: start;
-            margin: 20px 0 30px;
+            margin: 12px 0 24px;
         }
 
-        .matching-options,
+        .matching-options-column,
         .matching-questions {
             min-width: 0;
         }
 
+        .matching-options-column > h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .matching-options-column > p {
+            margin: 6px 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
         .matching-options {
-            padding: 18px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 7px;
+            align-content: start;
+            padding: 10px;
             background: #f5f0e7;
             border: 1px solid #e1d4c3;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .matching-options h3 {
-            margin-top: 0;
+            grid-column: 1 / -1;
+            margin: 0;
         }
 
-        .matching-option {
-            padding: 9px 12px;
-            margin-bottom: 8px;
-            background: #fff;
-            border: 1px solid #ddcbb6;
-            border-radius: 8px;
+        .matching-letter {
+            min-width: 0;
+            min-height: 36px;
+            padding: 5px;
         }
 
         .matching-questions .question {
-            padding: 16px;
-            margin-bottom: 14px;
+            padding: 9px 12px;
+            margin: 0 0 8px;
             background: #fffdfa;
             border: 1px solid #e5d9ca;
-            border-radius: 12px;
-        }
-
-                
-        @media (max-width: 700px) {
-            .matching-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .matching-layout .matching-options {
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            gap: 8px;
-        }
-
-        .matching-layout .matching-options h3 {
-            width: 100%;
-        }
-
-        .matching-layout .matching-questions .question {
-            margin-bottom: 14px;
-        }
-
-
-
-        .matching-letter {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 44px;
-            min-height: 44px;
-            padding: 8px 14px;
-            box-sizing: border-box;
-            border: 1px solid #d5c6b3;
             border-radius: 9px;
-            background: #fffdf9;
-            color: #514d46;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: grab;
-            user-select: none;
-            touch-action: manipulation;
         }
 
-        .matching-letter:active {
-            cursor: grabbing;
-        }
-
-        .matching-letter.selected {
-            border: 2px solid #8b9a6e;
-            background: #e8eddc;
-        }
-
-        .matching-letter.used {
-            opacity: 0.45;
+        .matching-questions .question p {
+            margin: 0 0 5px;
+            line-height: 1.35;
         }
 
         .matching-drop-zone {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 12px;
+            gap: 7px;
+            margin-top: 5px;
         }
 
         .matching-answer {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 74px;
-            min-height: 42px;
-            padding: 7px 12px;
-            border: 2px dashed #cfc3b3;
-            border-radius: 9px;
-            background: #fffdf9;
-            color: #514d46;
-            font-weight: 700;
-            cursor: pointer;
+            min-width: 90px;
+            min-height: 34px;
+            padding: 5px 9px;
         }
 
-        .matching-answer.filled {
-            border-style: solid;
-            border-color: #8b9a6e;
-            background: #edf0e5;
+        .matching-clear {
+            padding: 5px 8px;
         }
 
-        .matching-answer.drag-over {
-            border-color: #8b9a6e;
-            background: #e8eddc;
-        }
+        @media (max-width: 520px) {
+            .matching-layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 12px;
+            }
 
-        .matching-answer:focus-visible,
-        .matching-letter:focus-visible {
-            outline: 2px solid #66794a;
-            outline-offset: 3px;
+            .matching-options {
+                grid-template-columns: repeat(7, minmax(0, 1fr));
+            }
         }
-
-        .matching-instruction {
-            color: #716b61;
-            font-size: 13px;
-            margin: 8px 0;
-        }
-
-        .matching-hidden-select {
-            display: none !important;
-        }
-
 
     </style>
 
@@ -558,130 +497,152 @@
          RIGHT SIDE: QUESTIONS
     ====================================== -->
 
-    <section class="questions-panel">
+   
+<section class="questions-panel">
 
-        
     <div class="matching-layout">
 
-    <div class="matching-options-column">
-                
-        <h2>Questions 15–20</h2>
+        <!-- LEFT COLUMN: Instructions and options -->
+        <div class="matching-options-column">
 
-        <p>
-            Look at the following information about St. Trinian's College.
-        </p>
+            <h2>Questions 15–20</h2>
 
-        <p>
-            Which section contains the following information?
-        </p>
+            <p>
+                Look at the following information about St. Trinian's College.
+            </p>
 
-        <p>
-            Write the correct letter, A–G.
-        </p>
+            <p>Which section contains the following information?</p>
 
-        <p class="matching-instruction">
-            Drag a letter into a question, or tap a letter and then tap a question.
-            You can reuse letters.
-        </p>
+            <p>Write the correct letter, A–G.</p>
 
-        <div class="matching-options" id="matchingOptions" aria-label="Available section letters">
-            <button type="button" class="matching-letter" draggable="true" data-letter="A">A</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="B">B</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="C">C</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="D">D</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="E">E</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="F">F</button>
-            <button type="button" class="matching-letter" draggable="true" data-letter="G">G</button>
+            <p class="matching-instruction">
+                Drag a letter into a question, or tap a letter and then tap a question.
+                You can reuse letters.
+            </p>
+
+            <div class="matching-options" id="matchingOptions"
+                 aria-label="Available section letters">
+
+                <button type="button" class="matching-letter" draggable="true" data-letter="A">A</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="B">B</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="C">C</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="D">D</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="E">E</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="F">F</button>
+                <button type="button" class="matching-letter" draggable="true" data-letter="G">G</button>
+
+            </div>
+
         </div>
 
+
+        <!-- RIGHT COLUMN: Questions 15–20 -->
         <div class="matching-questions">
 
-        <div class="question">
-            <p><span class="question-number">15.</span> Which course should I apply for?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q15" aria-label="Answer for question 15">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q15">Clear</button>
+            <div class="question">
+                <p><span class="question-number">15.</span> Which course should I apply for?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q15" aria-label="Answer for question 15">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q15">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q15" aria-label="Question 15">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q15" aria-label="Question 15">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
 
-        <div class="question">
-            <p><span class="question-number">16.</span> Are the courses full-time or part-time?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q16" aria-label="Answer for question 16">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q16">Clear</button>
+
+            <div class="question">
+                <p><span class="question-number">16.</span> Are the courses full-time or part-time?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q16" aria-label="Answer for question 16">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q16">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q16" aria-label="Question 16">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q16" aria-label="Question 16">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
 
-        <div class="question">
-            <p><span class="question-number">17.</span> Are there a lot of rules?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q17" aria-label="Answer for question 17">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q17">Clear</button>
+
+            <div class="question">
+                <p><span class="question-number">17.</span> Are there a lot of rules?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q17" aria-label="Answer for question 17">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q17">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q17" aria-label="Question 17">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q17" aria-label="Question 17">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
 
-        <div class="question">
-            <p><span class="question-number">18.</span> How much does it cost?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q18" aria-label="Answer for question 18">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q18">Clear</button>
+
+            <div class="question">
+                <p><span class="question-number">18.</span> How much does it cost?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q18" aria-label="Answer for question 18">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q18">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q18" aria-label="Question 18">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q18" aria-label="Question 18">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
 
-        <div class="question">
-            <p><span class="question-number">19.</span> What level of education do I need to enter the college?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q19" aria-label="Answer for question 19">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q19">Clear</button>
+
+            <div class="question">
+                <p><span class="question-number">19.</span> What level of education do I need to enter the college?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q19" aria-label="Answer for question 19">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q19">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q19" aria-label="Question 19">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q19" aria-label="Question 19">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
 
-        <div class="question">
-            <p><span class="question-number">20.</span> How can I apply?</p>
-            <div class="matching-drop-zone">
-                <span>Answer:</span>
-                <button type="button" class="matching-answer" data-question="q20" aria-label="Answer for question 20">Select letter</button>
-                <button type="button" class="matching-clear" data-clear="q20">Clear</button>
+
+            <div class="question">
+                <p><span class="question-number">20.</span> How can I apply?</p>
+
+                <div class="matching-drop-zone">
+                    <span>Answer:</span>
+                    <button type="button" class="matching-answer" data-question="q20" aria-label="Answer for question 20">Select letter</button>
+                    <button type="button" class="matching-clear" data-clear="q20">Clear</button>
+                </div>
+
+                <select class="matching-hidden-select" name="q20" aria-label="Question 20">
+                    <option value="">Select</option>
+                    <option>A</option><option>B</option><option>C</option>
+                    <option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
             </div>
-            <select class="matching-hidden-select" name="q20" aria-label="Question 20">
-                <option value="">Select</option>
-                <option>A</option><option>B</option><option>C</option>
-                <option>D</option><option>E</option><option>F</option><option>G</option>
-            </select>
-        </div>
+
         </div>
 
-
+    </div>
 
 
         <h2>Questions 21–27</h2>

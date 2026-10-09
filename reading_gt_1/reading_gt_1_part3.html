@@ -88,12 +88,13 @@
         }
 
 
+
         .paragraph-matching-layout {
             display: grid;
-            grid-template-columns: 0.7fr 1.3fr;
-            gap: 24px;
+            grid-template-columns: minmax(150px, 0.65fr) minmax(0, 1.8fr);
+            gap: 18px;
             align-items: start;
-            margin: 20px 0 30px;
+            margin: 12px 0 20px;
         }
 
         .paragraph-options-panel,
@@ -103,31 +104,66 @@
 
         .paragraph-options-panel h3,
         .paragraph-questions-panel h3 {
-            margin-top: 0;
-            margin-bottom: 14px;
+            margin: 0 0 10px;
+            font-size: 16px;
         }
 
         .paragraph-options-panel .paragraph-letter-bank {
             display: grid;
-            grid-template-columns: repeat(3, 44px);
-            gap: 10px;
-            margin-top: 12px;
+            grid-template-columns: repeat(3, minmax(35px, 1fr));
+            gap: 8px;
+            margin: 0;
+        }
+
+        .paragraph-options-panel .draggable-paragraph-letter {
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        .paragraph-options-panel .drop-hint {
+            font-size: 12px;
+            line-height: 1.4;
+            margin-top: 10px;
         }
 
         .paragraph-questions-panel .question {
-            margin-bottom: 16px;
+            margin: 0 0 12px;
+        }
+
+        .paragraph-questions-panel .question p {
+            margin: 0 0 6px;
+            line-height: 1.4;
         }
 
         .paragraph-questions-panel .paragraph-drop-zone {
-            margin-top: 8px;
+            min-height: 38px;
+            margin: 0;
+            box-sizing: border-box;
         }
 
-        @media (max-width: 700px) {
+        /* Keep both columns beside each other on desktop and tablet */
+        @media (min-width: 701px) {
             .paragraph-matching-layout {
-                grid-template-columns: 1fr;
-                gap: 18px;
+                grid-template-columns: minmax(150px, 0.65fr) minmax(0, 1.8fr);
             }
         }
+
+        /* Stack only on narrow mobile screens */
+        @media (max-width: 520px) {
+            .paragraph-matching-layout {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 16px;
+            }
+
+            .paragraph-options-panel .paragraph-letter-bank {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+            }
+        }
+
 
 
         /* =========================================
