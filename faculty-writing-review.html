@@ -616,15 +616,11 @@ function displaySubmission(data) {
 }
 
 
+
 function calculateOverallScore() {
-    const task1Value =
-        document.getElementById("task1Score").value;
-
-    const task2Value =
-        document.getElementById("task2Score").value;
-
-    const overallInput =
-        document.getElementById("overallScore");
+    const task1Value = document.getElementById("task1Score").value;
+    const task2Value = document.getElementById("task2Score").value;
+    const overallInput = document.getElementById("overallScore");
 
     if (task1Value === "" || task2Value === "") {
         overallInput.value = "";
@@ -638,15 +634,17 @@ function calculateOverallScore() {
         !Number.isFinite(task1Score) ||
         !Number.isFinite(task2Score) ||
         task1Score < 0 || task1Score > 9 ||
-        task2Score < 0 || task2Score > 9
+        task2Score < 0 || task2Score > 9 ||
+        task1Score % 0.5 !== 0 ||
+        task2Score % 0.5 !== 0
     ) {
         overallInput.value = "";
         return;
     }
 
-    overallInput.value =
-        ((task1Score + task2Score) / 2).toFixed(1);
+    overallInput.value = (task1Score + task2Score).toFixed(1);
 }
+
 
 
 async function downloadOriginalPDF() {

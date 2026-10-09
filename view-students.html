@@ -493,9 +493,20 @@ function showTestResults(testName, clickedButton = null) {
     } else {
 
         filteredResults =
-            allResults.filter(result =>
-                result.test_name === testName
-            );
+            allResults.filter(result => {
+                if (result.test_name === testName) {
+                    return true;
+                }
+
+                if (
+                    testName === "Test 1" &&
+                    result.test_name === "GT Reading Test 1"
+                ) {
+                    return true;
+                }
+
+                return false;
+            });
 
     }
 
