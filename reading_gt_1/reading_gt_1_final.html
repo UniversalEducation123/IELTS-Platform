@@ -444,7 +444,7 @@ function isCorrect(
 ===================================== */
 
 function calculateBand(correctCount) {
-    
+
     if (correctCount >= 40) return "9.0";
     if (correctCount >= 39) return "8.5";
     if (correctCount >= 37) return "8.0";
@@ -986,205 +986,67 @@ async function calculateReadingScore() {
    SAVE RESULT TO SUPABASE
 ===================================== */
 
-async function saveResultToSupabase(
-    score
-) {
 
-    if (
-        sessionStorage.getItem(
-            "readingGT1ResultSaved"
-        ) === "true"
-    ) {
+async function saveResultToSupabase(score) {
+    const studentId = sessionStorage.getItem("studentId");
+    const studentName = sessionStorage.getItem("studentName") || "Student";
 
-        console.log(
-            "GT Reading Test 1 result already saved."
-        );
-
+    if (!studentId || !Number.isFinite(Number(studentId))) {
+        console.error("A valid student ID is missing.");
         return;
-
     }
 
+    const testDate = new Date().toISOString().split("T")[0];
 
-    const studentId =
-        sessionStorage.getItem(
-            "studentId"
-        );
+    const resultData = {
+        student_id: Number(studentId),
+        student_name: studentName,
+        test_name: "GT Reading Test 1",
+        test_date: testDate,
+        reading_score: score,
+        is_submitted: true
+    };
 
-
-    const studentName =
-        sessionStorage.getItem(
-            "studentName"
-        );
-
-
-    if (!studentId) {
-
-        console.error(
-            "Student information is missing."
-        );
-
-        return;
-
-    }
-
-
-    const testDate =
-        new Date()
-            .toISOString()
-            .split("T")[0];
-
-
-
-    /*
-       Test 1 may already contain the
-       Listening score.
-
-       Therefore we UPDATE the existing
-       Test 1 row rather than creating
-       another Test 1 row.
-    */
-
-    const {
-        data: existingResults,
-        error: findError
-    } = await supabaseClient
+    const { data: existing, error: findError } = await supabaseClient
         .from("test_results")
-        .select("*")
-        .eq(
-            "student_id",
-            Number(studentId)
-        )
-        .eq(
-            "test_name",
-            "Test 1"
-        )
-        .order(
-            "id",
-            {
-                ascending: true
-            }
-        );
-
+        .select("id")
+        .eq("student_id", Number(studentId))
+        .eq("test_name", "GT Reading Test 1")
+        .limit(1);
 
     if (findError) {
-
-        console.error(
-            "Error finding Test 1 result:",
-            findError
-        );
-
+        console.error("Could not check for an existing GT result:", findError);
         return;
-
     }
 
+    let saveError;
 
-    let saveError = null;
-
-
-
-    if (
-        existingResults &&
-        existingResults.length > 0
-    ) {
-
-        const existingResult =
-            existingResults[0];
-
-
-        const {
-            error
-        } = await supabaseClient
+    if (existing && existing.length > 0) {
+        const { error } = await supabaseClient
             .from("test_results")
-            .update({
-
-                student_name:
-                    studentName,
-
-                test_date:
-                    testDate,
-
-                reading_score:
-                    score,
-
-                is_submitted:
-                    true
-
-            })
-            .eq(
-                "id",
-                existingResult.id
-            );
-
+            .update(resultData)
+            .eq("id", existing[0].id);
 
         saveError = error;
-
-
     } else {
-
-
-        const {
-            error
-        } = await supabaseClient
+        const { error } = await supabaseClient
             .from("test_results")
-            .insert({
-
-                student_id:
-                    Number(studentId),
-
-                student_name:
-                    studentName,
-
-                test_name:
-                    "Test 1",
-
-                test_date:
-                    testDate,
-
-                reading_score:
-                    score,
-
-                is_submitted:
-                    true
-
-            });
-
+            .insert(resultData);
 
         saveError = error;
-
     }
-
-
 
     if (saveError) {
-
-        console.error(
-            "Error saving GT Reading Test 1:",
-            saveError
-        );
-
+        console.error("Error saving GT Reading Test 1:", saveError);
         return;
-
     }
 
+    sessionStorage.setItem("readingGT1ResultSaved", "true");
+    sessionStorage.setItem("readingGT1Submitted", "true");
 
-
-    sessionStorage.setItem(
-        "readingGT1ResultSaved",
-        "true"
-    );
-
-
-    sessionStorage.setItem(
-        "readingGT1Submitted",
-        "true"
-    );
-
-
-    console.log(
-        "GT Reading Test 1 result saved successfully."
-    );
-
+    console.log("GT Reading Test 1 result saved successfully.");
 }
+
 
 
 
