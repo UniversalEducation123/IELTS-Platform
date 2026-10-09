@@ -107,6 +107,91 @@
             font-weight: 500;
         }
 
+        
+        /* =========================================
+           DRAG AND DROP: QUESTIONS 28–31
+        ========================================= */
+
+        .paragraph-letter-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0 26px;
+            padding: 16px;
+            background: #faf8f4;
+            border: 1px solid #ddd4c8;
+            border-radius: 10px;
+        }
+
+        .draggable-paragraph-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid #d5c6b4;
+            border-radius: 8px;
+            background: #eee5d8;
+            color: #4f4942;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: grab;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .draggable-paragraph-letter:active {
+            cursor: grabbing;
+        }
+
+        .draggable-paragraph-letter.used {
+            opacity: 0.4;
+        }
+
+        .paragraph-drop-zone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding: 14px;
+            min-height: 58px;
+            border: 2px dashed #d5c6b4;
+            border-radius: 9px;
+            background: #fffdf9;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .paragraph-drop-zone.drag-over {
+            border-color: #6c9878;
+            background: #f0f7ef;
+        }
+
+        .paragraph-drop-zone .drop-hint {
+            color: #777168;
+            font-size: 14px;
+        }
+
+        .paragraph-drop-zone .draggable-paragraph-letter {
+            flex-shrink: 0;
+        }
+
+        .clear-drop-answer {
+            margin-left: auto;
+            padding: 6px 10px;
+            border: 1px solid #d5c6b4;
+            border-radius: 6px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .paragraph-letter-bank .draggable-paragraph-letter:focus-visible,
+        .clear-drop-answer:focus-visible {
+            outline: 2px solid #6c9878;
+            outline-offset: 3px;
+        }
+
+
 
         @media (max-width: 700px) {
 
@@ -503,326 +588,203 @@
 
 
 
+    
     <!-- =========================
          QUESTIONS 28–31
     ========================== -->
 
-    <h2>
-        Questions 28–31
-    </h2>
-
+    <h2>Questions 28–31</h2>
 
     <p>
-
         The passage <em>The Panda's Last Chance</em> has
         6 paragraphs labelled A–F.
-
     </p>
 
-
     <p>
-
         Which paragraphs contain the following information?
-
     </p>
 
+    <p>Drag the correct paragraph letter into each answer box.</p>
 
-    <p>
+    <p><strong>Each letter may be used more than once.</strong></p>
 
-        Write the appropriate letters A–F.
+    <div class="paragraph-letter-bank" id="paragraphLetterBank"
+         aria-label="Available paragraph letters">
 
-        You only need ONE letter for each answer.
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="A" aria-label="Paragraph A">A</div>
 
-    </p>
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="B" aria-label="Paragraph B">B</div>
 
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="C" aria-label="Paragraph C">C</div>
 
-    <p>
-        <strong>
-            Note: You may use each letter more than once.
-        </strong>
-    </p>
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="D" aria-label="Paragraph D">D</div>
 
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="E" aria-label="Paragraph E">E</div>
 
+        <div class="draggable-paragraph-letter"
+             draggable="true" tabindex="0" role="button"
+             data-letter="F" aria-label="Paragraph F">F</div>
+
+    </div>
 
     <div class="question">
-
         <p>
             <span class="question-number">28.</span>
             The separation of panda groups.
         </p>
 
-        <select
-            name="q28"
-            aria-label="Question 28">
+        <div class="paragraph-drop-zone"
+             data-question="q28"
+             tabindex="0"
+             role="group"
+             aria-label="Drop answer for question 28">
 
-            <option value="">Select</option>
+            <span class="drop-hint">Drop letter here</span>
 
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-
-        </select>
-
+        </div>
     </div>
 
-
-
     <div class="question">
-
         <p>
             <span class="question-number">29.</span>
             The panda's diet.
         </p>
 
-        <select
-            name="q29"
-            aria-label="Question 29">
+        <div class="paragraph-drop-zone"
+             data-question="q29"
+             tabindex="0"
+             role="group"
+             aria-label="Drop answer for question 29">
 
-            <option value="">Select</option>
+            <span class="drop-hint">Drop letter here</span>
 
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-
-        </select>
-
+        </div>
     </div>
 
-
-
     <div class="question">
-
         <p>
             <span class="question-number">30.</span>
             The illegal killing of pandas.
         </p>
 
-        <select
-            name="q30"
-            aria-label="Question 30">
+        <div class="paragraph-drop-zone"
+             data-question="q30"
+             tabindex="0"
+             role="group"
+             aria-label="Drop answer for question 30">
 
-            <option value="">Select</option>
+            <span class="drop-hint">Drop letter here</span>
 
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-
-        </select>
-
+        </div>
     </div>
 
-
-
     <div class="question">
-
         <p>
             <span class="question-number">31.</span>
             Why pandas' living areas have been reduced.
         </p>
 
-        <select
-            name="q31"
-            aria-label="Question 31">
+        <div class="paragraph-drop-zone"
+             data-question="q31"
+             tabindex="0"
+             role="group"
+             aria-label="Drop answer for question 31">
 
-            <option value="">Select</option>
+            <span class="drop-hint">Drop letter here</span>
 
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-
-        </select>
-
+        </div>
     </div>
 
 
 
+
+    
     <!-- =========================
-         QUESTIONS 32–33
+        QUESTIONS 32–33
     ========================== -->
 
-    <h2>
-        Questions 32–33
-    </h2>
-
+    <h2>Questions 32–33</h2>
 
     <p>
-
-        There are several problems affecting the panda.
-        From the list below, choose <strong>TWO</strong> more
-        problems which are mentioned in the reading passage.
-
+        There are several problems affecting the panda. From the list
+        below, choose <strong>TWO</strong> more problems which are
+        mentioned in the reading passage.
     </p>
-
 
     <p>
-
-        Write the appropriate numbers (i–vi).
-
+        Write the appropriate letters (i–vi) in boxes 32 and 33
+        on your answer sheet.
     </p>
 
-
-
-    <div class="question">
-
-        <p>
-            <span class="question-number">32.</span>
-            Choose one problem:
-        </p>
-
+    <div class="question" id="pandaProblemsQuestion">
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="i">
 
             i. pandas prefer to inbreed
-
         </label>
-
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="ii">
 
             ii. panda groups are getting too small
-
         </label>
-
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="iii">
 
             iii. panda habitats have shrunk
-
         </label>
-
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="iv">
 
             iv. pandas move to other countries
-
         </label>
-
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="v">
 
             v. more bamboo is withering
-
         </label>
-
 
         <label>
             <input
-                type="radio"
-                name="q32"
+                type="checkbox"
+                name="q32_33"
                 value="vi">
 
             vi. panda groups are isolated
-
         </label>
 
-    </div>
-
-
-
-    <div class="question">
-
-        <p>
-            <span class="question-number">33.</span>
-            Choose one problem:
+        <p id="pandaProblemsCount" aria-live="polite">
+            Select 2 answers.
         </p>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="i">
-
-            i. pandas prefer to inbreed
-
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="ii">
-
-            ii. panda groups are getting too small
-
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="iii">
-
-            iii. panda habitats have shrunk
-
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="iv">
-
-            iv. pandas move to other countries
-
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="v">
-
-            v. more bamboo is withering
-
-        </label>
-
-
-        <label>
-            <input
-                type="radio"
-                name="q33"
-                value="vi">
-
-            vi. panda groups are isolated
-
-        </label>
 
     </div>
 
@@ -1247,14 +1209,27 @@ function saveAnswers() {
             input.type === "checkbox"
         ) {
 
-            if (input.checked) {
+        if (input.type === "checkbox" && input.name === "q32_33") {
 
-                sessionStorage.setItem(
-                    "readingGT1_" + input.name,
-                    input.value
-                );
+            const selected = Array.from(
+                document.querySelectorAll('input[name="q32_33"]:checked')
+            ).map(function(checkbox) {
+                return checkbox.value;
+            });
 
-            }
+            sessionStorage.setItem(
+                "readingGT1_q32_33",
+                JSON.stringify(selected)
+            );
+
+        } else if (input.checked) {
+
+            sessionStorage.setItem(
+                "readingGT1_" + input.name,
+                input.value
+            );
+
+        }
 
         } else {
 
@@ -1292,6 +1267,16 @@ function restoreAnswers() {
             return;
         }
 
+        if (input.name === "q32_33") {
+
+            const saved = sessionStorage.getItem("readingGT1_q32_33");
+            const selected = saved ? JSON.parse(saved) : [];
+
+            input.checked = selected.includes(input.value);
+            return;
+
+        }
+
 
         if (
             input.type === "radio" ||
@@ -1308,6 +1293,8 @@ function restoreAnswers() {
         }
 
     });
+
+restoreParagraphAnswers();
 
 }
 
@@ -1391,6 +1378,256 @@ document.querySelectorAll(
 
 });
 
+document.querySelectorAll('input[name="q32_33"]').forEach(
+    function(checkbox) {
+
+        checkbox.addEventListener("change", function() {
+
+            const selected = document.querySelectorAll(
+                'input[name="q32_33"]:checked'
+            );
+
+            if (selected.length > 2) {
+                checkbox.checked = false;
+                alert("Please select only two answers.");
+            }
+
+            const count = document.querySelectorAll(
+                'input[name="q32_33"]:checked'
+            ).length;
+
+            document.getElementById("pandaProblemsCount").textContent =
+                count === 2
+                    ? "2 answers selected."
+                    : `${count} of 2 answers selected.`;
+
+            saveAnswers();
+            updateQuestionProgress();
+
+        });
+
+    }
+);
+
+
+/* =========================================
+   DRAG AND DROP: QUESTIONS 28–31
+========================================= */
+
+let draggedParagraphLetter = null;
+let selectedParagraphLetter = null;
+
+function getParagraphLetterElement(letter) {
+    return document.querySelector(
+        `.draggable-paragraph-letter[data-letter="${letter}"]`
+    );
+}
+
+function updateParagraphLetterBank() {
+    document.querySelectorAll(
+        ".draggable-paragraph-letter"
+    ).forEach(function(letterElement) {
+
+        const letter = letterElement.dataset.letter;
+
+        const isUsed = Array.from(
+            document.querySelectorAll(".paragraph-drop-zone")
+        ).some(function(zone) {
+            return zone.dataset.answer === letter;
+        });
+
+        letterElement.classList.toggle("used", isUsed);
+        letterElement.setAttribute(
+            "aria-pressed",
+            selectedParagraphLetter === letter ? "true" : "false"
+        );
+    });
+}
+
+function placeParagraphLetter(zone, letter) {
+    if (!zone || !letter) return;
+
+    // Remove this letter from any other answer box first.
+    document.querySelectorAll(".paragraph-drop-zone").forEach(
+        function(otherZone) {
+            if (otherZone.dataset.answer === letter) {
+                otherZone.dataset.answer = "";
+
+                const oldLetter = otherZone.querySelector(
+                    ".draggable-paragraph-letter"
+                );
+
+                if (oldLetter) oldLetter.remove();
+
+                if (!otherZone.querySelector(".drop-hint")) {
+                    const hint = document.createElement("span");
+                    hint.className = "drop-hint";
+                    hint.textContent = "Drop letter here";
+                    otherZone.appendChild(hint);
+                }
+            }
+        }
+    );
+
+    // Clear the destination before placing the new answer.
+    const existingLetter = zone.querySelector(
+        ".draggable-paragraph-letter"
+    );
+
+    if (existingLetter) existingLetter.remove();
+
+    const hint = zone.querySelector(".drop-hint");
+    if (hint) hint.remove();
+
+    const letterElement = document.createElement("div");
+    letterElement.className = "draggable-paragraph-letter";
+    letterElement.textContent = letter;
+    letterElement.dataset.letter = letter;
+    letterElement.draggable = true;
+    letterElement.tabIndex = 0;
+    letterElement.setAttribute("role", "button");
+    letterElement.setAttribute(
+        "aria-label",
+        `Paragraph ${letter}. Select to move this answer.`
+    );
+
+    zone.appendChild(letterElement);
+    zone.dataset.answer = letter;
+
+    selectedParagraphLetter = null;
+
+    saveParagraphAnswers();
+    updateParagraphLetterBank();
+    updateQuestionProgress();
+}
+
+function saveParagraphAnswers() {
+    document.querySelectorAll(".paragraph-drop-zone").forEach(
+        function(zone) {
+            const questionName = zone.dataset.question;
+            const answer = zone.dataset.answer || "";
+
+            sessionStorage.setItem(
+                "readingGT1_" + questionName,
+                answer
+            );
+        }
+    );
+}
+
+function restoreParagraphAnswers() {
+    document.querySelectorAll(".paragraph-drop-zone").forEach(
+        function(zone) {
+            const savedAnswer = sessionStorage.getItem(
+                "readingGT1_" + zone.dataset.question
+            );
+
+            if (savedAnswer) {
+                placeParagraphLetter(zone, savedAnswer);
+            }
+        }
+    );
+
+    updateParagraphLetterBank();
+}
+
+document.addEventListener("dragstart", function(event) {
+    const letterElement = event.target.closest(
+        ".draggable-paragraph-letter"
+    );
+
+    if (!letterElement) return;
+
+    draggedParagraphLetter = letterElement.dataset.letter;
+
+    if (event.dataTransfer) {
+        event.dataTransfer.setData(
+            "text/plain",
+            draggedParagraphLetter
+        );
+        event.dataTransfer.effectAllowed = "move";
+    }
+});
+
+document.querySelectorAll(".paragraph-drop-zone").forEach(
+    function(zone) {
+        zone.addEventListener("dragover", function(event) {
+            event.preventDefault();
+            zone.classList.add("drag-over");
+        });
+
+        zone.addEventListener("dragleave", function() {
+            zone.classList.remove("drag-over");
+        });
+
+        zone.addEventListener("drop", function(event) {
+            event.preventDefault();
+            zone.classList.remove("drag-over");
+
+            const letter =
+                (event.dataTransfer &&
+                 event.dataTransfer.getData("text/plain")) ||
+                draggedParagraphLetter;
+
+            placeParagraphLetter(zone, letter);
+            draggedParagraphLetter = null;
+        });
+
+        // Keyboard/tap alternative: select a letter, then select a box.
+        zone.addEventListener("click", function() {
+            if (selectedParagraphLetter) {
+                placeParagraphLetter(zone, selectedParagraphLetter);
+            }
+        });
+
+        zone.addEventListener("keydown", function(event) {
+            if (
+                (event.key === "Enter" || event.key === " ") &&
+                selectedParagraphLetter
+            ) {
+                event.preventDefault();
+                placeParagraphLetter(zone, selectedParagraphLetter);
+            }
+        });
+    }
+);
+
+// Select a letter by tapping/clicking it, or with the keyboard.
+document.addEventListener("click", function(event) {
+    const letterElement = event.target.closest(
+        ".draggable-paragraph-letter"
+    );
+
+    if (!letterElement) return;
+
+    // Clicking a letter already inside an answer box picks it up.
+    selectedParagraphLetter = letterElement.dataset.letter;
+
+    updateParagraphLetterBank();
+});
+
+document.addEventListener("keydown", function(event) {
+    const letterElement = event.target.closest(
+        ".draggable-paragraph-letter"
+    );
+
+    if (
+        letterElement &&
+        (event.key === "Enter" || event.key === " ")
+    ) {
+        event.preventDefault();
+        selectedParagraphLetter = letterElement.dataset.letter;
+        updateParagraphLetterBank();
+        return;
+    }
+
+    if (event.key === "Escape") {
+        selectedParagraphLetter = null;
+        updateParagraphLetterBank();
+    }
+});
+
+restoreParagraphAnswers();
 
 
 /* =========================================
@@ -1424,6 +1661,8 @@ function goToPart(partNumber) {
             "reading_gt_1_part3.html";
 
     }
+
+    saveParagraphAnswers();
 
 }
 

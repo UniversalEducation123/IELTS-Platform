@@ -51,6 +51,103 @@
             margin-right: 8px;
         }
 
+        
+        /* Drag-and-drop matching: Questions 15–20 */
+
+        .matching-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 18px 0;
+            padding: 14px;
+            border: 1px solid #ded4c6;
+            border-radius: 12px;
+            background: #f4f0e8;
+        }
+
+        .matching-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 8px 14px;
+            box-sizing: border-box;
+            border: 1px solid #d5c6b3;
+            border-radius: 9px;
+            background: #fffdf9;
+            color: #514d46;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: grab;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .matching-letter:active {
+            cursor: grabbing;
+        }
+
+        .matching-letter.selected {
+            border: 2px solid #8b9a6e;
+            background: #e8eddc;
+        }
+
+        .matching-letter.used {
+            opacity: 0.45;
+        }
+
+        .matching-drop-zone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .matching-answer {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 74px;
+            min-height: 42px;
+            padding: 7px 12px;
+            border: 2px dashed #cfc3b3;
+            border-radius: 9px;
+            background: #fffdf9;
+            color: #514d46;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .matching-answer.filled {
+            border-style: solid;
+            border-color: #8b9a6e;
+            background: #edf0e5;
+        }
+
+        .matching-answer.drag-over {
+            border-color: #8b9a6e;
+            background: #e8eddc;
+        }
+
+        .matching-answer:focus-visible,
+        .matching-letter:focus-visible {
+            outline: 2px solid #66794a;
+            outline-offset: 3px;
+        }
+
+        .matching-instruction {
+            color: #716b61;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+
+        .matching-hidden-select {
+            display: none !important;
+        }
+
+
     </style>
 
 </head>
@@ -413,11 +510,11 @@
     <section class="questions-panel">
 
 
+                
         <h2>Questions 15–20</h2>
 
         <p>
-            Look at the following information about St. Trinian's
-            College.
+            Look at the following information about St. Trinian's College.
         </p>
 
         <p>
@@ -428,160 +525,105 @@
             Write the correct letter, A–G.
         </p>
 
+        <p class="matching-instruction">
+            Drag a letter into a question, or tap a letter and then tap a question.
+            You can reuse letters.
+        </p>
 
-        <div class="question">
-
-            <p>
-                <span class="question-number">15.</span>
-                Which course should I apply for?
-            </p>
-
-            <select
-                name="q15"
-                aria-label="Question 15">
-
-                <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
-            </select>
-
+        <div class="matching-options" id="matchingOptions" aria-label="Available section letters">
+            <button type="button" class="matching-letter" draggable="true" data-letter="A">A</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="B">B</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="C">C</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="D">D</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="E">E</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="F">F</button>
+            <button type="button" class="matching-letter" draggable="true" data-letter="G">G</button>
         </div>
 
-
-
         <div class="question">
-
-            <p>
-                <span class="question-number">16.</span>
-                Are the courses full-time or part-time?
-            </p>
-
-            <select
-                name="q16"
-                aria-label="Question 16">
-
+            <p><span class="question-number">15.</span> Which course should I apply for?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q15" aria-label="Answer for question 15">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q15">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q15" aria-label="Question 15">
                 <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
-
         </div>
 
-
-
         <div class="question">
-
-            <p>
-                <span class="question-number">17.</span>
-                Are there a lot of rules?
-            </p>
-
-            <select
-                name="q17"
-                aria-label="Question 17">
-
+            <p><span class="question-number">16.</span> Are the courses full-time or part-time?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q16" aria-label="Answer for question 16">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q16">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q16" aria-label="Question 16">
                 <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
-
         </div>
 
-
-
         <div class="question">
-
-            <p>
-                <span class="question-number">18.</span>
-                How much does it cost?
-            </p>
-
-            <select
-                name="q18"
-                aria-label="Question 18">
-
+            <p><span class="question-number">17.</span> Are there a lot of rules?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q17" aria-label="Answer for question 17">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q17">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q17" aria-label="Question 17">
                 <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
-
         </div>
 
-
-
         <div class="question">
-
-            <p>
-                <span class="question-number">19.</span>
-                What level of education do I need to enter the college?
-            </p>
-
-            <select
-                name="q19"
-                aria-label="Question 19">
-
+            <p><span class="question-number">18.</span> How much does it cost?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q18" aria-label="Answer for question 18">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q18">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q18" aria-label="Question 18">
                 <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
-
         </div>
 
-
+        <div class="question">
+            <p><span class="question-number">19.</span> What level of education do I need to enter the college?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q19" aria-label="Answer for question 19">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q19">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q19" aria-label="Question 19">
+                <option value="">Select</option>
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
+            </select>
+        </div>
 
         <div class="question">
-
-            <p>
-                <span class="question-number">20.</span>
-                How can I apply?
-            </p>
-
-            <select
-                name="q20"
-                aria-label="Question 20">
-
+            <p><span class="question-number">20.</span> How can I apply?</p>
+            <div class="matching-drop-zone">
+                <span>Answer:</span>
+                <button type="button" class="matching-answer" data-question="q20" aria-label="Answer for question 20">Select letter</button>
+                <button type="button" class="matching-clear" data-clear="q20">Clear</button>
+            </div>
+            <select class="matching-hidden-select" name="q20" aria-label="Question 20">
                 <option value="">Select</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-
+                <option>A</option><option>B</option><option>C</option>
+                <option>D</option><option>E</option><option>F</option><option>G</option>
             </select>
-
         </div>
+
 
 
 
@@ -943,6 +985,119 @@ function updateQuestionProgress() {
 
 
 /* =========================================
+   DRAG AND DROP: QUESTIONS 15–20
+========================================= */
+
+let selectedMatchingLetter = null;
+
+function setMatchingAnswer(questionName, letter) {
+    const select = document.querySelector(
+        `#readingForm select[name="${questionName}"]`
+    );
+
+    const answerButton = document.querySelector(
+        `.matching-answer[data-question="${questionName}"]`
+    );
+
+    if (!select || !answerButton) return;
+
+    select.value = letter || "";
+
+    answerButton.textContent = letter || "Select letter";
+    answerButton.classList.toggle("filled", Boolean(letter));
+
+    saveAnswers();
+    updateQuestionProgress();
+}
+
+function syncMatchingAnswers() {
+    document.querySelectorAll(".matching-answer").forEach(button => {
+        const questionName = button.dataset.question;
+
+        const select = document.querySelector(
+            `#readingForm select[name="${questionName}"]`
+        );
+
+        if (!select) return;
+
+        button.textContent = select.value || "Select letter";
+        button.classList.toggle("filled", Boolean(select.value));
+    });
+}
+
+document.querySelectorAll(".matching-letter").forEach(letterButton => {
+
+    letterButton.addEventListener("dragstart", event => {
+        event.dataTransfer.setData(
+            "text/plain",
+            letterButton.dataset.letter
+        );
+
+        event.dataTransfer.effectAllowed = "copy";
+    });
+
+    letterButton.addEventListener("click", () => {
+        document.querySelectorAll(".matching-letter").forEach(button => {
+            button.classList.remove("selected");
+        });
+
+        if (selectedMatchingLetter === letterButton.dataset.letter) {
+            selectedMatchingLetter = null;
+            return;
+        }
+
+        selectedMatchingLetter = letterButton.dataset.letter;
+        letterButton.classList.add("selected");
+    });
+});
+
+document.querySelectorAll(".matching-answer").forEach(answerButton => {
+
+    answerButton.addEventListener("dragover", event => {
+        event.preventDefault();
+        answerButton.classList.add("drag-over");
+    });
+
+    answerButton.addEventListener("dragleave", () => {
+        answerButton.classList.remove("drag-over");
+    });
+
+    answerButton.addEventListener("drop", event => {
+        event.preventDefault();
+        answerButton.classList.remove("drag-over");
+
+        const letter = event.dataTransfer.getData("text/plain");
+
+        if (/^[A-G]$/.test(letter)) {
+            setMatchingAnswer(answerButton.dataset.question, letter);
+        }
+    });
+
+    answerButton.addEventListener("click", () => {
+        if (!selectedMatchingLetter) return;
+
+        setMatchingAnswer(
+            answerButton.dataset.question,
+            selectedMatchingLetter
+        );
+
+        document.querySelectorAll(".matching-letter").forEach(button => {
+            button.classList.remove("selected");
+        });
+
+        selectedMatchingLetter = null;
+    });
+});
+
+document.querySelectorAll(".matching-clear").forEach(clearButton => {
+    clearButton.addEventListener("click", () => {
+        setMatchingAnswer(clearButton.dataset.clear, "");
+    });
+});
+
+
+
+/* =========================================
    INPUT LISTENERS
 ========================================= */
 
@@ -1060,6 +1215,8 @@ if (
 ========================================= */
 
 restoreAnswers();
+
+syncMatchingAnswers();
 
 updateQuestionProgress();
 

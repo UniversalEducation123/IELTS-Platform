@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>General Training Reading Test 1 Result</title>
 
-
     <style>
-
         * {
             box-sizing: border-box;
         }
-
 
         body {
             margin: 0;
             padding: 30px 15px;
             min-height: 100vh;
-
             font-family: Arial, sans-serif;
 
             background:
@@ -42,11 +34,6 @@
             color: #5F5B55;
         }
 
-
-        /* =====================================
-           HEADER
-        ===================================== */
-
         .result-header {
             width: 100%;
             max-width: 900px;
@@ -54,20 +41,16 @@
 
             margin: 0 auto 24px;
             padding: 0 22px;
-
             display: flex;
             justify-content: space-between;
             align-items: center;
 
             background: rgba(255,255,255,.78);
-
             border: 1px solid #E8E1D6;
             border-radius: 16px;
-
             box-shadow:
                 0 8px 22px rgba(76,74,70,.05);
         }
-
 
         .result-logo {
             font-size: 20px;
@@ -75,68 +58,47 @@
             color: #5F5B55;
         }
 
-
         .result-header-links {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-
         .result-header-links a {
             color: #6B6A63;
             text-decoration: none;
-
             font-size: 14px;
             font-weight: 600;
-
             transition: .2s;
         }
-
 
         .result-header-links a:hover {
             color: #8B9A6E;
         }
 
-
-
-        /* =====================================
-           RESULT CARD
-        ===================================== */
-
         .result-card {
             width: 100%;
             max-width: 850px;
-
             margin: 0 auto;
             padding: 42px;
 
             background: rgba(255,255,255,.82);
-
             border: 1px solid #ECE4D8;
             border-radius: 24px;
-
             box-shadow:
                 0 14px 34px rgba(76,74,70,.06);
         }
 
-
         h1 {
             margin: 0 0 34px;
-
             text-align: center;
-
             color: #5F5B55;
-
             font-size: 32px;
         }
 
-
         h2 {
             color: #5F5B55;
-
             font-size: 23px;
-
             margin: 36px 0 20px;
         }
 
@@ -570,22 +532,29 @@ function calculateBand(correctCount) {
 ===================================== */
 
 function readGTReadingAnswers() {
-
     const answers = {};
 
-
     for (let i = 1; i <= 40; i++) {
+        if (i === 32) {
+            const saved = sessionStorage.getItem("readingGT1_q32");
+
+            answers.q32 = saved
+                ? saved.split(",").filter(Boolean)
+                : [];
+
+            continue;
+        }
+
+        if (i === 33) {
+            answers.q33 = "";
+            continue;
+        }
 
         answers["q" + i] =
-            sessionStorage.getItem(
-                "readingGT1_q" + i
-            ) || "";
-
+            sessionStorage.getItem("readingGT1_q" + i) || "";
     }
 
-
     return answers;
-
 }
 
 
@@ -846,9 +815,7 @@ const answerKey = {
 
     q31: ["A"],
 
-    q32: ["II"],
-
-    q33: ["VI"],
+    q32: ["II", "VI"],
 
     q34: ["Decreased"],
 
@@ -872,29 +839,15 @@ const answerKey = {
 ===================================== */
 
 function scoreQuestions32And33(answers) {
-
-    const q32 = normalizeAnswer(answers.q32);
-    const q33 = normalizeAnswer(answers.q33);
+    const selected = Array.isArray(answers.q32)
+        ? answers.q32.map(normalizeAnswer)
+        : [normalizeAnswer(answers.q32)];
 
     const correctOptions = ["ii", "vi"];
 
-    let score = 0;
-
-    if (correctOptions.includes(q32)) {
-        score++;
-    }
-
-    if (correctOptions.includes(q33)) {
-        score++;
-    }
-
-    // Both answers must be different
-    // to receive the full 2 marks.
-    if (q32 === q33) {
-        return Math.min(score, 1);
-    }
-
-    return score;
+    return correctOptions.filter(option =>
+        selected.includes(option)
+    ).length;
 }
 
 
@@ -956,61 +909,34 @@ async function calculateReadingScore() {
 
 
     /* ===============================
-       QUESTIONS 32–33
+    QUESTIONS 32–33
+    ONE QUESTION, TWO ANSWERS
     =============================== */
 
-    const marks32_33 =
-        scoreQuestions32And33(
-            answers
+    const marks32_33 = scoreQuestions32And33(answers);
+
+    correctCount += marks32_33;
+
+    const selectedAnswers = Array.isArray(answers.q32)
+        ? answers.q32.map(normalizeAnswer)
+        : [];
+
+    const correctOptions = ["ii", "vi"];
+
+    const bothCorrect =
+        selectedAnswers.length === 2 &&
+        correctOptions.every(option =>
+            selectedAnswers.includes(option)
         );
-
-
-    correctCount +=
-        marks32_33;
-
-
-
-    const q32Correct =
-        normalizeAnswer(
-            answers.q32
-        ) !== "" &&
-        ["ii", "vi"].includes(
-            normalizeAnswer(
-                answers.q32
-            )
-        );
-
-
-    const q33Correct =
-        normalizeAnswer(
-            answers.q33
-        ) !== "" &&
-        ["ii", "vi"].includes(
-            normalizeAnswer(
-                answers.q33
-            )
-        );
-
 
     addReviewItem(
-        32,
-        answers.q32,
+        "32–33",
+        selectedAnswers.length
+            ? selectedAnswers.join(" / ").toUpperCase()
+            : "",
         "II / VI",
-        ["ii", "vi"].includes(
-            normalizeAnswer(answers.q32)
-        )
+        bothCorrect
     );
-
-
-    addReviewItem(
-        33,
-        answers.q33,
-        "II / VI",
-        ["ii", "vi"].includes(
-            normalizeAnswer(answers.q33)
-        )
-    );
-
 
 
     /* ===============================
