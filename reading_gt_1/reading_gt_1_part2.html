@@ -51,96 +51,134 @@
         }
 
     
-       
-/* Questions 15–20: instructions on top, options and questions below */
 
-        .matching-layout {
-            display: grid !important;
-            grid-template-columns: 145px minmax(0, 1fr) !important;
-            grid-template-areas:
-                "intro intro"
-                "options questions";
-            gap: 14px !important;
-            align-items: start;
-            margin: 12px 0 20px !important;
-        }
+        ```css
+.matching-layout {
+    display: grid !important;
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1fr) !important;
+    grid-template-areas:
+        "intro intro"
+        "options questions";
+    gap: 20px !important;
+    align-items: start;
+    margin: 12px 0 20px !important;
+}
 
-        .matching-intro {
-            grid-area: intro;
-            min-width: 0;
-        }
+.matching-intro {
+    grid-area: intro;
+    min-width: 0;
+}
 
-        .matching-intro h2 {
-            margin: 0 0 10px;
-        }
+.matching-intro h2 {
+    margin: 0 0 10px;
+}
 
-        .matching-intro p {
-            margin: 6px 0;
-            line-height: 1.4;
-        }
+.matching-intro p {
+    margin: 6px 0;
+    line-height: 1.5;
+}
 
-        .matching-options-column {
-            grid-area: options;
-            min-width: 0;
-        }
+.matching-options-column {
+    grid-area: options;
+    min-width: 0;
+}
 
-        .matching-options-column h3 {
-            margin: 0 0 8px;
-            font-size: 15px;
-        }
+.matching-options-column h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
 
-        .matching-options {
-            display: grid !important;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 6px !important;
-            padding: 8px !important;
-            margin-top: 8px;
-        }
+.matching-options {
+    display: flex !important;
+    flex-direction: column;
+    gap: 8px !important;
+    padding: 0 !important;
+    margin-top: 8px;
+}
 
-        .matching-letter {
-            min-width: 0;
-            min-height: 36px !important;
-            padding: 4px !important;
-        }
+.matching-letter {
+    display: block;
+    width: 100%;
+    min-height: 44px !important;
+    padding: 10px 12px !important;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    cursor: grab;
+    touch-action: manipulation;
+}
 
-        .matching-questions {
-            grid-area: questions;
-            min-width: 0;
-        }
+.matching-letter:active {
+    cursor: grabbing;
+}
 
-        .matching-questions .question {
-            padding: 9px 11px !important;
-            margin: 0 0 8px !important;
-            border-radius: 9px;
-        }
+.matching-letter.selected {
+    outline: 2px solid #75865b;
+    background: #e8eedf;
+}
 
-        .matching-questions .question p {
-            margin: 0 0 6px !important;
-            line-height: 1.4;
-        }
+.matching-questions {
+    grid-area: questions;
+    min-width: 0;
+}
 
-        .matching-drop-zone {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px !important;
-            margin-top: 5px !important;
-        }
+.matching-questions .question {
+    padding: 12px !important;
+    margin: 0 0 10px !important;
+    border-radius: 9px;
+}
 
-        .matching-answer {
-            min-width: 95px;
-            min-height: 34px !important;
-            padding: 5px 8px !important;
-        }
+.matching-questions .question p {
+    margin: 0 0 8px !important;
+    line-height: 1.5;
+}
 
-        .matching-clear {
-            min-height: 32px;
-            padding: 5px 8px;
-        }
+.matching-drop-zone {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px !important;
+    margin-top: 8px !important;
+}
+
+.matching-answer {
+    min-width: 120px;
+    min-height: 38px !important;
+    padding: 6px 10px !important;
+}
+
+.matching-answer.drag-over {
+    outline: 2px dashed #75865b;
+    background: #e8eedf;
+}
+
+.matching-clear {
+    min-height: 34px;
+    padding: 5px 10px;
+}
+
+#readingForm select.matching-hidden-select {
+    display: none !important;
+}
+
+@media (max-width: 700px) {
+    .matching-layout {
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-areas:
+            "intro"
+            "options"
+            "questions";
+    }
+}
+```
 
         /* Keep the underlying selects available to JavaScript */
         #readingForm select.matching-hidden-select {
             display: none !important;
+        }
+
+        .reading-split-layout + .reading-split-layout {
+            margin-top: 24px;
         }
 
         @media (max-width: 520px) {
@@ -291,7 +329,7 @@
 
 <form id="readingForm">
 
-```html
+
 <section id="part2" class="reading-part active reading-gt-test-1-part">
 
     <!-- CONTAINER 1: ST. TRINIAN'S COLLEGE + QUESTIONS 15–20 -->
@@ -370,146 +408,227 @@
 
         <section class="questions-panel">
 
-            <div class="matching-layout">
+        <div class="matching-layout">
 
-                <div class="matching-intro">
+            <div class="matching-intro">
+                <h2>Questions 15–20</h2>
 
-                    <h2>Questions 15–20</h2>
+                <p>
+                    The text about St. Trinian's College gives the answers to
+                    questions commonly asked by the college's applicants.
+                </p>
 
-                    <p>
-                        Look at the following information about St. Trinian's College.
-                    </p>
+                <p>There are seven sections A–G.</p>
 
-                    <p>
-                        Choose the most suitable question heading for each section from the list given.
-                    </p>
+                <p>
+                    Choose the most suitable question-heading for each section
+                    from the list below. Write the appropriate number (i–ix)
+                    in the correct box.
+                </p>
 
-                    <p>Write the correct letter, A–G.</p>
+                <p>
+                    <strong>Note:</strong> There are more question-headings than
+                    sections, so you will not use all of them.
+                </p>
+            </div>
 
-                    <p class="matching-instruction">
-                        Drag a letter into a question, or tap a letter and then tap
-                        a question. You can reuse letters.
-                    </p>
+            <!-- LIST OF HEADINGS -->
+            <div class="matching-options-column">
+                <h3>List of question-headings</h3>
+
+                <div class="matching-options" id="matchingOptions">
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="i">
+                        i. Which course should I apply for?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="ii">
+                        ii. Are the courses full-time or part-time?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="iii">
+                        iii. Are there a lot of rules?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="iv">
+                        iv. How much does it cost?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="v">
+                        v. What level of education do I need to enter the college?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="vi">
+                        vi. How can I apply?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="vii">
+                        vii. Can the college help me to get a job?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="viii">
+                        viii. When do courses start?
+                    </button>
+
+                    <button type="button" class="matching-letter"
+                            draggable="true" data-letter="ix">
+                        ix. What assistance is given to foreign students?
+                    </button>
 
                 </div>
+            </div>
 
+            <!-- QUESTIONS: STUDENTS MATCH SECTIONS TO HEADINGS -->
+            <div class="matching-questions">
 
-                <div class="matching-options-column">
-
-                    <h3>Sections</h3>
-
-                    <div class="matching-options" id="matchingOptions"
-                         aria-label="Available section letters">
-
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="A">A</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="B">B</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="C">C</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="D">D</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="E">E</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="F">F</button>
-                        <button type="button" class="matching-letter"
-                                draggable="true" data-letter="G">G</button>
-
+                <div class="question">
+                    <p><span class="question-number">15.</span> Section B</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q15">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q15">Clear</button>
                     </div>
-
+                    <select class="matching-hidden-select" name="q15">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
                 </div>
 
-
-                <div class="matching-questions">
-
-                    <div class="question">
-                        <p><span class="question-number">15.</span> Which course should I apply for?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q15" aria-label="Answer for question 15">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q15">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q15" aria-label="Question 15">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
+                <div class="question">
+                    <p><span class="question-number">16.</span> Section C</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q16">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q16">Clear</button>
                     </div>
+                    <select class="matching-hidden-select" name="q16">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
+                </div>
 
-                    <div class="question">
-                        <p><span class="question-number">16.</span> Are the courses full-time or part-time?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q16" aria-label="Answer for question 16">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q16">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q16" aria-label="Question 16">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
+                <div class="question">
+                    <p><span class="question-number">17.</span> Section D</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q17">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q17">Clear</button>
                     </div>
+                    <select class="matching-hidden-select" name="q17">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
+                </div>
 
-                    <div class="question">
-                        <p><span class="question-number">17.</span> Are there a lot of rules?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q17" aria-label="Answer for question 17">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q17">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q17" aria-label="Question 17">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
+                <div class="question">
+                    <p><span class="question-number">18.</span> Section E</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q18">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q18">Clear</button>
                     </div>
+                    <select class="matching-hidden-select" name="q18">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
+                </div>
 
-                    <div class="question">
-                        <p><span class="question-number">18.</span> How much does it cost?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q18" aria-label="Answer for question 18">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q18">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q18" aria-label="Question 18">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
+                <div class="question">
+                    <p><span class="question-number">19.</span> Section F</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q19">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q19">Clear</button>
                     </div>
+                    <select class="matching-hidden-select" name="q19">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
+                </div>
 
-                    <div class="question">
-                        <p><span class="question-number">19.</span> What level of education do I need to enter the college?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q19" aria-label="Answer for question 19">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q19">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q19" aria-label="Question 19">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
+                <div class="question">
+                    <p><span class="question-number">20.</span> Section G</p>
+                    <div class="matching-drop-zone">
+                        <span>Heading:</span>
+                        <button type="button" class="matching-answer"
+                                data-question="q20">Select heading</button>
+                        <button type="button" class="matching-clear"
+                                data-clear="q20">Clear</button>
                     </div>
-
-                    <div class="question">
-                        <p><span class="question-number">20.</span> How can I apply?</p>
-                        <div class="matching-drop-zone">
-                            <span>Answer:</span>
-                            <button type="button" class="matching-answer" data-question="q20" aria-label="Answer for question 20">Select letter</button>
-                            <button type="button" class="matching-clear" data-clear="q20">Clear</button>
-                        </div>
-                        <select class="matching-hidden-select" name="q20" aria-label="Question 20">
-                            <option value="">Select</option>
-                            <option>A</option><option>B</option><option>C</option>
-                            <option>D</option><option>E</option><option>F</option><option>G</option>
-                        </select>
-                    </div>
-
+                    <select class="matching-hidden-select" name="q20">
+                        <option value="">Select heading</option>
+                        <option value="i">i</option>
+                        <option value="ii">ii</option>
+                        <option value="iii">iii</option>
+                        <option value="iv">iv</option>
+                        <option value="v">v</option>
+                        <option value="vi">vi</option>
+                        <option value="vii">vii</option>
+                        <option value="viii">viii</option>
+                        <option value="ix">ix</option>
+                    </select>
                 </div>
 
             </div>
+        </div>
 
         </section>
 
@@ -542,51 +661,55 @@
                         participate in orientation.
                     </p>
 
+                    <p>
+                        <strong>Note:</strong>
+                        You are advised to read and understand the conditions set out in the 
+                        government acceptance advice form when you sign the declaration because
+                        you are required to comply with those conditions as an international
+                        student in Australia.
+                    </p>
+
+                    <h3>FEES</h3>
                     <h4>Application Fee</h4>
 
                     <p>
-                        The application fee is A$100 and is non-refundable.
+                        The application fee is $100 and is non-refundable.
                     </p>
+
+
+                    <h4>Course Fees</h4>
+                    <p>The course fees set for 1997/1998 are:</p>
+
+                    <p>Certificate Courses: A$ 10,200 per year</p>
+                    <p>Advanced Certificate Courses: A$ 10,200 per year</p>
+                    <p>Associated Diploma Courses: A$ 10,200 per year</p>
+                    <p>ELICOS: A$ 5,950 for 20 weeks</p>
+                    <p>VCE: A$ 5,600 for 20 weeks</p>
 
                     <p>
-                        Application fees will be refunded if an application
-                        is rejected or if the course is cancelled by the
-                        college.
+                        The annual fee includes full cost of tuition and educational
+                        services provided by the college. Textbooks, equipment, tools, stationery
+                        and individual requirements that you may need in your studies are your 
+                        responsibility.
                     </p>
-
-                    <h4>Course Fees 1997/1998</h4>
-
-                    <p>Certificate Courses: A$10 200 per year</p>
-                    <p>Advanced Certificate Courses: A$10 200 per year</p>
-                    <p>Associated Diploma Courses: A$10 200 per year</p>
-                    <p>ELICOS: A$5 950 for 20 weeks</p>
-                    <p>VCE: A$5 600 for 20 weeks</p>
-
-                    <p>
-                        The annual fee includes tuition and educational
-                        services. Textbooks, equipment, tools, stationery
-                        and individual requirements are the responsibility
-                        of the student.
-                    </p>
-
-                    <h4>Payment of Fees</h4>
 
                     <p>
                         Details of fee payment are provided in the
                         provisional acceptance letter. Fees must be paid by
-                        the specified date.
+                        the specified date in the letter.
                     </p>
 
                     <p>
-                        All tuition fees must be paid by bank draft payable
+                        All tuition fees must be paid by bankdraft and made payable
                         to King George's College of TAFE.
                     </p>
 
-                    <h4>Refund Policy</h4>
+                    <h3>Refund Policy</h3>
+                    <h4>Application Fees</h4>
 
                     <p>
-                        The application fee will not be refunded if a
-                        student withdraws after an offer has been made.
+                        The application fee will not be refunded if the application
+                        is withdrawn after an offer of place has been made.
                     </p>
 
                     <p>
@@ -595,26 +718,44 @@
                         college.
                     </p>
 
+                    <h4>Course Fees</h4>
+                    <p>If a student withdraws after payment of fees, the following will apply</p>
                     <p>
-                        If a student withdraws less than two weeks before
-                        the course begins, no refund will be given.
+                       1. If notice of withdrawal is received by the college less than two (2) weeks
+                       before the course commences, no refund is given.
                     </p>
 
                     <p>
-                        If a student withdraws less than four weeks but more
-                        than two weeks before the course begins, 50% of the
-                        tuition fee will be refunded.
+                      2. If written notice of withdrawal is given to the college less than four (4) weeks
+                       but more than two (2) weeks before the commencement of the course, 50 per cent of
+                       the course fee will be refunded.
                     </p>
 
                     <p>
-                        If a student withdraws at least four weeks before
-                        the course begins, 80% of the tuition fee will be
-                        refunded.
+                       3. If written notice of withdrawal is received by the college at least (4) weeks 
+                        before the course commencement, 80 per cent of the tuition fee will be refunded.
                     </p>
 
                     <p>
-                        All notices of withdrawal must be made in writing to
+                        All notices of withdrawal must be made in writing and addressed to
                         the Manager, International Student Programs.
+                    </p>
+
+                    <p> The notice of withdrawal should state name, course, date of commencement and 
+                        reason for withdrawal.
+                    </p>
+
+                    <h3>TRANSFER TO ANOTHER INSTITUITION</h3>
+
+                    <p> Applications for transfer must be made in writing to International Student 
+                        Programs stating raseons, and a copy of the accepatance letter from the 
+                        receiving institution must be attached. Fees to be transferred will be subject 
+                        to the refund policy. 
+                    </p>
+
+                    <p>
+                        <strong>Note:</strong>
+                        The college will not be responsible for any monies made payable to any agent.
                     </p>
 
                 </div>
@@ -986,7 +1127,7 @@ document.querySelectorAll(".matching-answer").forEach(answerButton => {
 
         const letter = event.dataTransfer.getData("text/plain");
 
-        if (/^[A-G]$/.test(letter)) {
+        if (/^(i|ii|iii|iv|v|vi|vii|viii|ix)$/.test(letter)) {
             setMatchingAnswer(answerButton.dataset.question, letter);
         }
     });
