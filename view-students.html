@@ -323,6 +323,50 @@ let selectedTest = "Test 1";
 let selectedReviewStatus = "ALL";
 
 
+// Convert writing submission IDs into display names.
+function getWritingDisplayName(testId) {
+    const names = {
+        "writing-gt-test-1": "GT Writing Test 1"
+    };
+
+    if (names[testId]) {
+        return names[testId];
+    }
+
+    return String(testId || "")
+        .replace(/^writing-/, "")
+        .replace(/-/g, " ")
+        .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+
+// Get the exact submission ID for a displayed test.
+function getWritingTestId(testName) {
+    if (testName === "GT Writing Test 1") {
+        return "writing-gt-test-1";
+    }
+
+    return "writing-" +
+        String(testName || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+}
+
+
+// Identify which test filter a writing submission belongs to.
+function matchesTestFilter(testName, testId) {
+    if (testName === "ALL") return true;
+
+    if (testId === "writing-gt-test-1") {
+        return testName === "Test 1";
+    }
+
+    return getWritingDisplayName(testId) === testName;
+}
+
+
+
 // Load students and test results
 async function loadStudentsAndResults() {
     const loadingMessage = document.getElementById("loadingMessage");
@@ -513,12 +557,9 @@ filteredResults.forEach(result => {
 allWritingSubmissions.forEach(submission => {
 
     const currentTest =
-        submission.test_id
-            .replace("writing-", "")
-            .replace(/-/g, " ")
-            .replace(/\b\w/g, c => c.toUpperCase());
+        getWritingDisplayName(submission.test_id);
 
-    if (testName !== "ALL" && currentTest !== testName) {
+    if (!matchesTestFilter(testName, submission.test_id)) {
         return;
     }
 
@@ -677,12 +718,8 @@ studentList.innerHTML = "";
            MATCH CORRECT WRITING TEST
         ============================= */
 
-        const writingTestId =
-            "writing-" +
-            String(result.test_name || "")
-                .trim()
-                .toLowerCase()
-                .replace(/\s+/g, "-");
+        
+        const writingTestId = getWritingTestId(result.test_name);
 
 
         const writingSubmission =
@@ -1129,12 +1166,7 @@ async function deleteTestResult(studentId, testName) {
        DELETE WRITING SUBMISSION
        ========================================= */
 
-    const writingTestId =
-        "writing-" +
-        String(testName)
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, "-");
+    const writingTestId = getWritingTestId(testName);
 
 
     const { error: writingError } =
