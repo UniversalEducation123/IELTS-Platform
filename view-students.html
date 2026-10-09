@@ -417,6 +417,13 @@ allWritingSubmissions = writingSubmissions || [];
     allStudents = students || [];
     allResults = results || [];
 
+    console.log(
+        "GT Reading results:",
+        allResults.filter(result =>
+            String(result.test_name || "").trim() === "GT Reading Test 1"
+        )
+    );
+
     loadingMessage.style.display = "none";
 
     showTestResults(selectedTest);
