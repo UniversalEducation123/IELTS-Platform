@@ -52,13 +52,12 @@
         }
 
     
-
         .matching-layout {
-            display: grid;
-            grid-template-columns: minmax(130px, 0.55fr) minmax(0, 1.8fr);
-            gap: 16px;
+            display: grid !important;
+            grid-template-columns: 145px minmax(0, 1fr) !important;
+            gap: 14px !important;
             align-items: start;
-            margin: 12px 0 24px;
+            margin: 10px 0 20px !important;
         }
 
         .matching-options-column,
@@ -67,76 +66,78 @@
         }
 
         .matching-options-column > h2 {
-            margin-top: 0;
-            font-size: 20px;
+            font-size: 19px;
+            line-height: 1.3;
+            margin: 0 0 12px;
         }
 
         .matching-options-column > p {
-            margin: 6px 0;
             font-size: 13px;
-            line-height: 1.4;
+            line-height: 1.35;
+            margin: 6px 0;
         }
 
         .matching-options {
-            display: grid;
+            display: grid !important;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 7px;
-            align-content: start;
-            padding: 10px;
-            background: #f5f0e7;
-            border: 1px solid #e1d4c3;
-            border-radius: 10px;
-        }
-
-        .matching-options h3 {
-            grid-column: 1 / -1;
-            margin: 0;
+            gap: 5px !important;
+            padding: 8px !important;
+            margin-top: 10px;
         }
 
         .matching-letter {
             min-width: 0;
-            min-height: 36px;
-            padding: 5px;
+            min-height: 34px !important;
+            padding: 4px !important;
+        }
+
+        /* Keep the underlying selects for JavaScript, but hide them visually */
+        #readingForm select.matching-hidden-select {
+            display: none !important;
         }
 
         .matching-questions .question {
-            padding: 9px 12px;
-            margin: 0 0 8px;
-            background: #fffdfa;
-            border: 1px solid #e5d9ca;
+            padding: 8px 10px !important;
+            margin: 0 0 7px !important;
             border-radius: 9px;
         }
 
         .matching-questions .question p {
-            margin: 0 0 5px;
-            line-height: 1.35;
+            margin: 0 0 5px !important;
+            line-height: 1.3;
         }
 
         .matching-drop-zone {
-            gap: 7px;
-            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px !important;
+            margin-top: 4px !important;
         }
 
         .matching-answer {
-            min-width: 90px;
-            min-height: 34px;
-            padding: 5px 9px;
+            min-width: 95px;
+            min-height: 32px !important;
+            padding: 4px 8px !important;
         }
 
         .matching-clear {
-            padding: 5px 8px;
+            min-height: 30px;
+            padding: 4px 7px;
         }
 
+        /* Small screens */
         @media (max-width: 520px) {
             .matching-layout {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 12px;
+                grid-template-columns: minmax(0, 1fr) !important;
             }
 
             .matching-options {
                 grid-template-columns: repeat(7, minmax(0, 1fr));
             }
         }
+
+
 
     </style>
 
