@@ -927,66 +927,39 @@ studentList.innerHTML = "";
     </strong>
 
     <span>
-        ${
-            writingSubmission &&
-            (
-                writingSubmission.status === "submitted" ||
-                writingSubmission.status === "reviewed"
-            )
-                ? "Submitted"
-                : "Not submitted"
-        }
-    </span>
-
-    <small>
-        ${
-            writingSubmission &&
-            writingSubmission.status === "reviewed"
-                ? "Band: " +
-                  (
-                      writingSubmission.overall_score ??
-                      "Pending"
-                  )
-
-                : writingSubmission &&
-                  writingSubmission.status === "submitted"
-                    ? "Ready for review"
-
-                    : "No submission"
-        }
-    </small>
-
-
-    ${
-        writingSubmission &&
-        (
-            writingSubmission.status === "submitted" ||
-            writingSubmission.status === "reviewed"
-        )
-            ? `
-                <button
-                    type="button"
-                    class="review-writing-button"
-                    onclick="reviewWriting('${writingSubmission.id}')"
-                >
-                    ${
-                        writingSubmission.status === "reviewed"
-                            ? "View Review"
-                            : "Review Writing"
-                    }
-                </button>
-            `
-
-            : `
-                <button
-                    type="button"
-                    class="review-writing-button"
-                    disabled
-                >
-                    No Writing
-                </button>
-            `
-    }
+         
+${
+    writingSubmission &&
+    (
+        writingSubmission.status === "submitted" ||
+        writingSubmission.status === "reviewed"
+    )
+        ? `
+            <button
+                type="button"
+                class="review-writing-button"
+                onclick="reviewWriting('${writingSubmission.id}')"
+            >
+                ${
+                    writingSubmission.status === "reviewed"
+                        ? "View Review"
+                        : "Review Writing"
+                }
+            </button>
+        `
+        : `
+            <button
+                type="button"
+                class="review-writing-button"
+                onclick="reviewPaperWriting(
+                    ${result.student_id},
+                    '${writingTestId}'
+                )"
+            >
+                Review / Upload Checked PDF
+            </button>
+        `
+}
 
 </div>
 
@@ -1121,6 +1094,13 @@ function reviewWriting(submissionId) {
     window.location.href =
         `faculty-writing-review.html?submission=${encodeURIComponent(submissionId)}`;
 }
+
+
+function reviewPaperWriting(studentId, testId) {
+    window.location.href =
+        `faculty-writing-review.html?student=${encodeURIComponent(studentId)}&test=${encodeURIComponent(testId)}`;
+}
+
 
 // Delete only the selected student's selected test result
 async function deleteTestResult(studentId, testName) {

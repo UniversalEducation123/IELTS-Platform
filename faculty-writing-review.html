@@ -41,7 +41,6 @@ header h1{
     padding:10px 18px;
     background:#FFFFFF;
     color:#4C4A46;
-
     border:1px solid #E3DCD1;
     border-radius:999px;
     font-weight:600;
@@ -98,7 +97,6 @@ header h1{
     border:1px solid #DDD4C8;
     border-radius:12px;
     padding:18px;
-
     white-space:pre-wrap;
     line-height:1.8;
     min-height:150px;
@@ -157,7 +155,6 @@ header h1{
     color:#FFFFFF;
     border:none;
     border-radius:10px;
-
     font-size:15px;
     font-weight:700;
     cursor:pointer;
@@ -268,10 +265,7 @@ header h1{
 
     <h1>Writing Test Review</h1>
 
-    <button
-        type="button"
-        class="back-button"
-        onclick="goBack()">
+    <button type="button" class="back-button" onclick="goBack()">
         ← Back to Students
     </button>
     
@@ -341,9 +335,7 @@ header h1{
 
             <h3>Student's Answer</h3>
 
-            <div
-                id="task2Answer"
-                class="answer-box">
+            <div id="task2Answer" class="answer-box">
             </div>
 
         </div>
@@ -478,16 +470,16 @@ const supabaseClient =
         SUPABASE_ANON_KEY
     );
 
-let originalPdfPath = "";
 
+const params = new URLSearchParams(window.location.search);
 
-const params =
-    new URLSearchParams(window.location.search);
-
-const submissionId =
-    params.get("submission");
+const submissionId = params.get("submission");
+const paperStudentId = params.get("student");
+const paperTestId = params.get("test");
 
 let currentSubmission = null;
+let isPaperSubmission = false;
+let originalPdfPath = "";
 
 
 function goBack() {
@@ -498,136 +490,164 @@ function goBack() {
 }
 
 
+
 async function loadSubmission() {
-
-    if (!submissionId) {
-
-        document.getElementById("loadingMessage").textContent =
-            "No writing submission was selected.";
-
-        return;
-    }
-
-
-    const { data, error } =
-        await supabaseClient
+    if (submissionId) {
+        const { data, error } = await supabaseClient
             .from("writing_submissions")
             .select("*")
             .eq("id", submissionId)
             .single();
-            
+
+        if (error || !data) {
+            console.error(error);
+            document.getElementById("loadingMessage").textContent =
+                "Error loading submission: " +
+                (error?.message || "Submission not found.");
+            return;
+        }
+
         currentSubmission = data;
-
-
-    if (error) {
-
-        console.error(error);
-
-        document.getElementById("loadingMessage").textContent =
-            "Error loading submission: " + error.message;
-
+        isPaperSubmission = false;
+        displaySubmission(data);
         return;
     }
 
+    if (paperStudentId && paperTestId) {
+        isPaperSubmission = true;
 
-    document.getElementById("loadingMessage").style.display =
-        "none";
+        const { data: student, error } = await supabaseClient
+            .from("students")
+            .select("id, full_name")
+            .eq("id", Number(paperStudentId))
+            .single();
 
-    document.getElementById("reviewContent").style.display =
-        "block";
+        if (error || !student) {
+            console.error(error);
+            document.getElementById("loadingMessage").textContent =
+                "Unable to load student information.";
+            return;
+        }
 
+        const { data: existing, error: existingError } =
+            await supabaseClient
+                .from("writing_submissions")
+                .select("*")
+                .eq("student_id", Number(paperStudentId))
+                .eq("test_id", paperTestId)
+                .maybeSingle();
+
+        if (existingError) {
+            console.error(existingError);
+            document.getElementById("loadingMessage").textContent =
+                "Unable to check existing writing records: " +
+                existingError.message;
+            return;
+        }
+
+        currentSubmission = existing || {
+            student_id: student.id,
+            student_name: student.full_name,
+            test_id: paperTestId,
+            task1_answer: "",
+            task2_answer: "",
+            task1_score: null,
+            task2_score: null,
+            overall_score: null,
+            faculty_feedback: "",
+            checked_pdf: null,
+            original_pdf: null,
+            status: "Paper submission",
+            submitted_at: null
+        };
+
+        displaySubmission(currentSubmission);
+        return;
+    }
+
+    document.getElementById("loadingMessage").textContent =
+        "No writing submission or student/test was selected.";
+}
+
+
+function displaySubmission(data) {
+    document.getElementById("loadingMessage").style.display = "none";
+    document.getElementById("reviewContent").style.display = "block";
 
     document.getElementById("studentName").textContent =
         data.student_name || "Unknown Student";
 
     document.getElementById("studentId").textContent =
-        data.student_id || "N/A";
-
+        data.student_id ?? paperStudentId ?? "N/A";
 
     document.getElementById("submissionDate").textContent =
         data.submitted_at
             ? new Date(data.submitted_at).toLocaleString()
-            : "N/A";
-
+            : "Paper submission";
 
     document.getElementById("submissionStatus").textContent =
-        data.status || "Submitted";
+        data.status || "Paper submission";
 
-    originalPdfPath = data.original_pdf;
+    originalPdfPath = data.original_pdf || "";
 
-    const viewCheckedPdfButton =
-        document.getElementById("viewCheckedPdfButton");
-
-    if (data.checked_pdf) {
-        viewCheckedPdfButton.style.display = "inline-block";
-    }
-
+    document.getElementById("downloadOriginalBtn").style.display =
+        originalPdfPath ? "inline-block" : "none";
 
     document.getElementById("task1Answer").textContent =
-        data.task1_answer || "No Task 1 answer submitted.";
-
+        data.task1_answer || "Paper submission. No online answer.";
 
     document.getElementById("task2Answer").textContent =
-        data.task2_answer || "No Task 2 answer submitted.";
+        data.task2_answer || "Paper submission. No online answer.";
 
+    document.getElementById("task1Score").value =
+        data.task1_score ?? "";
 
-    if (data.task1_score !== null &&
-        data.task1_score !== undefined) {
+    document.getElementById("task2Score").value =
+        data.task2_score ?? "";
 
-        document.getElementById("task1Score").value =
-            data.task1_score;
-    }
-
-
-    if (data.task2_score !== null &&
-        data.task2_score !== undefined) {
-
-        document.getElementById("task2Score").value =
-            data.task2_score;
-    }
-
-
-    if (data.overall_score !== null &&
-        data.overall_score !== undefined) {
-
-        document.getElementById("overallScore").value =
-            data.overall_score;
-    }
-
+    document.getElementById("overallScore").value =
+        data.overall_score ?? "";
 
     document.getElementById("facultyFeedback").value =
         data.faculty_feedback || "";
 
+    document.getElementById("viewCheckedPdfButton").style.display =
+        data.checked_pdf ? "inline-block" : "none";
 }
 
+
 function calculateOverallScore() {
+    const task1Value =
+        document.getElementById("task1Score").value;
 
-    const task1Score =
-        Number(document.getElementById("task1Score").value);
+    const task2Value =
+        document.getElementById("task2Score").value;
 
-    const task2Score =
-        Number(document.getElementById("task2Score").value);
+    const overallInput =
+        document.getElementById("overallScore");
 
-
-    if (
-        !Number.isFinite(task1Score) ||
-        !Number.isFinite(task2Score)
-    ) {
-
-        document.getElementById("overallScore").value = "";
-
+    if (task1Value === "" || task2Value === "") {
+        overallInput.value = "";
         return;
     }
 
+    const task1Score = Number(task1Value);
+    const task2Score = Number(task2Value);
 
-    const overall =
-        task1Score + task2Score;
+    if (
+        !Number.isFinite(task1Score) ||
+        !Number.isFinite(task2Score) ||
+        task1Score < 0 || task1Score > 9 ||
+        task2Score < 0 || task2Score > 9
+    ) {
+        overallInput.value = "";
+        return;
+    }
 
-
-    document.getElementById("overallScore").value =
-        overall;
-
+    overallInput.value =
+        ((task1Score + task2Score) / 2).toFixed(1);
 }
+
 
 async function downloadOriginalPDF() {
 
@@ -748,62 +768,75 @@ async function saveReview() {
         "Saving...";
 
 
-    const { error } =
-        await supabaseClient
+    
+message.textContent = "Saving...";
+
+    const reviewData = {
+        task1_score:
+            task1Score === "" ? null : Number(task1Score),
+
+        task2_score:
+            task2Score === "" ? null : Number(task2Score),
+
+        overall_score:
+            overallScore === "" ? null : Number(overallScore),
+
+        faculty_feedback: facultyFeedback,
+        checked_pdf: checkedPdfPath,
+        status: "reviewed",
+        checked_at: new Date().toISOString()
+    };
+
+    let saveError = null;
+
+    if (currentSubmission.id) {
+        const { error } = await supabaseClient
             .from("writing_submissions")
-            .update({
-                task1_score:
-                    task1Score === ""
-                        ? null
-                        : Number(task1Score),
+            .update(reviewData)
+            .eq("id", currentSubmission.id);
 
-                task2_score:
-                    task2Score === ""
-                        ? null
-                        : Number(task2Score),
-
-                overall_score:
-                    overallScore === ""
-                        ? null
-                        : Number(overallScore),
-
-                faculty_feedback:
-                    facultyFeedback,
-
-                checked_pdf: 
-                    checkedPdfPath,
-
-                status:
-                    "reviewed",
-
-                checked_at:
-                    new Date().toISOString()
+        saveError = error;
+    } else {
+        const { data: inserted, error } = await supabaseClient
+            .from("writing_submissions")
+            .insert({
+                ...reviewData,
+                student_id: Number(currentSubmission.student_id),
+                student_name: currentSubmission.student_name,
+                test_id: currentSubmission.test_id,
+                task1_answer: "",
+                task2_answer: "",
+                original_pdf: null
             })
-            .eq("id", submissionId);
+            .select()
+            .single();
 
+        saveError = error;
 
-    if (error) {
+        if (inserted) {
+            currentSubmission = inserted;
+        }
+    }
 
-        console.error(error);
-
-        message.textContent =
-            "Error saving review: " + error.message;
-
+    if (saveError) {
+        console.error(saveError);
+        message.textContent = "Error saving review: " + saveError.message;
         return;
     }
 
-    currentSubmission.checked_pdf =
-        checkedPdfPath;
+    currentSubmission = {
+        ...currentSubmission,
+        ...reviewData,
+        checked_pdf: checkedPdfPath
+    };
 
-    const viewCheckedPdfButton =
-        document.getElementById(
-            "viewCheckedPdfButton"
-        );
+    document.getElementById("submissionStatus").textContent = "reviewed";
 
     if (checkedPdfPath) {
-        viewCheckedPdfButton.style.display =
+        document.getElementById("viewCheckedPdfButton").style.display =
             "inline-block";
     }
+
 
 
     /* =========================================
