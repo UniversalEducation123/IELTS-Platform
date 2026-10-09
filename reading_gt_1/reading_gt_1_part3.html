@@ -118,17 +118,34 @@
             margin: 0 0 5px !important;
         }
 
+        
         .paragraph-questions-panel .paragraph-drop-zone {
             display: flex;
             align-items: center;
-            min-height: 34px !important;
-            height: 34px;
+            gap: 8px;
+            min-height: 52px !important;
+            height: auto;
             padding: 4px 10px !important;
             margin: 0 !important;
             box-sizing: border-box;
             border-width: 1px;
-            overflow: hidden;
+            overflow: visible;
         }
+
+        .paragraph-questions-panel .paragraph-drop-zone .draggable-paragraph-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 44px;
+            width: 44px;
+            height: 44px;
+            min-height: 44px;
+            padding: 0;
+            box-sizing: border-box;
+            opacity: 1;
+            visibility: visible;
+}
+
 
         @media (max-width: 520px) {
             .paragraph-matching-layout {
@@ -188,7 +205,7 @@
         }
 
         .draggable-paragraph-letter.used {
-            opacity: 0.4;
+            opacity: 1;
         }
 
         .paragraph-drop-zone {
