@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
@@ -11,10 +10,6 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
-
-        /* =========================================
-           PASSAGE SPACING
-        ========================================= */
 
         .passage-panel h2 {
             margin-top: 0;
@@ -37,11 +32,6 @@
             margin-bottom: 24px;
         }
 
-
-        /* =========================================
-           QUESTION SPACING
-        ========================================= */
-
         .question {
             margin-bottom: 24px;
         }
@@ -56,11 +46,6 @@
             margin-right: 8px;
         }
 
-
-        /* =========================================
-           TEXT INPUTS
-        ========================================= */
-
         .question input[type="text"] {
             display: block;
             width: 100%;
@@ -73,11 +58,6 @@
             box-sizing: border-box;
         }
 
-
-        /* =========================================
-           SELECT INPUTS
-        ========================================= */
-
         .question select {
             margin-top: 8px;
             padding: 8px 10px;
@@ -86,10 +66,7 @@
             font-size: 16px;
             background: #fff;
         }
-
-
-
-       
+      
         .paragraph-matching-layout {
             display: grid !important;
             grid-template-columns: 150px minmax(0, 1fr) !important;
@@ -153,7 +130,6 @@
             overflow: hidden;
         }
 
-        /* Stack only on narrow screens */
         @media (max-width: 520px) {
             .paragraph-matching-layout {
                 grid-template-columns: minmax(0, 1fr) !important;
@@ -163,13 +139,6 @@
                 grid-template-columns: repeat(6, minmax(0, 1fr));
             }
         }
-
-
-
-
-        /* =========================================
-           ANSWER WORD BOX
-        ========================================= */
 
         .answer-word-box {
             display: grid;
@@ -185,11 +154,6 @@
         .answer-word {
             font-weight: 500;
         }
-
-        
-        /* =========================================
-           DRAG AND DROP: QUESTIONS 28–31
-        ========================================= */
 
         .paragraph-letter-bank {
             display: flex;
@@ -270,8 +234,6 @@
             outline-offset: 3px;
         }
 
-
-
         @media (max-width: 700px) {
 
             .answer-word-box {
@@ -310,46 +272,24 @@
 <script src="../js/reading-highlight.js"></script>
 
 
-
-<!-- =========================================
-     HEADER
-========================================= -->
-
 <header class="navbar">
 
     <a href="../index.html" class="logo">
-
-        <img
-            src="../assets/logo.png"
-            alt="Universal Education Logo">
-
+        <img src="../assets/logo.png" alt="Universal Education Logo">
     </a>
 
 
-    <h3>
-        IELTS General Training Reading Test 1
-    </h3>
-
+    <h3> IELTS General Training Reading Test 1 </h3>
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
 </header>
 
-
-
-<!-- =========================================
-     QUESTION PROGRESS
-========================================= -->
 
 <div class="reading-question-progress">
 
