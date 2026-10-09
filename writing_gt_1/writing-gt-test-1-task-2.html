@@ -142,17 +142,6 @@
             border: none;
         }
 
-                /* Independent scrolling for the two panels */
-        .task-panel,
-        .question-panel,
-        .answer-panel,
-        .writing-panel {
-            min-height: 0;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-        }
-
-        /* Keep the overall test layout within the screen */
         .writing-test-container {
             height: calc(100vh - 62px);
             overflow: hidden;
@@ -160,23 +149,25 @@
             min-height: 0;
         }
 
-        /* Allow each side to shrink and scroll independently */
         .writing-test-container > * {
             min-height: 0;
         }
 
         @media (max-width: 900px) {
+            
             .writing-task2-layout {
                 grid-template-columns: 1fr;
                 height: auto;
+                min-height: 0;
+                overflow: visible;
             }
 
             .writing-task2-question-panel {
-                min-height: auto;
+                height: 350px;
             }
 
             .writing-task2-answer-panel {
-                height: 500px;
+                height: 450px;
             }
 
             .writing-task2-question {
