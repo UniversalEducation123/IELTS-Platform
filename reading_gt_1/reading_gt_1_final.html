@@ -970,13 +970,50 @@ async function calculateReadingScore() {
 
 
 
-    /* ===============================
-       SAVE RESULT
-    =============================== */
+/* ===============================
+   SAVE RESULT AND ANSWER REVIEW
+=============================== */
 
-    await saveResultToSupabase(
-        correctCount
-    );
+const readingAnswers = {};
+
+for (let i = 1; i <= 31; i++) {
+    const key = "q" + i;
+    const studentAnswer = answers[key] || "";
+    const acceptedAnswers = answerKey[key] || [];
+
+    readingAnswers[key] = {
+        userAnswer: studentAnswer,
+        correctAnswer: acceptedAnswers,
+        isCorrect: isCorrect(studentAnswer, acceptedAnswers)
+    };
+}
+
+readingAnswers.q32 = {
+    userAnswer: student32,
+    correctAnswer: ["II", "VI"],
+    isCorrect: ["ii", "vi"].includes(normalizeAnswer(student32))
+};
+
+readingAnswers.q33 = {
+    userAnswer: student33,
+    correctAnswer: ["II", "VI"],
+    isCorrect: ["ii", "vi"].includes(normalizeAnswer(student33))
+};
+
+/* Questions 34–40 */
+for (let i = 34; i <= 40; i++) {
+    const key = "q" + i;
+    const studentAnswer = answers[key] || "";
+    const acceptedAnswers = answerKey[key] || [];
+
+    readingAnswers[key] = {
+        userAnswer: studentAnswer,
+        correctAnswer: acceptedAnswers,
+        isCorrect: isCorrect(studentAnswer, acceptedAnswers)
+    };
+}
+
+await saveResultToSupabase(correctCount, readingAnswers);
 
 }
 
@@ -986,8 +1023,7 @@ async function calculateReadingScore() {
    SAVE RESULT TO SUPABASE
 ===================================== */
 
-
-async function saveResultToSupabase(score) {
+async function saveResultToSupabase(score, readingAnswers) {
     const studentId = sessionStorage.getItem("studentId");
     const studentName = sessionStorage.getItem("studentName") || "Student";
 
@@ -1004,6 +1040,7 @@ async function saveResultToSupabase(score) {
         test_name: "GT Reading Test 1",
         test_date: testDate,
         reading_score: score,
+        reading_answers: readingAnswers,
         is_submitted: true
     };
 
@@ -1044,10 +1081,8 @@ async function saveResultToSupabase(score) {
     sessionStorage.setItem("readingGT1ResultSaved", "true");
     sessionStorage.setItem("readingGT1Submitted", "true");
 
-    console.log("GT Reading Test 1 result saved successfully.");
+    console.log("GT Reading Test 1 result and answers saved successfully.");
 }
-
-
 
 
 /* =====================================
