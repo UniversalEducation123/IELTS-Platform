@@ -1023,18 +1023,34 @@ if (data && data.length > 0) {
 
     data.forEach(result => {
 
-        const testName =
-            result.test_name || "Test";
+    const testName =
+        result.test_name || "Test";
 
-        const testKey =
-            testName.trim().toLowerCase();
+    const normalizedTestName =
+        testName.trim().toLowerCase();
+
+    const isGTStudent =
+        normalizedTestName.startsWith("gt ") ||
+        normalizedTestName.includes("general training");
+
+    // Combine GT Reading Test 1 with Test 1 only.
+    const testKey =
+        isGTStudent &&
+        normalizedTestName === "gt reading test 1"
+            ? "test 1"
+            : normalizedTestName;
+
+    const displayTestName =
+        testKey === "test 1"
+            ? "Test 1"
+            : testName;
 
 
         /* Create test group if it doesn't exist */
         if (!groupedTests[testKey]) {
 
-            groupedTests[testKey] = {
-                test_name: testName,
+           groupedTests[testKey] = {
+                test_name: displayTestName,
                 test_date: result.test_date || null,
 
                 listening_score: null,
