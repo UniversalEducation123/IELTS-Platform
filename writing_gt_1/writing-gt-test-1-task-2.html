@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
+
         .writing-task2-heading {
             margin-bottom: 24px;
         }
@@ -186,25 +187,31 @@
             }
         }
     </style>
+
 </head>
 
 <body>
 
 <script>
+
     const accessKey = "access_writing-gt-test-1";
 
     if (sessionStorage.getItem(accessKey) !== "true") {
         window.location.href =
             "../test-access.html?test=writing-gt-test-1";
     }
+
 </script>
 
 <script src="../js/exam-inputs.js"></script>
 
+
 <header class="main-header">
+
     <div class="logo">IELTS Practice</div>
 
     <div class="header-right">
+
         <div class="header-timer">
             <span>Time Remaining</span>
             <strong id="timer">60:00</strong>
@@ -212,22 +219,29 @@
 
         <a href="../student-dashboard.html">Dashboard</a>
         <a href="../index.html">Logout</a>
+
     </div>
+
 </header>
 
 <section class="listening-header">
+
     <div></div>
+
 </section>
 
 <main class="listening-container">
+    
     <section class="listening-card question-section">
 
         <div class="writing-task2-heading">
+
             <h2>Writing Task 2</h2>
 
             <p class="instruction">
                 You should spend about 40 minutes on this task.
             </p>
+
         </div>
 
         <div class="writing-task2-layout">
@@ -306,13 +320,13 @@
         </div>
 
     </section>
+
 </main>
 
-<script>
-    /* =================================
-       SUPABASE
-    ================================= */
 
+<script>
+   
+   
     const SUPABASE_URL =
         "https://gehczgguwxqwfowmbedy.supabase.co";
 
