@@ -524,9 +524,16 @@ const groupedResults = {};
 
 filteredResults.forEach(result => {
 
-    const studentId = String(result.student_id);
-    const currentTest = result.test_name || "Unnamed Test";
-    const groupKey = studentId + "_" + currentTest;
+const studentId = String(result.student_id);
+const originalTest = result.test_name || "Unnamed Test";
+
+// Combine GT Reading Test 1 with Test 1.
+const currentTest =
+    originalTest.trim().toLowerCase() === "gt reading test 1"
+        ? "Test 1"
+        : originalTest;
+
+const groupKey = studentId + "_" + currentTest;
 
     if (!groupedResults[groupKey]) {
 
@@ -574,8 +581,14 @@ filteredResults.forEach(result => {
 
 allWritingSubmissions.forEach(submission => {
 
-    const currentTest =
-        getWritingDisplayName(submission.test_id);
+const originalTest =
+    getWritingDisplayName(submission.test_id);
+
+// Keep GT Writing Test 1 in the same Test 1 card.
+const currentTest =
+    originalTest === "GT Writing Test 1"
+        ? "Test 1"
+        : originalTest;
 
     if (!matchesTestFilter(testName, submission.test_id)) {
         return;
