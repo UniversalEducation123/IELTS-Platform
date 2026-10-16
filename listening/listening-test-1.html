@@ -206,18 +206,18 @@
             <button type="button"
                 class="primary-btn submit-section-btn"
                 id="submitListeningBtn">
-            Continue to Part 2
-        </button>
+                Continue to Part 2
+            </button>
 
 
             </section>
 
 </main>
 
-   <script>
-/* =====================================================
-   PART 1 LOGIC (IFRAME VERSION)
-===================================================== */
+
+
+<script>
+
 
 function savePart1Answers() {
     const answers = {};
@@ -232,6 +232,7 @@ function savePart1Answers() {
         JSON.stringify(answers)
     );
 }
+
 
 /* Continue to Part 2 */
 const submitButton = document.getElementById("submitListeningBtn");
@@ -250,6 +251,7 @@ if (submitButton) {
     };
 }
 
+
 /* Question progress */
 function updateQuestionProgress() {
     for (let i = 1; i <= 10; i++) {
@@ -266,6 +268,7 @@ function updateQuestionProgress() {
         );
     }
 }
+
 
 document.querySelectorAll(
     ".listening-answer, input[data-question]"
@@ -288,16 +291,23 @@ function goToQuestion(questionNumber) {
     }
 }
 
+
 updateQuestionProgress();
+
+
 </script>
 
+
 <script>
+
+
 /* =====================================================
    SAVE & RESTORE ANSWERS
 ===================================================== */
 
 const answerStorageKey =
     "listeningAnswers_" + window.location.pathname;
+
 
 function saveListeningAnswers() {
     const answers = {};
@@ -339,6 +349,7 @@ function saveListeningAnswers() {
         JSON.stringify(answers)
     );
 }
+
 
 function restoreListeningAnswers() {
 
@@ -383,6 +394,7 @@ function restoreListeningAnswers() {
     updateQuestionProgress();
 }
 
+
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
 ).forEach(function(input) {
@@ -392,7 +404,10 @@ document.querySelectorAll(
 
 });
 
+
 restoreListeningAnswers();
+
+
 </script>
 
 

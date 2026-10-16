@@ -303,7 +303,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
 
 const SUPABASE_URL =
     "https://gehczgguwxqwfowmbedy.supabase.co";
@@ -478,6 +480,7 @@ function calculateFinalMockScore(
 }
 
 
+
 /* =========================================
    FORMAT DATE
 ========================================= */
@@ -493,6 +496,7 @@ function formatDate(dateString) {
     ).toLocaleDateString();
 
 }
+
 
 
 /* =========================================
@@ -653,6 +657,7 @@ async function loadStudentProfile() {
     ).textContent =
         student.username ||
         "N/A";
+
 
 
     /* =========================================
@@ -1188,13 +1193,11 @@ async function loadStudentProfile() {
 }
 
 
-/* =========================================
-   START
-========================================= */
 
 loadStudentProfile();
 
 </script>
 
 </body>
+
 </html>

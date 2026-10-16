@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 * *{
     box-sizing:border-box;
 }
@@ -257,6 +258,7 @@ header h1{
 
 }   
     </style>
+
 </head>
 
 <body>
@@ -456,7 +458,9 @@ header h1{
 </div>
 
 
+
 <script>
+
 
 const SUPABASE_URL =
     "https://gehczgguwxqwfowmbedy.supabase.co";
@@ -674,6 +678,7 @@ async function downloadOriginalPDF() {
 }
 
 
+
 async function viewCheckedPDF() {
 
     if (!currentSubmission || !currentSubmission.checked_pdf) {
@@ -708,6 +713,7 @@ async function viewCheckedPDF() {
         "_blank"
     );
 }
+
 
 
 async function saveReview() {
@@ -952,6 +958,7 @@ message.textContent = "Saving...";
 
 }
 
+
 function getListeningBand(score) {
 
     score = Number(score);
@@ -1061,9 +1068,14 @@ function calculateFinalMockScore(
     ) / 2;
 }
 
+
 loadSubmission();
+
 
 </script>
 
+
 </body>
+
+
 </html>

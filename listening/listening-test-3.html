@@ -467,6 +467,7 @@ function savePart3Answers() {
     );
 }
 
+
 function goToPart4() {
 
     savePart3Answers();
@@ -478,6 +479,7 @@ function goToPart4() {
     );
 
 }
+
 
 /* Limit checkbox groups to TWO answers */
 
@@ -539,6 +541,7 @@ function updateQuestionProgress(){
 
 }
 
+
 function updateCheckboxGroup(groupName,q1,q2){
 
     const count = document.querySelectorAll(
@@ -558,6 +561,7 @@ function updateCheckboxGroup(groupName,q1,q2){
 
 }
 
+
 function updateTextQuestion(questionNumber){
 
     const input = document.querySelector(
@@ -576,6 +580,7 @@ function updateTextQuestion(questionNumber){
     );
 
 }
+
 
 /* Jump to question */
 
@@ -607,9 +612,13 @@ function goToQuestion(questionNumber){
 }
 
 updateQuestionProgress();
+
+
 </script>
 
+
 <script>
+
 
 /*
  * SAVE AND RESTORE PART 3 ANSWERS
@@ -811,7 +820,9 @@ document.querySelectorAll(
 
 restoreListeningAnswers();
 
+
 </script>
+
 
 </body>
 </html>

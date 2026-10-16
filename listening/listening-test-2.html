@@ -369,8 +369,8 @@
 
     </main>
 
-<script>
 
+<script>
 
 
 function savePart2Answers() {
@@ -694,12 +694,16 @@ function goToQuestion(questionNumber) {
     }
 }
 
+
 updateQuestionProgress();
+
 
 </script>
 
 
 <script>
+
+
 /*
  * SAVE AND RESTORE PART 2 ANSWERS
  */
@@ -711,6 +715,7 @@ const answerStorageKey =
 /*
  * Save current answers continuously
  */
+
 
 function saveListeningAnswers() {
 
@@ -772,6 +777,8 @@ function saveListeningAnswers() {
     savePart2Answers();
 
 }
+
+
 /*
  * Restore answers
  */
@@ -851,7 +858,9 @@ document.querySelectorAll(
 restoreListeningAnswers();
 updateQuestionProgress();
 
+
 </script>
+
 
 </body>
 </html>

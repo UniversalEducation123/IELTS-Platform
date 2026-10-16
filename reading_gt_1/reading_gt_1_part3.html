@@ -1051,23 +1051,15 @@
 
 </div>
 
-
 </section>
 
-
 </form>
-
 
 </main>
 
 
-
 <script>
 
-
-/* =========================================
-   TIMER
-========================================= */
 
 let timeLeft = parseInt(
     sessionStorage.getItem("readingGT1TimeLeft")
@@ -1136,10 +1128,6 @@ const timerInterval =
     }, 1000);
 
 
-
-/* =========================================
-   SAVE ANSWERS
-========================================= */
 
 function saveAnswers() {
 
@@ -1243,11 +1231,6 @@ restoreParagraphAnswers();
 }
 
 
-
-/* =========================================
-   QUESTION PROGRESS
-========================================= */
-
 function updateQuestionProgress() {
 
     for (let i = 1; i <= 40; i++) {
@@ -1322,6 +1305,7 @@ document.querySelectorAll(
 
 });
 
+
 document.querySelectorAll('input[name="q32_33"]').forEach(
     function(checkbox) {
 
@@ -1361,13 +1345,17 @@ document.querySelectorAll('input[name="q32_33"]').forEach(
 let draggedParagraphLetter = null;
 let selectedParagraphLetter = null;
 
+
 function getParagraphLetterElement(letter) {
+    
     return document.querySelector(
         `.draggable-paragraph-letter[data-letter="${letter}"]`
     );
 }
 
+
 function updateParagraphLetterBank() {
+    
     document.querySelectorAll(
         ".draggable-paragraph-letter"
     ).forEach(function(letterElement) {
@@ -1388,7 +1376,9 @@ function updateParagraphLetterBank() {
     });
 }
 
+
 function placeParagraphLetter(zone, letter) {
+    
     if (!zone || !letter) return;
 
     // Remove this letter from any other answer box first.
@@ -1412,6 +1402,7 @@ function placeParagraphLetter(zone, letter) {
             }
         }
     );
+
 
     // Clear the destination before placing the new answer.
     const existingLetter = zone.querySelector(
@@ -1445,6 +1436,7 @@ function placeParagraphLetter(zone, letter) {
     updateQuestionProgress();
 }
 
+
 function saveParagraphAnswers() {
     document.querySelectorAll(".paragraph-drop-zone").forEach(
         function(zone) {
@@ -1458,6 +1450,7 @@ function saveParagraphAnswers() {
         }
     );
 }
+
 
 function restoreParagraphAnswers() {
     document.querySelectorAll(".paragraph-drop-zone").forEach(
@@ -1474,6 +1467,7 @@ function restoreParagraphAnswers() {
 
     updateParagraphLetterBank();
 }
+
 
 document.addEventListener("dragstart", function(event) {
     const letterElement = event.target.closest(
@@ -1492,6 +1486,7 @@ document.addEventListener("dragstart", function(event) {
         event.dataTransfer.effectAllowed = "move";
     }
 });
+
 
 document.querySelectorAll(".paragraph-drop-zone").forEach(
     function(zone) {
@@ -1536,6 +1531,7 @@ document.querySelectorAll(".paragraph-drop-zone").forEach(
     }
 );
 
+
 // Select a letter by tapping/clicking it, or with the keyboard.
 document.addEventListener("click", function(event) {
     const letterElement = event.target.closest(
@@ -1549,6 +1545,7 @@ document.addEventListener("click", function(event) {
 
     updateParagraphLetterBank();
 });
+
 
 document.addEventListener("keydown", function(event) {
     const letterElement = event.target.closest(
@@ -1571,12 +1568,10 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+
 restoreParagraphAnswers();
 
 
-/* =========================================
-   PART NAVIGATION
-========================================= */
 
 function goToPart(partNumber) {
 
@@ -1610,11 +1605,6 @@ function goToPart(partNumber) {
 
 }
 
-
-
-/* =========================================
-   SUBMIT
-========================================= */
 
 function submitReadingTest() {
 
@@ -1657,11 +1647,6 @@ if (
 
 }
 
-
-
-/* =========================================
-   INITIALISE
-========================================= */
 
 restoreAnswers();
 

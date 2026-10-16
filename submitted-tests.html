@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 * **{
     box-sizing:border-box;
 }
@@ -264,7 +265,6 @@ header h1{
     position:fixed;
     inset:0;
     z-index:1000;
-
     background:rgba(76,74,70,.45);
     backdrop-filter:blur(5px);
     padding:30px 16px;
@@ -275,7 +275,6 @@ header h1{
     width:100%;
     max-width:760px;
     margin:20px auto;
-
     background:#FFFFFF;
     border-radius:20px;
     padding:30px;
@@ -287,7 +286,6 @@ header h1{
     justify-content:space-between;
     align-items:center;
     gap:15px;
-
     margin-bottom:24px;
     padding-bottom:18px;
     border-bottom:1px solid #E3DCD1;
@@ -405,7 +403,9 @@ header h1{
 
 }
     </style>
+    
 </head>
+
 
 <body>
 
@@ -479,6 +479,7 @@ header h1{
 
 <script>
 
+
 const SUPABASE_URL =
     "https://gehczgguwxqwfowmbedy.supabase.co";
 
@@ -514,6 +515,7 @@ async function viewReviewedPDF(pdfPath){
     window.open(data.signedUrl, "_blank");
 
 }
+
 
 function viewReadingReview(review) {
 
@@ -919,6 +921,7 @@ function closeReviewOnBackground(event) {
 
 }
 
+
 async function loadSubmittedTests() {
 
     const studentId =
@@ -1011,6 +1014,7 @@ async function loadSubmittedTests() {
 
 
     testsContainer.innerHTML = "";
+
 
 
 /* =================================
@@ -1647,6 +1651,7 @@ Object.values(groupedTests).forEach(result => {
 
 }
 
+
 function getListeningBand(score) {
 
     if (score >= 39) return "9.0";
@@ -1701,6 +1706,7 @@ function escapeHTML(value) {
 
 }
 
+
 async function viewCheckedPDF(pdfPath) {
 
     const { data, error } = await supabaseClient
@@ -1717,9 +1723,11 @@ async function viewCheckedPDF(pdfPath) {
     window.open(data.signedUrl, "_blank");
 }
 
+
 loadSubmittedTests();
 
 </script>
 
 </body>
+
 </html>

@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS General Training Reading Test 2 - Part 2</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .reading-split-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        .passage-panel,
+        .questions-panel {
+            min-width: 0;
+        }
+
+        .passage-panel h2,
+        .questions-panel h2 {
+            margin-top: 0;
+        }
+
+        .passage-panel p,
+        .questions-panel p {
+            line-height: 1.6;
+        }
+
+        .library-paragraph {
+            margin-bottom: 18px;
+        }
+
+        .library-paragraph strong {
+            display: inline-block;
+            min-width: 22px;
+        }
+
+        .heading-list {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 18px 0;
+        }
+
+        .heading-list p {
+            margin: 7px 0;
+        }
+
+        .question {
+            margin: 18px 0;
+        }
+
+        .question input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .question label {
+            display: block;
+            margin: 9px 0;
+        }
+
+        .part-status {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .reading-split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<script>
+    const readingAccessKey = "access_reading-gt-test-2";
+
+    if (sessionStorage.getItem(readingAccessKey) !== "true") {
+        window.location.href =
+            "../test-access.html?test=reading-gt-test-2";
+    }
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
+<header class="navbar">
+    <a href="../index.html" class="logo">
+        <img src="../assets/logo.png" alt="Universal Education Logo">
+    </a>
+
+    <h3>IELTS General Training Reading Test 2</h3>
+
+    <nav>
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../student-login.html">Logout</a>
+    </nav>
+</header>
+
+<div class="reading-question-progress">
+    <strong>Questions:</strong>
+    <button type="button" data-question="1">1</button>
+    <button type="button" data-question="2">2</button>
+    <button type="button" data-question="3">3</button>
+    <button type="button" data-question="4">4</button>
+    <button type="button" data-question="5">5</button>
+    <button type="button" data-question="6">6</button>
+    <button type="button" data-question="7">7</button>
+    <button type="button" data-question="8">8</button>
+    <button type="button" data-question="9">9</button>
+    <button type="button" data-question="10">10</button>
+    <button type="button" data-question="11">11</button>
+    <button type="button" data-question="12">12</button>
+    <button type="button" data-question="13">13</button>
+    <button type="button" data-question="14">14</button>
+    <button type="button" data-question="15">15</button>
+    <button type="button" data-question="16">16</button>
+    <button type="button" data-question="17">17</button>
+    <button type="button" data-question="18">18</button>
+    <button type="button" data-question="19">19</button>
+    <button type="button" data-question="20">20</button>
+    <button type="button" data-question="21">21</button>
+    <button type="button" data-question="22">22</button>
+    <button type="button" data-question="23">23</button>
+    <button type="button" data-question="24">24</button>
+    <button type="button" data-question="25">25</button>
+    <button type="button" data-question="26">26</button>
+    <button type="button" data-question="27">27</button>
+    <button type="button" data-question="28">28</button>
+    <button type="button" data-question="29">29</button>
+    <button type="button" data-question="30">30</button>
+    <button type="button" data-question="31">31</button>
+    <button type="button" data-question="32">32</button>
+    <button type="button" data-question="33">33</button>
+    <button type="button" data-question="34">34</button>
+    <button type="button" data-question="35">35</button>
+    <button type="button" data-question="36">36</button>
+    <button type="button" data-question="37">37</button>
+    <button type="button" data-question="38">38</button>
+    <button type="button" data-question="39">39</button>
+    <button type="button" data-question="40">40</button>
+</div>
+
+<main class="reading-wrapper">
+
+    <div class="reading-top">
+        <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="part-buttons">
+        <button type="button" onclick="goToPart(1)">Part 1</button>
+        <button type="button" onclick="goToPart(2)">Part 2</button>
+        <button type="button" onclick="goToPart(3)">Part 3</button>
+
+        <div class="submit-reading-container">
+            <button
+                type="button"
+                class="submit-reading"
+                onclick="submitReadingTest()">
+                Submit Reading Test
+            </button>
+        </div>
+    </div>
+
+    <div class="part-status">
+        Part 2 of 3 | Questions 14–27
+    </div>
+
+    <form id="readingForm">
+
+        <section id="part2" class="reading-part active">
+
+            <div class="reading-split-layout">
+
+                <!-- BROOKSIDE COLLEGE LIBRARY -->
+
+                <section class="passage-panel">
+
+                    <h2>Brookside College Library</h2>
+
+                    <p>
+                        Read the information below about a college library
+                        and answer Questions 14–20.
+                    </p>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>A</strong>
+                            Application forms can be obtained from the Library
+                            Information Desk. Complete the form and present it,
+                            along with a current student or staff ID card, at
+                            the Information Desk or Loans Counter. Library
+                            membership cards are only valid for the academic
+                            year and should be renewed before the start of
+                            the first semester.
+                        </p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>B</strong>
+                            Choose your books and take them to the Loans Desk.
+                            If you are in a hurry, you can use the Express
+                            Checkout. Just follow the instructions on the
+                            machine. The Express Checkout can be used for books
+                            and periodicals. Audio-visual loans must be checked
+                            out at the Loans Desk.
+                        </p>
+                        <p><em>You cannot borrow items without showing your Library card.</em></p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>C</strong>
+                            Items can be borrowed for 4 weeks. However, if
+                            another borrower places a hold on the item, you
+                            will have to return it within a week of receiving
+                            the notification of a hold from the Library.
+                            Failure to do this may result in a fine.
+                            Fines accumulate at a rate of £1.00 per week
+                            per item.
+                        </p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>D</strong>
+                            Students and general staff may borrow up to
+                            12 items. Academic staff can borrow additional
+                            items up to a total of 25, but only in semester breaks.
+                        </p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>E</strong>
+                            Current loans can either be checked in the Library,
+                            or can be accessed through Brookside College's
+                            online Library catalogue. Students can log in
+                            using their student ID number.
+                        </p>
+                        <p>
+                            Please note that you need to have a Personal
+                            Identification Number (PIN) to access the online
+                            catalogue. If you do not have a PIN, please see
+                            the Library's "Creating a Personal Identification
+                            Number" leaflet (available at the Library entrance).
+                        </p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>F</strong>
+                            Items can be renewed twice, unless requested by
+                            another borrower. You can renew items either:
+                        </p>
+                        <ol>
+                            <li>by phoning the Loans Desk.</li>
+                            <li>via the online Library catalogue.</li>
+                            <li>in person at the Library.</li>
+                        </ol>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>G</strong>
+                            Items can be returned outside Library hours by
+                            using the return chutes located at the Library entrance.
+                        </p>
+                    </div>
+
+                    <div class="library-paragraph">
+                        <p>
+                            <strong>H</strong>
+                            If you have any questions regarding the Library,
+                            then either talk to Library staff in person or
+                            check the Library website at
+                            www.brooksidecollege.co.uk/library.
+                        </p>
+                    </div>
+
+                    <h3>Questions 14–20</h3>
+
+                    <p>
+                        The reading passage has eight paragraphs A–H.
+                        Choose the correct heading for each paragraph from
+                        the list of headings below.
+                    </p>
+
+                    <p>
+                        Write the correct number I–IX in boxes 14–20
+                        on your Answer Sheet.
+                    </p>
+
+                    <div class="heading-list">
+                        <h3>List of Headings</h3>
+                        <p><strong>I.</strong> Questions</p>
+                        <p><strong>II.</strong> Length of loan</p>
+                        <p><strong>III.</strong> Number of books allowable</p>
+                        <p><strong>IV.</strong> Not sure what you have borrowed?</p>
+                        <p><strong>V.</strong> Borrowing from the Library</p>
+                        <p><strong>VI.</strong> Creating a PIN number</p>
+                        <p><strong>VII.</strong> Keeping items for a longer period</p>
+                        <p><strong>VIII.</strong> Joining the Library</p>
+                        <p><strong>IX.</strong> Returns</p>
+                    </div>
+
+                    <div class="question">
+                        <p>14. Paragraph A</p>
+                        <input type="text" name="q14" maxlength="3"
+                               aria-label="Question 14">
+                    </div>
+
+                    <div class="question">
+                        <p>15. Paragraph B</p>
+                        <input type="text" name="q15" maxlength="3"
+                               aria-label="Question 15">
+                    </div>
+
+                    <div class="question">
+                        <p>16. Paragraph C</p>
+                        <input type="text" name="q16" maxlength="3"
+                               aria-label="Question 16">
+                    </div>
+
+                    <div class="question">
+                        <p>17. Paragraph D</p>
+                        <input type="text" name="q17" maxlength="3"
+                               aria-label="Question 17">
+                    </div>
+
+                    <div class="question">
+                        <p>18. Paragraph E</p>
+                        <input type="text" name="q18" maxlength="3"
+                               aria-label="Question 18">
+                    </div>
+
+                    <div class="question">
+                        <p>19. Paragraph F</p>
+                        <input type="text" name="q19" maxlength="3"
+                               aria-label="Question 19">
+                    </div>
+
+                    <div class="question">
+                        <p>20. Paragraph G</p>
+                        <input type="text" name="q20" maxlength="3"
+                               aria-label="Question 20">
+                    </div>
+
+                </section>
+
+                <!-- WARNER LANGUAGE SCHOOL -->
+
+                <section class="questions-panel">
+
+                    <h2>Warner Language School (WLS) – Activity Afternoon</h2>
+
+                    <p>
+                        Every Friday afternoon at WLS is Activity Afternoon.
+                        Students need to sign up for one of the following
+                        options. Activities and lists are changed every five weeks.
+                    </p>
+
+                    <h3>Soccer</h3>
+
+                    <p>
+                        Want to represent WLS in inter-college soccer matches?
+                        Or do you just want a little bit of exercise?
+                        Then the soccer activity is the one for you.
+                        Students meet outside Cashmere Park (around the corner
+                        from the college) at 1.30 p.m. No soccer boots required,
+                        just sports shoes. Remember to bring a drink bottle,
+                        it gets warm running around!
+                    </p>
+
+                    <h3>IELTS Preparation</h3>
+
+                    <p>
+                        If you want to study at university in Australia, then
+                        this activity will give you plenty of practice and tips
+                        on how to approach the IELTS exam. Under the guidance
+                        of experienced IELTS teacher/examiner, Faith Cooper,
+                        you would undoubtedly see your results improve.
+                        You will need to buy a textbook. Details of this from
+                        Faith in week 1. Students must be at Intermediate level
+                        to take this course.
+                    </p>
+
+                    <h3>Everyday English</h3>
+
+                    <p>
+                        This course aims to help students communicate better
+                        in social and everyday situations. You will get lots
+                        of practice at speaking and listening to English that
+                        native speakers use. Learn how you express yourself
+                        naturally, but politely in English. Your activity
+                        also includes learning useful idioms and slang.
+                        Most of the lessons take place in the classroom,
+                        but some afternoons will include trips into the city
+                        to cafes, shops and other public places.
+                    </p>
+
+                    <h3>Culture Club</h3>
+
+                    <p>
+                        Want to learn more about the city of Warner and visit
+                        places that are often overlooked by visitors?
+                        Then sign up for this activity. Culture Club involves
+                        visiting interesting and cultural venues, including
+                        the Art Gallery, Channel 12 TV Station, St Edward's
+                        Cathedral and the Performing Arts Centre.
+                        Some costs are involved with this activity, so you
+                        need to be prepared to pay for this before signing up.
+                        Students meet at the City Rocket bus stop at 1.15 p.m.
+                    </p>
+
+                    <h3>Pronunciation</h3>
+
+                    <p>
+                        An important part of communicating well in English is
+                        pronunciation. This activity will help you to identify
+                        the sounds that are difficult for you, and show you
+                        how to correct them. You will also learn about English
+                        intonation and rhythm, which will help to improve your
+                        listening skills as well. A useful activity for all levels.
+                    </p>
+
+                    <h3>Computer Activity</h3>
+
+                    <p>
+                        This activity gives you the opportunity to use the
+                        Internet to learn English. Students can surf the
+                        Worldwide Web and use the numerous websites dedicated
+                        to English language learning. There are a maximum of
+                        18 places on this activity, so you will need to sign
+                        up early to guarantee your choice. Please note that
+                        students are not allowed to send emails in any language
+                        other than English during the activity.
+                    </p>
+
+                    <h3>Swimming (only available Dec–Mar)</h3>
+
+                    <p>
+                        Enjoy relaxing and swimming in the Warner Olympic-sized
+                        outdoor pool. Students need to pay for entry and bus fare
+                        (total of $3 with student card). Learn-to-Swim program
+                        available at own cost (an additional $8 per lesson).
+                        Students meet at the City Rocket bus stop at 1.30 p.m.
+                    </p>
+
+                    <h3>Questions 21–27</h3>
+
+                    <p>
+                        Answer the questions below using
+                        <strong>NO MORE THAN THREE WORDS</strong>
+                        for each answer.
+                    </p>
+
+                    <p>
+                        Write your answers in boxes 21–27 on your Answer Sheet.
+                    </p>
+
+                    <div class="question">
+                        <p>21. What emails can students send in the Computer Activity?</p>
+                        <input type="text" name="q21" aria-label="Question 21">
+                    </div>
+
+                    <div class="question">
+                        <p>22. Which activity is seasonal?</p>
+                        <input type="text" name="q22" aria-label="Question 22">
+                    </div>
+
+                    <div class="question">
+                        <p>23. Which activity requires a certain standard of English?</p>
+                        <input type="text" name="q23" aria-label="Question 23">
+                    </div>
+
+                    <div class="question">
+                        <p>24. How many activities only take place at Warner Language School Campus?</p>
+                        <input type="text" name="q24" aria-label="Question 24">
+                    </div>
+
+                    <div class="question">
+                        <p>25. How many activities require students to pay extra money to participate?</p>
+                        <input type="text" name="q25" aria-label="Question 25">
+                    </div>
+
+                    <div class="question">
+                        <p>26. How much each week will it cost a non-swimmer to learn to swim?</p>
+                        <input type="text" name="q26" aria-label="Question 26">
+                    </div>
+
+                    <div class="question">
+                        <p>27. Which activity off-campus does not require students to take public transport?</p>
+                        <input type="text" name="q27" aria-label="Question 27">
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </form>
+
+</main>
+
+
+<script>
+
+
+let timeLeft = Number(
+    sessionStorage.getItem("readingGT2TimeLeft")
+);
+
+if (!Number.isFinite(timeLeft) || timeLeft < 0) {
+    timeLeft = 60 * 60;
+}
+
+let timerInterval = null;
+const timerElement = document.getElementById("timer");
+
+
+function updateTimer() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerElement.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+
+function startTimer() {
+    if (timerInterval !== null) return;
+
+    updateTimer();
+
+    if (timeLeft <= 0) return;
+
+    timerInterval = setInterval(function () {
+        if (timeLeft <= 0) {
+            timeLeft = 0;
+            updateTimer();
+            sessionStorage.setItem("readingGT2TimeLeft", "0");
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert("Time is up!");
+            return;
+        }
+
+        timeLeft--;
+
+        sessionStorage.setItem(
+            "readingGT2TimeLeft",
+            String(timeLeft)
+        );
+
+        updateTimer();
+    }, 1000);
+}
+
+if (sessionStorage.getItem("readingGT2TimerStarted") !== "true") {
+    sessionStorage.setItem("readingGT2TimerStarted", "true");
+    sessionStorage.setItem("readingGT2TimeLeft", String(60 * 60));
+    timeLeft = 60 * 60;
+}
+
+startTimer();
+
+
+function saveAnswers() {
+    for (let i = 14; i <= 27; i++) {
+        const field = document.querySelector(
+            '#readingForm [name="q' + i + '"]'
+        );
+
+        if (!field) continue;
+
+        if (field.type === "radio" || field.type === "checkbox") {
+            const checked = document.querySelector(
+                '#readingForm [name="q' + i + '"]:checked'
+            );
+
+            if (checked) {
+                sessionStorage.setItem(
+                    "readingGT2_q" + i,
+                    checked.value
+                );
+            }
+        } else {
+            sessionStorage.setItem(
+                "readingGT2_q" + i,
+                field.value
+            );
+        }
+    }
+
+    updateQuestionProgress();
+}
+
+
+function restoreAnswers() {
+    for (let i = 14; i <= 27; i++) {
+        const saved = sessionStorage.getItem("readingGT2_q" + i);
+        const field = document.querySelector(
+            '#readingForm [name="q' + i + '"]'
+        );
+
+        if (saved === null || !field) continue;
+
+        if (field.type === "radio" || field.type === "checkbox") {
+            const option = document.querySelector(
+                '#readingForm [name="q' + i + '"][value="' + saved + '"]'
+            );
+
+            if (option) option.checked = true;
+        } else {
+            field.value = saved;
+        }
+    }
+
+    updateQuestionProgress();
+}
+
+
+function updateQuestionProgress() {
+    for (let i = 1; i <= 40; i++) {
+        const button = document.querySelector(
+            '.reading-question-progress [data-question="' + i + '"]'
+        );
+
+        if (!button) continue;
+
+        const saved = sessionStorage.getItem("readingGT2_q" + i);
+
+        button.classList.toggle(
+            "answered",
+            saved !== null && saved.trim() !== ""
+        );
+    }
+}
+
+document.querySelectorAll("#readingForm input").forEach(function (input) {
+    input.addEventListener("input", saveAnswers);
+    input.addEventListener("change", saveAnswers);
+});
+
+restoreAnswers();
+
+
+/* =========================================
+   QUESTION PROGRESS NAVIGATION
+========================================= */
+
+document.querySelectorAll(
+    ".reading-question-progress [data-question]"
+).forEach(function (button) {
+    button.addEventListener("click", function () {
+        const number = Number(this.dataset.question);
+
+        if (number >= 14 && number <= 27) {
+            const question = document.querySelector(
+                '#readingForm [name="q' + number + '"]'
+            );
+
+            if (question) {
+                question.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                question.focus({ preventScroll: true });
+            }
+        } else if (number >= 1 && number <= 13) {
+            window.location.href = "reading_gt_2_part1.html";
+        } else if (number >= 28 && number <= 40) {
+            window.location.href = "reading_gt_2_part3.html";
+        }
+    });
+});
+
+
+function goToPart(partNumber) {
+    saveAnswers();
+
+    if (partNumber === 1) {
+        window.location.href = "reading_gt_2_part1.html";
+    } else if (partNumber === 2) {
+        window.location.href = "reading_gt_2_part2.html";
+    } else if (partNumber === 3) {
+        window.location.href = "reading_gt_2_part3.html";
+    }
+}
+
+
+function submitReadingTest() {
+    saveAnswers();
+
+    window.location.href = "reading_gt_2_final.html";
+}
+
+
+</script>
+
+
+</body>
+</html>

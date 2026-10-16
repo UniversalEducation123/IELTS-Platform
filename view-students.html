@@ -182,8 +182,10 @@
 
 </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+
 <script>
 
     const facultyId = sessionStorage.getItem("facultyId");
@@ -193,6 +195,7 @@
     }
 
 </script>
+
 
 </head>
 
@@ -271,7 +274,7 @@
 
 </div>
 
-<!-- Review status filter buttons -->
+
 <div class="review-filter-buttons">
 
     <button
@@ -307,7 +310,9 @@
 
     </main>
 
+
 <script>
+
         const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
@@ -315,6 +320,7 @@
     SUPABASE_URL,
     SUPABASE_ANON_KEY
 );
+
 
 let allStudents = [];
 let allResults = [];
@@ -429,6 +435,7 @@ allWritingSubmissions = writingSubmissions || [];
     showTestResults(selectedTest);
 }
 
+
 function showReviewStatus(status, clickedButton = null) {
 
     selectedReviewStatus = status;
@@ -445,6 +452,7 @@ function showReviewStatus(status, clickedButton = null) {
 
     showTestResults(selectedTest);
 }
+
 
 // Show results according to selected test
 function showTestResults(testName, clickedButton = null) {
@@ -511,6 +519,7 @@ function showTestResults(testName, clickedButton = null) {
     }
 
 
+
     /* =================================
    GROUP BY STUDENT + TEST
 
@@ -526,6 +535,7 @@ filteredResults.forEach(result => {
 
 const studentId = String(result.student_id);
 const originalTest = result.test_name || "Unnamed Test";
+
 
 // Combine GT Reading Test 1 with Test 1.
 const currentTest =
@@ -577,6 +587,7 @@ const groupKey = studentId + "_" + currentTest;
 
 });
 
+
 /* ---------- Merge Writing submissions ---------- */
 
 allWritingSubmissions.forEach(submission => {
@@ -619,6 +630,7 @@ const currentTest =
         submission.overall_score;
 
 });
+
 
 const groupedResultList = Object.values(groupedResults);
 
@@ -686,9 +698,6 @@ if (selectedReviewStatus !== "ALL") {
         return true;
     });
 }
-
-
-
 
 
 
@@ -1146,6 +1155,7 @@ ${
 
 }
 
+
 function reviewWriting(submissionId) {
     window.location.href =
         `faculty-writing-review.html?submission=${encodeURIComponent(submissionId)}`;
@@ -1280,6 +1290,7 @@ function getReadingBand(score) {
     return "0.0";
 }
 
+
 // Speaking score is entered directly as an IELTS band.
 function getSpeakingBand(score) {
     if (score === null || score === undefined || score === "") {
@@ -1377,6 +1388,7 @@ function calculateFinalMockScore(
 
     return Number(rounded.toFixed(1));
 }
+
 
 // Save the faculty-entered Speaking score.
 async function saveSpeakingScore(
@@ -1544,7 +1556,7 @@ async function saveSpeakingScore(
     await loadStudentsAndResults();
 }
 
-// Prevent HTML injection in student names
+
 function escapeHTML(value) {
     return String(value ?? "")
         .replace(/&/g, "&amp;")
@@ -1555,10 +1567,10 @@ function escapeHTML(value) {
 }
 
 
-// Start loading
 loadStudentsAndResults();
 
 </script>
 
 </body>
+
 </html>

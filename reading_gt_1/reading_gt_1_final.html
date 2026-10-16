@@ -320,12 +320,10 @@
 </div>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <script>
-
 
 
 const SUPABASE_URL =
@@ -343,10 +341,6 @@ const supabaseClient =
     );
 
 
-
-/* =====================================
-   NORMALIZE ANSWERS
-===================================== */
 
 function normalizeAnswer(answer) {
 
@@ -391,11 +385,6 @@ function isCorrect(
 }
 
 
-
-/* =====================================
-   READING BAND
-===================================== */
-
 function calculateBand(correctCount) {
 
     if (correctCount >= 40) return "9.0";
@@ -415,12 +404,6 @@ function calculateBand(correctCount) {
 
     return "2.0";
 }
-
-
-
-/* =====================================
-   READ SAVED ANSWERS
-===================================== */
 
 
 
@@ -448,12 +431,6 @@ function readGTReadingAnswers() {
 }
 
 
-
-
-
-/* =====================================
-   ADD REVIEW ITEM
-===================================== */
 
 function addReviewItem(
     questionNumber,
@@ -591,11 +568,6 @@ function addReviewItem(
 }
 
 
-
-/* =====================================
-   ANSWER KEY
-===================================== */
-
 const answerKey = {
 
     /* =================================
@@ -731,6 +703,7 @@ const answerKey = {
 ===================================== */
 
 function scoreQuestions32And33(answers) {
+    
     const selected = Array.isArray(answers.q32)
         ? answers.q32.map(normalizeAnswer)
         : [normalizeAnswer(answers.q32)];
@@ -743,9 +716,6 @@ function scoreQuestions32And33(answers) {
 }
 
 
-/* =====================================
-   MAIN SCORE CALCULATION
-===================================== */
 
 async function calculateReadingScore() {
 
@@ -972,11 +942,8 @@ await saveResultToSupabase(correctCount, readingAnswers);
 
 
 
-/* =====================================
-   SAVE RESULT TO SUPABASE
-===================================== */
-
 async function saveResultToSupabase(score, readingAnswers) {
+    
     const studentId = sessionStorage.getItem("studentId");
     const studentName = sessionStorage.getItem("studentName") || "Student";
 
@@ -1038,9 +1005,6 @@ async function saveResultToSupabase(score, readingAnswers) {
 }
 
 
-/* =====================================
-   START
-===================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1050,6 +1014,7 @@ document.addEventListener(
 
     }
 );
+
 
 </script>
 

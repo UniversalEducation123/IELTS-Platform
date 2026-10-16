@@ -349,6 +349,7 @@
 
 <script>
 
+
     function goToPart3() {
 
     saveAnswers();
@@ -359,6 +360,7 @@
     );
 
 }
+
 
 /* Highlight only answered question-number buttons */
 
@@ -373,6 +375,7 @@ function saveAnswers() {
     });
 }
 
+
 function restoreAnswers() {
     document.querySelectorAll(
         ".inline-answer"
@@ -386,6 +389,7 @@ function restoreAnswers() {
         }
     });
 }
+
 
 function updateQuestionProgress() {
 
@@ -418,6 +422,7 @@ function updateQuestionProgress() {
         }
     }
 }
+
 
 /* =========================================
    DRAG AND DROP FOR QUESTIONS 11–15
@@ -590,9 +595,11 @@ document.querySelectorAll(
 
 });
 
+
 setupDragAndDropQuestions11to15();
 
 restoreAnswers();
+
 
 for (let i = 11; i <= 15; i++) {
 
@@ -614,6 +621,7 @@ for (let i = 11; i <= 15; i++) {
 }
 
 updateQuestionProgress();
+
 
 </script>
 

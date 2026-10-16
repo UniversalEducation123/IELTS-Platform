@@ -1,0 +1,712 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>General Training Reading Test 2 - Part 3</title>
+
+    <style>
+        *{
+        box-sizing:border-box
+        }
+
+        body{
+            margin:0;
+            font-family:Arial,Helvetica,sans-serif;
+            background:#f4f6f9;
+            color:#202124
+        }
+
+        .navbar{
+            background:#172b4d;
+            color:white;
+            padding:14px 24px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:15px;
+            flex-wrap:wrap
+        }
+
+        .navbar h2{
+            margin:0;
+            font-size:20px
+        }
+
+        .timer{
+            font-size:18px;
+            font-weight:bold;
+            background:#fff;
+            color:#172b4d;
+            padding:9px 15px;
+            border-radius:7px
+        }
+
+        .progress-wrap{
+            padding:12px 20px;
+            background:white;
+            border-bottom:1px solid #ddd
+        }
+
+        .progress-label{
+            font-size:13px;
+            color:#555;
+            margin-bottom:8px
+        }
+
+        .progress{
+            display:grid;
+            grid-template-columns:repeat(40,minmax(22px,1fr));
+            gap:4px
+        }
+
+        .progress button{
+            border:1px solid #cbd2dc;
+            background:#fff;
+            border-radius:4px;
+            padding:6px 0;
+            cursor:pointer;
+            font-size:12px
+        }
+
+        .progress button.answered{
+            background:#d7f4df;
+            border-color:#48a868
+        }
+
+        .progress button.current{
+            outline:2px solid #315cbb
+        }
+
+        .parts{
+            display:flex;
+            gap:8px;
+            padding:12px 20px;
+            background:white;
+            border-bottom:1px solid #ddd;
+            flex-wrap:wrap
+        }
+
+        .parts button{
+            border:0;
+            border-radius:6px;
+            padding:10px 16px;
+            cursor:pointer;
+            background:#e7ebf2;
+            color:#172b4d;
+            font-weight:bold
+        }
+
+        .parts button.active{
+            background:#315cbb;
+            color:white
+        }
+
+        .actions{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            padding:12px 20px
+        }
+
+        .actions button{
+            padding:10px 15px;
+            border:0;
+            border-radius:6px;
+            background:#315cbb;
+            color:white;
+            font-weight:bold;
+            cursor:pointer
+        }
+
+        .actions button.secondary{
+            background:#566579
+        }
+
+        .layout{
+            display:grid;
+            grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);
+            gap:18px;padding:0 20px 24px;
+            align-items:start
+        }
+
+        .panel{
+            background:white
+            ;border:1px solid #dfe3e8;
+            border-radius:8px;
+            padding:22px;
+            min-width:0
+        }
+
+        .panel h2{
+            margin-top:0;
+            color:#172b4d
+        }
+
+        .passage h3{
+            text-align:center;
+            margin:0 0 6px;
+            font-size:24px
+        }
+
+        .passage .subtitle{
+            text-align:center;
+            color:#666;
+            margin:0 0 22px
+        }
+
+        .passage p{
+            line-height:1.65;
+            font-size:15px
+        }
+
+        .passage h4{
+            margin-bottom:6px
+        }
+
+        .instructions{
+            background:#f1f5fb;
+            padding:12px;
+            border-left:4px solid #315cbb;
+            line-height:1.5
+        }
+
+        .question{
+            padding:13px 0;
+            border-bottom:1px solid #e6e8eb
+        }
+
+        .question:last-child{
+            border-bottom:0
+        }
+
+        .question p{
+            margin:0 0 9px;
+            line-height:1.5
+        }
+
+        .question input[type="text"]{
+            width:100%;
+            padding:10px;
+            border:1px solid #bdc5d0;
+            border-radius:5px;
+            font-size:15px
+        }
+
+        .question select{
+            padding:9px;
+            border:1px solid #bdc5d0;
+            border-radius:5px;
+            font-size:15px;
+            max-width:100%
+        }
+
+        .table-scroll{
+            overflow-x:auto
+        }
+
+        .answer-table{
+            width:100%;
+            border-collapse:collapse;
+            margin:15px 0
+        }
+
+        .answer-table th,.answer-table td{
+            border:1px solid #aeb7c3;
+            padding:10px;
+            text-align:left;
+            vertical-align:top;
+            min-width:100px
+        }
+
+        .answer-table th{
+            background:#e9edf4
+        }
+
+        .answer-table input{
+            width:100%;
+            min-width:85px;
+            padding:8px;
+            border:1px solid #bdc5d0;
+            border-radius:4px
+        }
+
+        .mc-option{
+            display:block;
+            margin:8px 0;
+            line-height:1.45
+        }
+
+        .mc-option input{
+            margin-right:8px
+        }
+
+        .footer-actions{
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:20px
+        }
+
+        .footer-actions button{
+            padding:11px 16px;
+            border:0;
+            border-radius:6px;
+            background:#315cbb;
+            color:white;
+            font-weight:bold;
+            cursor:pointer
+        }
+
+        .footer-actions .back{
+            background:#566579
+        }
+
+        .notice{
+            font-size:13px;
+            color:#666;
+            line-height:1.5
+        }
+
+        @media(max-width:850px){
+
+        .layout{
+            grid-template-columns:1fr;padding:0 10px 18px
+        }
+
+        .panel{
+            padding:16px
+        }
+
+        .progress-wrap,.parts,.actions{
+            padding-left:10px;padding-right:10px
+        }
+
+        .progress{
+            grid-template-columns:repeat(10,minmax(22px,1fr))
+        }
+
+        .navbar{
+            padding:12px 15px
+        }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<script>
+
+(function(){
+  const accessKey = "access_reading-gt-test-2";
+  if (sessionStorage.getItem(accessKey) !== "true") {
+    window.location.href = "../test-access.html?test=reading-gt-test-2";
+  }
+})();
+
+</script>
+
+
+<header class="navbar">
+  <h2>IELTS General Training Reading Test 2</h2>
+  <div class="timer" id="timer">60:00</div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label">Reading Test 2 · Questions 1–40</div>
+  <div class="progress" id="progress"></div>
+</div>
+
+<nav class="parts">
+  <button onclick="goPart(1)">Part 1</button>
+  <button onclick="goPart(2)">Part 2</button>
+  <button class="active" onclick="goPart(3)">Part 3</button>
+</nav>
+
+<div class="actions">
+  <button class="secondary" onclick="toggleHighlight()">Highlight selected text</button>
+  <button class="secondary" onclick="clearHighlight()">Clear highlights</button>
+  <button onclick="submitTest()">Submit Reading Test</button>
+</div>
+
+
+<main class="layout">
+
+  <section class="panel passage">
+    <h3>A MATTER OF LIFE AND DEATH</h3>
+    <p class="subtitle">Cancer</p>
+
+    <p>Cancer is the second leading cause of death in the United States, but the risk of developing most types of cancer can be reduced by changes in a person's lifestyle, for example, by quitting smoking and having a healthy diet.</p>
+
+    <p>The body is made up of many different types of cells which grow, divide and produce more cells than are needed to keep the body healthy and functioning properly. During the early years of a person's life, normal cells divide more rapidly until the person becomes an adult. After that, cells in most parts of the body divide to replace worn-out or dying cells and to repair injuries. Sometimes, however, the process goes inexplicably awry: cells keep dividing when new cells are not needed. Cancer cells are different from normal cells because instead of dying, they outlive normal cells and continue to form new abnormal cells. The mass of extra cells that come about due to chaotic processes forms a tumour or growth. Benign tumours are not cancer and do not represent a threat to health. Malignant tumours are, however, life-threatening: they are able to divide without control or order, destroying the tissue around them. Cancer cells can also break away from a malignant tumour and enter the bloodstream or lymphatic system (the tissues and organs that produce, store, and carry white blood cells that fight infection and other diseases). This is called metastasis and is the way in which the original (primary) tumour goes on to form new (secondary) tumours in other parts of the body. When cells from a cancer like lung cancer spread to another organ like the liver, the cancer is still called lung cancer, not liver cancer.</p>
+
+    <p>There are many different types of cancer, two of the most common being lung cancer and skin cancer or melanoma.</p>
+
+    <p>Researchers have discovered several causes of lung cancer, most of which are directly related to the use of, or exposure to, certain substances. For example, tobacco in cigarettes, cigars and pipes contains harmful carcinogens which actively damage the cells in the lungs and over time become cancerous. Radon is an invisible, odourless and tasteless radioactive gas that can cause damage to lungs leading possibly to lung cancer. Asbestos is the name of a group of minerals that occur naturally as fibres and are used in certain industries. When asbestos particles are inhaled, they can lodge in the lungs, damaging cells and increasing the risk of lung cancer.</p>
+
+    <p>Because lung cancer is difficult to diagnose, it is important to be aware of common signs and symptoms which may include localised pain and respiratory problems such as a persistent cough and shortness of breath.</p>
+
+    <p>Treatment depends on a number of factors, including the type of lung cancer, the size, location and extent of the tumour, and the general health of the patient. Many different treatments and combinations of treatments may be used to control lung cancer and/or to improve quality of life. Treatment options include surgery, chemotherapy, radiation therapy and PDT, which is a kind of laser therapy.</p>
+
+    <p>Melanoma is also a very common cancer. No one knows its exact cause, but research has shown that certain variables may be instrumental in causing malignant melanomas. Firstly, certain pigmentary traits are possibly the most important of the cancer indicators: light-skinned individuals are shown to be at greatest risk while those with darker complexions are protected by their melanin pigmentation. In addition, skin cancer has also been associated in some studies with light-coloured or reddish hair, light coloured eyes and the presence of freckling. In addition to, and separate from the physical factors discussed, hereditary factors such as the existence of a family history of skin cancer can significantly increase an individual's chances of developing the disease, especially if one or more of the other risk variables are present. Finally, the popularity of sunbathing and the current trend in outdoor activities over the last few decades are also considered to be high risk factors.</p>
+
+    <p>The first sign of melanoma is a change in the size, shape, colour and feel of an existing mole. Melanoma may also appear as a new mole: it will be black, abnormal and ugly-looking. There are a variety of treatment options for melanoma, including surgery, chemotherapy, biological therapy and radiation therapy. Patients may also benefit from a combination of treatments.</p>
+
+    <p>Through research, doctors are exploring new and possibly more effective ways to treat cancer. A recent safety trial will test a new treatment strategy that aims to boost the body's immune system to attack any remaining cancerous cells after surgical removal of a tumour. Under the trial, blood will be taken from each patient and processed in the lab to boost the dendritic cells, and then exposed to radiated tumour cells removed during surgery. The modified blood cells will then be injected back into each individual patient as a vaccine. Dendritic cells, a subpopulation of white blood cells, are known triggers for the immune system and are being used in Australian and international research into treatments for melanomas and lung cancer.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Questions 28–40</h2>
+
+    <div class="instructions">
+      Answer Questions 28–32 by choosing TRUE, FALSE or NOT GIVEN.<br>
+      For Questions 33–38, complete the table using words from the passage. Use NO MORE THAN THREE WORDS for each answer.<br>
+      For Questions 39–40, choose the correct letter, A–D.
+    </div>
+
+    <h3>Questions 28–32</h3>
+    <p>Do the following statements agree with the information in the reading passage?</p>
+
+    <div class="question">
+      <p><strong>28.</strong> A poor diet increases the risk of developing cancer.</p>
+      <select id="q28" data-q="28">
+        <option value="">Choose an answer</option>
+        <option value="TRUE">TRUE</option>
+        <option value="FALSE">FALSE</option>
+        <option value="NOT GIVEN">NOT GIVEN</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <p><strong>29.</strong> Cell division occurs throughout a person's life.</p>
+      <select id="q29" data-q="29">
+        <option value="">Choose an answer</option>
+        <option value="TRUE">TRUE</option>
+        <option value="FALSE">FALSE</option>
+        <option value="NOT GIVEN">NOT GIVEN</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <p><strong>30.</strong> Rapid cell division signals the beginning of cancer.</p>
+      <select id="q30" data-q="30">
+        <option value="">Choose an answer</option>
+        <option value="TRUE">TRUE</option>
+        <option value="FALSE">FALSE</option>
+        <option value="NOT GIVEN">NOT GIVEN</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <p><strong>31.</strong> Blood can carry cancer cells to other parts of the body.</p>
+      <select id="q31" data-q="31">
+        <option value="">Choose an answer</option>
+        <option value="TRUE">TRUE</option>
+        <option value="FALSE">FALSE</option>
+        <option value="NOT GIVEN">NOT GIVEN</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <p><strong>32.</strong> The incidence of lung cancer and skin cancer is increasing.</p>
+      <select id="q32" data-q="32">
+        <option value="">Choose an answer</option>
+        <option value="TRUE">TRUE</option>
+        <option value="FALSE">FALSE</option>
+        <option value="NOT GIVEN">NOT GIVEN</option>
+      </select>
+    </div>
+
+    <h3>Questions 33–38</h3>
+    <p>Complete the table below with words taken from the reading passage. Use NO MORE THAN THREE WORDS for each answer.</p>
+
+    <div class="table-scroll">
+      <table class="answer-table">
+        <thead>
+          <tr>
+            <th>Cancer type</th>
+            <th>Risk factors</th>
+            <th>Symptoms</th>
+            <th>Treatments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="4"><strong>Lung</strong></td>
+            <td>Dangerous substances</td>
+            <td>Localised pain</td>
+            <td>Surgery</td>
+          </tr>
+          <tr>
+            <td><input id="q33" data-q="33" type="text" aria-label="Question 33" placeholder="33"></td>
+            <td>Persistent cough / shortness of breath</td>
+            <td>Chemotherapy</td>
+          </tr>
+          <tr>
+            <td>Radon</td>
+            <td></td>
+            <td>Radiation therapy</td>
+          </tr>
+          <tr>
+            <td>Asbestos</td>
+            <td></td>
+            <td>PDT/laser therapy</td>
+          </tr>
+
+          <tr>
+            <td rowspan="10"><strong>Melanoma</strong></td>
+            <td><strong>Physical:</strong></td>
+            <td><input id="q36" data-q="36" type="text" aria-label="Question 36" placeholder="36"></td>
+            <td>Surgery</td>
+          </tr>
+          <tr>
+            <td>Light skin</td>
+            <td>New moles</td>
+            <td>Chemotherapy</td>
+          </tr>
+          <tr>
+            <td>Reddish hair</td>
+            <td></td>
+            <td>Biological therapy</td>
+          </tr>
+          <tr>
+            <td>Light-coloured eyes</td>
+            <td></td>
+            <td>Radiation</td>
+          </tr>
+          <tr>
+            <td>Freckling</td>
+            <td></td>
+            <td><input id="q38" data-q="38" type="text" aria-label="Question 38" placeholder="38"></td>
+          </tr>
+          <tr>
+            <td><input id="q34" data-q="34" type="text" aria-label="Question 34" placeholder="34"></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Family history</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><input id="q35" data-q="35" type="text" aria-label="Question 35" placeholder="35"></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Popularity of sunbathing</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Current trend for outdoor activities</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Questions 39–40</h3>
+    <p>Choose the correct letter, A–D.</p>
+
+    <div class="question">
+      <p><strong>39.</strong> The aim of cancer research is to</p>
+      <label class="mc-option"><input type="radio" name="q39" value="A" data-q="39"> A. boost the immune system of cancer patients.</label>
+      <label class="mc-option"><input type="radio" name="q39" value="B" data-q="39"> B. find improved ways of fighting cancer.</label>
+      <label class="mc-option"><input type="radio" name="q39" value="C" data-q="39"> C. create treatments for melanomas and lung cancer in Australia and internationally.</label>
+      <label class="mc-option"><input type="radio" name="q39" value="D" data-q="39"> D. develop a vaccine for individual patients.</label>
+    </div>
+
+    <div class="question">
+      <p><strong>40.</strong> The purpose of the text is to</p>
+      <label class="mc-option"><input type="radio" name="q40" value="A" data-q="40"> A. inform doctors.</label>
+      <label class="mc-option"><input type="radio" name="q40" value="B" data-q="40"> B. warn people about lung and skin cancer.</label>
+      <label class="mc-option"><input type="radio" name="q40" value="C" data-q="40"> C. compare lung and skin cancer.</label>
+      <label class="mc-option"><input type="radio" name="q40" value="D" data-q="40"> D. discuss cancer.</label>
+    </div>
+
+    <p class="notice">Your answers are saved in this browser session. Check your answers before submitting the complete reading test.</p>
+
+    <div class="footer-actions">
+      <button class="back" onclick="goPart(2)">← Previous: Part 2</button>
+      <button onclick="submitTest()">Submit Reading Test</button>
+    </div>
+  </section>
+</main>
+
+
+<script src="../js/exam-inputs.js"></script>
+<script src="../js/reading-highlight.js"></script>
+
+
+<script>
+
+const STORAGE_PREFIX = "readingGT2_q";
+const TIMER_KEY = "readingGT2TimeLeft";
+const TIMER_STARTED_KEY = "readingGT2TimerStarted";
+
+
+function goPart(part) {
+  const files = {
+    1: "reading_gt_2_part1.html",
+    2: "reading_gt_2_part2.html",
+    3: "reading_gt_2_part3.html"
+  };
+  window.location.href = files[part];
+}
+
+
+function getAnswer(q) {
+  const radios = document.querySelectorAll('[name="q' + q + '"]');
+  if (radios.length) {
+    const selected = document.querySelector('[name="q' + q + '"]:checked');
+    return selected ? selected.value : "";
+  }
+  const el = document.getElementById("q" + q);
+  return el ? el.value.trim() : "";
+}
+
+
+function saveAnswer(q) {
+  sessionStorage.setItem(STORAGE_PREFIX + q, getAnswer(q));
+  updateProgress();
+}
+
+
+function restoreAnswers() {
+  for (let q = 28; q <= 40; q++) {
+    const saved = sessionStorage.getItem(STORAGE_PREFIX + q);
+    if (saved === null) continue;
+
+    const radios = document.querySelectorAll('[name="q' + q + '"]');
+    if (radios.length) {
+      radios.forEach(radio => {
+        radio.checked = radio.value === saved;
+      });
+    } else {
+      const el = document.getElementById("q" + q);
+      if (el) el.value = saved;
+    }
+  }
+}
+
+
+function updateProgress() {
+  for (let q = 1; q <= 40; q++) {
+    const button = document.getElementById("progress-" + q);
+    if (!button) continue;
+    const saved = sessionStorage.getItem(STORAGE_PREFIX + q);
+    const current = getAnswer(q);
+    button.classList.toggle("answered", Boolean(current || saved));
+  }
+}
+
+
+function buildProgress() {
+  const container = document.getElementById("progress");
+  for (let q = 1; q <= 40; q++) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = q;
+    button.id = "progress-" + q;
+    button.title = "Question " + q;
+    if (q >= 28) {
+      button.addEventListener("click", () => {
+        const target = document.getElementById("q" + q) ||
+          document.querySelector('[name="q' + q + '"]');
+        if (target) {
+          target.scrollIntoView({behavior:"smooth", block:"center"});
+          target.focus({preventScroll:true});
+        }
+      });
+    } else {
+      button.addEventListener("click", () => goPart(q <= 13 ? 1 : 2));
+    }
+    container.appendChild(button);
+  }
+}
+
+
+function startTimer() {
+  let seconds = parseInt(sessionStorage.getItem(TIMER_KEY), 10);
+  if (!Number.isFinite(seconds) || seconds < 0) seconds = 3600;
+
+  function render() {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    document.getElementById("timer").textContent =
+      String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+  }
+
+  render();
+
+  if (window.readingGT2TimerInterval) clearInterval(window.readingGT2TimerInterval);
+  window.readingGT2TimerInterval = setInterval(() => {
+    if (seconds > 0) {
+      seconds--;
+      sessionStorage.setItem(TIMER_KEY, seconds);
+      render();
+    } else {
+      clearInterval(window.readingGT2TimerInterval);
+      document.getElementById("timer").textContent = "00:00";
+    }
+  }, 1000);
+}
+
+
+function toggleHighlight() {
+  if (typeof window.toggleReadingHighlight === "function") {
+    window.toggleReadingHighlight();
+  } else if (typeof window.toggleHighlight === "function") {
+    window.toggleHighlight();
+  } else {
+    alert("Select text in the passage first. The shared highlighting script may use a different function name.");
+  }
+}
+
+
+function clearHighlight() {
+  if (typeof window.clearReadingHighlight === "function") {
+    window.clearReadingHighlight();
+  } else if (typeof window.clearHighlight === "function") {
+    window.clearHighlight();
+  } else {
+    document.querySelectorAll("mark.user-highlight").forEach(mark => {
+      mark.replaceWith(document.createTextNode(mark.textContent));
+    });
+  }
+}
+
+
+function submitTest() {
+  for (let q = 28; q <= 40; q++) saveAnswer(q);
+  if (!confirm("Submit the complete Reading Test 2? Make sure you have completed Parts 1, 2 and 3.")) return;
+
+  sessionStorage.setItem("readingGT2Submitted", "true");
+  window.location.href = "reading_gt_2_final.html";
+}
+
+
+document.querySelectorAll("[data-q]").forEach(el => {
+  el.addEventListener("input", () => saveAnswer(el.dataset.q));
+  el.addEventListener("change", () => saveAnswer(el.dataset.q));
+});
+
+
+buildProgress();
+restoreAnswers();
+updateProgress();
+startTimer();
+
+
+</script>
+
+</body>
+</html>

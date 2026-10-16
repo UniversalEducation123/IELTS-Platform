@@ -931,7 +931,6 @@
 <script>
 
 
-
 let timeLeftStorage =
     sessionStorage.getItem(
         "readingTest3TimeLeft"
@@ -1176,9 +1175,6 @@ function restoreAnswers() {
 }
 
 
-/* =========================================
-   QUESTION PROGRESS
-   ========================================= */
 
 function updateQuestionProgress() {
 
@@ -1265,18 +1261,11 @@ document
     });
 
 
-/* =========================================
-   INITIAL RESTORE
-   ========================================= */
-
 restoreAnswers();
 
 updateQuestionProgress();
 
 
-/* =========================================
-   PART NAVIGATION
-   ========================================= */
 
 function goToPart(partNumber) {
 
@@ -1309,9 +1298,6 @@ function goToPart(partNumber) {
 }
 
 
-/* =========================================
-   SUBMIT
-   ========================================= */
 
 function submitReadingTest() {
 
@@ -1322,6 +1308,7 @@ function submitReadingTest() {
         "reading-test-3-final.html";
 
 }
+
 
 </script>
 

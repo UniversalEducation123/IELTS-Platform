@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/style.css">
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -116,7 +117,6 @@ h2{
 .band-line{
     margin-top:12px;
     padding-top:22px;
-
     border-top:1px solid #DDD5C8;
     border-bottom:none;
     font-size:20px;
@@ -315,15 +315,19 @@ h2{
 
     
     <script>
+
+
         const studentName =
             sessionStorage.getItem("studentName") || "Student";
 
         document.getElementById("studentName").textContent = studentName;
 
+
         /*
          * These values will be supplied by reading-test.html
          * before redirecting to this page.
          */
+
         const savedScore = sessionStorage.getItem("readingScore");
         const savedCorrect = sessionStorage.getItem("readingCorrect");
 
@@ -336,6 +340,7 @@ h2{
             : score;
 
         const incorrect = 40 - correct;
+
 
        function getReadingBand(correctAnswers) {
 
@@ -416,6 +421,7 @@ h2{
             is_submitted:
                 true
         };
+
 
    async function saveReadingTest1Result() {
 
@@ -755,7 +761,10 @@ saveReadingTest1Result();
         reviewContainer.appendChild(reviewItem);
     }
 }
+
+
     </script>
+
 
 </body>
 </html>

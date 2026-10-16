@@ -299,7 +299,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
     <script>
+
 
         const SUPABASE_URL =
             "https://gehczgguwxqwfowmbedy.supabase.co";
@@ -313,10 +315,6 @@
                 SUPABASE_ANON_KEY
             );
 
-
-        /* ===============================
-           ANSWER NORMALIZATION
-        =============================== */
 
         function normalizeAnswer(answer) {
 
@@ -352,11 +350,6 @@
         }
 
 
-        /* ===============================
-           BAND SCORE
-           LISTENING
-        =============================== */
-
         function calculateBand(correctCount) {
 
             if (correctCount >= 39) return "9.0";
@@ -378,10 +371,6 @@
 
         }
 
-
-        /* ===============================
-           READ TEST 4 ANSWER
-        =============================== */
 
         function readTest4Answer(questionNumber) {
 
@@ -776,10 +765,6 @@
 
             let correctCount = 0;
 
-
-            /* ===============================
-               ANSWER KEY
-            =============================== */
 
             const answerKey = {
 
@@ -1303,20 +1288,12 @@
             );
 
 
-            /* ===============================
-               SAVE RESULT TO SUPABASE
-            =============================== */
-
             await saveResultToSupabase(
                 correctCount
             );
 
         }
 
-
-        /* ===============================
-           SAVE RESULT TO SUPABASE
-        =============================== */
 
         async function saveResultToSupabase(
             score
@@ -1418,10 +1395,6 @@
         }
 
 
-        /* ===============================
-           START CALCULATION
-        =============================== */
-
         document.addEventListener(
             "DOMContentLoaded",
             function() {
@@ -1431,7 +1404,9 @@
             }
         );
 
+
     </script>
+    
 
 </body>
 </html>

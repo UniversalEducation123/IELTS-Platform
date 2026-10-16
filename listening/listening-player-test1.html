@@ -15,7 +15,6 @@
 <body>
 
 
-
 <header class="main-header">
 
   <div class="logo">IELTS Practice</div>
@@ -247,6 +246,7 @@ function resizeFrame() {
     } catch (e) {}
 }
 
+
 function loadPart(part, button) {
 
     document
@@ -258,6 +258,7 @@ function loadPart(part, button) {
     frame.src = `listening-test-${part}.html`;
 }
 
+
 frame.addEventListener("load", function () {
     resizeFrame();
 
@@ -267,9 +268,11 @@ frame.addEventListener("load", function () {
     setTimeout(resizeFrame, 600);
 });
 
+
 // initial resize
 window.addEventListener("load", resizeFrame);
 window.addEventListener("resize", resizeFrame);
+
 
 </script>
 

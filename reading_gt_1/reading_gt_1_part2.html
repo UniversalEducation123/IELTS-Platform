@@ -840,9 +840,7 @@
 </main>
 
 
-
 <script>
-
 
 
 let timeLeft = parseInt(
@@ -912,10 +910,6 @@ const timerInterval = setInterval(function() {
 
 
 
-/* =========================================
-   SAVE ANSWERS
-========================================= */
-
 function saveAnswers() {
 
     document.querySelectorAll(
@@ -951,10 +945,6 @@ function saveAnswers() {
 }
 
 
-
-/* =========================================
-   RESTORE ANSWERS
-========================================= */
 
 function restoreAnswers() {
 
@@ -1040,6 +1030,7 @@ function updateQuestionProgress() {
 let selectedMatchingLetter = null;
 
 function setMatchingAnswer(questionName, letter) {
+    
     const select = document.querySelector(
         `#readingForm select[name="${questionName}"]`
     );
@@ -1059,7 +1050,9 @@ function setMatchingAnswer(questionName, letter) {
     updateQuestionProgress();
 }
 
+
 function syncMatchingAnswers() {
+   
     document.querySelectorAll(".matching-answer").forEach(button => {
         const questionName = button.dataset.question;
 
@@ -1073,6 +1066,7 @@ function syncMatchingAnswers() {
         button.classList.toggle("filled", Boolean(select.value));
     });
 }
+
 
 document.querySelectorAll(".matching-letter").forEach(letterButton => {
 
@@ -1099,6 +1093,7 @@ document.querySelectorAll(".matching-letter").forEach(letterButton => {
         letterButton.classList.add("selected");
     });
 });
+
 
 document.querySelectorAll(".matching-answer").forEach(answerButton => {
 
@@ -1137,6 +1132,7 @@ document.querySelectorAll(".matching-answer").forEach(answerButton => {
         selectedMatchingLetter = null;
     });
 });
+
 
 document.querySelectorAll(".matching-clear").forEach(clearButton => {
     clearButton.addEventListener("click", () => {
@@ -1258,10 +1254,6 @@ if (
 }
 
 
-
-/* =========================================
-   RESTORE ON LOAD
-========================================= */
 
 restoreAnswers();
 

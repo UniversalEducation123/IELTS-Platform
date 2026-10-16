@@ -396,6 +396,7 @@
 
 <script>
 
+
     const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
 
@@ -404,11 +405,6 @@
         SUPABASE_ANON_KEY
     );
 
-   
-
-    /* =================================
-       SHARED 60-MINUTE TIMER
-    ================================= */
 
     const timerElement =
         document.getElementById("timer");
@@ -559,6 +555,7 @@
 
     updateWordCount();
 
+
     /* =================================
    GENERATE WRITING PDF
 ================================= */
@@ -654,12 +651,14 @@ async function generateWritingPDF() {
     return pdf;
 }
 
+
 function saveBeforeBack() {
     sessionStorage.setItem(
         "writingTest1Task2Answer",
         answerBox.value
     );
 }
+
 
 
 /* =================================
@@ -778,7 +777,7 @@ window.location.href = "writing-final.html";
 
 
 </script>
-```
+
 
 </body>
 

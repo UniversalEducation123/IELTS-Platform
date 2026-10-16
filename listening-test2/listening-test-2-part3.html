@@ -374,6 +374,7 @@
 
 <script>
 
+
     function goToPart4() {
 
     saveAnswers();
@@ -384,6 +385,7 @@
     );
 
 }
+
 
 /* Highlight answered question-number buttons */
 
@@ -398,6 +400,7 @@ function saveAnswers() {
     });
 }
 
+
 function restoreAnswers() {
     document.querySelectorAll(
         ".inline-answer"
@@ -411,6 +414,7 @@ function restoreAnswers() {
         }
     });
 }
+
 
 function updateQuestionProgress() {
 
@@ -443,6 +447,7 @@ function updateQuestionProgress() {
         }
     }
 }
+
 
 /* =========================================
    DRAG AND DROP QUESTIONS 27–30
@@ -661,6 +666,7 @@ for (let i = 27; i <= 30; i++) {
 
 setupDragAndDropQuestions27to30();
 updateQuestionProgress();
+
 
 </script>
 

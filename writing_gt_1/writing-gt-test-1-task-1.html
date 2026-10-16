@@ -238,7 +238,6 @@
 <script>
 
 
-
     const timeKey = "writingGTTest1TimeLeft";
     let timeLeft = Number(sessionStorage.getItem(timeKey));
 
@@ -273,9 +272,8 @@
         updateTimer();
     }, 1000);
 
-    /* =================================
-       SAVE AND RESTORE TASK 1 ANSWER
-    ================================= */
+
+    /*  SAVE AND RESTORE TASK 1 ANSWER */
 
     const answerBox = document.getElementById("task1Answer");
     const wordCountElement = document.getElementById("task1WordCount");
@@ -291,9 +289,8 @@
         sessionStorage.setItem(answerKey, answerBox.value);
     }
 
-    /* =================================
-       WORD COUNT
-    ================================= */
+
+    /*  WORD COUNT */
 
     function updateWordCount() {
         const text = answerBox.value.trim();
@@ -309,9 +306,8 @@
     answerBox.addEventListener("input", updateWordCount);
     updateWordCount();
 
-    /* =================================
-       CONTINUE TO TASK 2
-    ================================= */
+
+    /*  CONTINUE TO TASK 2 */
 
     function goToTask2() {
         saveTask1Answer();

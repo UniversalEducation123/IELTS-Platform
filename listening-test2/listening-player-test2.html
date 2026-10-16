@@ -262,6 +262,7 @@ function resizeFrame() {
     } catch (e) {}
 }
 
+
 function loadPart(part, button) {
 
     document
@@ -282,11 +283,14 @@ frame.addEventListener("load", function () {
     setTimeout(resizeFrame, 600);
 });
 
+
 // initial resize
 window.addEventListener("load", resizeFrame);
 window.addEventListener("resize", resizeFrame);
 
+
 </script>
+
 
 </body>
 </html>

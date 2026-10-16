@@ -18,9 +18,9 @@
 
         sessionStorage.removeItem(readingAccessKey);
 
-        if (readingAccessGranted !== "true") {
-            window.location.href = "../test-access.html?test=reading-test-1";
-        }
+            if (readingAccessGranted !== "true") {
+                window.location.href = "../test-access.html?test=reading-test-1";
+            }
 
 </script>
 
@@ -1136,7 +1136,6 @@ Zimbabwe.
             </div>
 
             
-
         </section>
 
     </div>
@@ -1148,9 +1147,13 @@ Zimbabwe.
 
 </main>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
+
 /* Use your existing Supabase URL and existing anon key */
 const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
@@ -1187,9 +1190,9 @@ const answers = {
     q19: "A",
 
     q20: ["B", "D"],
-q21: ["B", "D"],
+    q21: ["B", "D"],
 
-q22: "prosperity",
+    q22: "prosperity",
     q23: "whistles",
     q24: "bodies",
     q25: "ancestors",
@@ -1212,6 +1215,7 @@ q22: "prosperity",
     q40: "B"
 };
 
+
 function showPart(partNumber) {
 
     document.querySelectorAll(".reading-part").forEach(function(part){
@@ -1231,6 +1235,7 @@ function showPart(partNumber) {
         });
     }
 }
+
 
 function updateTimer() {
     if (submitted) return;
@@ -1252,12 +1257,14 @@ function updateTimer() {
 
 setInterval(updateTimer, 1000);
 
+
 function normalize(value) {
     return String(value || "")
         .trim()
         .toLowerCase()
         .replace(/\s+/g, " ");
 }
+
 
 function getAnswer(questionNumber) {
     const element = document.querySelector(
@@ -1286,6 +1293,7 @@ function getAnswer(questionNumber) {
 
     return "";
 }
+
 
 function saveReadingAnswerReview() {
 
@@ -1810,6 +1818,7 @@ function updateReadingQuestionProgress() {
     }
 }
 
+
 // Update when the user types, selects, or clicks an answer
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
@@ -1818,6 +1827,7 @@ document.querySelectorAll(
     input.addEventListener("change", updateReadingQuestionProgress);
 });
 
+
 // Start with all boxes unhighlighted
 document.querySelectorAll(
     ".reading-question-progress button"
@@ -1825,7 +1835,10 @@ document.querySelectorAll(
     button.classList.remove("answered");
 });
 
+
 updateReadingQuestionProgress();
+
+
 </script>
 
 </body>

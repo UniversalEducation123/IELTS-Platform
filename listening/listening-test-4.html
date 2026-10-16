@@ -176,6 +176,7 @@
 
 <script>
 
+
 const audio = parent.document.getElementById("listeningAudio");
 
 
@@ -193,6 +194,7 @@ function savePart4Answers() {
     );
 }
 
+
 /* Finish Listening Test */
 const submitButton = document.getElementById("submitPart4Btn");
 
@@ -205,6 +207,7 @@ if (submitButton) {
         parent.window.location.href = "listening-final.html";
     };
 }
+
 
 /* QUESTION PROGRESS */
 function updateQuestionProgress() {
@@ -230,6 +233,7 @@ document.querySelectorAll('input[type="text"]').forEach(input => {
     input.addEventListener("change", updateQuestionProgress);
 });
 
+
 function goToQuestion(questionNumber) {
 
     const input = document.querySelector(`[name="q${questionNumber}"]`);
@@ -244,9 +248,13 @@ function goToQuestion(questionNumber) {
 }
 
 updateQuestionProgress();
+
+
 </script>
 
+
 <script>
+
 
 /*
  * SAVE AND RESTORE LISTENING ANSWERS
@@ -254,6 +262,7 @@ updateQuestionProgress();
 
 const answerStorageKey =
     "listeningAnswers_" + window.location.pathname;
+
 
 function saveListeningAnswers() {
     const answers = {};
@@ -293,6 +302,7 @@ function saveListeningAnswers() {
         JSON.stringify(answers)
     );
 }
+
 
 function restoreListeningAnswers() {
     const savedAnswers =
@@ -334,6 +344,7 @@ function restoreListeningAnswers() {
     updateQuestionProgress();
 }
 
+
 document.querySelectorAll(
     'input[type="text"], input[type="radio"], input[type="checkbox"], select'
 ).forEach(function (input) {
@@ -348,9 +359,12 @@ document.querySelectorAll(
     );
 });
 
+
 restoreListeningAnswers();
 
+
 </script>
+
 
 </body>
 </html>

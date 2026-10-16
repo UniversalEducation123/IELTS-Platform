@@ -296,10 +296,11 @@ h2{
 </div>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <script>
+
 
     const SUPABASE_URL = "https://gehczgguwxqwfowmbedy.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
@@ -310,9 +311,6 @@ h2{
             SUPABASE_ANON_KEY
         );
 
-    /* =====================================
-       ANSWER NORMALIZATION
-    ===================================== */
 
     function normalizeAnswer(answer) {
 
@@ -616,10 +614,6 @@ h2{
 
 
 
-    /* =====================================
-       MAIN SCORE CALCULATION
-    ===================================== */
-
  async function calculateReadingScore() {
 
     const answers = readTest3Answers();
@@ -681,10 +675,6 @@ h2{
 }
 
 
-
-    /* =====================================
-       SAVE RESULT TO SUPABASE
-    ===================================== */
 
     async function saveResultToSupabase(
         score
@@ -765,6 +755,7 @@ h2{
         "true"
     );
 }
+
 
 </script>
 
