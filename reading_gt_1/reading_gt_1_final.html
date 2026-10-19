@@ -570,10 +570,6 @@ function addReviewItem(
 
 const answerKey = {
 
-    /* =================================
-       PART 1
-       QUESTIONS 1–14
-    ================================= */
 
     q1: ["C"],
 
@@ -607,13 +603,6 @@ const answerKey = {
     q13: ["FALSE"],
 
     q14: ["FALSE"],
-
-
-
-    /* =================================
-       PART 2
-       QUESTIONS 15–27
-    ================================= */
 
     q15: ["I"],
 
@@ -664,13 +653,6 @@ const answerKey = {
         "Manager, International Student Programs"
     ],
 
-
-
-    /* =================================
-       PART 3
-       QUESTIONS 28–40
-    ================================= */
-
     q28: ["B"],
 
     q29: ["D"],
@@ -698,9 +680,6 @@ const answerKey = {
 };
 
 
-/* =====================================
-   SCORE QUESTIONS 32–33
-===================================== */
 
 function scoreQuestions32And33(answers) {
     
@@ -922,6 +901,7 @@ readingAnswers.q33 = {
     correctAnswer: ["II", "VI"],
     isCorrect: ["ii", "vi"].includes(normalizeAnswer(student33))
 };
+
 
 /* Questions 34–40 */
 for (let i = 34; i <= 40; i++) {

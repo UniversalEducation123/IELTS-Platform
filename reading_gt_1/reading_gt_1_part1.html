@@ -581,6 +581,7 @@ let timerInterval = null;
 const timerElement =
     document.getElementById("timer");
 
+    
 
 function updateTimer() {
 
@@ -688,11 +689,6 @@ if (!timerStarted) {
 }
 
 
-/* =========================================
-   SAVE ANSWERS
-========================================= */
-
-
 function saveAnswers() {
 
     document.querySelectorAll(
@@ -726,11 +722,6 @@ function saveAnswers() {
     });
 
 }
-
-
-/* =========================================
-   RESET COMPLETED TEST
-========================================= */
 
 
 function resetCompletedReadingGT1() {
@@ -775,11 +766,6 @@ function resetCompletedReadingGT1() {
 
 resetCompletedReadingGT1();
 
-
-
-/* =========================================
-   RESTORE ANSWERS
-========================================= */
 
 
 function restoreAnswers() {
@@ -906,11 +892,6 @@ document.querySelectorAll(
 
 
 
-/* =========================================
-   INITIAL RESTORE
-========================================= */
-
-
 restoreAnswers();
 
 updateQuestionProgress();
@@ -946,7 +927,6 @@ function goToPart(partNumber) {
     }
 
 }
-
 
 
 function submitReadingTest() {

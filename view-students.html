@@ -348,15 +348,13 @@ function getWritingDisplayName(testId) {
 
 // Get the exact submission ID for a displayed test.
 function getWritingTestId(testName) {
-    if (testName === "GT Writing Test 1") {
-        return "writing-gt-test-1";
-    }
+    if (testName === "Test 1") return "writing-gt-test-1";
+    if (testName === "GT Writing Test 1") return "writing-gt-test-1";
 
-    return "writing-" +
-        String(testName || "")
-            .trim()
-            .toLowerCase()
-            .replace(/\s+/g, "-");
+    return "writing-" + String(testName || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-");
 }
 
 
