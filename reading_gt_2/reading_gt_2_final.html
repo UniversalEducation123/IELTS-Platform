@@ -1,0 +1,531 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>General Training Reading Test 2 Result</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 30px 15px;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(139,154,110,.10), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(234,226,214,.45), transparent 35%),
+                #F7F2EB;
+            color: #5F5B55;
+        }
+
+        .result-header {
+            width: 100%;
+            max-width: 900px;
+            height: 64px;
+            margin: 0 auto 24px;
+            padding: 0 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,.78);
+            border: 1px solid #E8E1D6;
+            border-radius: 16px;
+            box-shadow: 0 8px 22px rgba(76,74,70,.05);
+        }
+
+        .result-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #5F5B55;
+        }
+
+        .result-header-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .result-header-links a {
+            color: #6B6A63;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .2s;
+        }
+
+        .result-header-links a:hover { color: #8B9A6E; }
+
+        .result-card {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 42px;
+            background: rgba(255,255,255,.82);
+            border: 1px solid #ECE4D8;
+            border-radius: 24px;
+            box-shadow: 0 14px 34px rgba(76,74,70,.06);
+        }
+
+        h1 {
+            margin: 0 0 34px;
+            text-align: center;
+            color: #5F5B55;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: #5F5B55;
+            font-size: 23px;
+            margin: 36px 0 20px;
+        }
+
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #ECE4D8;
+            font-size: 18px;
+        }
+
+        .result-line span {
+            font-weight: 700;
+            color: #72805A;
+            text-align: right;
+        }
+
+        .band-line {
+            margin-top: 12px;
+            padding-top: 22px;
+            border-top: 2px solid #DCE4D2;
+            border-bottom: none;
+            font-size: 21px;
+        }
+
+        .band-line span {
+            font-size: 26px;
+            color: #72805A;
+        }
+
+        .answer-review-section { margin-top: 34px; }
+
+        .answer-review-item {
+            margin-bottom: 14px;
+            padding: 16px 18px;
+            border-left: 5px solid;
+            border-radius: 14px;
+        }
+
+        .answer-review-item.correct {
+            background: #F4F7F1;
+            border-left-color: #8B9A6E;
+        }
+
+        .answer-review-item.wrong {
+            background: #FAF4F1;
+            border-left-color: #B59A86;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .review-status { font-weight: 700; }
+        .correct .review-status { color: #72805A; }
+        .wrong .review-status { color: #9A7E6A; }
+
+        .answer-review-item p {
+            margin: 6px 0;
+            color: #6B6A63;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .answer-review-item strong { color: #5F5B55; }
+
+        .home-button {
+            display: block;
+            width: fit-content;
+            margin: 34px auto 0;
+            padding: 13px 28px;
+            background: #8B9A6E;
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 999px;
+            transition: .25s;
+        }
+
+        .home-button:hover {
+            background: #77885C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(139,154,110,.18);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 18px 12px; }
+
+            .result-header {
+                height: auto;
+                padding: 16px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .result-card { padding: 28px 20px; }
+            h1 { font-size: 27px; }
+            h2 { font-size: 21px; }
+            .result-line { font-size: 16px; }
+
+            .review-header {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header class="result-header">
+    <div class="result-logo">IELTS Practice</div>
+
+    <div class="result-header-links">
+        <a href="../student-dashboard.html">Dashboard</a>
+        <a href="../index.html">Logout</a>
+    </div>
+</header>
+
+<div class="result-card">
+    <h1>General Training Reading Test 2 Result</h1>
+
+    <div class="result-line">
+        <strong>Correct Answers:</strong>
+        <span id="correctAnswers">0</span>
+    </div>
+
+    <div class="result-line">
+        <strong>Wrong Answers:</strong>
+        <span id="wrongAnswers">0</span>
+    </div>
+
+    <div class="result-line">
+        <strong>Total Score:</strong>
+        <span id="totalScore">0 / 40</span>
+    </div>
+
+    <div class="result-line band-line">
+        <strong>IELTS Band:</strong>
+        <span id="bandScore">2.0</span>
+    </div>
+
+    <div class="answer-review-section">
+        <h2>Answer Review</h2>
+        <div id="answerReview"></div>
+    </div>
+
+    <a href="../submitted-tests.html" class="home-button">
+        View Submitted Tests
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://gehczgguwxqwfowmbedy.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_9-hNB-3bSeofDt2PchapIw_me-RTx3z";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+function normalizeAnswer(answer) {
+    return String(answer ?? "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]/g, "");
+}
+
+
+function isCorrect(studentAnswer, acceptedAnswers) {
+    const student = normalizeAnswer(studentAnswer);
+
+    if (!student) return false;
+
+    return acceptedAnswers.some(answer =>
+        normalizeAnswer(answer) === student
+    );
+}
+
+
+function calculateBand(correctCount) {
+    if (correctCount >= 40) return "9.0";
+    if (correctCount >= 39) return "8.5";
+    if (correctCount >= 37) return "8.0";
+    if (correctCount >= 36) return "7.5";
+    if (correctCount >= 34) return "7.0";
+    if (correctCount >= 32) return "6.5";
+    if (correctCount >= 30) return "6.0";
+    if (correctCount >= 27) return "5.5";
+    if (correctCount >= 23) return "5.0";
+    if (correctCount >= 19) return "4.5";
+    if (correctCount >= 15) return "4.0";
+    if (correctCount >= 12) return "3.5";
+    if (correctCount >= 9) return "3.0";
+    if (correctCount >= 6) return "2.5";
+    return "2.0";
+}
+
+
+function readGTReadingAnswers() {
+    const answers = {};
+
+    for (let i = 1; i <= 40; i++) {
+        answers["q" + i] =
+            sessionStorage.getItem("readingGT2_q" + i) || "";
+    }
+
+    return answers;
+}
+
+
+function addReviewItem(questionNumber, studentAnswer, correctAnswer, correct) {
+    const answerReview = document.getElementById("answerReview");
+    const reviewItem = document.createElement("div");
+
+    reviewItem.className = correct
+        ? "answer-review-item correct"
+        : "answer-review-item wrong";
+
+    const header = document.createElement("div");
+    header.className = "review-header";
+
+    const question = document.createElement("strong");
+    question.textContent = "Question " + questionNumber;
+
+    const status = document.createElement("span");
+    status.className = "review-status";
+    status.textContent = correct ? "✓ Correct" : "✗ Wrong";
+
+    header.appendChild(question);
+    header.appendChild(status);
+    reviewItem.appendChild(header);
+
+    const studentLine = document.createElement("p");
+    const studentLabel = document.createElement("strong");
+    studentLabel.textContent = "Your answer: ";
+    studentLine.appendChild(studentLabel);
+    studentLine.appendChild(
+        document.createTextNode(studentAnswer || "Not answered")
+    );
+    reviewItem.appendChild(studentLine);
+
+    const correctLine = document.createElement("p");
+    const correctLabel = document.createElement("strong");
+    correctLabel.textContent = "Correct answer: ";
+    correctLine.appendChild(correctLabel);
+    correctLine.appendChild(document.createTextNode(correctAnswer));
+    reviewItem.appendChild(correctLine);
+
+    answerReview.appendChild(reviewItem);
+}
+
+
+/*
+ * GT READING TEST 2 ANSWER KEY
+ * Multiple accepted answers are listed where appropriate.
+ */
+
+const answerKey = {
+    q1: ["B vitamins", "potassium"],
+    q2: ["zinc"],
+    q3: ["calcium"],
+    q4: ["B vitamins"],
+    q5: ["Vitamin E"],
+    q6: ["Vitamin A"],
+    q7: ["A"],
+    q8: ["D"],
+    q9: ["D"],
+    q10: ["E"],
+    q11: ["F"],
+    q12: ["B"],
+    q13: ["H"],
+
+    q14: ["VIII"],
+    q15: ["V"],
+    q16: ["II"],
+    q17: ["III"],
+    q18: ["IV"],
+    q19: ["VII"],
+    q20: ["IX"],
+    q21: ["English"],
+    q22: ["swimming"],
+    q23: ["IELTS Preparation"],
+    q24: ["4"],
+    q25: ["3"],
+    q26: ["$11", "11"],
+    q27: ["soccer"],
+
+    q28: ["NOT GIVEN"],
+    q29: ["TRUE"],
+    q30: ["FALSE"],
+    q31: ["TRUE"],
+    q32: ["NOT GIVEN"],
+    q33: ["tobacco", "carcinogens"],
+    q34: ["respiratory problems"],
+    q35: ["hereditary", "hereditary factors", "factors"],
+    q36: ["behavioural", "behavioural factors", "factors"],
+    q37: [
+        "mole changes",
+        "old mole changes",
+        "existing mole changes",
+        "old existing mole changes"
+    ],
+    q38: ["combination", "combination of treatments"],
+    q39: ["B"],
+    q40: ["D"]
+};
+
+
+async function calculateReadingScore() {
+    const answers = readGTReadingAnswers();
+    let correctCount = 0;
+    const readingAnswers = {};
+
+    for (let i = 1; i <= 40; i++) {
+        const key = "q" + i;
+        const studentAnswer = answers[key] || "";
+        const acceptedAnswers = answerKey[key] || [];
+        const correct = isCorrect(studentAnswer, acceptedAnswers);
+
+        if (correct) correctCount++;
+
+        addReviewItem(
+            i,
+            studentAnswer,
+            acceptedAnswers.join(" / "),
+            correct
+        );
+
+        readingAnswers[key] = {
+            userAnswer: studentAnswer,
+            correctAnswer: acceptedAnswers,
+            isCorrect: correct
+        };
+    }
+
+    const wrongCount = 40 - correctCount;
+    const bandScore = calculateBand(correctCount);
+
+    document.getElementById("correctAnswers").textContent = correctCount;
+    document.getElementById("wrongAnswers").textContent = wrongCount;
+    document.getElementById("totalScore").textContent =
+        correctCount + " / 40";
+    document.getElementById("bandScore").textContent = bandScore;
+
+    console.log(
+        "FINAL GT READING TEST 2 SCORE:",
+        correctCount + " / 40"
+    );
+
+    await saveResultToSupabase(correctCount, readingAnswers);
+}
+
+
+async function saveResultToSupabase(score, readingAnswers) {
+    const studentId = sessionStorage.getItem("studentId");
+    const studentName =
+        sessionStorage.getItem("studentName") || "Student";
+
+    if (!studentId || !Number.isFinite(Number(studentId))) {
+        console.error("A valid student ID is missing.");
+        return;
+    }
+
+    const testDate = new Date().toISOString().split("T")[0];
+
+    const resultData = {
+        student_id: Number(studentId),
+        student_name: studentName,
+        test_name: "GT Reading Test 2",
+        test_date: testDate,
+        reading_score: score,
+        reading_answers: readingAnswers,
+        is_submitted: true
+    };
+
+    const { data: existing, error: findError } = await supabaseClient
+        .from("test_results")
+        .select("id")
+        .eq("student_id", Number(studentId))
+        .eq("test_name", "GT Reading Test 2")
+        .limit(1);
+
+    if (findError) {
+        console.error(
+            "Could not check for an existing GT Reading Test 2 result:",
+            findError
+        );
+        return;
+    }
+
+    let saveError;
+
+    if (existing && existing.length > 0) {
+        const { error } = await supabaseClient
+            .from("test_results")
+            .update(resultData)
+            .eq("id", existing[0].id);
+
+        saveError = error;
+    } else {
+        const { error } = await supabaseClient
+            .from("test_results")
+            .insert(resultData);
+
+        saveError = error;
+    }
+
+    if (saveError) {
+        console.error(
+            "Error saving GT Reading Test 2:",
+            saveError
+        );
+        return;
+    }
+
+    sessionStorage.setItem("readingGT2ResultSaved", "true");
+    sessionStorage.setItem("readingGT2Submitted", "true");
+
+    console.log(
+        "GT Reading Test 2 result and answers saved successfully."
+    );
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    calculateReadingScore();
+});
+
+
+</script>
+
+</body>
+
+</html>
