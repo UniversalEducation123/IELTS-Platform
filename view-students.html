@@ -331,8 +331,15 @@ let selectedReviewStatus = "ALL";
 
 // Convert writing submission IDs into display names.
 function getWritingDisplayName(testId) {
+
     const names = {
-        "writing-gt-test-1": "GT Writing Test 1"
+
+        "writing-gt-test-1":
+            "GT Writing Test 1",
+
+        "writing-gt-test-2":
+            "GT Writing Test 2"
+
     };
 
     if (names[testId]) {
@@ -348,27 +355,48 @@ function getWritingDisplayName(testId) {
 
 // Get the exact submission ID for a displayed test.
 function getWritingTestId(testName) {
-    if (testName === "Test 1") return "writing-gt-test-1";
-    if (testName === "GT Writing Test 1") return "writing-gt-test-1";
 
-    return "writing-" + String(testName || "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "-");
+    if (testName === "Test 1") {
+        return "writing-gt-test-1";
+    }
+
+    if (testName === "GT Writing Test 1") {
+        return "writing-gt-test-1";
+    }
+
+    if (testName === "Test 2") {
+        return "writing-gt-test-2";
+    }
+
+    if (testName === "GT Writing Test 2") {
+        return "writing-gt-test-2";
+    }
+
+    return "writing-" +
+        String(testName || "")
+            .trim()
+            .toLowerCase()
+            .replace(/\s+/g, "-");
 }
 
 
 // Identify which test filter a writing submission belongs to.
 function matchesTestFilter(testName, testId) {
-    if (testName === "ALL") return true;
+
+    if (testName === "ALL") {
+        return true;
+    }
 
     if (testId === "writing-gt-test-1") {
         return testName === "Test 1";
     }
 
+    if (testId === "writing-gt-test-2") {
+        return testName === "Test 2";
+    }
+
     return getWritingDisplayName(testId) === testName;
 }
-
 
 
 // Load students and test results
@@ -650,12 +678,18 @@ allWritingSubmissions.forEach(submission => {
 const originalTest =
     getWritingDisplayName(submission.test_id);
 
-// Keep GT Writing Test 1 in the same Test 1 card.
-const currentTest =
-    originalTest === "GT Writing Test 1"
-        ? "Test 1"
-        : originalTest;
+// Keep GT Writing tests inside their matching mock test cards.
 
+let currentTest = originalTest;
+
+    if (originalTest === "GT Writing Test 1") {
+        currentTest = "Test 1";
+    }
+
+    if (originalTest === "GT Writing Test 2") {
+        currentTest = "Test 2";
+    }
+    
     if (!matchesTestFilter(testName, submission.test_id)) {
         return;
     }
