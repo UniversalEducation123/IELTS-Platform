@@ -421,11 +421,22 @@ allWritingSubmissions = writingSubmissions || [];
     allStudents = students || [];
     allResults = results || [];
 
+    
     console.log(
         "GT Reading results:",
-        allResults.filter(result =>
-            String(result.test_name || "").trim() === "GT Reading Test 1"
-        )
+        allResults.filter(result => {
+
+            const testName =
+                String(result.test_name || "")
+                    .trim()
+                    .toLowerCase();
+
+            return (
+                testName === "gt reading test 1" ||
+                testName === "gt reading test 2"
+            );
+
+        })
     );
 
     loadingMessage.style.display = "none";
@@ -500,18 +511,47 @@ function showTestResults(testName, clickedButton = null) {
 
         filteredResults =
             allResults.filter(result => {
-                if (result.test_name === testName) {
+
+                const resultTestName =
+                    String(result.test_name || "")
+                        .trim()
+                        .toLowerCase();
+
+                const selectedTestName =
+                    String(testName || "")
+                        .trim()
+                        .toLowerCase();
+
+
+                /* Exact normal test match */
+
+                if (resultTestName === selectedTestName) {
                     return true;
                 }
 
+
+                /* GT Reading Test 1 belongs to Test 1 */
+
                 if (
-                    testName === "Test 1" &&
-                    result.test_name === "GT Reading Test 1"
+                    selectedTestName === "test 1" &&
+                    resultTestName === "gt reading test 1"
                 ) {
                     return true;
                 }
 
+
+                /* GT Reading Test 2 belongs to Test 2 */
+
+                if (
+                    selectedTestName === "test 2" &&
+                    resultTestName === "gt reading test 2"
+                ) {
+                    return true;
+                }
+
+
                 return false;
+
             });
 
     }
@@ -535,11 +575,28 @@ const studentId = String(result.student_id);
 const originalTest = result.test_name || "Unnamed Test";
 
 
-// Combine GT Reading Test 1 with Test 1.
-const currentTest =
-    originalTest.trim().toLowerCase() === "gt reading test 1"
-        ? "Test 1"
-        : originalTest;
+// Combine GT Reading tests with their main mock test.
+
+let currentTest = originalTest;
+
+const normalizedTest =
+    originalTest
+        .trim()
+        .toLowerCase();
+
+
+if (normalizedTest === "gt reading test 1") {
+
+    currentTest = "Test 1";
+
+}
+
+
+if (normalizedTest === "gt reading test 2") {
+
+    currentTest = "Test 2";
+
+}
 
 const groupKey = studentId + "_" + currentTest;
 
