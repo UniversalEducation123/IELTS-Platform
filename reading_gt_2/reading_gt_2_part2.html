@@ -255,6 +255,36 @@
             background: rgba(0, 0, 0, 0.07);
         }
 
+        /* =========================================
+   TAP / CLICK SELECTION
+========================================= */
+
+        .draggable-heading.selected-heading {
+            border-color: #8e9b7b;
+            background: #eef3e7;
+
+            box-shadow:
+                0 0 0 2px rgba(142, 155, 123, 0.15);
+        }
+
+        .draggable-heading {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .heading-drop-zone {
+            cursor: pointer;
+        }
+
+        .heading-drop-zone.tap-ready {
+            border-color: #8e9b7b;
+            background: #f7f9f3;
+        }
+
+        .heading-drop-zone.tap-ready .drop-placeholder {
+            color: #687358;
+        }
+
 
         /* =========================================
         RESPONSIVE
@@ -692,7 +722,7 @@
                             <h3>List of Headings</h3>
 
                             <p class="drag-instruction">
-                                Drag each heading to the correct paragraph.
+                                Drag a heading to the correct paragraph, or tap a heading and then tap the answer box.
                             </p>
 
 
@@ -817,7 +847,7 @@
                                     data-question="14">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -843,7 +873,7 @@
                                     data-question="15">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -869,7 +899,7 @@
                                     data-question="16">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -895,7 +925,7 @@
                                     data-question="17">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -921,7 +951,7 @@
                                     data-question="18">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -947,7 +977,7 @@
                                     data-question="19">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -973,7 +1003,7 @@
                                     data-question="20">
 
                                     <span class="drop-placeholder">
-                                        Drop heading here
+                                        Drop or tap heading here
                                     </span>
 
                                 </div>
@@ -1885,15 +1915,17 @@ function submitReadingTest() {
 }
 
 /* =========================================
-   QUESTIONS 14–20 DRAG AND DROP
+   QUESTIONS 14–20
+   DRAG + TAP / CLICK
 ========================================= */
 
 let draggedHeading = null;
+let selectedHeading = null;
 
 
-/* -----------------------------------------
+/* =========================================
    GET HEADING TEXT
------------------------------------------ */
+========================================= */
 
 function getHeadingText(value) {
 
@@ -1916,11 +1948,14 @@ function getHeadingText(value) {
 
 
 
-/* -----------------------------------------
-   DISPLAY ANSWER IN DROP ZONE
------------------------------------------ */
+/* =========================================
+   DISPLAY ANSWER
+========================================= */
 
-function displayDroppedHeading(questionNumber, value) {
+function displayDroppedHeading(
+    questionNumber,
+    value
+) {
 
     const dropZone =
         document.querySelector(
@@ -1943,7 +1978,6 @@ function displayDroppedHeading(questionNumber, value) {
 
 
     input.value = value;
-
 
     dropZone.innerHTML = "";
 
@@ -1982,7 +2016,9 @@ function displayDroppedHeading(questionNumber, value) {
 
     removeButton.addEventListener(
         "click",
-        function () {
+        function (event) {
+
+            event.stopPropagation();
 
             clearHeadingAnswer(
                 questionNumber
@@ -2002,11 +2038,13 @@ function displayDroppedHeading(questionNumber, value) {
 
 
 
-/* -----------------------------------------
+/* =========================================
    CLEAR ANSWER
------------------------------------------ */
+========================================= */
 
-function clearHeadingAnswer(questionNumber) {
+function clearHeadingAnswer(
+    questionNumber
+) {
 
     const dropZone =
         document.querySelector(
@@ -2033,7 +2071,7 @@ function clearHeadingAnswer(questionNumber) {
 
     dropZone.innerHTML =
         '<span class="drop-placeholder">'
-        + 'Drop heading here'
+        + 'Drop or tap heading here'
         + '</span>';
 
 
@@ -2049,14 +2087,50 @@ function clearHeadingAnswer(questionNumber) {
 
 
 
-/* -----------------------------------------
-   DRAG START / END
------------------------------------------ */
+/* =========================================
+   CLEAR TAP SELECTION
+========================================= */
+
+function clearHeadingSelection() {
+
+    selectedHeading = null;
+
+
+    document.querySelectorAll(
+        ".draggable-heading"
+    ).forEach(function (heading) {
+
+        heading.classList.remove(
+            "selected-heading"
+        );
+
+    });
+
+
+    document.querySelectorAll(
+        ".heading-drop-zone"
+    ).forEach(function (dropZone) {
+
+        dropZone.classList.remove(
+            "tap-ready"
+        );
+
+    });
+
+}
+
+
+
+/* =========================================
+   HEADING DRAG + TAP EVENTS
+========================================= */
 
 document.querySelectorAll(
     ".draggable-heading"
 ).forEach(function (heading) {
 
+
+    /* DRAG START */
 
     heading.addEventListener(
         "dragstart",
@@ -2084,6 +2158,8 @@ document.querySelectorAll(
     );
 
 
+    /* DRAG END */
+
     heading.addEventListener(
         "dragend",
         function () {
@@ -2099,18 +2175,76 @@ document.querySelectorAll(
     );
 
 
+    /* TAP / CLICK */
+
+    heading.addEventListener(
+        "click",
+        function () {
+
+            const value =
+                this.dataset.value;
+
+
+            /*
+                If student taps the same
+                heading again, deselect it.
+            */
+
+            if (
+                selectedHeading === value
+            ) {
+
+                clearHeadingSelection();
+
+                return;
+
+            }
+
+
+            clearHeadingSelection();
+
+
+            selectedHeading = value;
+
+
+            this.classList.add(
+                "selected-heading"
+            );
+
+
+            /*
+                Highlight all available
+                answer boxes.
+            */
+
+            document.querySelectorAll(
+                ".heading-drop-zone"
+            ).forEach(function (dropZone) {
+
+                dropZone.classList.add(
+                    "tap-ready"
+                );
+
+            });
+
+        }
+    );
+
+
 });
 
 
 
-/* -----------------------------------------
+/* =========================================
    DROP ZONES
------------------------------------------ */
+========================================= */
 
 document.querySelectorAll(
     ".heading-drop-zone"
 ).forEach(function (dropZone) {
 
+
+    /* DRAG OVER */
 
     dropZone.addEventListener(
         "dragover",
@@ -2131,6 +2265,8 @@ document.querySelectorAll(
     );
 
 
+    /* DRAG LEAVE */
+
     dropZone.addEventListener(
         "dragleave",
         function () {
@@ -2142,6 +2278,8 @@ document.querySelectorAll(
         }
     );
 
+
+    /* DROP */
 
     dropZone.addEventListener(
         "drop",
@@ -2186,6 +2324,69 @@ document.querySelectorAll(
 
             updateQuestionProgress();
 
+            clearHeadingSelection();
+
+        }
+    );
+
+
+    /* =====================================
+       TAP / CLICK ANSWER BOX
+    ====================================== */
+
+    dropZone.addEventListener(
+        "click",
+        function (event) {
+
+
+            /*
+                Ignore click on X button.
+            */
+
+            if (
+                event.target.closest(
+                    ".remove-heading"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+                Student must select a
+                heading first.
+            */
+
+            if (!selectedHeading) {
+
+                return;
+
+            }
+
+
+            const questionNumber =
+                this.dataset.question;
+
+
+            displayDroppedHeading(
+                questionNumber,
+                selectedHeading
+            );
+
+
+            sessionStorage.setItem(
+                "readingGT2_q"
+                + questionNumber,
+                selectedHeading
+            );
+
+
+            updateQuestionProgress();
+
+            clearHeadingSelection();
+
         }
     );
 
@@ -2194,9 +2395,9 @@ document.querySelectorAll(
 
 
 
-/* -----------------------------------------
-   RESTORE SAVED DRAG ANSWERS
------------------------------------------ */
+/* =========================================
+   RESTORE SAVED ANSWERS
+========================================= */
 
 function restoreHeadingDragAnswers() {
 
@@ -2205,6 +2406,7 @@ function restoreHeadingDragAnswers() {
         questionNumber <= 20;
         questionNumber++
     ) {
+
 
         const savedAnswer =
             sessionStorage.getItem(
