@@ -72,14 +72,200 @@
             min-width: 22px;
         }
 
-        .heading-list {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 18px 0;
+        .heading-drag-layout {
+            display: grid;
+            grid-template-columns: minmax(230px, 1fr) minmax(260px, 1fr);
+            gap: 24px;
+            align-items: start;
+            margin-top: 22px;
         }
 
-        .heading-list p {
-            margin: 7px 0;
+
+        /* =========================================
+        HEADING BANK
+        ========================================= */
+
+        .heading-bank {
+            border: 1px solid #d8d1c6;
+            border-radius: 8px;
+            padding: 18px;
+            background: #faf9f6;
+        }
+
+        .heading-bank h3 {
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        .drag-instruction {
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #777;
+        }
+
+
+        .draggable-heading {
+            padding: 11px 12px;
+            margin-bottom: 9px;
+
+            background: #ffffff;
+
+            border: 1px solid #d6cec1;
+            border-radius: 7px;
+
+            line-height: 1.4;
+
+            cursor: grab;
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                opacity 0.15s ease;
+        }
+
+
+        .draggable-heading:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .draggable-heading:active {
+            cursor: grabbing;
+        }
+
+
+        .draggable-heading.dragging {
+            opacity: 0.45;
+        }
+
+
+        /* =========================================
+        QUESTIONS
+        ========================================= */
+
+        .heading-drop-questions {
+            min-width: 0;
+        }
+
+
+        .heading-drop-question {
+            margin-bottom: 16px;
+        }
+
+
+        .heading-question-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .heading-question-title .question-number {
+            flex-shrink: 0;
+        }
+
+
+        /* =========================================
+        DROP ZONES
+        ========================================= */
+
+        .heading-drop-zone {
+            min-height: 48px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 9px 11px;
+
+            border: 2px dashed #d3cabd;
+            border-radius: 7px;
+
+            background: #ffffff;
+
+            box-sizing: border-box;
+
+            transition:
+                border-color 0.15s ease,
+                background 0.15s ease;
+        }
+
+
+        .heading-drop-zone.drag-over {
+            border-color: #8e9b7b;
+            background: #f3f6ee;
+        }
+
+
+        .drop-placeholder {
+            color: #999;
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+        SELECTED ANSWER
+        ========================================= */
+
+        .dropped-heading {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding: 8px 10px;
+
+            border-radius: 6px;
+
+            background: #f3f1eb;
+
+            line-height: 1.35;
+        }
+
+
+        .remove-heading {
+            flex-shrink: 0;
+
+            width: 25px;
+            height: 25px;
+
+            padding: 0;
+
+            border: none;
+            border-radius: 50%;
+
+            background: transparent;
+
+            font-size: 17px;
+            line-height: 25px;
+
+            cursor: pointer;
+        }
+
+
+        .remove-heading:hover {
+            background: rgba(0, 0, 0, 0.07);
+        }
+
+
+        /* =========================================
+        RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .heading-drag-layout {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -482,196 +668,328 @@
 
                     <h2>Questions 14–20</h2>
 
-
                     <p>
-
                         The reading passage has eight paragraphs A–H.
                         Choose the correct heading for each paragraph from
                         the list of headings below.
-
                     </p>
-
 
                     <p>
-
                         Write the correct number I–IX in boxes 14–20
                         on your Answer Sheet.
-
                     </p>
 
 
+                    <div class="heading-drag-layout">
 
-                    <div class="heading-list">
 
-                        <h3>List of Headings</h3>
+                        <!-- =========================================
+                            LEFT: LIST OF HEADINGS
+                        ========================================== -->
 
-                        <p>
-                            <strong>I.</strong>
-                            Questions
-                        </p>
+                        <div class="heading-bank">
 
-                        <p>
-                            <strong>II.</strong>
-                            Length of loan
-                        </p>
+                            <h3>List of Headings</h3>
 
-                        <p>
-                            <strong>III.</strong>
-                            Number of books allowable
-                        </p>
+                            <p class="drag-instruction">
+                                Drag each heading to the correct paragraph.
+                            </p>
 
-                        <p>
-                            <strong>IV.</strong>
-                            Not sure what you have borrowed?
-                        </p>
 
-                        <p>
-                            <strong>V.</strong>
-                            Borrowing from the Library
-                        </p>
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="I">
 
-                        <p>
-                            <strong>VI.</strong>
-                            Creating a PIN number
-                        </p>
+                                <strong>I.</strong>
+                                Questions
 
-                        <p>
-                            <strong>VII.</strong>
-                            Keeping items for a longer period
-                        </p>
+                            </div>
 
-                        <p>
-                            <strong>VIII.</strong>
-                            Joining the Library
-                        </p>
 
-                        <p>
-                            <strong>IX.</strong>
-                            Returns
-                        </p>
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="II">
+
+                                <strong>II.</strong>
+                                Length of loan
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="III">
+
+                                <strong>III.</strong>
+                                Number of books allowable
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="IV">
+
+                                <strong>IV.</strong>
+                                Not sure what you have borrowed?
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="V">
+
+                                <strong>V.</strong>
+                                Borrowing from the Library
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="VI">
+
+                                <strong>VI.</strong>
+                                Creating a PIN number
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="VII">
+
+                                <strong>VII.</strong>
+                                Keeping items for a longer period
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="VIII">
+
+                                <strong>VIII.</strong>
+                                Joining the Library
+
+                            </div>
+
+
+                            <div
+                                class="draggable-heading"
+                                draggable="true"
+                                data-value="IX">
+
+                                <strong>IX.</strong>
+                                Returns
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- =========================================
+                            RIGHT: QUESTIONS 14–20
+                        ========================================== -->
+
+                        <div class="heading-drop-questions">
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">14.</span>
+                                    <strong>Paragraph A</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="14">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q14"
+                                    id="q14">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">15.</span>
+                                    <strong>Paragraph B</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="15">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q15"
+                                    id="q15">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">16.</span>
+                                    <strong>Paragraph C</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="16">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q16"
+                                    id="q16">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">17.</span>
+                                    <strong>Paragraph D</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="17">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q17"
+                                    id="q17">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">18.</span>
+                                    <strong>Paragraph E</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="18">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q18"
+                                    id="q18">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">19.</span>
+                                    <strong>Paragraph F</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="19">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q19"
+                                    id="q19">
+
+                            </div>
+
+
+
+                            <div class="heading-drop-question">
+
+                                <div class="heading-question-title">
+                                    <span class="question-number">20.</span>
+                                    <strong>Paragraph G</strong>
+                                </div>
+
+                                <div
+                                    class="heading-drop-zone"
+                                    data-question="20">
+
+                                    <span class="drop-placeholder">
+                                        Drop heading here
+                                    </span>
+
+                                </div>
+
+                                <input
+                                    type="hidden"
+                                    name="q20"
+                                    id="q20">
+
+                            </div>
+
+
+                        </div>
+
 
                     </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">14.</span>
-                            Paragraph A
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q14"
-                            maxlength="3"
-                            aria-label="Question 14">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">15.</span>
-                            Paragraph B
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q15"
-                            maxlength="3"
-                            aria-label="Question 15">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">16.</span>
-                            Paragraph C
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q16"
-                            maxlength="3"
-                            aria-label="Question 16">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">17.</span>
-                            Paragraph D
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q17"
-                            maxlength="3"
-                            aria-label="Question 17">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">18.</span>
-                            Paragraph E
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q18"
-                            maxlength="3"
-                            aria-label="Question 18">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">19.</span>
-                            Paragraph F
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q19"
-                            maxlength="3"
-                            aria-label="Question 19">
-
-                    </div>
-
-
-
-                    <div class="question">
-
-                        <p>
-                            <span class="question-number">20.</span>
-                            Paragraph G
-                        </p>
-
-                        <input
-                            type="text"
-                            name="q20"
-                            maxlength="3"
-                            aria-label="Question 20">
-
-                    </div>
-
-
                 </section>
 
 
@@ -1565,6 +1883,354 @@ function submitReadingTest() {
         "reading_gt_2_final.html";
 
 }
+
+/* =========================================
+   QUESTIONS 14–20 DRAG AND DROP
+========================================= */
+
+let draggedHeading = null;
+
+
+/* -----------------------------------------
+   GET HEADING TEXT
+----------------------------------------- */
+
+function getHeadingText(value) {
+
+    const heading =
+        document.querySelector(
+            '.draggable-heading[data-value="'
+            + value
+            + '"]'
+        );
+
+    if (!heading) {
+        return value;
+    }
+
+    return heading.textContent
+        .replace(/\s+/g, " ")
+        .trim();
+
+}
+
+
+
+/* -----------------------------------------
+   DISPLAY ANSWER IN DROP ZONE
+----------------------------------------- */
+
+function displayDroppedHeading(questionNumber, value) {
+
+    const dropZone =
+        document.querySelector(
+            '.heading-drop-zone[data-question="'
+            + questionNumber
+            + '"]'
+        );
+
+    const input =
+        document.querySelector(
+            '[name="q'
+            + questionNumber
+            + '"]'
+        );
+
+
+    if (!dropZone || !input) {
+        return;
+    }
+
+
+    input.value = value;
+
+
+    dropZone.innerHTML = "";
+
+
+    const answer =
+        document.createElement("div");
+
+    answer.className =
+        "dropped-heading";
+
+
+    const text =
+        document.createElement("span");
+
+    text.textContent =
+        getHeadingText(value);
+
+
+    const removeButton =
+        document.createElement("button");
+
+    removeButton.type =
+        "button";
+
+    removeButton.className =
+        "remove-heading";
+
+    removeButton.innerHTML =
+        "&times;";
+
+    removeButton.setAttribute(
+        "aria-label",
+        "Remove answer"
+    );
+
+
+    removeButton.addEventListener(
+        "click",
+        function () {
+
+            clearHeadingAnswer(
+                questionNumber
+            );
+
+        }
+    );
+
+
+    answer.appendChild(text);
+
+    answer.appendChild(removeButton);
+
+    dropZone.appendChild(answer);
+
+}
+
+
+
+/* -----------------------------------------
+   CLEAR ANSWER
+----------------------------------------- */
+
+function clearHeadingAnswer(questionNumber) {
+
+    const dropZone =
+        document.querySelector(
+            '.heading-drop-zone[data-question="'
+            + questionNumber
+            + '"]'
+        );
+
+    const input =
+        document.querySelector(
+            '[name="q'
+            + questionNumber
+            + '"]'
+        );
+
+
+    if (!dropZone || !input) {
+        return;
+    }
+
+
+    input.value = "";
+
+
+    dropZone.innerHTML =
+        '<span class="drop-placeholder">'
+        + 'Drop heading here'
+        + '</span>';
+
+
+    sessionStorage.removeItem(
+        "readingGT2_q"
+        + questionNumber
+    );
+
+
+    updateQuestionProgress();
+
+}
+
+
+
+/* -----------------------------------------
+   DRAG START / END
+----------------------------------------- */
+
+document.querySelectorAll(
+    ".draggable-heading"
+).forEach(function (heading) {
+
+
+    heading.addEventListener(
+        "dragstart",
+        function (event) {
+
+            draggedHeading =
+                this.dataset.value;
+
+
+            this.classList.add(
+                "dragging"
+            );
+
+
+            event.dataTransfer.setData(
+                "text/plain",
+                draggedHeading
+            );
+
+
+            event.dataTransfer.effectAllowed =
+                "copy";
+
+        }
+    );
+
+
+    heading.addEventListener(
+        "dragend",
+        function () {
+
+            this.classList.remove(
+                "dragging"
+            );
+
+
+            draggedHeading = null;
+
+        }
+    );
+
+
+});
+
+
+
+/* -----------------------------------------
+   DROP ZONES
+----------------------------------------- */
+
+document.querySelectorAll(
+    ".heading-drop-zone"
+).forEach(function (dropZone) {
+
+
+    dropZone.addEventListener(
+        "dragover",
+        function (event) {
+
+            event.preventDefault();
+
+
+            this.classList.add(
+                "drag-over"
+            );
+
+
+            event.dataTransfer.dropEffect =
+                "copy";
+
+        }
+    );
+
+
+    dropZone.addEventListener(
+        "dragleave",
+        function () {
+
+            this.classList.remove(
+                "drag-over"
+            );
+
+        }
+    );
+
+
+    dropZone.addEventListener(
+        "drop",
+        function (event) {
+
+            event.preventDefault();
+
+
+            this.classList.remove(
+                "drag-over"
+            );
+
+
+            const value =
+                event.dataTransfer.getData(
+                    "text/plain"
+                )
+                || draggedHeading;
+
+
+            if (!value) {
+                return;
+            }
+
+
+            const questionNumber =
+                this.dataset.question;
+
+
+            displayDroppedHeading(
+                questionNumber,
+                value
+            );
+
+
+            sessionStorage.setItem(
+                "readingGT2_q"
+                + questionNumber,
+                value
+            );
+
+
+            updateQuestionProgress();
+
+        }
+    );
+
+
+});
+
+
+
+/* -----------------------------------------
+   RESTORE SAVED DRAG ANSWERS
+----------------------------------------- */
+
+function restoreHeadingDragAnswers() {
+
+    for (
+        let questionNumber = 14;
+        questionNumber <= 20;
+        questionNumber++
+    ) {
+
+        const savedAnswer =
+            sessionStorage.getItem(
+                "readingGT2_q"
+                + questionNumber
+            );
+
+
+        if (
+            savedAnswer !== null
+            && savedAnswer !== ""
+        ) {
+
+            displayDroppedHeading(
+                questionNumber,
+                savedAnswer
+            );
+
+        }
+
+    }
+
+}
+
+
+restoreHeadingDragAnswers();
 
 
 </script>
