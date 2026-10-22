@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IELTS General Training Writing Test 2 - Task 1</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+
+        .writing-task-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+            height: calc(100vh - 260px);
+            min-height: 350px;
+            overflow: hidden;
+        }
+
+        .writing-question-panel,
+        .writing-answer-panel {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            min-width: 0;
+            min-height: 0;
+            height: 100%;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .writing-answer-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .writing-answer-panel textarea {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            box-sizing: border-box;
+            resize: none;
+            padding: 16px;
+            font: inherit;
+            line-height: 1.6;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .writing-word-count {
+            margin-top: 10px;
+            text-align: right;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .writing-navigation {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .writing-question-panel p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .letter-prompt {
+            background: #f8f9fb;
+            border: 1px solid #e2e5e9;
+            border-radius: 8px;
+            padding: 18px;
+            margin: 18px 0;
+        }
+
+        .letter-prompt ul {
+            padding-left: 24px;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 900px) {
+
+            .writing-task-layout {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 0;
+                overflow: visible;
+            }
+
+            .writing-question-panel {
+                height: 350px;
+            }
+
+            .writing-answer-panel {
+                height: 450px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     ACCESS CONTROL
+========================================= -->
+
+<script>
+
+    const accessKey =
+        "access_writing-gt-test-2";
+
+    if (
+        sessionStorage.getItem(accessKey)
+        !== "true"
+    ) {
+
+        window.location.href =
+            "../test-access.html?test=writing-gt-test-2";
+
+    }
+
+</script>
+
+
+<script src="../js/exam-inputs.js"></script>
+
+
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header class="main-header">
+
+    <div class="logo">
+        IELTS Practice
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="header-timer">
+
+            <span>
+                Time Remaining
+            </span>
+
+            <strong id="timer">
+                60:00
+            </strong>
+
+        </div>
+
+
+        <a href="../student-dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="../index.html">
+            Logout
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<section class="listening-header">
+
+    <div></div>
+
+</section>
+
+
+
+<!-- =========================================
+     MAIN CONTENT
+========================================= -->
+
+<main class="listening-container">
+
+
+    <section class="listening-card question-section">
+
+
+        <div class="question-heading">
+
+            <h2>
+                Writing Task 1
+            </h2>
+
+            <p class="instruction">
+                You should spend about 20 minutes on this task.
+            </p>
+
+        </div>
+
+
+
+        <div class="writing-task-layout">
+
+
+            <!-- =========================================
+                 LEFT SIDE: QUESTION
+            ========================================== -->
+
+            <div class="writing-question-panel">
+
+
+                <p>
+
+                    A friend's son is starting to learn English as a
+                    second language next semester. Your friend has asked
+                    you to offer some advice to his son about studying
+                    a foreign language.
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+
+                        Write a letter to your friend's son and make some
+                        suggestions based on your own experiences of
+                        learning a second language.
+
+                    </strong>
+
+                </p>
+
+
+                <div class="letter-prompt">
+
+                    <p>
+                        In your letter:
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            offer advice about the benefits of studying
+                            another language
+                        </li>
+
+                        <li>
+                            explain some of the challenges or difficulties
+                            he might find
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <p>
+
+                    <strong>
+                        You should write at least 150 words.
+                    </strong>
+
+                </p>
+
+
+                <p>
+                    You do NOT need to write your own address.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 RIGHT SIDE: ANSWER
+            ========================================== -->
+
+            <div class="writing-answer-panel">
+
+
+                <h3>
+                    Your Answer
+                </h3>
+
+
+                <textarea
+                    id="task1Answer"
+                    placeholder="Write your letter here..."
+                    spellcheck="true"
+                ></textarea>
+
+
+                <div
+                    id="task1WordCount"
+                    class="writing-word-count">
+
+                    Word count: 0
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================================
+             CONTINUE BUTTON
+        ========================================== -->
+
+        <div class="writing-navigation">
+
+            <button
+                type="button"
+                class="primary-btn"
+                onclick="goToTask2()">
+
+                Continue to Task 2
+
+            </button>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<script>
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+
+const timeKey =
+    "writingGTTest2TimeLeft";
+
+
+let timeLeft =
+    Number(
+        sessionStorage.getItem(timeKey)
+    );
+
+
+if (
+    !Number.isFinite(timeLeft)
+    || timeLeft <= 0
+) {
+
+    timeLeft = 60 * 60;
+
+
+    sessionStorage.setItem(
+        timeKey,
+        String(timeLeft)
+    );
+
+}
+
+
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+
+        String(minutes).padStart(2, "0")
+        + ":"
+        + String(seconds).padStart(2, "0");
+
+
+    sessionStorage.setItem(
+        timeKey,
+        String(timeLeft)
+    );
+
+}
+
+
+
+updateTimer();
+
+
+
+const timerInterval =
+    setInterval(function () {
+
+
+        if (timeLeft <= 0) {
+
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            sessionStorage.setItem(
+                timeKey,
+                "0"
+            );
+
+
+            window.location.href =
+                "writing-gt-test-2-task-2.html";
+
+
+            return;
+
+        }
+
+
+        timeLeft--;
+
+
+        updateTimer();
+
+
+    }, 1000);
+
+
+
+/* =========================================
+   SAVE AND RESTORE TASK 1 ANSWER
+========================================= */
+
+
+const answerBox =
+    document.getElementById(
+        "task1Answer"
+    );
+
+
+const wordCountElement =
+    document.getElementById(
+        "task1WordCount"
+    );
+
+
+const answerKey =
+    "writingGTTest2Task1Answer";
+
+
+
+const savedAnswer =
+    sessionStorage.getItem(
+        answerKey
+    );
+
+
+if (savedAnswer !== null) {
+
+    answerBox.value =
+        savedAnswer;
+
+}
+
+
+
+function saveTask1Answer() {
+
+    sessionStorage.setItem(
+        answerKey,
+        answerBox.value
+    );
+
+}
+
+
+
+/* =========================================
+   WORD COUNT
+========================================= */
+
+
+function updateWordCount() {
+
+
+    const text =
+        answerBox.value.trim();
+
+
+    const words =
+        text
+            ? text
+                .split(/\s+/)
+                .filter(Boolean)
+            : [];
+
+
+    wordCountElement.textContent =
+        "Word count: "
+        + words.length;
+
+
+    saveTask1Answer();
+
+}
+
+
+
+answerBox.addEventListener(
+    "input",
+    updateWordCount
+);
+
+
+updateWordCount();
+
+
+
+/* =========================================
+   CONTINUE TO TASK 2
+========================================= */
+
+
+function goToTask2() {
+
+
+    saveTask1Answer();
+
+
+    window.location.href =
+        "writing-gt-test-2-task-2.html";
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
