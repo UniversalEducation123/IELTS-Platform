@@ -83,31 +83,95 @@
             margin: 18px 0 30px;
         }
 
+        .table-scroll {
+            width: 100%;
+            margin: 18px 0 30px;
+
+            /* No horizontal scrolling */
+            overflow-x: hidden;
+        }
+
+
+        /* TABLE */
+
         .answer-table {
             width: 100%;
+            max-width: 100%;
+
             border-collapse: collapse;
-            min-width: 700px;
+
+            /* Forces all columns to fit available width */
+            table-layout: fixed;
         }
+
+
+        /* COLUMN WIDTHS */
+
+        .answer-table th:nth-child(1),
+        .answer-table td:nth-child(1) {
+            width: 15%;
+        }
+
+        .answer-table th:nth-child(2),
+        .answer-table td:nth-child(2) {
+            width: 31%;
+        }
+
+        .answer-table th:nth-child(3),
+        .answer-table td:nth-child(3) {
+            width: 27%;
+        }
+
+        .answer-table th:nth-child(4),
+        .answer-table td:nth-child(4) {
+            width: 27%;
+        }
+
+
+        /* CELLS */
 
         .answer-table th,
         .answer-table td {
             border: 1px solid #ccc;
-            padding: 10px;
+
+            padding: 9px 8px;
+
             text-align: left;
             vertical-align: top;
+
+            line-height: 1.4;
+
+            /* Allow long text to wrap */
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+
+            box-sizing: border-box;
         }
+
 
         .answer-table th {
             background: #faf8f4;
+            font-size: 14px;
         }
 
+
+        /* ANSWER BOXES */
+
         .answer-table input[type="text"] {
+            display: block;
+
             width: 100%;
-            min-width: 90px;
-            padding: 8px 9px;
+            max-width: 100%;
+            min-width: 0;
+
+            padding: 8px 7px;
+
             border: 1px solid #ccc;
             border-radius: 6px;
-            font-size: 15px;
+
+            font-size: 14px;
+
             box-sizing: border-box;
         }
 
