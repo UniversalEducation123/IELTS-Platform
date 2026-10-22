@@ -1037,18 +1037,31 @@ if (data && data.length > 0) {
         normalizedTestName.startsWith("gt ") ||
         normalizedTestName.includes("general training");
 
-    // Combine GT Reading Test 1 with Test 1 only.
-    const testKey =
-        isGTStudent &&
-        normalizedTestName === "gt reading test 1"
-            ? "test 1"
-            : normalizedTestName;
 
-    const displayTestName =
-        testKey === "test 1"
-            ? "Test 1"
-            : testName;
+    // Combine GT Reading tests with their matching mock tests.
 
+    let testKey = normalizedTestName;
+
+    if (normalizedTestName === "gt reading test 1") {
+        testKey = "test 1";
+    }
+
+    if (normalizedTestName === "gt reading test 2") {
+        testKey = "test 2";
+    }
+
+
+    // Display normal mock test name.
+
+    let displayTestName = testName;
+
+    if (testKey === "test 1") {
+        displayTestName = "Test 1";
+    }
+
+    if (testKey === "test 2") {
+        displayTestName = "Test 2";
+    }
 
         /* Create test group if it doesn't exist */
         if (!groupedTests[testKey]) {
@@ -1174,15 +1187,67 @@ if (data && data.length > 0) {
 Object.values(groupedTests).forEach(result => {
 
 
-    /* =================================
-       FIND WRITING SUBMISSION
-    ================================= */
+/* =================================
+   FIND WRITING SUBMISSION
+================================= */
 
-    const writingTestId =
-        "writing-" +
-        result.test_name
-            .toLowerCase()
-            .replace(/\s+/g, "-");
+    let writingTestId;
+
+
+    // General Training Writing Test 1
+    if (result.test_name === "Test 1") {
+
+        const gtWriting1 =
+            writingSubmissions &&
+            writingSubmissions.find(
+                submission =>
+                    submission.test_id ===
+                    "writing-gt-test-1"
+            );
+
+        if (gtWriting1) {
+            writingTestId =
+                "writing-gt-test-1";
+        } else {
+            writingTestId =
+                "writing-test-1";
+        }
+
+    }
+
+
+    // General Training Writing Test 2
+    else if (result.test_name === "Test 2") {
+
+        const gtWriting2 =
+            writingSubmissions &&
+            writingSubmissions.find(
+                submission =>
+                    submission.test_id ===
+                    "writing-gt-test-2"
+            );
+
+        if (gtWriting2) {
+            writingTestId =
+                "writing-gt-test-2";
+        } else {
+            writingTestId =
+                "writing-test-2";
+        }
+
+    }
+
+
+    // Other Writing tests
+    else {
+
+        writingTestId =
+            "writing-" +
+            result.test_name
+                .toLowerCase()
+                .replace(/\s+/g, "-");
+
+    }
 
 
     const writingSubmission =
@@ -1192,7 +1257,6 @@ Object.values(groupedTests).forEach(result => {
                 submission.test_id ===
                 writingTestId
         );
-
 
     /* =================================
        WRITING SCORE
