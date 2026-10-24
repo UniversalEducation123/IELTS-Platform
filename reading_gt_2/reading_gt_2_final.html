@@ -282,12 +282,14 @@ const supabaseClient = window.supabase.createClient(
 );
 
 
+
 function normalizeAnswer(answer) {
     return String(answer ?? "")
         .toLowerCase()
         .trim()
         .replace(/[^a-z0-9]/g, "");
 }
+
 
 
 function isCorrect(studentAnswer, acceptedAnswers) {
@@ -299,6 +301,7 @@ function isCorrect(studentAnswer, acceptedAnswers) {
         normalizeAnswer(answer) === student
     );
 }
+
 
 
 function calculateBand(correctCount) {
@@ -320,6 +323,7 @@ function calculateBand(correctCount) {
 }
 
 
+
 function readGTReadingAnswers() {
     const answers = {};
 
@@ -330,6 +334,7 @@ function readGTReadingAnswers() {
 
     return answers;
 }
+
 
 
 function addReviewItem(questionNumber, studentAnswer, correctAnswer, correct) {
@@ -374,10 +379,12 @@ function addReviewItem(questionNumber, studentAnswer, correctAnswer, correct) {
 }
 
 
+
 /*
  * GT READING TEST 2 ANSWER KEY
  * Multiple accepted answers are listed where appropriate.
  */
+
 
 const answerKey = {
     q1: ["B vitamins", "potassium"],
@@ -429,6 +436,7 @@ const answerKey = {
 };
 
 
+
 async function calculateReadingScore() {
     const answers = readGTReadingAnswers();
     let correctCount = 0;
@@ -472,6 +480,7 @@ async function calculateReadingScore() {
 
     await saveResultToSupabase(correctCount, readingAnswers);
 }
+
 
 
 async function saveResultToSupabase(score, readingAnswers) {
@@ -544,9 +553,12 @@ async function saveResultToSupabase(score, readingAnswers) {
     );
 }
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
     calculateReadingScore();
 });
+
 
 
 </script>
