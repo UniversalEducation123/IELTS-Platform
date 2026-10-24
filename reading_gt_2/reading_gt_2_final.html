@@ -8,6 +8,7 @@
     <title>General Training Reading Test 2 Result</title>
 
     <style>
+
         * { box-sizing: border-box; }
 
         body {
@@ -25,15 +26,18 @@
         .result-header {
             width: 100%;
             max-width: 900px;
+
             height: 64px;
             margin: 0 auto 24px;
             padding: 0 22px;
             display: flex;
+
             justify-content: space-between;
             align-items: center;
             background: rgba(255,255,255,.78);
             border: 1px solid #E8E1D6;
             border-radius: 16px;
+
             box-shadow: 0 8px 22px rgba(76,74,70,.05);
         }
 
@@ -112,7 +116,9 @@
             color: #72805A;
         }
 
-        .answer-review-section { margin-top: 34px; }
+        .answer-review-section { 
+            margin-top: 34px; 
+        }
 
         .answer-review-item {
             margin-bottom: 14px;
@@ -191,50 +197,71 @@
                 gap: 4px;
             }
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 <header class="result-header">
+
     <div class="result-logo">IELTS Practice</div>
 
     <div class="result-header-links">
+
         <a href="../student-dashboard.html">Dashboard</a>
         <a href="../index.html">Logout</a>
+
     </div>
+
 </header>
 
+
 <div class="result-card">
+
     <h1>General Training Reading Test 2 Result</h1>
 
     <div class="result-line">
+
         <strong>Correct Answers:</strong>
         <span id="correctAnswers">0</span>
+        
     </div>
 
     <div class="result-line">
+
         <strong>Wrong Answers:</strong>
         <span id="wrongAnswers">0</span>
+
     </div>
 
     <div class="result-line">
+
         <strong>Total Score:</strong>
         <span id="totalScore">0 / 40</span>
+
     </div>
 
     <div class="result-line band-line">
+
         <strong>IELTS Band:</strong>
         <span id="bandScore">2.0</span>
+
     </div>
 
     <div class="answer-review-section">
+
         <h2>Answer Review</h2>
         <div id="answerReview"></div>
+
     </div>
 
     <a href="../submitted-tests.html" class="home-button">
         View Submitted Tests
     </a>
+    
 </div>
 
 

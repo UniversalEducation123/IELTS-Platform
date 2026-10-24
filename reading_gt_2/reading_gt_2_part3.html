@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
@@ -86,26 +85,15 @@
         .table-scroll {
             width: 100%;
             margin: 18px 0 30px;
-
-            /* No horizontal scrolling */
             overflow-x: hidden;
         }
-
-
-        /* TABLE */
 
         .answer-table {
             width: 100%;
             max-width: 100%;
-
             border-collapse: collapse;
-
-            /* Forces all columns to fit available width */
             table-layout: fixed;
         }
-
-
-        /* COLUMN WIDTHS */
 
         .answer-table th:nth-child(1),
         .answer-table td:nth-child(1) {
@@ -127,21 +115,16 @@
             width: 27%;
         }
 
-
-        /* CELLS */
-
         .answer-table th,
         .answer-table td {
             border: 1px solid #ccc;
 
             padding: 9px 8px;
-
             text-align: left;
             vertical-align: top;
 
             line-height: 1.4;
 
-            /* Allow long text to wrap */
             white-space: normal;
             overflow-wrap: anywhere;
             word-break: normal;
@@ -149,14 +132,10 @@
             box-sizing: border-box;
         }
 
-
         .answer-table th {
             background: #faf8f4;
             font-size: 14px;
         }
-
-
-        /* ANSWER BOXES */
 
         .answer-table input[type="text"] {
             display: block;
@@ -166,12 +145,10 @@
             min-width: 0;
 
             padding: 8px 7px;
-
             border: 1px solid #ccc;
             border-radius: 6px;
 
             font-size: 14px;
-
             box-sizing: border-box;
         }
 
@@ -214,10 +191,6 @@
 
 
 
-<!-- =========================================
-     NAVBAR
-========================================= -->
-
 <header class="navbar">
 
     <a href="../index.html" class="logo">
@@ -236,13 +209,8 @@
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
@@ -250,9 +218,6 @@
 
 
 
-<!-- =========================================
-     QUESTION PROGRESS
-========================================= -->
 
 <div class="reading-question-progress">
 
@@ -309,10 +274,6 @@
 <main class="reading-wrapper">
 
 
-    <!-- =========================================
-         TIMER
-    ========================================== -->
-
     <div class="reading-top">
 
         <div class="timer" id="timer">
@@ -323,29 +284,11 @@
 
 
 
-    <!-- =========================================
-         PART BUTTONS
-    ========================================== -->
-
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
 
         <div class="submit-reading-container">
@@ -375,10 +318,6 @@
 
             <div class="reading-split-layout">
 
-
-                <!-- =========================================
-                     LEFT: READING PASSAGE
-                ========================================== -->
 
                 <section class="passage-panel">
 
@@ -566,10 +505,6 @@
                 </section>
 
 
-
-                <!-- =========================================
-                     RIGHT: QUESTIONS
-                ========================================== -->
 
                 <section class="questions-panel">
 
@@ -1263,10 +1198,6 @@
 <script>
 
 
-/* =========================================
-   TIMER
-========================================= */
-
 
 let timeLeft =
     parseInt(
@@ -1396,10 +1327,6 @@ startTimer();
 
 
 
-/* =========================================
-   SAVE ANSWERS
-========================================= */
-
 
 function saveAnswers() {
 
@@ -1480,10 +1407,6 @@ function saveAnswers() {
 
 
 
-/* =========================================
-   RESTORE ANSWERS
-========================================= */
-
 
 function restoreAnswers() {
 
@@ -1560,10 +1483,6 @@ function restoreAnswers() {
 }
 
 
-
-/* =========================================
-   QUESTION PROGRESS
-========================================= */
 
 
 function updateQuestionProgress() {
@@ -1760,10 +1679,6 @@ document.querySelectorAll(
 
 
 
-/* =========================================
-   PART NAVIGATION
-========================================= */
-
 
 function goToPart(partNumber) {
 
@@ -1799,10 +1714,6 @@ function goToPart(partNumber) {
 
 
 
-/* =========================================
-   SUBMIT READING TEST
-========================================= */
-
 
 function submitReadingTest() {
 
@@ -1823,10 +1734,6 @@ function submitReadingTest() {
 }
 
 
-
-/* =========================================
-   RESTORE PAGE STATE
-========================================= */
 
 
 restoreAnswers();

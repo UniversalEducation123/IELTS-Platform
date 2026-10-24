@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
@@ -80,11 +79,6 @@
             margin-top: 22px;
         }
 
-
-        /* =========================================
-        HEADING BANK
-        ========================================= */
-
         .heading-bank {
             border: 1px solid #d8d1c6;
             border-radius: 8px;
@@ -104,18 +98,14 @@
             color: #777;
         }
 
-
         .draggable-heading {
             padding: 11px 12px;
             margin-bottom: 9px;
-
             background: #ffffff;
 
             border: 1px solid #d6cec1;
             border-radius: 7px;
-
             line-height: 1.4;
-
             cursor: grab;
 
             transition:
@@ -124,7 +114,6 @@
                 opacity 0.15s ease;
         }
 
-
         .draggable-heading:hover {
             transform: translateY(-1px);
 
@@ -132,85 +121,59 @@
                 0 3px 10px rgba(0, 0, 0, 0.08);
         }
 
-
         .draggable-heading:active {
             cursor: grabbing;
         }
-
 
         .draggable-heading.dragging {
             opacity: 0.45;
         }
 
-
-        /* =========================================
-        QUESTIONS
-        ========================================= */
-
         .heading-drop-questions {
             min-width: 0;
         }
-
 
         .heading-drop-question {
             margin-bottom: 16px;
         }
 
-
         .heading-question-title {
             display: flex;
             align-items: center;
             gap: 7px;
-
             margin-bottom: 7px;
         }
-
 
         .heading-question-title .question-number {
             flex-shrink: 0;
         }
-
-
-        /* =========================================
-        DROP ZONES
-        ========================================= */
 
         .heading-drop-zone {
             min-height: 48px;
 
             display: flex;
             align-items: center;
-
             padding: 9px 11px;
 
             border: 2px dashed #d3cabd;
             border-radius: 7px;
-
             background: #ffffff;
 
             box-sizing: border-box;
-
             transition:
                 border-color 0.15s ease,
                 background 0.15s ease;
         }
-
 
         .heading-drop-zone.drag-over {
             border-color: #8e9b7b;
             background: #f3f6ee;
         }
 
-
         .drop-placeholder {
             color: #999;
             font-size: 13px;
         }
-
-
-        /* =========================================
-        SELECTED ANSWER
-        ========================================= */
 
         .dropped-heading {
             width: 100%;
@@ -220,44 +183,31 @@
             justify-content: space-between;
 
             gap: 10px;
-
             padding: 8px 10px;
-
             border-radius: 6px;
 
             background: #f3f1eb;
-
             line-height: 1.35;
         }
 
-
         .remove-heading {
             flex-shrink: 0;
-
             width: 25px;
             height: 25px;
 
             padding: 0;
-
             border: none;
             border-radius: 50%;
 
             background: transparent;
-
             font-size: 17px;
             line-height: 25px;
-
             cursor: pointer;
         }
-
 
         .remove-heading:hover {
             background: rgba(0, 0, 0, 0.07);
         }
-
-        /* =========================================
-   TAP / CLICK SELECTION
-========================================= */
 
         .draggable-heading.selected-heading {
             border-color: #8e9b7b;
@@ -284,11 +234,6 @@
         .heading-drop-zone.tap-ready .drop-placeholder {
             color: #687358;
         }
-
-
-        /* =========================================
-        RESPONSIVE
-        ========================================= */
 
         @media (max-width: 900px) {
 
@@ -343,23 +288,14 @@
 
     <nav>
 
-        <a href="../student-dashboard.html">
-            Dashboard
-        </a>
+        <a href="../student-dashboard.html"> Dashboard </a>
 
-        <a href="../student-login.html">
-            Logout
-        </a>
+        <a href="../student-login.html"> Logout </a>
 
     </nav>
 
 </header>
 
-
-
-<!-- =========================================
-     QUESTION PROGRESS
-========================================= -->
 
 <div class="reading-question-progress">
 
@@ -420,35 +356,17 @@
 
     <div class="reading-top">
 
-        <div class="timer" id="timer">
-            60:00
-        </div>
+        <div class="timer" id="timer"> 60:00 </div>
 
     </div>
 
 
 
-    <!-- PART BUTTONS -->
-
     <div class="part-buttons">
 
-        <button
-            type="button"
-            onclick="goToPart(1)">
-            Part 1
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(2)">
-            Part 2
-        </button>
-
-        <button
-            type="button"
-            onclick="goToPart(3)">
-            Part 3
-        </button>
+        <button type="button" onclick="goToPart(1)"> Part 1 </button>
+        <button type="button" onclick="goToPart(2)"> Part 2 </button>
+        <button type="button" onclick="goToPart(3)"> Part 3 </button>
 
 
         <div class="submit-reading-container">

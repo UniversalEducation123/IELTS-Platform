@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>IELTS General Training Reading Test 2</title>
-
     <link rel="stylesheet" href="../css/style.css">
 
     <style>
@@ -106,9 +102,6 @@
             margin-top: 22px;
         }
 
-
-        /* DIAGRAM */
-
         .refrigerator-diagram {
             margin: 0;
             min-width: 0;
@@ -121,9 +114,6 @@
             height: auto;
             margin: 0 auto;
         }
-
-
-        /* QUESTIONS */
 
         .refrigerator-questions {
             min-width: 0;
@@ -143,9 +133,6 @@
             margin-right: 5px;
         }
 
-
-        /* DROPDOWNS */
-
         .refrigerator-question select {
             width: 100%;
             max-width: 160px;
@@ -156,12 +143,8 @@
 
             background: #fff;
             font-size: 15px;
-
             cursor: pointer;
         }
-
-
-        /* SMALLER SCREENS */
 
         @media (max-width: 850px) {
 
@@ -312,10 +295,6 @@
 
     <form id="readingForm">
 
-
-        <!-- =========================================
-             PART 1
-        ========================================== -->
 
         <section id="part1" class="reading-part active">
 
@@ -1057,12 +1036,9 @@ function runTimer() {
 
             }
 
-
             timeLeft--;
 
-
             updateTimer();
-
 
             sessionStorage.setItem(
                 "readingGT2TimeLeft",
@@ -1083,7 +1059,6 @@ function startTimer() {
         return;
 
     }
-
 
     timerStarted = true;
 
@@ -1115,7 +1090,6 @@ if (!timerStarted) {
     runTimer();
 
 }
-
 
 
 function saveAnswers() {
