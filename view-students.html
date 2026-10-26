@@ -848,10 +848,11 @@ studentList.innerHTML = "";
         ============================= */
 
         
-        const writingTestId = getWritingTestId(result.test_name);
+        let writingTestId =
+            getWritingTestId(result.test_name);
 
 
-        const writingSubmission =
+        let writingSubmission =
             allWritingSubmissions.find(
                 submission =>
 
@@ -864,6 +865,38 @@ studentList.innerHTML = "";
                         writingTestId
             );
 
+
+        // Academic Writing Test 1 fallback.
+        // Do not change the existing GT Writing logic.
+        if (
+            !writingSubmission &&
+            result.test_name === "Test 1"
+        ) {
+
+            const academicWritingSubmission =
+                allWritingSubmissions.find(
+                    submission =>
+
+                        String(submission.student_id) ===
+                            String(result.student_id)
+
+                        &&
+
+                        String(submission.test_id) ===
+                            "writing-test-1"
+                );
+
+
+            if (academicWritingSubmission) {
+
+                writingSubmission =
+                    academicWritingSubmission;
+
+                writingTestId =
+                    "writing-test-1";
+            }
+
+        }
 
         /* =============================
            STUDENT DETAILS
