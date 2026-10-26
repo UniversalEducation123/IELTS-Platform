@@ -452,7 +452,7 @@ h2{
             findError
         );
 
-        return;
+        throw findError;
     }
 
 
@@ -497,6 +497,8 @@ h2{
                 updateError
             );
 
+            throw updateError;
+
         } else {
 
             console.log(
@@ -527,6 +529,8 @@ h2{
             insertError
         );
 
+        throw insertError;
+
     } else {
 
         console.log(
@@ -537,7 +541,26 @@ h2{
 
 }
 
-saveReadingTest1Result();
+saveReadingTest1Result()
+    .then(function() {
+
+        console.log(
+            "Reading Test 1 save process completed."
+        );
+
+    })
+    .catch(function(error) {
+
+        console.error(
+            "Reading Test 1 save process failed:",
+            error
+        );
+
+        alert(
+            "Your Reading result could not be saved. Please do not close this page and contact your faculty."
+        );
+
+    });
 
         document.getElementById("readingScore").textContent =
             correct + " / 40";
